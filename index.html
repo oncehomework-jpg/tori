@@ -37,6 +37,7 @@ main{padding:16px 14px calc(96px + env(safe-area-inset-bottom,0px))}
 .hero img{width:100%;display:block;aspect-ratio:9/16;object-fit:cover;image-rendering:auto;filter:sepia(.18) saturate(1.05)}
 .chatb{position:absolute;right:8px;top:8px;width:40px;height:40px;background:var(--win);border:4px solid var(--ol);box-shadow:0 0 0 3px var(--ol2);font-size:18px;cursor:pointer;padding:0;line-height:1}
 .chb{background:var(--in);border:3px solid var(--ol);padding:8px 10px;margin:8px 0 0;font-size:14px;line-height:1.5}.chb.me{background:var(--win);text-align:right}.chb.tk{background:#e7f3ff;color:#123}
+.albnav{display:flex;gap:4px;justify-content:center;align-items:center;margin:8px 0}.albnav .btn{padding:4px 8px;min-width:34px}.albnav .btn[disabled]{opacity:.35}.albp{min-width:30px;height:32px;padding:0;border:3px solid var(--ol);background:var(--in);color:var(--ol2);font:inherit;font-weight:700;cursor:pointer}.albp.on{background:var(--ol);color:var(--in)}
 .alb{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.alb .ph{aspect-ratio:9/16;background:var(--in);border:3px solid var(--ol);padding:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--ol2);cursor:pointer}.alb .ph img{width:100%;height:100%;object-fit:cover;image-rendering:pixelated}.alb .ph.lock{cursor:default;opacity:.7}
 .phbig{display:block;max-width:100%;max-height:62vh;margin:8px auto 0;border:4px solid var(--ol);image-rendering:pixelated}
 .bubble{position:absolute;left:8px;right:8px;bottom:8px;background:var(--win);border:4px solid var(--ol);box-shadow:0 0 0 3px var(--ol2);padding:6px 10px;font-size:14px}
@@ -1052,8 +1053,12 @@ function rPet(){const f=S.fed,lv=lvOf(f),vis=msVis(),nx=vis.find(m=>f<m.n),ids=q
   ${mgList()}${accCard()}${titleCard()}${decoCard()}
   <div class="card"><h2>🎁 보물상자</h2>${msHtml()}</div>${albumCard()}`;}
 /* ---------- 토리 앨범 (보물상자에서 얻은 사진) ---------- */
+let albPg=0;
+function albGo(p){albPg=p;const e=document.getElementById('albc');if(e)e.outerHTML=albumCard();}
 function albumCard(){const own=S.album||[],ks=MS.map(m=>m.fx||'').filter(f=>f.startsWith('photo:')).map(f=>f.slice(6)).filter(k=>PH[k]);
-  return `<div class="card"><h2>📷 토리 앨범 <span class="muted" style="font-size:13px">${own.length}/${ks.length}</span></h2><div class="alb">${ks.map(k=>own.includes(k)?`<button class="ph" onclick="phOpen('${k}')"><img loading="lazy" src="${PH[k][3]}" alt="${esc(PH[k][1])}"></button>`:'<div class="ph lock">?</div>').join('')}</div><div class="muted" style="margin-top:6px">사진 상자를 열면 여기에 사진이 채워져요.</div></div>`;}
+  const per=4,NP=Math.max(1,Math.ceil(ks.length/per)),pg=Math.max(0,Math.min(NP-1,albPg)),vs=ks.slice(pg*per,(pg+1)*per);
+  const nav=`<div class="albnav"><button class="btn ghost" ${pg?`onclick="albGo(${pg-1})"`:'disabled'}>◀</button>${Array.from({length:NP},(_,i)=>`<button class="albp${i===pg?' on':''}" onclick="albGo(${i})">${i+1}</button>`).join('')}<button class="btn ghost" ${pg<NP-1?`onclick="albGo(${pg+1})"`:'disabled'}>▶</button></div>`;
+  return `<div class="card" id="albc"><h2>📷 토리 앨범 <span class="muted" style="font-size:13px">${own.length}/${ks.length}</span></h2>${nav}<div class="alb">${vs.map(k=>own.includes(k)?`<button class="ph" onclick="phOpen('${k}')"><img loading="lazy" src="${PH[k][3]}" alt="${esc(PH[k][1])}"></button>`:'<div class="ph lock">?</div>').join('')}</div><div class="muted" style="margin-top:6px;text-align:center">${pg+1} / ${NP} 페이지 · 사진 상자를 열면 사진이 채워져요.</div></div>`;}
 function phOpen(k){const p=PH[k];if(!p||!(S.album||[]).includes(k))return;modal(`<h3>${p[0]} ${esc(p[1])}</h3><img class="phbig" src="${p[2]}" alt="${esc(p[1])}"><div class="row" style="margin-top:8px"><a class="btn wood full" style="text-align:center;text-decoration:none" href="${p[2]}" download="토리-${esc(p[1])}.webp">📥 저장</a><button class="btn ghost full" onclick="closeM()">닫기</button></div>`);}
 /* ---------- 토리와 대화 (선택지 · 하루 한 번 질문 · 만담) : 인터넷/API 없이 동작해요 ---------- */
 function dayTag(){const t=todayStr(),md=t.slice(5);if(isBday())return 'bday';if(md==='12-24'||md==='12-25')return 'xmas';if(md==='12-31')return 'nye';if(md==='10-31')return 'hal';if(md>='04-01'&&md<='04-07')return 'sak';const h=HOL.find(x=>!(S.holOff||{})[x[0]]&&holNext(x)===t);return h?'hol:'+h[0]:'';}
