@@ -1,7 +1,7 @@
 """옛 아이콘과 새 아이콘 나란히 PNG로: python3 cmp.py icons.json out.png [이름...]"""
 import json, sys
 from PIL import Image, ImageDraw
-from sp3 import N
+import importlib, os; N = importlib.import_module(os.environ.get("MOD", "sp3")).N
 d = json.load(open(sys.argv[1])); PAL, SP = d['PAL'], d['SP']
 names = sys.argv[3:] or list(N)
 import os; Z = int(os.environ.get("Z", 8)); W = 16 * Z
