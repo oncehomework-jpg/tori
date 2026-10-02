@@ -70,23 +70,18 @@ N['hug'] = [  # 🤗 (웃는 눈, 벌린 입, 앞으로 내민 두 손)
  ".kYYkYYYYYYkYYk.",
  "..kk.kkkkkk.kk.."]
 
-N['shush'] = [
- ".....kkkkkk.....",
- "...kkyyyyyykk...",
- "..kyyyyyyyyyyk..",
- ".kyyyyyyyyyyyyk.",
- ".kyyykkyyyykkyk.",
- "kyyyyyyyyyyyyyyk",
- "kyyykkyyyykkyyyk",
- "kyyykkyyyykkyyyk",
- "kppyyyykkyyyyppk",
- "kyyyyykyykyyyyyk",
- "kyyyykkyykkyyyyk",
- ".kyyyykyykyyyyk.",
- ".kYykkyyyykkyYk.",
- "..kkyykyykyykk..",
- "..kYyyyyyyyyYk..",
- "...kkkkkkkkkk..."]
+_F = [  # 웃는 눈 얼굴
+ ".....kkkkkk.....", "...kkyyyyyykk...", "..kyyyyyyyyyyk..", ".kyyyyyyyyyyyyk.", ".kyyyyyyyyyyyyk.",
+ "kyyykyyyyyykyyyk", "kyykykyyyykykyyk", "kyyyyyyyyyyyyyyk", "kppyyyyyyyyyyppk", "kyyyyyyyyyyyyyyk",
+ "kyyyyyyyyyyyyyyk", ".kyyyyyyyyyyyyk.", ".kYyyyyyyyyyyYk.", "..kYyyyyyyyyYk..", "...kkYYYYYYkk...", ".....kkkkkk....."]
+_H = [  # 입을 가린 손 (손가락 세 개)
+ "___kkkkkkkk_____", "__kOOOOOOOOk____", "__kOOOOkkkkk____", "__kOOOOOOOOOk___",
+ "__kOOOOkkkkk____", "___kOOOOOOk_____", "____kkkkkk______"]
+_s = [list(r) for r in _F]
+for j, r in enumerate(_H):
+    for i, c in enumerate(r):
+        if c != '_': _s[9 + j][i] = c
+N['shush'] = [''.join(r) for r in _s]  # 🤫 → 손으로 입 가린 얼굴(🤭 모양)
 
 PAW = ["..kk.kk..", "..kk.kk..", ".........", "kk.....kk", "kk.kkk.kk", "..kkkkk..", ".kkkkkkk.", "..kkkkk.."]
 g = G()  # 🐾 발자국 두 개
@@ -165,12 +160,18 @@ N['oden'] = [  # 🍢 (곤약 세모, 동그란 어묵, 네모 어묵 꼬치)
  "...kkkkddkkkk...",
  ".......kk......."]
 
-g = G()  # 💫 (별과 빙글 꼬리, 크게)
+import math as _m
+g = G()  # 💫 (별과 빙글 꼬리, 크게, 끝으로 갈수록 옅게)
 g.star(10.5, 6.6, 5.3, 'y', 2.4)
 g.halo('k', diag=False)
 g.put(9, 4, ["_Z", "_Z", "Z"])
 for y in range(16):
     for x in range(16):
         dx, dy = (x + .5 - 7.8) / 7.5, (y + .5 - 10.6) / 4.9
-        if .86 <= (dx * dx + dy * dy) ** .5 <= 1.06 and g.a[y][x] == '.' and not (x > 10 and y < 10): g.a[y][x] = 'Y'
+        if .86 <= (dx * dx + dy * dy) ** .5 <= 1.06 and g.a[y][x] == '.' and not (x > 10 and y < 10):
+            t = ((_m.degrees(_m.atan2(dy, dx)) + 20) % 360) / 251
+            if t < .3: g.a[y][x] = 'Y'
+            elif t < .55: g.a[y][x] = 'y'
+            elif t < .78: g.a[y][x] = 'Z'
+            elif (x + y) % 2 == 0: g.a[y][x] = 'Z'
 N['dizzystar'] = g.rows()
