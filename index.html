@@ -747,7 +747,7 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v4.5',d:'2026.10.02',log:['토리의 방 꾸미기: 벽 장식·바닥 장식 구분, 크기 3단계, 토리 앞/뒤에 놓기','장식 세트 7가지: 다 모으면 도토리와 칭호를 받아요','토리가 움직일 때 볼 쪽 테두리가 두 줄로 깨져 보이던 것 고침']};
+const APP_VER={v:'v4.6',d:'2026.10.02',log:['토리가 기록을 기억해요: 어제 마작·합주·운동·다녀온 곳·일기를 보고 먼저 말을 걸어요','토리의 방 꾸미기: 벽 장식·바닥 장식 구분, 크기 3단계, 토리 앞/뒤에 놓기','장식 세트 7가지: 다 모으면 도토리와 칭호를 받아요','토리가 움직일 때 볼 쪽 테두리가 두 줄로 깨져 보이던 것 고침']};
 function rSet(){const t=S.lastBackup?new Date(S.lastBackup).toLocaleString('ko-KR'):'';
   $('s-set').innerHTML=`<div class="card"><h2>📖 사용법</h2><div class="muted" style="margin-bottom:8px">타코가 앱 쓰는 법을 다시 알려 줘요.</div><button class="btn wood full" onclick="tut(0)">🐙 타코의 사용법 보기</button></div><div class="card"><h2>기본 설정</h2><div class="row sp" style="margin-top:12px"><span>화면 테마</span><button class="btn sm" onclick="S.theme=({ask:'light',light:'dark',dark:'ask'})[thm()];save();render()">${{ask:'밤엔 타코가 물어봐요',light:'항상 밝게',dark:'항상 어둡게'}[thm()]}</button></div><div class="row sp" style="margin-top:12px"><span>굵은 글씨</span><button class="btn sm ${S.bold?'':'ghost'}" onclick="S.bold=S.bold?0:1;save();render()">${S.bold?'켜짐':'꺼짐'}</button></div><div class="row sp" style="margin-top:12px"><span>배경 움직임</span><button class="btn sm ${S.noAnim?'ghost':''}" onclick="S.noAnim=S.noAnim?0:1;save();render()">${S.noAnim?'꺼짐':'켜짐'}</button></div><div class="muted">끄면 배터리를 조금 아낄 수 있어요.</div><div class="row sp" style="margin-top:12px"><span>글자 크기</span><button class="btn sm" onclick="S.fs=((+S.fs||0)+1)%3;save();render()">${['보통','크게','아주 크게'][+S.fs||0]}</button></div><div class="row sp" style="margin-top:12px"><span>타코 기록 반응</span><button class="btn sm ${S.tkRec===0?'ghost':''}" onclick="S.tkRec=S.tkRec===0?1:0;save();render()">${S.tkRec===0?'꺼짐':'켜짐'}</button></div><div class="muted">도감에 기록할 때 타코가 한마디 해요.</div>
   <button class="btn pink full" style="margin-top:12px" onclick="resetAll()">모든 기록 초기화</button></div>
@@ -1145,7 +1145,7 @@ const CH_SP={bday:['찍찍!! 오늘은 진우 생일이에요! 소원 빌었어�
  hal:['찍찍! 오늘은 할로윈! 트릭 오어 트릿?',[['트릿!','찍찍! 도토리 사탕 받아요! 🎃'],['트릭!','찍찍!! 볼주머니 폭탄이에요! (귀엽게 봐줘요)'],['난 집에 있을래','찍찍~ 토리랑 이불 속 파티해요 👻']]],
  sak:['찍찍! 벚꽃이 피었어요! 꽃구경 갈래요?',[['가고 싶다','찍찍! 도시락 싸 가요! 볼주머니에 넣어서요 🌸'],['사람 많아서 싫어','찍찍~ 그럼 토리랑 창밖 벚꽃 구경해요'],['꽃잎 먹을 수 있어?','찍찍! 안 돼요! 토리도 물어봤는데 혼났어요 🙅']]]};
 function chPick(){const c=chCtx();if(c.tag){const g=c.tag;return g.startsWith('hol:')?CH_HOL(g):CH_SP[g];}
-  if(c.tm==='ng')return CH_NG;if(c.hun&&Math.random()<.7)return CH_HUN;if(c.st>=7&&c.st%7===0&&Math.random()<.6)return CH_ST(c.st);
+  if(c.tm==='ng')return CH_NG;{const m=memPick();if(m&&Math.random()<.6)return memChat(m);}if(c.hun&&Math.random()<.7)return CH_HUN;if(c.st>=7&&c.st%7===0&&Math.random()<.6)return CH_ST(c.st);
   const r=Math.random();if(c.tm==='ev'&&r<.4)return c.ex?CH_EXY:CH_EXN;if(c.tm==='am'&&r<.35)return CH_AM;if(r<.25&&c.st>=3)return CH_ST(c.st);return pk(CH_GEN);}
 let chQ=null;
 function chatOpen(q){chQ=q||chPick();modal(`<h3>🐹 ${esc(hn())}와 대화</h3><div class="chb">${esc(chQ[0])}</div><div id="cho">${chQ[1].map((o,i)=>`<button class="btn full" style="margin-top:6px" onclick="chatPick(${i})">${esc(o[0])}</button>`).join('')}</div><div class="row" style="margin-top:10px;gap:6px"><input id="chi" maxlength="60" placeholder="토리에게 한마디" style="flex:1;min-width:0" onkeydown="if(event.key==='Enter')chatSay()"><button class="btn wood" onclick="chatSay()">보내기</button></div><div class="row" style="margin-top:10px;align-items:stretch"><button class="btn ghost full" onclick="tqOpen()">${S.tq&&S.tq.d===todayStr()?'📝 오늘의 질문 (완료)':'📝 오늘의 질문 (🌰+1)'}</button><button class="btn ghost full" onclick="closeM()">닫기</button></div>`);}
@@ -1298,7 +1298,7 @@ function kwReply(v){
 }
 function kwHtml(v){const r=kwReply(v);if(!r)return `<div class="chb">${esc(dyReact(v))}</div>`;return r.map(x=>x.w==='k'?`<div class="chb">🐙 ${esc(x.t)}</div>`:`<div class="chb">${esc(x.t)}</div>`).join('');}
 function chatSay(){const el=$('chi'),v=el&&el.value.trim();if(!v){toast('한마디를 적어 주세요');return;}sfx('coin');$('cho').innerHTML=`<div class="chb me">나: ${esc(v)}</div>${kwHtml(v)}<div class="row" style="margin-top:8px"><button class="btn full" onclick="chatOpen()">다른 이야기 ▶</button></div>`;el.value='';}
-function chatPick(i){const o=chQ[1][i],r=Array.isArray(o[1])?pk(o[1]):o[1];sfx('coin');$('cho').innerHTML=`<div class="chb me">나: ${esc(o[0])}</div><div class="chb">${esc(r)}</div><div class="row" style="margin-top:8px"><button class="btn full" onclick="chatOpen()">다른 이야기 ▶</button></div>`;}
+function chatPick(i){if(chQ[2])memSeen(chQ[2]);const o=chQ[1][i],r=Array.isArray(o[1])?pk(o[1]):o[1];sfx('coin');$('cho').innerHTML=`<div class="chb me">나: ${esc(o[0])}</div><div class="chb">${esc(r)}</div><div class="row" style="margin-top:8px"><button class="btn full" onclick="chatOpen()">다른 이야기 ▶</button></div>`;}
 /* 하루 한 번 토리의 질문 */
 const TQ=[
 ['오늘 제일 재밌었던 건?',['먹은 것','한 일','만난 사람','딱히 없음']],['오늘 기분을 색으로 말하면?',['노랑','파랑','분홍','회색']],['지금 제일 먹고 싶은 건?',['고기','면','달달한 것','도토리']],['오늘 가장 힘들었던 순간은?',['아침','일하는 중','사람 상대','없었어']],
@@ -1383,8 +1383,35 @@ function greet(){const h=kst().getUTCHours(),n=hn();
   if(mood()[1]!=='sleep'){const s=tState().st;if(s==='down')return n+': 쓰러질 것 같아… 운동 좀 시켜줘… 😵';if(s==='buff')return n+': 근육 빵빵! 오늘도 몸짱 토리야 💪';}
   {const td=todayStr(),ks=Object.keys(ACT),a0=ks.find(k=>S.actNext[k]===td),a1=ks.find(k=>S.actNext[k]&&dAgo(td,S.actNext[k])===1);
   if(a0)return n+': 오늘은 '+ACT[a0][3]+' 날이야! 잘 다녀와, 응원할게 🐹';if(a1)return n+': 내일은 '+ACT[a1][3]+' 날이지? 준비 잘 해 두자 ⭐';}
-  const md=mood();if(md[1]==='sleep')return n+': 쿨쿨… 내일 또 놀자 🌙';if(AWAY>=2)return n+': 보고 싶었어! '+AWAY+'일 만이야 🌰';
+  const md=mood();if(md[1]==='sleep')return n+': 쿨쿨… 내일 또 놀자 🌙';if(AWAY>=2)return n+': 보고 싶었어! '+AWAY+'일 만이야 🌰';{const m=memPick();if(m)return n+': '+m.say;}
   const a=(h<11?GM:h<18?GD:GE).concat(SL[seasonOf()]),d=Math.floor(Date.parse(todayStr()+'T00:00:00Z')/864e5);return n+': '+a[d%a.length];}
+/* ---------- 토리의 기억 (v4.6): 앱에 남긴 기록을 보고 토리가 먼저 말을 걸어요. 외부 AI 없이 기록만 봐요 ----------
+   최근 3일 기록(마작·보드게임·밴드·운동·장소·일기)과 딱 1주 전 기록에서 골라요. 대화에서 답하면 다음 기억으로 넘어가요 */
+const memCut=(s,n)=>{s=String(s||'').replace(/\s+/g,' ').trim();return s.length>n?s.slice(0,n)+'…':s;};
+const memDay=d=>{const n=dAgo(d,todayStr());return n===0?'오늘':n===1?'어제':n===2?'그저께':n===7?'지난주 이맘때':'';};
+const MEM_A={mj:[['재밌었어','찍찍! 진우가 즐거웠으면 토리도 신나요 🀄'],['아쉬웠어','찍찍… 다음 판은 진우 거예요! 토리가 응원할게요 📣'],['또 하고 싶어','찍찍! 다음 마작 날을 적어 두면 토리가 기억해 둘게요 📅']],
+ bg:[['재밌었어','찍찍! 토리도 다음엔 옆에서 구경할래요 🎲'],['어려웠어','찍찍~ 처음엔 다 어려워요. 두 판째부터 진짜예요!'],['또 할 거야','찍찍! 그럼 도토리 걸고 한 판 해요? 🌰']],
+ band:[['손가락 아파','찍찍… 손 꼭 풀어 주세요. 토리가 호호 불어 줄게요'],['재밌었어','찍찍! 합주실의 별은 역시 진우예요 🎸'],['다음 곡 연습할 거야','찍찍! 완성되면 토리한테 제일 먼저 들려줘요 🎵']],
+ ex:[['뿌듯해','찍찍! 근육이 박수 치고 있어요 💪'],['힘들었어','찍찍… 그래도 해낸 진우가 최고예요. 오늘은 푹 쉬어요'],['오늘도 할 거야','찍찍!! 토리도 쳇바퀴 같이 돌게요 🏃']],
+ pl:[['또 가고 싶어','찍찍! 다음엔 토리 몫 간식도 챙겨 줘요 🍪'],['별로였어','찍찍~ 그럼 다음엔 더 좋은 데 찾아봐요 📍'],['같이 가자','찍찍!! 볼주머니에 쏙 들어가서 따라갈게요 🐹']],
+ dy:[['좋아졌어','찍찍! 다행이에요. 토리가 계속 옆에 있을게요 🌰'],['그냥 그래','찍찍… 그런 날도 있어요. 따뜻한 거 하나 먹어요'],['토리가 있어서 괜찮아','찍찍!! 토리도 진우가 있어서 괜찮아요 ❤']],
+ wk:[['이번 주도 해','찍찍! 토리가 달력에 동그라미 쳐 둘게요 📅'],['이번 주는 쉬어','찍찍~ 쉬는 것도 중요해요. 푹 쉬어요 🛋️'],['기억하고 있었어?','찍찍! 토리는 진우 일이라면 다 기억해요 ⭐']]};
+function memList(){const t=todayStr(),L=[];
+  ['mj','bg','band','ex'].forEach(k=>(S.act[k]||[]).forEach(e=>{const n=dAgo(e.date,t);if(n<0||n>7||(n>2&&n<7))return;const dl=memDay(e.date);let s;
+    if(n===7)s=dl+' '+ACT[k][0]+' 했었지? 이번 주도 할 거야? '+ACT[k][1];
+    else if(k==='mj')s=e.rank===1?dl+' 마작 1등 했지? 역시 진우야! 🀄':e.rank===4?dl+' 마작은 좀 아쉬웠지? 그래도 재밌었으면 됐어 🀄':e.rank?dl+' 마작 '+e.rank+'등이었지? 다음엔 1등이다! 🀄':dl+' 마작했지? 재밌었어? 🀄';
+    else if(k==='bg')s=e.game?(e.nw?dl+' 처음 해 본 「'+memCut(e.game,12)+'」, 어땠어? 🎲':dl+' 「'+memCut(e.game,12)+'」 했지? 또 하고 싶어? 🎲'):dl+' 보드게임 했지? 누가 이겼어? 🎲';
+    else if(k==='band')s=dl+' 합주했지?'+(e.min?' '+e.min+'분이나!':'')+' 손가락 괜찮아? 🎸';
+    else s=dl+' '+(e.t&&e.t!=='기타'?e.t+' ':'운동 ')+(e.min?e.min+'분 ':'')+'했지? 멋져! 💪';
+    L.push({k:k+':'+e.id,n,c:n===7?'wk':k,say:s});
+    if(n<=2&&e.pride&&!e.q)L.push({k:k+'p:'+e.id,n:n+.5,c:k,say:dl+' 「'+memCut(e.pride,16)+'」라고 적었지? 토리가 다 봤어 ⭐'});}));
+  (S.places||[]).forEach(p=>{const n=p.date?dAgo(p.date,t):-1;if(n<0||n>2)return;const dl=memDay(p.date);
+    L.push({k:'pl:'+p.id,n,c:'pl',say:p.stars>=4?dl+' 「'+memCut(p.name,12)+'」 다녀왔지? 별 '+p.stars+'개! 또 가자 📍':p.stars&&p.stars<=2?dl+' 「'+memCut(p.name,12)+'」는 좀 별로였지? 다음엔 더 좋은 데 가자 📍':dl+' 「'+memCut(p.name,12)+'」 다녀왔지? 어땠어? 📍'});});
+  (S.diary||[]).forEach(x=>{const n=dAgo(x.d,t);if(n!==1&&n!==2)return;L.push({k:'dy:'+x.d,n:n+.2,c:'dy',say:memDay(x.d)+' 일기에 「'+memCut(x.t,16)+'」라고 썼더라. 오늘은 좀 어때? 📖'});});
+  const seen=S.memSeen||[];return L.filter(m=>!seen.includes(m.k)).sort((a,b)=>a.n-b.n);}
+function memPick(){const L=memList();return L.length?L[0]:null;}
+function memSeen(k){if(!Array.isArray(S.memSeen))S.memSeen=[];if(!S.memSeen.includes(k))S.memSeen=[...S.memSeen,k].slice(-80);save();}
+function memChat(m){return ['찍찍! '+m.say,MEM_A[m.c]||MEM_A.wk,m.k];}
 /* ===== 운동 · 취미 밸런스 & 토리 상태 (기준 숫자는 BAL에서만 바꾸면 돼요) ===== */
 const EXT=['헬스','러닝','걷기','기타'],HOB=['mj','bg','band'];
 const BAL={down:3,fit:2,buff:4,balEx:3,balHob:2,bonus:1,grace:7};
