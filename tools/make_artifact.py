@@ -16,6 +16,12 @@ def sub1(pat, new, flags=0):
 sub1(r'<!doctype[^>]*>\s*', '', re.I)
 sub1(r'<html[^>]*>\s*', '')
 sub1(r'<head>', shim)
+# 글꼴: 공유 링크에선 jsdelivr 글꼴이 막혀요 → 글꼴 파일을 assets/로 함께 올리고 여기서 직접 불러요.
+#  파일 받기: npm pack @kfonts/neodgm galmuri@2.39.2 → neodgm.woff2 → assets/font-neodgm.woff2, dist/Galmuri11.woff2 → assets/font-galmuri11.woff2
+FONTS = "<style>@font-face{font-family:'NeoDunggeunmo';src:url(assets/font-neodgm.woff2) format('woff2');font-display:swap}@font-face{font-family:'Galmuri11';src:url(assets/font-galmuri11.woff2) format('woff2');font-display:swap}</style>"
+h, nf = re.subn(r'<link rel="(?:preconnect|stylesheet)" href="https://cdn\.jsdelivr\.net[^"]*"(?: crossorigin)?>\s*', '', h)
+assert nf == 3, nf
+h = h.replace('<title>JW Diary</title>', '<title>JW Diary</title>\n' + FONTS, 1)
 sub1(r'<link rel="manifest" href="manifest.json">\s*', '')
 sub1(r'<link rel="icon" type="image/png" href="icon-192.png">\s*', '')
 sub1(r"<script>if\('serviceWorker' in navigator.*?</script>", '', re.S)
