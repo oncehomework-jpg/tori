@@ -1,23 +1,23 @@
 # v4.4: 퀄리티가 아쉬웠던 아이콘 다시 그리기 (16x16, 색은 index.html PAL)
 from pxdraw import G
 N = {}
-N['guitar'] = [  # 🎸 (세워 둔 통기타)
- "......kkkkk.....",
- ".....NkDDDkN....",
- ".....NkDDDkN....",
- "......kkkkk.....",
- ".......kdk......",
- ".......kNk......",
- ".......kdk......",
- ".....kkkdkkk....",
- "....kOOOdOOOk...",
- "...kOZOOdOOOOk..",
- "...kOOOkkkOOOk..",
- "....kOOkkkOOk...",
- "...kOOOOOOOOOk..",
- "..kOOOOOOOOOOok.",
- "..kOOODDDDDOOok.",
- "...kkkkkkkkkkk.."]
+N['guitar'] = [  # 🎸 (대각선 통기타: 줄감개·긴 목·허리·둥근 구멍·줄받침)
+ "............Nkk.",
+ "............kDDk",
+ "............kDDk",
+ "...........kdkkN",
+ "..........kdk...",
+ "......kkkkdk....",
+ "......kZOdk.....",
+ "...kkkOOdOk.....",
+ ".kkOOOkkOOk.....",
+ "kOOOOOkkOkk.....",
+ "kOOOOOOOOk......",
+ "kOOOOOOOOk......",
+ "kODOOOOOk.......",
+ "kOODOOOk........",
+ ".kooOOOk........",
+ "..kkkkk........."]
 N['shooting'] = [  # 🌠
  "...........k....",
  "..........kyk...",
