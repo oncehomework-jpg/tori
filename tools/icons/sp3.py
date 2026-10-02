@@ -1,7 +1,7 @@
 # v4.4: 퀄리티가 아쉬웠던 아이콘 다시 그리기 (16x16, 색은 index.html PAL)
 from pxdraw import G
 N = {}
-N['guitar'] = [  # 🎸 (대각선 일렉기타: 빨간 몸통·뿔 두 개·흰 판·픽업)
+_B = [  # 🎸 일렉기타 바탕 (몸통 r, 목 b)
  "............Nkk.",
  "............kbbk",
  "...........kbbkN",
@@ -10,14 +10,28 @@ N['guitar'] = [  # 🎸 (대각선 일렉기타: 빨간 몸통·뿔 두 개·흰
  ".........kbk....",
  "...kk...kbk.....",
  "..krk..kbk..kk..",
- "..kRrkkbkk.krk..",
- ".krrwrbrrkkrrk..",
- ".krrrwrrrrrrk...",
- "krwrrrwrrrrk....",
- "krrwrrrrrrk.....",
- "krrrwrrrrrk.....",
+ "..krrkkbkk.krk..",
+ ".krrrrbrrkkrrk..",
+ ".krrrrrrrrrrk...",
+ "krrrrrrrrrrk....",
+ "krrrrrrrrrk.....",
+ "krrrrrrrrrk.....",
  ".krrrrrrrk......",
  "..kkkkkkk......."]
+_g = [list(r) for r in _B]
+for y in range(16):
+    for x in range(16):
+        if _g[y][x] != 'r': continue
+        d, sm = x - y, x + y
+        if d in (-5, -9) and 13 <= sm <= 17:
+            _g[y][x] = 'w'
+        elif _B[y][x + 1] == 'k' or _B[y + 1][x] == 'k':
+            _g[y][x] = 'S'
+for x, y in [(3, 7), (3, 8), (2, 9), (2, 10)]: _g[y][x] = 'R'
+for x, y in [(7, 12)]: _g[y][x] = 'y'
+for x, y in [(10, 5), (12, 3)]: _g[y][x] = 'd'
+_g[0][13] = 'k'; _g[1][14] = 't'
+N['guitar'] = [''.join(r) for r in _g]
 N['shooting'] = [  # 🌠
  "...........k....",
  "..........kyk...",
