@@ -69,6 +69,7 @@ label{font-size:13px;color:var(--gold)}
 .card.legend{background:linear-gradient(#f7e3a8,#ecc978);border-color:var(--gold)}
 .qty{color:var(--grn)}.dim{opacity:.5}.muted{font-size:12px;color:var(--mut)}.star{color:var(--gold);letter-spacing:1px}
 .empty{text-align:center;padding:18px 8px;color:var(--mut)}
+.stg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}.stt{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px 8px;border:2px dashed var(--in);border-radius:6px}.stt .qty{font-size:calc(18px*var(--fs,1))!important}.stt .btn{margin-top:4px}
 .q{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-top:2px dashed var(--in)}
 .bar{height:16px;border:3px solid var(--ol);background:var(--cream)}.bar i{display:block;height:100%;background:repeating-linear-gradient(90deg,var(--gold) 0 6px,#e0a800 6px 8px)}
 nav{position:fixed;left:0;right:0;bottom:0;background:var(--win2);border-top:4px solid var(--ol);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,0px);z-index:6}
@@ -388,8 +389,8 @@ function rHome(){
   <div class="card hero s-${tState().st}${heroFlag(heroKey())}" onclick="dHero(event)"><img class="timg${heroDim(heroKey())}" src="${toriSrc(heroKey())}" alt="햄스터" onclick="pat()">${decoHtml(1)}${liveHtml(heroKey())}${decoHtml()}${['normal','full','hungry'].includes(heroKey())?stHtml():''}<div class="accs">${accHtml()}</div><div class="bubble">${esc(greet())}</div><button class="chatb" onclick="event.stopPropagation();chatOpen()" aria-label="토리와 대화">💬</button></div>
   <div class="card"><h2>🌰 도토리 속 편지</h2><div id="letter" class="muted" style="font-size:15px;color:var(--tx);min-height:24px">${S.letter&&S.letter.d===todayStr()?letterHtml(S.letter.t):esc(hn())+'가 보낸 편지가 도토리 속에 들어 있어요.'}</div>
   <button id="lbtn" class="btn wood full" style="margin-top:8px${S.letter&&S.letter.d===todayStr()?';opacity:.5':''}" ${S.letter&&S.letter.d===todayStr()?'disabled':''} onclick="openLetter()">${S.letter&&S.letter.d===todayStr()?'내일 또 열 수 있어요':'🌰 도토리 열어보기'}</button></div>
-  <div class="card"><h2>🎒 현재 상태</h2><div class="row sp"><span>🌰 도토리 <b class="qty">${S.acorns}개</b></span><span class="row bpair"><button class="btn ghost sm" onclick="acHist()">내역</button><button class="btn sm wood" onclick="go('pet')">퀘스트 하러 가기</button></span></div>
-  <div class="row sp" style="margin-top:8px"><span>🎟️ 보상 <b class="qty">${left}장</b></span><button class="btn sm" onclick="go('coupon')">보상 가기</button></div></div>
+  <div class="card"><h2>🎒 현재 상태</h2><div class="stg"><div class="stt"><span>🌰 도토리</span><b class="qty">${S.acorns}개</b><button class="btn ghost sm" onclick="acHist()">내역</button></div><div class="stt"><span>🎟️ 보상</span><b class="qty">${left}장</b><button class="btn sm" onclick="go('coupon')">보상 가기</button></div></div>
+  <button class="btn wood full" style="margin-top:8px" onclick="go('pet')">퀘스트 하러 가기</button></div>
   <div class="card"><div class="row sp"><h2>📅 D-day</h2><button class="btn sm" onclick="ddForm()">+ 추가</button></div>
   <div class="q"><span>🎂 진우 생일 · ${+bdv().slice(0,2)}월 ${+bdv().slice(3)}일<div class="muted">${nb}</div></span><span class="dd">${ddLabel(nb)}</span></div>
   ${dds.map(d=>{const e=ddEff(d),n=d.rep?+e.slice(0,4)-+d.date.slice(0,4):0;return `<div class="q"><span>${esc(d.name)}<div class="muted">${esc(e)}${d.rep?' · 매년'+(n>0?' · '+n+'주년':''):''}</div></span><span class="row"><span class="dd">${ddLabel(e)}</span><button class="btn ghost sm" onclick="ddForm('${d.id}')">✏️</button></span></div>`;}).join('')}</div>${holCard()}`;
@@ -398,7 +399,7 @@ const LETTERS=["찍찍! 진우야, 오늘도 수고했어. 네가 곁에 있어�
 const LM=[["새해 첫 도토리는 진우한테 줄게! {n}가 올해도 곁에 있을게.","눈 오는 날엔 굴속에서 도토리 까먹기 딱이야. 따뜻하게 입고 다녀!"],["추운 날엔 기타 소리가 더 포근해. 오늘 한 곡 쳐 볼래?","{n}는 겨울잠 자고 싶지만, 진우가 궁금해서 눈을 떴어!"],["봄이 왔어! 굴 앞에 새싹이 쏙 올라왔더라. 진우도 쑥쑥 자라는 중이야.","3월엔 진우 생일이 있지! {n}가 벌써부터 선물 고르고 있어."],["벚꽃 잎 하나 주워 왔어. 진우 책상에 몰래 놓아둘게.","봄바람 맞으며 산책하면 기분이 좋아져. 오늘 5분만 나가 볼까?"],["5월 햇살은 도토리도 노릇노릇하게 만들어. 진우도 햇볕 좀 쬐자!","초록이 진해지는 달이야. {n}의 볼주머니도 초록 응원으로 가득해."],["장마 오기 전에 산책 한 번 더! {n}가 우산 들고 따라갈게.","벌써 올해의 절반이 다가와. 여기까지 온 진우, 정말 잘했어."],["더워서 쳇바퀴가 녹겠어… 진우, 물 많이 마셔!","비 오는 날엔 굴속에서 기타 소리 듣는 게 최고야."],["한여름엔 무리하지 마. 쉬는 것도 실력이야, {n}가 보증해!","수박씨 세 개 모아 뒀어. 진우 몫도 있어!"],["아침저녁으로 선선해졌어. 운동하기 딱 좋은 계절이야!","추석 지나면 도토리가 제일 맛있어져. {n}는 벌써 기대돼!"],["도토리가 후두둑 떨어지는 달이야! 진우 몫도 챙겨 뒀지.","단풍이 예뻐서 굴 앞에서 한참 구경했어. 진우한테도 보여 주고 싶다."],["빼빼로 나눠 먹을 사람 생각나? {n}는 진우 생각났어.","찬바람이 불어도 진우 마음은 따뜻하길. {n}가 볼로 데워 줄게!"],["한 해가 끝나 가. 올해 진우가 해낸 일, {n}는 다 기억해!","보상 아껴 두다 못 쓰면 아까워! 연말엔 꼭 하나 써 보자."]];
 const LX=()=>LETTERS.concat(LM[+todayStr().slice(5,7)-1]||[]);
 const HB={nyd:'새해 복 많이 받아! 올해도 같이 도토리 모으자 ☀',seol:'설날이야! 떡국 먹었어? 새해 복 많이 받아 🍚',chu:'추석이야! 보름달 보러 나가 볼까? 🌙',xms:'메리 크리스마스! 도토리 트리 세워 뒀어 🎄',val:'밸런타인데이야! 토리는 해바라기씨 초콜릿을 준비했어 ❤',chi:'어린이날이야! 오늘은 진우도 마음껏 놀아도 돼 🎁'};
-function letterHtml(l){return '💌 '+esc(l.split('{n}').join(hn()))+'<div class="muted" style="margin-top:6px">— from. '+esc(hn())+' 🐹</div>';}
+function letterHtml(l){return '💌 '+esc(l.split('{n}').join(hn()))+'<div class="muted" style="margin-top:6px">— from. '+esc(hn())+'</div>';}
 function openLetter(){const t=todayStr();if(S.letter&&S.letter.d===t){toast('오늘의 편지는 이미 열었어요. 내일 또 와요!');return;}
   if(!Array.isArray(S.lh))S.lh=[];let pool=LX().map((_,i)=>i).filter(i=>!S.lh.includes(i));if(!pool.length){S.lh=[];pool=LX().map((_,i)=>i);}
   const i=pool[Math.floor(Math.random()*pool.length)];S.lh=[...S.lh,i].slice(-30);S.letter={d:t,t:LX()[i]};save();sfx('coin');$('letter').innerHTML=letterHtml(S.letter.t);
@@ -420,7 +421,7 @@ function upList(n){const t=todayStr(),L=allHol().map(h=>({e:h[1],nm:h[2],d:holNe
   .concat((S.sched||[]).filter(s=>s.date>=t).map(s=>({e:'🗓',nm:s.name,d:s.date,tm:s.time,k:'s',id:s.id})));
   return L.sort((a,b)=>(a.d+(a.tm||''))<(b.d+(b.tm||''))?-1:1).slice(0,n);}
 function holCard(){const l=upList(5);
-  return `<div class="card"><div class="row sp"><h2>🎉 다가오는 일정 · 기념일</h2><button class="btn sm" onclick="schForm()">+ 일정</button></div>${l.map(x=>`<div class="q"${x.k==='s'?` onclick="schForm('${x.id}')" style="cursor:pointer"`:''}><span>${x.e} ${esc(x.nm)}<div class="muted">${esc(x.d)} (${wdOf(x.d)})${x.tm?' · '+esc(x.tm):''}</div></span><span class="dd">${ddLabel(x.d)}</span></div>`).join('')||'<div class="empty">다가오는 일정이 없어요. + 일정으로 넣어 보세요.</div>'}<div class="muted" style="margin-top:6px">설정 → 📅 일정 · 기념일에서 고치고 지울 수 있어요.</div></div>`;}
+  return `<div class="card"><div class="row sp"><h2>🎉 기념일</h2><button class="btn sm" onclick="schForm()">+ 일정</button></div>${l.map(x=>`<div class="q"${x.k==='s'?` onclick="schForm('${x.id}')" style="cursor:pointer"`:''}><span>${x.e} ${esc(x.nm)}<div class="muted">${esc(x.d)} (${wdOf(x.d)})${x.tm?' · '+esc(x.tm):''}</div></span><span class="dd">${ddLabel(x.d)}</span></div>`).join('')||'<div class="empty">다가오는 일정이 없어요. + 일정으로 넣어 보세요.</div>'}</div>`;}
 function schForm(id){const s=(S.sched||[]).find(x=>x.id===id)||{name:'',date:todayStr(),time:'',memo:''};
   modal(`<h3>🗓 일정 ${id?'고치기':'추가'}</h3><label>이름</label><input id="sn" maxlength="30" placeholder="예: 합주 공연, 병원" value="${esc(s.name)}"><label>날짜</label><input id="sd" type="date" value="${esc(s.date)}"><label>시간 (선택)</label><input id="st" type="time" value="${esc(s.time||'')}"><label>메모 (선택)</label><input id="sm" maxlength="60" value="${esc(s.memo||'')}"><div class="row">${id?`<button class="btn ghost" onclick="schDel('${id}')">삭제</button>`:''}<button class="btn ghost full" onclick="closeM()">취소</button><button class="btn full" onclick="schSave('${id||''}')">저장</button></div>`);}
 function schSave(id){const n=$('sn').value.trim(),d=$('sd').value;if(!n||!d){toast('이름과 날짜를 넣어 주세요');return;}const v={name:n,date:d,time:$('st').value,memo:$('sm').value.trim()},o=id&&S.sched.find(x=>x.id===id);
@@ -919,62 +920,40 @@ function mg3End(){MG.raf=0;const pct=Math.round(MG.s/(2*MG.N.length)*100),td=tod
   if(pct>=50)setTimeout(()=>tako('=멋진 연주였다코~! 🎸','',3000,0),500);}
 /* ===== 🎡 토리의 챗바퀴 (원버튼 리듬) · 보상 횟수는 다른 미니게임과 합산 ===== */
 function wcSnd(f,len,vol){if(!S.snd||S.sv===0)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();const o=AC.createOscillator(),v=AC.createGain(),t=AC.currentTime;o.type='square';o.frequency.value=f;v.gain.setValueAtTime(.7*vol*S.sv/100,t);v.gain.exponentialRampToValueAtTime(.001,t+len);o.connect(v);v.connect(AC.destination);o.start(t);o.stop(t+len+.02);}catch(e){}}
-/* v5.1: 달리는 토리 (tools/mg/wheel.py) */
-Object.assign(MGP,{"h": "#e9a25a", "i": "#c97a36", "j": "#fbe6c4", "l": "#f2a9b6", "n": "#e0788f"});
-Object.assign(MGS,{"hr0": ["........................", "...............kk.......", "..............kllk......", "........kkkkkkkllk......", "......kkiiiiiiikkk......", "....kkiiihhhhhhhhhkk....", "...kihhhhhhhhhhhhhhhk...", "..kihhhhhhhhhhhhhkkhhk..", "..khhhhhhhhhhhhhhkwkhhk.", ".kkhhhhhhhhhhhhhhkkkhjk.", ".khkhhhhhhhhhhhhhhhhjjnk", "..khhhhhhhhhhhjjjjlljjjk", "..khhhjjjjjjjjjjjjjjjjk.", "...kjjjjjjjjjjjjjjjkkk..", "...kkkjjjjjjjjjjkkk.....", "..kllkk.........kkllk...", ".kllk.............kllk.."], "hr1": ["........................", "...............kk.......", "..............kllk......", "........kkkkkkkllk......", "......kkiiiiiiikkk......", "....kkiiihhhhhhhhhkk....", "...kihhhhhhhhhhhhhhhk...", "..kihhhhhhhhhhhhhkkhhk..", "..khhhhhhhhhhhhhhkwkhhk.", ".kkhhhhhhhhhhhhhhkkkhjk.", ".khkhhhhhhhhhhhhhhhhjjnk", "..khhhhhhhhhhhjjjjlljjjk", "..khhhjjjjjjjjjjjjjjjjk.", "...kjjjjjjjjjjjjjjjkkk..", "...kkkjjjjjjjjjjkkk.....", ".....kllk....kllk.......", ".....kkk.....kkk........"]});
-/* 챗바퀴 배경(벽지·톱밥·물병·받침대·바퀴 테)은 한 번만 그려 둬요 (v5.1) */
-let WCB=null;function wcBack(){if(WCB)return WCB;const c=document.createElement('canvas');c.width=320;c.height=440;const g=c.getContext('2d'),F=(x,y,w,h,col)=>{g.fillStyle=col;g.fillRect(x,y,w,h);};
-  F(0,0,320,440,'#f6e7c1');for(let y=8;y<300;y+=24)for(let x=(y/24%2)*12+4;x<320;x+=24)F(x,y,4,4,'#efdcae');
-  F(0,296,320,144,'#e3c793');F(0,296,320,4,'#c9a86c');let r=7;const R=()=>(r=(r*9301+49297)%233280)/233280;for(let i=0;i<150;i++)F(Math.floor(R()*80)*4,300+Math.floor(R()*35)*4,[4,8][i%2],4,['#d4b47a','#f2deb0','#c9a467'][i%3]);
-  F(22,60,24,6,'#3a2a20');F(24,66,20,96,'#3a2a20');F(28,66,12,90,'#cfeefa');F(28,104,12,52,'#8fd0ee');F(30,70,4,30,'#fffaf0');F(30,162,8,22,'#3a2a20');F(32,162,4,18,'#9aa5b1');F(31,184,6,4,'#3a2a20');
-  F(236,280,64,20,'#3a2a20');F(240,284,56,12,'#e07a5f');F(240,280,56,6,'#3a2a20');F(244,276,48,6,'#d9b98a');[[248,274],[260,272],[272,274],[284,273]].forEach(([x,y])=>F(x,y,6,4,'#8a5a2b'));
-  const L=(x0,y0,x1,y1,w,col)=>{const n=Math.ceil(Math.hypot(x1-x0,y1-y0)/2);for(let i=0;i<=n;i++){const t=i/n;F(Math.round((x0+(x1-x0)*t)/4)*4-w/2,Math.round((y0+(y1-y0)*t)/4)*4-w/2,w,w,col);}};
-  L(160,200,112,306,12,'#3a2a20');L(160,200,208,306,12,'#3a2a20');L(160,200,112,306,4,'#e0a24a');L(160,200,208,306,4,'#e0a24a');F(96,302,128,10,'#3a2a20');F(100,304,120,4,'#c47d2c');
-  for(let y=96;y<=304;y+=4)for(let x=56;x<=264;x+=4){const d=Math.hypot(x+2-160,y+2-200);
-    if(d<=84)F(x,y,4,4,'rgba(233,246,241,.82)');else if(d<=86||(d>104&&d<=108))F(x,y,4,4,'#3a6e66');else if(d<=104)F(x,y,4,4,d>=96&&d<=100?'#b9e6dc':'#8fd3c4');}
-  return WCB=c;}
 function mg4Open(){if($('mg'))return;const o=document.createElement('div');o.id='mg';o.style.cssText='position:fixed;inset:0;z-index:70;background:#3a2a1e;display:flex;flex-direction:column;align-items:center;justify-content:center;touch-action:none;color:#fffaf0';
   o.innerHTML='<div id="mgh" style="margin-bottom:8px;text-align:center"></div><canvas id="mgc" width="320" height="440" style="max-width:100%;max-height:74vh;image-rendering:pixelated;border:4px solid #fffaf0;background:#f6e7c1;touch-action:none"></canvas><div class="row" style="margin-top:10px;width:min(320px,90%)"><button class="btn ghost full" onclick="mgClose()">닫기</button><button class="btn full" id="mgr" style="display:none" onclick="mg4Start()">한 번 더</button></div>';
-  document.body.appendChild(o);$('mgc').addEventListener('pointerdown',e=>{e.preventDefault();if(MX.go())return;mg4Tap();});MX.first=1;mg4Start();}
-function mg4Tap(){if(!MG.raf||MX.st!=='play')return;let b=null;MG.B.forEach(n=>{if(!n.h&&Math.abs(n.T-MG.e)<=.14&&(!b||Math.abs(n.T-MG.e)<Math.abs(b.T-MG.e)))b=n;});MG.pk=.15;
-  if(!b){MG.sp*=.7;MG.c=0;sfx('no');MX.pop(160,334,'삐끗!','#c8bfb0',1,.6);MX.shake(5);MX.burst(196,236,['#7fc8e0','#fffaf0'],4,80,300,2);return;}
-  const pf=Math.abs(b.T-MG.e)<=.07;b.h=pf?2:1;MG.sp=Math.min(2.2,MG.sp+(pf?.25:.12));MG.c++;MG.bc=Math.max(MG.bc,MG.c);if(pf)sfx('coin');
-  MX.ring(160,380,pf?'#ffe14d':'#e79aa8',26);MX.pop(160,334,pf?'PERFECT':'GOOD',pf?'#ffe14d':'#fffaf0',1,.5);if(pf)MX.burst(160,380,['#e79aa8','#fffaf0','#ffe14d'],10,150,0);}
+  document.body.appendChild(o);$('mgc').addEventListener('pointerdown',e=>{e.preventDefault();mg4Tap();});mg4Start();}
+function mg4Tap(){if(!MG.raf)return;let b=null;MG.B.forEach(n=>{if(!n.h&&Math.abs(n.T-MG.e)<=.14&&(!b||Math.abs(n.T-MG.e)<Math.abs(b.T-MG.e)))b=n;});MG.pk=.15;
+  if(!b){MG.sp*=.7;MG.c=0;MG.jm='삐끗!';MG.jt=.5;sfx('no');return;}
+  const pf=Math.abs(b.T-MG.e)<=.07;b.h=pf?2:1;MG.sp=Math.min(2.2,MG.sp+(pf?.25:.12));MG.c++;MG.bc=Math.max(MG.bc,MG.c);MG.jm=pf?'PERFECT!':'GOOD';MG.jt=.45;if(pf)sfx('coin');}
 function mg4Start(){if(MG.raf)cancelAnimationFrame(MG.raf);const B=[];for(let k=0;1.5+k*.5<=29.5;k++)B.push({T:1.5+k*.5,h:0});
   MG={e:0,l:0,raf:0,rot:0,sp:0,c:0,bc:0,B,tb:0,jt:0,jm:'',mt:2,ms:'달려라 토리코~!',mk:0,pk:0};$('mgr').style.display='none';
   const c=$('mgc'),g=c.getContext('2d');g.imageSmoothingEnabled=false;if(!TKI){TKI=new Image();TKI.src=TAKO;}
-  const H=mgH(g),cx=160,cy=200,R=100,WB=wcBack();$('mgh').textContent='🐹 토리의 챗바퀴';
-  MX.reset({name:'토리의 챗바퀴',lines:['분홍 링이 하트에 겹칠 때 탭!','박자를 맞출수록 빨리 달려요','30초 동안 몇 바퀴 돌까요?'],best:'최고 기록 '+(S.mg.b4||0)+'바퀴',
-    art:g2=>{g2.drawImage(WB,40,90,240,130,28,56,264,112);H.dr('hr0',112,96,4);MX.icon(g2,'ht',232,80,3);}});
+  const H=mgH(g),cx=160,cy=200,R=100;
   const ring=(x,y,r,col,n)=>{g.fillStyle=col;for(let k=0;k<n;k++){const a=k/n*6.283;g.fillRect(Math.round(x+r*Math.cos(a))-2,Math.round(y+r*Math.sin(a))-2,4,4);}};
-  const loop=ts=>{if(!$('mg'))return;if(!MG.l)MG.l=ts;let dt=Math.min(.05,(ts-MG.l)/1000);MG.l=ts;dt=MX.step(dt);MG.e+=dt;['jt','mt','pk'].forEach(k=>{if(MG[k]>0)MG[k]-=dt;});
+  const loop=ts=>{if(!$('mg'))return;if(!MG.l)MG.l=ts;const dt=Math.min(.05,(ts-MG.l)/1000);MG.l=ts;MG.e+=dt;['jt','mt','pk'].forEach(k=>{if(MG[k]>0)MG[k]-=dt;});
     MG.sp=Math.max(0,Math.min(2.2,MG.sp-.2*dt));MG.rot+=MG.sp*dt;
     MG.B.forEach(n=>{if(!n.h&&MG.e>n.T+.14){n.h=-1;MG.c=0;}});
     if(MG.tb<MG.B.length&&MG.e>=MG.B[MG.tb].T){wcSnd(MG.tb%4?660:880,.06,.09);MG.tb++;}
-    if(Math.floor(MG.rot/10)>MG.mk){MG.mk++;MG.ms=MG.mk*10+'바퀴타코~!';MG.mt=1.3;MX.pop(160,150,MG.mk*10+'바퀴!','#ffe14d',2,1,16);MX.confetti(24);sfx('fan');}
-    MX.pre(g);g.drawImage(WB,0,0);const th=MG.rot*6.283,B4=(x,y,c)=>{g.fillStyle=c;g.fillRect(Math.round(x/4)*4-2,Math.round(y/4)*4-2,4,4);};
-    for(let s=0;s<6;s++){const a=s*1.0472+th;for(let r=10;r<=84;r+=4)B4(cx+r*Math.cos(a),cy+r*Math.sin(a),'#79bfb1');}
-    for(let k=0;k<30;k++){const a=k/30*6.283+th;for(let r=86;r<=94;r+=4)B4(cx+r*Math.cos(a),cy+r*Math.sin(a),'#4f9a8c');}
-    g.fillStyle='#3a6e66';g.fillRect(cx-8,cy-8,16,16);g.fillStyle='#cfeee6';g.fillRect(cx-4,cy-4,8,8);g.fillStyle='#fffaf0';g.fillRect(cx-4,cy-4,4,4);
-    const run=MG.sp>.05,hop=run?Math.round(Math.abs(Math.sin(MG.rot*12.566))*3):0;
-    if(run&&MG.sp>.6){g.fillStyle='#b9dcd4';for(let i=0;i<3;i++)g.fillRect(cx-58-i*6,244+i*12+(Math.floor(MG.e*10)+i)%2*2,14-i*3,3);}
-    if(dt&&MG.sp>.9&&Math.random()<MG.sp*.25)MX.p.push({x:cx-30+Math.random()*16,y:284,vx:-40-Math.random()*40,vy:-20-Math.random()*20,g:60,l:.5,L:.5,c:Math.random()<.5?'#e3c793':'#fffaf0',z:4});
-    H.dr(run?'hr'+(Math.floor(MG.rot*10)%2):'hr1',cx-36,233-hop,3);
-    if(MG.sp>1.9&&Math.floor(MG.e*8)%2){g.fillStyle='#7fc8e0';g.fillRect(cx+26,236,4,6);g.fillRect(cx+28,232,2,4);}
-    {const nb=MG.B.find(n=>!n.h&&n.T>=MG.e),pu=nb&&nb.T-MG.e<.12?3:MG.pk>0?3:0;ring(cx,380,30,MG.pk>0?'#ffe14d':'#8a6b3f',22);{const z=pu?4:3;MX.icon(g,'ht',cx-Math.round(11*z/2),380-Math.round(10*z/2),z);}}
-    MG.B.forEach(n=>{const d=n.T-MG.e;if(n.h||d<0||d>.8)return;const r=30+d*110,col=d<.14?'#ffd23a':'#e79aa8',k=Math.max(16,Math.round(r*.7));ring(cx,380,r,col,k);g.globalAlpha=.45;ring(cx,380,r+4,col,k);g.globalAlpha=1;});
+    if(Math.floor(MG.rot/10)>MG.mk){MG.mk++;MG.ms=MG.mk*10+'바퀴타코~!';MG.mt=1.3;}
+    g.fillStyle='#f6e7c1';g.fillRect(0,0,320,440);g.fillStyle='#e0c48f';g.fillRect(0,300,320,140);
+    const th=MG.rot*6.283;g.fillStyle='#a8641a';g.fillRect(cx-4,cy,8,112);g.fillRect(cx-40,cy+108,80,6);
+    ring(cx,cy,R-8,'#b89a6a',44);
+    g.fillStyle='#8a6b3f';for(let k=0;k<36;k++){const a=k/36*6.283+th;g.fillRect(Math.round(cx+R*Math.cos(a))-4,Math.round(cy+R*Math.sin(a))-4,8,8);}
+    g.fillStyle='#b89a6a';for(let s=0;s<4;s++){const a=s*1.5708+th;for(let i=1;i<9;i++)g.fillRect(Math.round(cx+i*11*Math.cos(a))-2,Math.round(cy+i*11*Math.sin(a))-2,4,4);}
+    g.fillStyle='#5a3d24';g.fillRect(cx-6,cy-6,12,12);
+    const hop=MG.sp>.05?Math.round(Math.abs(Math.sin(MG.rot*12.566))*6):0;H.dr('h',cx-32,236-hop,8);
+    ring(cx,380,28,MG.pk>0?'#ffe14d':'#8a6b3f',20);g.fillStyle='#8a6b3f';g.fillRect(cx-4,376,8,8);
+    MG.B.forEach(n=>{const d=n.T-MG.e;if(n.h||d<0||d>.8)return;const r=28+d*110;ring(cx,380,r,d<.14?'#e0a800':'#e79aa8',Math.max(16,Math.round(r*.7)));});
     H.tk(288,36);if(MG.mt>0)H.tx(MG.ms,236,58);
-    MX.post(g);
-    MX.bar(g,8,10,150,1-MG.e/30);MX.tx(g,Math.max(0,Math.ceil(30-MG.e))+'초',166,20,16,'#3a2a20','left',1);MX.chip(g,8,34,100,Math.floor(MG.rot)+'바퀴');
-    {const f=MG.sp/2.2,h=140,y0=96;MX.panel(g,286,y0-4,26,h+8,'#5a3d24');const fh=Math.round(h*f/4)*4;g.fillStyle=f>.8?'#e0524d':f>.5?'#f4c542':'#8fbf5a';g.fillRect(290,y0+h-fh,18,fh);MX.tx(g,'속도',299,y0+h+20,16,'#3a2a20','center',1);if(f>.86&&dt&&Math.random()<.5)MX.p.push({x:292+Math.random()*14,y:y0+h-fh,vx:0,vy:-60,g:0,l:.4,L:.4,c:Math.random()<.5?'#ffd23a':'#e0524d',z:4});}
-    if(MG.c>=3)MX.tx(g,MG.c+' 콤보',cx,424,16,'#a8641a');
-    MX.over(g);
+    if(MG.jt>0)H.tx(MG.jm,cx,322);if(MG.c>=3)H.tx(MG.c+' COMBO',cx,8);
+    if(MG.e<3)H.tx('링이 가운데 원에 겹칠 때 탭!',cx,340);
+    $('mgh').textContent='시간 '+Math.max(0,Math.ceil(30-MG.e))+'  바퀴 '+Math.floor(MG.rot);
     if(MG.e>=30){mg4End();return;}MG.raf=requestAnimationFrame(loop);};MG.raf=requestAnimationFrame(loop);}
-function mg4End(){MG.raf=0;const lp=Math.floor(MG.rot),td=todayStr();if(S.mg.d!==td)S.mg={d:td,n:0,best:S.mg.best||0,b2:S.mg.b2||0,b3:S.mg.b3||0,b4:S.mg.b4||0};let ms,rr=0,lim=0;
-  if(S.mg.n<ECO.mgPlays){const r=lp>=40?2:lp>=20?1:0;rr=r;if(r)S.mg.n++;S.acorns+=r;ms=r?'🌰 +'+r+' 받았어요!':'20바퀴부터 도토리를 받아요 (보상 기회는 아직 남았어요)';}else{ms='오늘 보상은 다 받았어요 (연습은 계속 가능!)';lim=1;}
+function mg4End(){MG.raf=0;const lp=Math.floor(MG.rot),td=todayStr();if(S.mg.d!==td)S.mg={d:td,n:0,best:S.mg.best||0,b2:S.mg.b2||0,b3:S.mg.b3||0,b4:S.mg.b4||0};let ms;
+  if(S.mg.n<ECO.mgPlays){const r=lp>=40?2:lp>=20?1:0;if(r)S.mg.n++;S.acorns+=r;ms=r?'🌰 +'+r+' 받았어요!':'20바퀴부터 도토리를 받아요 (보상 기회는 아직 남았어요)';}else ms='오늘 보상은 다 받았어요 (연습은 계속 가능!)';
   const nb=lp>(S.mg.b4||0);if(nb)S.mg.b4=lp;save();sfx('fan');$('mgh').innerHTML='끝! '+lp+'바퀴 · 최대 콤보 '+MG.bc+(nb?' · 최고 기록!':'')+'<br>'+ms;$('mgr').style.display='';
-  if(lp>=20)setTimeout(()=>tako('=토리가 신나게 달렸다코~! 🎡','',3000,0),500);
-  MX.end({big:lp+'바퀴',extra:'최대 콤보 '+MG.bc,stars:lp>=60?3:lp>=40?2:lp>=20?1:0,best:nb,...mxRw(rr,lim,'20바퀴부터 도토리를 받아요')});}
+  if(lp>=20)setTimeout(()=>tako('=토리가 신나게 달렸다코~! 🎡','',3000,0),500);}
 function actGot(k){return S.actRw.d===todayStr()&&S.actRw.done[k];}
 function actPay(k){const td=todayStr();if(S.actRw.d!==td)S.actRw={d:td,done:{}};return k==='ex'||Object.keys(S.actRw.done).filter(x=>x!=='song'&&x!=='ex').length<ECO.actCap?ACT_R:0;}
 function rAct(k){const [nm,em]=ACT[k],ym=todayStr().slice(0,7),t=todayStr(),L=[...S.act[k]].sort((a,b)=>(b.date+b.id)<(a.date+a.id)?-1:1),mc=L.filter(e=>e.date.slice(0,7)===ym).length,nx=S.actNext[k]||'',gb=S.actBadge[k]||[];
@@ -1024,9 +1003,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v5.6',d:'2026.10.02',log:['11월 숲 나무 다시 그림 · 타코 바다 빛줄기 일렁임']};
+const APP_VER={v:'v5.7',d:'2026.10.03',log:['홈 정리 · 챗바퀴 처음 화면으로']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v5.7',d:'2026.10.03',log:['홈 "다가오는 일정 · 기념일" 이름을 "기념일"로 바꾸고, 맨 아래 설명 두 줄을 뺐어요','도토리 속 편지 끝 "from. 토리" 옆 햄스터 그림을 뺐어요','홈 "현재 상태"를 도토리 · 보상 두 칸으로 깔끔하게 정리했어요','토리 집 꾸미기의 "자리 초기화" 버튼을 오른쪽으로 옮겼어요','토리의 챗바퀴를 처음 화면으로 되돌렸어요']},
  {v:'v5.6',d:'2026.10.02',log:['11월 도토리 받기: 잘 그린 도트 나무처럼 다시 그렸어요 (동그란 잎 덩어리 · 빛과 그림자 · 가지 · 뿌리 · 땅 그늘)','11월 타코 띄워 주기: 예전 바다 화면으로 돌아가고, 햇살 빛줄기가 천천히 일렁여요']},
  {v:'v5.5',d:'2026.10.02',log:['11월부터 나오는 도토리 받기 · 타코 띄워 주기 그림을 더 촘촘하고 따뜻하게 다시 그렸어요 (숲 · 나무 · 풀꽃 · 바구니 / 바닷속 · 해초 · 산호 · 바위 · 해파리)']},
  {v:'v5.4',d:'2026.10.02',log:['도토리 받기 · 타코 띄워 주기 · 기타리스트는 10월 동안 처음의 단순한 화면으로 즐겨요. 11월 1일부터 숲 · 바다 · 무대 화면으로 저절로 바뀌어요']},
@@ -1339,7 +1319,7 @@ function decoHtml(bk){dMig();const lv=liveOk(heroKey());
 function decoCard(){const L=DECO.map((d,i)=>i).filter(i=>DECO[i][3]!=='r'||S.deco.own.includes(i)),pg=Math.ceil(L.length/DPP);dPage=((dPage%pg)+pg)%pg;const s=dPage*DPP;
   return `<div class="card"><h2>🏠 토리 집 꾸미기</h2>${L.slice(s,s+DPP).map(i=>{const d=DECO[i],o=S.deco.own.includes(i),on=S.deco.on.includes(i);return `<div class="q"><span>${d[0]} ${esc(d[1])}<div class="muted">${dWall(i)?'벽':'바닥'} 장식 · ${o?(on?'배치 중':'보관 중'):'🌰 '+d[2]}</div></span>${o?`<button class="btn sm ${on?'ghost':''}" onclick="dToggle(${i})">${on?'치우기':'놓기'}</button>`:`<button class="btn sm wood" onclick="dBuy(${i})">구매</button>`}</div>`;}).join('')}
   <div class="row sp" style="margin-top:10px"><button class="btn sm" onclick="dPg(-1)">◀ 이전</button><span class="muted">${dPage+1} / ${pg}</span><button class="btn sm" onclick="dPg(1)">다음 ▶</button></div>
-  <div class="row sp" style="margin-top:6px"><span class="muted">산 장식은 홈 화면 토리의 방에 놓여요. 홈에서 장식을 탭하면 옮기기 · 크기 · 토리 앞/뒤를 바꿀 수 있어요.</span><button class="btn ghost sm" onclick="dReset()">자리 초기화</button></div></div>${dSetCard()}`;}
+  <div class="row sp" style="margin-top:6px"><span class="muted">산 장식은 홈 화면 토리의 방에 놓여요. 홈에서 장식을 탭하면 옮기기 · 크기 · 토리 앞/뒤를 바꿀 수 있어요.</span><button class="btn ghost sm" style="margin-left:auto" onclick="dReset()">자리 초기화</button></div></div>${dSetCard()}`;}
 function dSetCard(){dMig();return `<div class="card"><h2>🧩 장식 세트</h2><div class="muted" style="margin-bottom:4px">세트를 다 모으면 도토리와 칭호를 받아요.</div>${DSET.map(s=>{const ids=dSetIds(s),n=ids.filter(i=>S.deco.own.includes(i)).length,ok=S.deco.sets.includes(s[0]);return `<div class="q"><span>${s[1]} ${esc(s[2])} <b class="qty">${n}/${ids.length}</b><div>${ids.map(i=>`<span class="${S.deco.own.includes(i)?'':'dim'}" title="${esc(DECO[i][1])}">${DECO[i][0]}</span>`).join(' ')}</div></span><span class="muted" style="text-align:right">${ok?'✅ 완성':'🌰 '+s[4]+'<br>+ 칭호'}</span></div>`;}).join('')}</div>`;}
 function dSetChk(){dMig();const got=[];DSET.forEach(s=>{if(S.deco.sets.includes(s[0]))return;const ids=dSetIds(s);if(ids.length&&ids.every(i=>S.deco.own.includes(i))){S.deco.sets.push(s[0]);S.acorns+=s[4];if(!S.titles.includes('set_'+s[0]))S.titles.push('set_'+s[0]);got.push(s);}});
   if(!got.length)return;const o=ACW;ACW='장식 세트 완성';save();ACW=o;sfx('fan');fx('star',14);got.forEach(s=>tako('='+s[1]+' '+s[2]+' 완성이다코!! 🎉','도토리 +'+s[4]+' · 칭호 「'+s[5]+'」',8000,0));}
