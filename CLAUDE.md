@@ -6,7 +6,7 @@
 - 배포: GitHub 저장소 `oncehomework-jpg/tori` (공개, GitHub Pages). 사용자는 **git/diff를 모른다.**
 - 작업 장소: 2026.10.02부터 **클라우드 세션**(이 저장소를 직접 열어 작업)으로 옮김. 예전엔 맥 폴더에서 작업하고 사용자가 웹 "Upload files"로 올렸다.
 - 공유 링크(클로드 아티팩트): https://claude.ai/artifact/By3zxpztP9CmQ58sAE9jHR — 사진 298장을 별도 파일로 함께 올린 방식(페이지 16MB 제한 때문).
-- 상태는 localStorage `jw_diary_v1` 의 `S` 객체. 현재 버전 v5.5 (2026.10.02). 탭 이름은 '홈'(예전 '마을').
+- 상태는 localStorage `jw_diary_v1` 의 `S` 객체. 현재 버전 v5.6 (2026.10.02). 탭 이름은 '홈'(예전 '마을').
 
 ## 사용자와 일하는 방식 (가장 중요)
 1. **항상 한국어, 쉬운 말.** 코드·명령어 용어는 최소화.
