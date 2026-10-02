@@ -574,7 +574,7 @@ async function icsDl(){const h=$('rh').value,t=todayStr().replace(/-/g,''),ics=[
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar;charset=utf-8'}));a.download=nm;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);toast('내려받은 파일을 열어 캘린더에 추가해 주세요');}
 const MGS={a:["..kkkk..",".kddddk.","kddddddk",".kbbbbk.",".kbbbbk.","..kbbk..","...kk...","........"],g:["..kkkk..",".kYYYYk.","kYYYYYYk",".kyyyyk.",".kyyyyk.","..kyyk..","...kk...","........"],r:["........","..kkkk..",".kssssk.","kssttssk","kssssssk",".kkkkkk.","........","........"],h:[".k....k.","kpk..kpk","kbbbbbbk","kbkbbkbk","kbbppbbk",".kwwwwk.","..kkkk..","........"]};
 const MGP={k:'#4a3423',d:'#9a6b3c',b:'#d9b98a',Y:'#d99a2b',y:'#f4c542',s:'#b5b5b5',t:'#8a8a8a',p:'#f2a9b6',w:'#fffaf0'};
-function mgList(){const G=[['🌰','도토리 받기','떨어지는 도토리를 바구니로 받아요. 돌은 피하세요!','mgOpen()'],['🐙','타코 띄워 주기','화면을 꾹 눌러 타코를 띄워 주세요. 바위와 해파리는 피해 헤엄치고, 수면에 5초 붙어 있으면 지쳐요!','mg2Open()'],['🎸','기타리스트','음표가 노란 선에 닿을 때 그 줄을 탭해요. 토리와 타코가 응원해요!','mg3Open()'],['🐹','토리의 챗바퀴','박자에 맞춰 탭하면 토리가 빨리 달려요. 30초 동안 몇 바퀴 도는지 겨뤄요!','mg4Open()']].concat(halWeek()?[['👻','유령 잡기 · 할로윈 주간','호박 등불에서 튀어나오는 유령을 탭해서 잡아요! 금빛 유령은 3점, 박쥐를 누르면 -2점. 10월 25~31일에만 열려요.','mg5Open()']]:[]);
+function mgList(){const G=[['🌰','도토리 받기','떨어지는 도토리를 바구니로 받아요. 돌은 피하세요!','mgOpen()'],['🐙','타코 띄워 주기','화면을 꾹 눌러 타코를 띄워 주세요. 바위와 해파리는 피해 헤엄치고, 수면에 5초 붙어 있으면 지쳐요!','mg2Open()'],['🎸','기타리스트','음표가 노란 선에 닿을 때 그 줄을 탭해요. 토리와 타코가 응원해요!','mg3Open()'],['🐹','토리의 챗바퀴','박자에 맞춰 탭하면 토리가 빨리 달려요. 30초 동안 몇 바퀴 도는지 겨뤄요!','mg4Open()']].concat(halWeek()?[['👻','유령 잡기 · 할로윈 주간','호박 등불에서 튀어나오는 유령을 탭해서 잡아요! 보라 유령은 3점, 박쥐를 누르면 -2점. 10월 25~31일에만 열려요.','mg5Open()']]:[]);
   return `<div class="card"><h2>🎮 미니게임</h2>${G.map((g,i)=>`<div class="row" style="gap:12px;padding:10px 0;${i?'border-top:2px dashed var(--in)':''}"><span style="font-size:40px;line-height:1;flex:none">${g[0]}</span><div style="flex:1;min-width:0"><b>${g[1]}</b><div class="muted">${g[2]}</div></div><button class="btn sm" onclick="${g[3]}">시작</button></div>`).join('')}</div>`;}
 function mgOpen(){if($('mg'))return;const o=document.createElement('div');o.id='mg';o.style.cssText='position:fixed;inset:0;z-index:70;background:#3a2a1e;display:flex;flex-direction:column;align-items:center;justify-content:center;touch-action:none;color:#fffaf0';
   o.innerHTML='<div id="mgh" style="margin-bottom:8px;text-align:center"></div><canvas id="mgc" width="320" height="440" style="max-width:100%;max-height:74vh;image-rendering:pixelated;border:4px solid #fffaf0;background:#f6e7c1;touch-action:none"></canvas><div class="row" style="margin-top:10px;width:min(320px,90%)"><button class="btn ghost full" onclick="mgClose()">닫기</button><button class="btn full" id="mgr" style="display:none" onclick="mgStart()">한 번 더</button></div>';
@@ -983,7 +983,7 @@ function mg5Tap(x,y){if(!MG.raf)return;let b=null;MG.U.forEach(u=>{if(u.hit)retu
   const v=b.k==='g'?3:1;MG.s+=v;MG.c++;MG.bc=Math.max(MG.bc,MG.c);wcSnd(b.k==='g'?1047:784,.07,.08);if(b.k==='g')sfx('coin');MG.fx.push({x:P[0],y:P[1]-60,t:.6,m:'+'+v,pf:1});}
 function mg5Start(){if(MG.raf)cancelAnimationFrame(MG.raf);MG={e:0,l:0,raf:0,s:0,c:0,bc:0,U:[],sp:.6,fx:[],miss:0,mt:2.2,ms:'유령이 나온다코! 박쥐는 누르지 마라코!'};$('mgr').style.display='none';
   const c=$('mgc'),g=c.getContext('2d');g.imageSmoothingEnabled=false;if(!TKI){TKI=new Image();TKI.src=TAKO;}const H=mgH(g);
-  const GW=PXA.SP.q_ghost,GG=ghTint('q_ghost',{w:'Z',p:'y',N:'O'}),BT=PXA.SP.q_bat,PK=PXA.SP.q_pumpkin;
+  const GW=PXA.SP.q_ghost,GG=ghTint('q_ghost',{w:'V',p:'P',N:'v'}),BT=PXA.SP.q_bat,PK=PXA.SP.q_pumpkin;
   const loop=ts=>{if(!$('mg'))return;if(!MG.l)MG.l=ts;const dt=Math.min(.05,(ts-MG.l)/1000);MG.l=ts;MG.e+=dt;MG.sp-=dt;if(MG.mt>0)MG.mt-=dt;if(MG.miss>0)MG.miss-=dt;
     if(MG.sp<=0&&MG.e<29.3){const free=GH_P.map((p,i)=>i).filter(i=>!MG.U.some(u=>u.p===i));if(free.length){const r=Math.random(),life=Math.max(.62,1.15-MG.e*.018);
       MG.U.push({p:free[Math.floor(Math.random()*free.length)],k:r<.07?'g':r<.27?'b':'w',t:life,L:life,h:0,hit:0});}MG.sp=Math.max(.32,.62-MG.e*.01)*(.75+Math.random()*.5);}
@@ -1052,9 +1052,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v5.8',d:'2026.10.03',log:['할로윈 기념일 · 홈 장식 · 유령 잡기 미니게임']};
+const APP_VER={v:'v5.9',d:'2026.10.03',log:['유령 잡기: 금빛 유령 → 보라 유령']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v5.9',d:'2026.10.03',log:['유령 잡기의 3점짜리 금빛 유령을 보라 유령으로 바꿨어요']},
  {v:'v5.8',d:'2026.10.03',log:['할로윈(10월 31일)을 기념일에 넣었어요. 홈 기념일 카드에 D-day가 나오고, 그날엔 토리가 할로윈 인사를 해요','할로윈 날엔 홈 토리의 방에 박쥐가 날아다니고 유령이 둥실 떠 있어요','할로윈 주간(10월 25~31일)에만 열리는 미니게임 "유령 잡기"가 생겼어요. 호박 등불에서 튀어나오는 유령을 탭! 금빛 유령은 3점, 박쥐는 -2점']},
  {v:'v5.7',d:'2026.10.03',log:['홈 "다가오는 일정 · 기념일" 이름을 "기념일"로 바꾸고, 맨 아래 설명 두 줄을 뺐어요','도토리 속 편지 끝 "from. 토리" 옆 햄스터 그림을 뺐어요','홈 "현재 상태"를 도토리 · 보상 두 칸으로 깔끔하게 정리했어요','토리 집 꾸미기의 "자리 초기화" 버튼을 오른쪽으로 옮겼어요','토리의 챗바퀴를 처음 화면으로 되돌렸어요']},
  {v:'v5.6',d:'2026.10.02',log:['11월 도토리 받기: 잘 그린 도트 나무처럼 다시 그렸어요 (동그란 잎 덩어리 · 빛과 그림자 · 가지 · 뿌리 · 땅 그늘)','11월 타코 띄워 주기: 예전 바다 화면으로 돌아가고, 햇살 빛줄기가 천천히 일렁여요']},
