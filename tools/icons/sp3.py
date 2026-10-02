@@ -165,20 +165,12 @@ N['oden'] = [  # 🍢 (곤약 세모, 동그란 어묵, 네모 어묵 꼬치)
  "...kkkkddkkkk...",
  ".......kk......."]
 
-g = G()  # 💫 (별이 빙글 돌며 남긴 동그란 꼬리: 별 쪽은 굵고 끝은 가늘게)
-import math as _m
-CX, CY, R, A0, SPAN = 7.4, 8.9, 5.2, -40, 310
+g = G()  # 💫 (별과 빙글 꼬리, 크게)
+g.star(10.5, 6.6, 5.3, 'y', 2.4)
+g.halo('k', diag=False)
+g.put(9, 4, ["_Z", "_Z", "Z"])
 for y in range(16):
     for x in range(16):
-        dx, dy = x + .5 - CX, y + .5 - CY
-        a = (A0 - _m.degrees(_m.atan2(dy, dx))) % 360   # 별에서 거꾸로 돈 각도
-        if a > SPAN: continue
-        t = a / SPAN; w = 1.6 * (1 - t) ** 1.3 + .2
-        d = abs(_m.hypot(dx, dy) - R)
-        if d <= w: g.a[y][x] = 'y' if (t < .35 and d <= w - .6) else 'Y'
-st = G(); st.star(CX + R * _m.cos(_m.radians(A0)), CY + R * _m.sin(_m.radians(A0)), 4.3, 'y', 2.0); st.halo('k', diag=False)
-st.put(int(CX + R * _m.cos(_m.radians(A0))) - 1, int(CY + R * _m.sin(_m.radians(A0))) - 2, ["_Z", "Z"])
-for y in range(16):
-    for x in range(16):
-        if st.a[y][x] != '.': g.a[y][x] = st.a[y][x]
+        dx, dy = (x + .5 - 7.8) / 7.5, (y + .5 - 10.6) / 4.9
+        if .86 <= (dx * dx + dy * dy) ** .5 <= 1.06 and g.a[y][x] == '.' and not (x > 10 and y < 10): g.a[y][x] = 'Y'
 N['dizzystar'] = g.rows()
