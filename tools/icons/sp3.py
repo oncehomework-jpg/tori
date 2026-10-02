@@ -1,23 +1,23 @@
 # v4.4: 퀄리티가 아쉬웠던 아이콘 다시 그리기 (16x16, 색은 index.html PAL)
 from pxdraw import G
 N = {}
-N['guitar'] = [  # 🎸 (대각선 통기타: 줄감개·긴 목·허리·둥근 구멍·줄받침)
+N['guitar'] = [  # 🎸 (대각선 일렉기타: 빨간 몸통·뿔 두 개·흰 판·픽업)
  "............Nkk.",
- "............kDDk",
- "............kDDk",
- "...........kdkkN",
- "..........kdk...",
- "......kkkkdk....",
- "......kZOdk.....",
- "...kkkOOdOk.....",
- ".kkOOOkkOOk.....",
- "kOOOOOkkOkk.....",
- "kOOOOOOOOk......",
- "kOOOOOOOOk......",
- "kODOOOOOk.......",
- "kOODOOOk........",
- ".kooOOOk........",
- "..kkkkk........."]
+ "............kbbk",
+ "...........kbbkN",
+ "...........kbk..",
+ "..........kbk...",
+ ".........kbk....",
+ "...kk...kbk.....",
+ "..krk..kbk..kk..",
+ "..kRrkkbkk.krk..",
+ ".krrwrbrrkkrrk..",
+ ".krrrwrrrrrrk...",
+ "krwrrrwrrrrk....",
+ "krrwrrrrrrk.....",
+ "krrrwrrrrrk.....",
+ ".krrrrrrrk......",
+ "..kkkkkkk......."]
 N['shooting'] = [  # 🌠
  "...........k....",
  "..........kyk...",
@@ -151,12 +151,20 @@ N['oden'] = [  # 🍢 (곤약 세모, 동그란 어묵, 네모 어묵 꼬치)
  "...kkkkddkkkk...",
  ".......kk......."]
 
-g = G()  # 💫 (별과 빙글 꼬리)
-g.star(11.2, 5.2, 4.9, 'y', 2.3)
-g.halo('k', diag=False)
-g.put(10, 3, ["_Z", "ZZ"])
+g = G()  # 💫 (별이 빙글 돌며 남긴 동그란 꼬리: 별 쪽은 굵고 끝은 가늘게)
+import math as _m
+CX, CY, R, A0, SPAN = 7.4, 8.9, 5.2, -40, 310
 for y in range(16):
     for x in range(16):
-        dx, dy = (x + .5 - 7.0) / 6.2, (y + .5 - 10.8) / 3.4
-        if .82 <= (dx * dx + dy * dy) ** .5 <= 1.1 and g.a[y][x] == '.' and not (x > 9 and y < 10): g.a[y][x] = 'Y'
+        dx, dy = x + .5 - CX, y + .5 - CY
+        a = (A0 - _m.degrees(_m.atan2(dy, dx))) % 360   # 별에서 거꾸로 돈 각도
+        if a > SPAN: continue
+        t = a / SPAN; w = 1.6 * (1 - t) ** 1.3 + .2
+        d = abs(_m.hypot(dx, dy) - R)
+        if d <= w: g.a[y][x] = 'y' if (t < .35 and d <= w - .6) else 'Y'
+st = G(); st.star(CX + R * _m.cos(_m.radians(A0)), CY + R * _m.sin(_m.radians(A0)), 4.3, 'y', 2.0); st.halo('k', diag=False)
+st.put(int(CX + R * _m.cos(_m.radians(A0))) - 1, int(CY + R * _m.sin(_m.radians(A0))) - 2, ["_Z", "Z"])
+for y in range(16):
+    for x in range(16):
+        if st.a[y][x] != '.': g.a[y][x] = st.a[y][x]
 N['dizzystar'] = g.rows()
