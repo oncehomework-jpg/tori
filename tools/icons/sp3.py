@@ -1,23 +1,23 @@
 # v4.4: 퀄리티가 아쉬웠던 아이콘 다시 그리기 (16x16, 색은 index.html PAL)
 from pxdraw import G
 N = {}
-N['guitar'] = [  # 🎸
- "...........Nkkk.",
- "...........kDDDk",
- "..........kdDDkN",
- ".........kdkkk..",
- "........kdk.....",
+N['guitar'] = [  # 🎸 (세워 둔 통기타: 줄감개·지판·둥근 구멍·줄받침)
+ "......kkkk......",
+ ".....NkDDkN.....",
+ ".....NkDDkN.....",
+ "......kkkk......",
  ".......kdk......",
- "..kkk.kdk.......",
- ".kOOOkdkk.......",
- ".kOOOdkOOk......",
- ".kOOkkOOOk......",
- "kOOOkkOOOk......",
- "kOOOOOOOOOk.....",
- ".kOOODOOOOOk....",
- ".koOOODOOOOk....",
- "..kooOOOOkk.....",
- "...kkkkkk......."]
+ ".......kNk......",
+ ".......kdk......",
+ "....kkkkdkkkk...",
+ "...kOZOkdkOOOk..",
+ "...kZOOkdkOOOk..",
+ "...kOOkkkkkOOk..",
+ "....kOkkkkkOk...",
+ "...kOOOkkkOOOk..",
+ "..kOOOOOOOOOOOk.",
+ "..kOOODDDDDOOok.",
+ "...kkkkkkkkkkk.."]
 N['shooting'] = [  # 🌠
  "...........k....",
  "..........kyk...",
@@ -97,23 +97,23 @@ N['palmdown'] = [  # 🫳 (손바닥이 아래로, 손가락은 오른쪽)
  "................",
  "................"]
 
-N['swim'] = [  # 🏊 (물 위로 머리와 팔)
+N['swim'] = [  # 🏊 (자유형: 머리 위로 팔을 크게 돌림)
  "................",
- "............kk..",
- "...........ktk..",
- "...........ktk..",
- "..........ktk...",
- "..........ktk...",
+ "................",
+ "......kkkk......",
+ ".....kttttk.....",
+ "....ktkkkktk....",
+ "...ktk....ktk...",
+ "...kk.....ktk...",
  "...kkkkk..ktk...",
- "..krrRrrk.ktk...",
- ".krrrrrrrkktk...",
- ".kkNNkNNkkktk...",
- "..U....U....U...",
- ".uUu..uUu..uUu..",
- "uuuuuuuuuuuuuuuu",
- "uuUuuuuuuUuuuuuu",
- "uuuuuuuuuuuuuuUu",
- "uuuuuUuuuuuuuuuu"]
+ "..kRRrrrk.ktk..U",
+ "..krrrrrrkktkkU.",
+ ".kkNNkNNkvvvvvkU",
+ "UuUuuUuuuuUuuUuU",
+ "uuuuuuuuuuuuUuuu",
+ "uuuUuuuuuuuuuuuu",
+ "uuuuuuuuuUuuuuuu",
+ "uuuuuuUuuuuuuuuu"]
 
 N['nope'] = [  # 🙅 (두 팔로 X)
  "....kkkkkkkk....",
