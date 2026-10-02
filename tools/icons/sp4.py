@@ -152,5 +152,23 @@ N['pinch'] = [  # 🤏 (엄지와 검지 끝을 살짝 벌린 손, 옆모습)
  "................",
  "................"]
 
+N['bell'] = [  # 🔔 (v5.1 토리 알림)
+ "................",
+ ".......kk.......",
+ "......kYYk......",
+ ".....kyyyyk.....",
+ "....kyZyyyyk....",
+ "....kyZyyyyk....",
+ "...kyyZyyyyyk...",
+ "...kyyyyyyyyk...",
+ "...kyyyyyyyyk...",
+ "..kyyyyyyyyyyk..",
+ ".kyyyyyyyyyyyyk.",
+ ".kYYYYYYYYYYYYk.",
+ ".kkkkkkkkkkkkkk.",
+ "......kook......",
+ ".......kk.......",
+ "................"]
+
 for k, v in N.items():
     assert len(v) == 16 and all(len(r) == 16 for r in v), k
