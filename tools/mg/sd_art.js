@@ -23,19 +23,22 @@ function sdForest(){const u=2,W=160,H=220,G=sdGrid(W,H),R=SDR(17);
   cloud(30,22,1);cloud(104,40,.8);cloud(132,12,.6);
   const hill=(base,amp,f1,f2,col,top)=>{for(let x=0;x<W;x++){const h=Math.round(base+amp*Math.sin(x*f1+1)+amp*.6*Math.sin(x*f2+2));for(let y=h;y<H;y++)G.s(x,y,y===h&&top?top:col);}};
   hill(118,5,.05,.13,'#a8cf8a','#bfe0a0');
-  for(let i=0;i<12;i++){const x=10+i*13+R()*6,y=112+Math.sin(x*.05+1)*5;const r=4+R()*3;for(let yy=-r;yy<=r;yy++)for(let xx=-r;xx<=r;xx++)if(xx*xx+yy*yy<=r*r)G.s(x+xx,y+yy-r*.4,yy<-r*.3&&xx<0?'#93c272':'#7fb562');}
+  for(let i=0;i<11;i++){const x=Math.round(14+i*13+R()*5),y=Math.round(116+Math.sin(x*.05+1)*5);for(let k=0;k<4;k++)G.s(x,y+k,'#8a7a5a');sdBlobs(G,[[x+.5,y-2,4+R()*1.5],[x-2,y,3],[x+3,y,3]],{o:'#6f9f58',d:'#7fae62',m:'#8fbd6e',h:'#a3cc80'},R,0);}
   hill(134,4,.07,.11,'#8ec46b','#a6d27e');
   for(let y=150;y<H;y++)for(let x=0;x<W;x++){const g0=y<200?'#7fbb56':'#6aa848';let c=g0;const n=R();if(n<.07)c=y<200?'#6aa848':'#5a943c';else if(n<.11)c=y<200?'#95cc66':'#7fbb56';G.s(x,y,c);}
   for(let i=0;i<70;i++){const x=Math.floor(R()*W),y=150+Math.floor(R()*68);const c=y<200?'#5e9a3f':'#4f8a34';G.s(x,y,c);G.s(x+1,y-1,c);G.s(x-1,y-1,c);G.s(x,y-2,y<200?'#9fd46d':'#7fbb56');}
   for(let x=0;x<W;x++){const t=Math.floor(R()*3);for(let k=0;k<=t;k++)G.s(x,199-k,k===t?'#8fc95e':'#5e9a3f');}
   [['#fffaf0','#f4c542'],['#f4a9c0','#fffaf0'],['#f4c542','#e0893c']].forEach((fc,j)=>{for(let i=0;i<7;i++){const x=6+Math.floor(R()*148),y=156+Math.floor(R()*40);if(x>40&&x<120&&y>160)continue;G.s(x,y,fc[1]);G.s(x-1,y,fc[0]);G.s(x+1,y,fc[0]);G.s(x,y-1,fc[0]);G.s(x,y+1,fc[0]);G.s(x,y+2,'#4f8a34');}});
-  /* 나무 */
-  const tree=(tx,tw,top,canopy)=>{for(let y=top;y<204;y++){const flare=y>190?Math.floor((y-190)/3):0;for(let x=tx-flare;x<tx+tw+flare;x++){const e=x===tx-flare||x===tx+tw+flare-1;let c='#8a5a2b';if(x<tx+3)c='#b07a42';else if(x>tx+tw-4)c='#5e3a1c';if(e)c='#3a2a20';G.s(x,y,c);}}
-    for(let i=0;i<14;i++){const x=tx+2+Math.floor(R()*(tw-4)),y=top+5+Math.floor(R()*95);for(let k=0;k<4+R()*6;k++)G.s(x,y+k,'#6a4322');}
-    const hy=top+40;G.s(tx+tw/2,hy,'#3a2a20');G.s(tx+tw/2+1,hy,'#3a2a20');G.s(tx+tw/2,hy+1,'#2a1c12');G.s(tx+tw/2+1,hy+1,'#2a1c12');G.s(tx+tw/2-1,hy+1,'#5e3a1c');
-    sdBlobs(G,canopy,{o:'#2f5a26',d:'#4a8032',m:'#5f9a3e',h:'#7fbf55'},R,.12);};
-  tree(6,14,70,[[-6,30,26],[14,14,18],[28,32,16],[8,48,20],[-4,60,14],[30,54,12]]);
-  tree(142,14,80,[[166,34,26],[146,18,18],[132,38,16],[152,54,20],[164,64,14],[130,58,12]]);
+  /* 나무: 아래로 갈수록 굵어지는 줄기 + 잎 속으로 뻗는 가지 + 줄기 위를 덮는 큰 잎 덩어리 */
+  const tree=(cx,top,tw,canopy,limbs)=>{for(let y=top;y<204;y++){const t=(y-top)/(204-top),w=Math.round(tw*(.62+.38*t))+(y>194?Math.floor((y-194)/2)*2:0),x0=Math.round(cx-w/2);
+      for(let x=x0;x<x0+w;x++){const e=x===x0||x===x0+w-1;let c='#8a5a2b';if(x<x0+3)c='#b07a42';else if(x>x0+w-4)c='#5e3a1c';if(e)c='#3a2a20';G.s(x,y,c);}}
+    limbs.forEach(([dx,dy,len])=>{for(let k=0;k<len;k++){const x=Math.round(cx+dx*k),y=Math.round(top+12-dy*k);for(let a=-1;a<=1;a++)G.s(x+a,y,a===-1?'#3a2a20':a===1?'#5e3a1c':'#8a5a2b');}});
+    for(let i=0;i<12;i++){const x=Math.round(cx-tw*.3+R()*tw*.6),y=top+30+Math.floor(R()*100);for(let k=0;k<4+R()*6;k++)if(G.g(x,y+k)==='#8a5a2b')G.s(x,y+k,'#6a4322');}
+    const hy=top+70;G.s(cx,hy,'#3a2a20');G.s(cx+1,hy,'#3a2a20');G.s(cx,hy+1,'#2a1c12');G.s(cx+1,hy+1,'#2a1c12');
+    sdBlobs(G,canopy,{o:'#2f5a26',d:'#4a8032',m:'#5f9a3e',h:'#7fbf55'},R,.12);
+    for(let x=cx-tw;x<=cx+tw;x++)for(let y=top;y<top+60;y++){const c=G.g(x,y);if(['#8a5a2b','#b07a42','#5e3a1c','#6a4322'].includes(c)){if(G.g(x,y-1)==='#2f5a26'||G.g(x,y-2)==='#2f5a26'||G.g(x,y-3)==='#2f5a26')G.s(x,y,'#4a2e16');}}};
+  tree(14,52,16,[[14,44,20],[-2,54,15],[30,50,15],[4,28,17],[24,30,15],[14,16,14],[-6,36,12],[20,60,11]],[[-.7,.6,14],[.8,.7,14]]);
+  tree(146,58,16,[[146,50,20],[128,58,14],[164,56,15],[136,34,16],[156,34,15],[146,22,13],[166,40,12],[140,66,11]],[[-.8,.7,14],[.7,.6,14]]);
   /* 덤불 · 버섯 */
   sdBlobs(G,[[30,200,8],[40,198,9],[50,201,7]],{o:'#2f5a26',d:'#4a8032',m:'#5f9a3e',h:'#7fbf55'},R,.1);
   sdBlobs(G,[[118,200,7],[128,197,9],[137,201,6]],{o:'#2f5a26',d:'#4a8032',m:'#5f9a3e',h:'#7fbf55'},R,.1);
