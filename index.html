@@ -1045,11 +1045,14 @@ function mgOsc(f,t,len,type,vol,bus,f2){const A=AC,o=A.createOscillator(),v=A.cr
   v.gain.setValueAtTime(.0001,t);v.gain.exponentialRampToValueAtTime(vol,t+.006);v.gain.exponentialRampToValueAtTime(.0001,t+len);o.connect(v);v.connect(bus||A.destination);o.start(t);o.stop(t+len+.03);}
 function mgNz(t,len,vol,hp,bus,lp){const A=AC;if(!MGA.nz){const b=A.createBuffer(1,A.sampleRate*.6|0,A.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;MGA.nz=b;}
   const s=A.createBufferSource(),f=A.createBiquadFilter(),v=A.createGain();s.buffer=MGA.nz;f.type=lp?'lowpass':'highpass';f.frequency.value=hp;v.gain.setValueAtTime(vol,t);v.gain.exponentialRampToValueAtTime(.0001,t+len);s.connect(f);f.connect(v);v.connect(bus||A.destination);s.start(t,Math.random()*.3);s.stop(t+len+.02);}
+/* 종: 맑은 금속 배음(1·2·2.76·4.07·5.4배)이 길게 울리다 사라짐 */
+function mgBell(f,t,len,vol,bus){[[1,1,1],[2,.45,.7],[2.76,.32,.5],[4.07,.18,.35],[5.4,.1,.25]].forEach(([m,a,d])=>mgOsc(f*m,t,len*d,'sine',vol*a,bus));}
 /* 악보: 한 칸 = 16분음표, '.' 쉼, '-' 앞 음 늘이기. 칸 문자열을 마디(|)로 나눠 적음 */
 const mgTr=(s,p)=>({n:s.replace(/\|/g,' ').trim().split(/\s+/),p});
 const P_LEAD=(v,g=.9,ty='square')=>(f,t,l,b)=>f&&mgOsc(f,t,Math.max(.05,l*g),ty,v,b);
 const P_BASS=(v,ty='triangle')=>(f,t,l,b)=>f&&mgOsc(f,t,Math.max(.08,l*.85),ty,v,b);
 const P_PLUCK=v=>(f,t,l,b)=>{if(!f)return;mgOsc(f,t,.45,'triangle',v,b);mgOsc(f*2,t,.12,'sine',v*.35,b);};
+const P_BELL=v=>(f,t,l,b)=>f&&mgBell(f,t,1.6,v,b);
 const P_DRUM=v=>(f,t,l,b,k)=>{if(k==='K'){mgOsc(140,t,.12,'sine',v*1.6,b,45);}else if(k==='S')mgNz(t,.09,v*.8,1500,b);else if(k==='H')mgNz(t,.03,v*.5,7000,b);else if(k==='J'){mgNz(t,.07,v*.6,6500,b);mgNz(t+.035,.05,v*.4,8000,b);}else if(k==='W'){mgOsc(900,t,.04,'sine',v*.9,b,700);mgNz(t,.02,v*.4,2500,b);}};
 const MG_SONG={
   /* 유령 잡기: 통통 튀는 으스스한 E단조 */
@@ -1069,7 +1072,8 @@ const MG_SONG={
   /* 썰매 배달: 징글벨(옛 민요, 저작권 끝남) + 방울 소리 */
   sn:{bpm:168,vol:.5,tr:[mgTr('E5 . . . E5 . . . E5 - - - - - . .|E5 . . . E5 . . . E5 - - - - - . .|E5 . . . G5 . . . C5 - - . . . D5 .|E5 - - - - - - - - - - - . . . .|F5 . . . F5 . . . F5 - - . . . F5 .|F5 . . . E5 . . . E5 . . . E5 . E5 .|E5 . . . D5 . . . D5 . . . E5 . . .|D5 - - - - - . . G5 - - - - - . .',P_LEAD(.06,.75)),
     mgTr('C3 . . . G2 . . . C3 . . . G2 . . .|C3 . . . G2 . . . C3 . . . G2 . . .|C3 . . . G2 . . . C3 . . . G2 . . .|C3 . . . G2 . . . C3 . . . E3 . . .|F2 . . . C3 . . . F2 . . . C3 . . .|C3 . . . G2 . . . C3 . . . G2 . . .|G2 . . . D3 . . . G2 . . . D3 . . .|G2 . . . D3 . . . G2 . . . B2 . . .',P_BASS(.15)),
-    mgTr('J . H . J . H . J . H . J . H H',P_DRUM(.1))]}};
+    mgTr('J . H . J . H . J . H . J . H H',P_DRUM(.1)),
+    mgTr('C6 '+'. '.repeat(31)+'G5 '+'. '.repeat(31)+'A5 '+'. '.repeat(31)+'G5 '+'. '.repeat(31),P_BELL(.07))]}};
 function mgPlay(k){if(MGA.song===MG_SONG[k])return;mgStop();const A=mgAC();if(!A)return;const s=MG_SONG[k],bus=A.createGain();bus.gain.value=mgV()*s.vol*1.8;bus.connect(A.destination);
   Object.assign(MGA,{bus,song:s,step:0,next:A.currentTime+.08});MGA.tm=setInterval(mgSched,50);mgSched();}
 function mgSched(){const A=AC,s=MGA.song;if(!s||!A)return;if(!$('mg')){mgStop();return;}const sp=60/s.bpm/4;
@@ -1091,12 +1095,13 @@ function fxSnd(k){const A=mgAC();if(!A)return;const t=A.currentTime,V=mgV(),O=(f
     mj_pon:()=>{O(1047,0,.32,'triangle',.18);O(1568,.07,.36,'triangle',.15);Z(0,.04,.12,3000);},
     mj_miss:()=>{O(196,0,.14,'triangle',.18,150);},
     mj_win:()=>{O(110,0,1.8,'sine',.3);O(111.5,0,1.8,'sine',.22);O(165,0,1.4,'sine',.12);arp([659,784,880,1047,1175,1319],.09,.3,'triangle',.12);},
-    sn_drop:()=>{Z(0,.12,.15,3000);O(1319,0,.07,'triangle',.1);},
-    sn_hit:()=>{Z(0,.08,.2,250,1);arp([1568,2093],.05,.2,'triangle',.15);Z(.02,.12,.15,7000);},
-    sn_hit2:()=>{Z(0,.08,.2,250,1);arp([1568,2093,2637,3136],.045,.22,'triangle',.15);Z(.02,.25,.18,7500);},
+    sn_drop:()=>{Z(0,.12,.15,3000);mgBell(2637,t,.35,.06*V);},
+    sn_hit:()=>{Z(0,.08,.2,250,1);mgBell(1568,t+.02,1.1,.16*V);mgBell(2093,t+.1,.9,.1*V);Z(.02,.15,.15,7000);},
+    sn_hit2:()=>{Z(0,.08,.2,250,1);[1568,1976,2349,3136].forEach((f,i)=>mgBell(f,t+.02+i*.06,1.2,.14*V));Z(.02,.3,.18,7500);Z(.15,.3,.12,8000);},
     sn_miss:()=>{Z(0,.18,.18,500,1);},
-    sn_nose:()=>{arp([2093,2637],.07,.1,'sine',.12);},
-    sn_end:()=>{arp([523,659,784,1047],.1,.25,'square',.06);Z(.1,.5,.15,7000);O(262,.4,.6,'triangle',.18);}})[k]?.();}
+    sn_nose:()=>{mgBell(2637,t,.5,.08*V);mgBell(3136,t+.08,.5,.06*V);},
+    sn_end:()=>{arp([523,659,784,1047],.1,.25,'square',.06);Z(.1,.5,.15,7000);mgBell(523,t+.4,2.4,.2*V);mgBell(784,t+.4,2,.12*V);mgBell(1047,t+.55,1.8,.1*V);},
+    sn_start:()=>{mgBell(1047,t,1.4,.14*V);mgBell(1319,t+.15,1.2,.1*V);mgBell(1568,t+.3,1.4,.12*V);}})[k]?.();}
 /* ===== 🍬 토리의 사탕 미로 (할로윈 주간 10/25~31) · 밀어서 토리를 움직여 사탕을 모아요. 호박 등불을 먹으면 유령이 겁먹어요 ===== */
 const MZ=["#############","#o.........o#","#.##.###.##.#","#...........#","#.#.##-##.#.#","#.#.#GGG#.#.#","#...#####...#","###.......###","#...##.##...#","#.#.......#.#","#.#.##.##.#.#","#o...#.#...o#","#.##.....##.#","#.....T.....#","#############"];
 const MZT=24,MZX=4,MZY=46,MZD=[[1,0],[0,1],[-1,0],[0,-1]];
@@ -1319,7 +1324,7 @@ function mg8Open(){const c=mgShell('#0d1430','mg8Start()');if(!c)return;c.addEve
 addEventListener('keydown',e=>{if($('mg')&&MG.k==='sn'&&(e.key===' '||e.key==='Enter')){e.preventDefault();mg8Tap();}});
 function mg8Tap(){if(MG.k!=='sn'||MG.over||MG.left<=0||MG.cd>0)return;MG.cd=.4;MG.left--;const y=MG.sy+22;MG.pr.push({x:MG.sx+16,y,vx:42,vy:-50,pk:'g'+Math.floor(Math.random()*4),x2:MG.nz>0});fxSnd('sn_drop');}
 function mg8Start(){if(MG.raf)cancelAnimationFrame(MG.raf);$('mgr').style.display='none';const HS=snHouses();
-  MG={k:'sn',e:0,l:0,raf:0,s:0,left:20,cd:0,pr:[],H:[],pf:[],fx:[],dist:0,sx:22,sy:96,nz:0,nzN:3.5,cb:0,msg:'굴뚝에 선물을 쏙 넣어라코! 탭!',mt:2.5,over:0};mgPlay('sn');
+  MG={k:'sn',e:0,l:0,raf:0,s:0,left:20,cd:0,pr:[],H:[],pf:[],fx:[],dist:0,sx:22,sy:96,nz:0,nzN:3.5,cb:0,msg:'굴뚝에 선물을 쏙 넣어라코! 탭!',mt:2.5,over:0};mgPlay('sn');fxSnd('sn_start');
   let hx=200;while(hx<520){const v=Math.floor(Math.random()*6);MG.H.push({v,x:hx,pt:Math.random()});hx+=HS[v].w+60+Math.random()*60;}
   const c=$('mgc'),g=c.getContext('2d');g.imageSmoothingEnabled=false;
   const snow=[];for(let i=0;i<60;i++)snow.push([Math.random()*320,Math.random()*440,.5+Math.random()]);
@@ -1408,10 +1413,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v6.5',d:'2026.10.03',log:['명절 미니게임 전용 배경음악 · 효과음']};
+const APP_VER={v:'v6.5',d:'2026.10.03',log:['명절 미니게임 전용 배경음악 · 효과음 · 썰매 종소리']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
- {v:'v6.5',d:'2026.10.03',log:['유령 잡기 · 토리의 사탕 미로 · 마작패 짝 맞추기 · 루돌프 썰매 배달에 게임마다 전용 배경음악과 효과음을 넣었어요','사탕 미로에서 유령이 겁먹으면 음악이 빨라져요']},
+ {v:'v6.5',d:'2026.10.03',log:['유령 잡기 · 토리의 사탕 미로 · 마작패 짝 맞추기 · 루돌프 썰매 배달에 게임마다 전용 배경음악과 효과음을 넣었어요','사탕 미로에서 유령이 겁먹으면 음악이 빨라져요','루돌프 썰매 배달: 시작·배달·끝에 맑은 종소리가 울리고, 배경음악에도 종이 울려요']},
  {v:'v6.4',d:'2026.10.03',log:['할로윈 주간(10/25~31) 새 미니게임 "토리의 사탕 미로": 마녀 모자 토리를 밀어서 움직여 사탕을 모아요. 호박 등불을 먹으면 유령을 잡을 수 있어요','11월 마지막 주(11/24~30) 새 미니게임 "마작패 짝 맞추기": 진짜 마작패 20장으로 하는 짝 맞추기','크리스마스 주간(12/18~25) 새 미니게임 "루돌프 썰매 배달": 굴뚝에 선물을 쏙! 루돌프 코가 반짝일 때 2배']},
  {v:'v5.9',d:'2026.10.03',log:['유령 잡기의 3점짜리 금빛 유령을 보라 유령으로 바꿨어요']},
  {v:'v5.8',d:'2026.10.03',log:['할로윈(10월 31일)을 기념일에 넣었어요. 홈 기념일 카드에 D-day가 나오고, 그날엔 토리가 할로윈 인사를 해요','할로윈 날엔 홈 토리의 방에 박쥐가 날아다니고 유령이 둥실 떠 있어요','할로윈 주간(10월 25~31일)에만 열리는 미니게임 "유령 잡기"가 생겼어요. 호박 등불에서 튀어나오는 유령을 탭! 금빛 유령은 3점, 박쥐는 -2점']},
