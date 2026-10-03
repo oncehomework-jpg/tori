@@ -776,7 +776,7 @@ const MX={p:[],t:[],sh:0,fl:0,fc:'#fff',st:'play',cd:0,ct:0,raf:0,first:0,info:n
 /* 결과 카드에 넘길 보상 정보: rw=받은 도토리(0이면 note 글자를 보여 줘요) */
 function mxRw(r,limit,need){return limit?{rw:0,note:'오늘 보상은 다 받았어요'}:r?{rw:r}:{rw:0,note:need};}
 
-function mgClose(){if(MG.raf)cancelAnimationFrame(MG.raf);MG.raf=0;cancelAnimationFrame(MX.raf);MX.st='play';const o=$('mg');if(o)o.remove();if(tab==='pet')rPet();}
+function mgClose(){mgStop();if(MG.raf)cancelAnimationFrame(MG.raf);MG.raf=0;cancelAnimationFrame(MX.raf);MX.st='play';const o=$('mg');if(o)o.remove();if(tab==='pet')rPet();}
 function mgStart(){if(MG.raf)cancelAnimationFrame(MG.raf);MG={x:160,t:30,s:0,it:[],sp:0,e:0,l:0,raf:0,old:mgOld()};$('mgr').style.display='none';const c=$('mgc'),g=c.getContext('2d');g.imageSmoothingEnabled=false;
   const dr=(k,x,y,z)=>MGS[k].forEach((row,j)=>[...row].forEach((ch,i)=>{if(ch!=='.'){g.fillStyle=MGP[ch];const X=Math.round(x+i*z),Y=Math.round(y+j*z);g.fillRect(X,Y,Math.round(x+(i+1)*z)-X,Math.round(y+(j+1)*z)-Y);}}));
   const loop=ts=>{if(!$('mg'))return;if(!MG.l)MG.l=ts;const dt=Math.min(.05,(ts-MG.l)/1000);MG.l=ts;MG.t-=dt;MG.e+=dt;MG.sp-=dt;
@@ -979,9 +979,9 @@ function mg5Open(){if($('mg'))return;const o=document.createElement('div');o.id=
   document.body.appendChild(o);$('mgc').addEventListener('pointerdown',e=>{e.preventDefault();const r=e.target.getBoundingClientRect();mg5Tap((e.clientX-r.left)*320/r.width,(e.clientY-r.top)*440/r.height);});mg5Start();}
 function mg5Tap(x,y){if(!MG.raf)return;let b=null;MG.U.forEach(u=>{if(u.hit)return;const P=GH_P[u.p],top=P[1]-40-u.h;if(Math.abs(x-P[0])<=30&&y>=top-6&&y<=P[1]-8&&(!b||u.k==='b'))b=u;});
   if(!b){MG.miss=.25;return;}b.hit=1;b.t=Math.min(b.t,.2);const P=GH_P[b.p];
-  if(b.k==='b'){MG.s=Math.max(0,MG.s-2);MG.c=0;sfx('no');MG.fx.push({x:P[0],y:P[1]-60,t:.6,m:'-2'});return;}
-  const v=b.k==='g'?3:1;MG.s+=v;MG.c++;MG.bc=Math.max(MG.bc,MG.c);wcSnd(b.k==='g'?1047:784,.07,.08);if(b.k==='g')sfx('coin');MG.fx.push({x:P[0],y:P[1]-60,t:.6,m:'+'+v,pf:1});}
-function mg5Start(){if(MG.raf)cancelAnimationFrame(MG.raf);MG={e:0,l:0,raf:0,s:0,c:0,bc:0,U:[],sp:.6,fx:[],miss:0,mt:2.2,ms:'유령이 나온다코! 박쥐는 누르지 마라코!'};$('mgr').style.display='none';
+  if(b.k==='b'){MG.s=Math.max(0,MG.s-2);MG.c=0;fxSnd('gh_bat');MG.fx.push({x:P[0],y:P[1]-60,t:.6,m:'-2'});return;}
+  const v=b.k==='g'?3:1;MG.s+=v;MG.c++;MG.bc=Math.max(MG.bc,MG.c);fxSnd(b.k==='g'?'gh_purple':'gh_catch');MG.fx.push({x:P[0],y:P[1]-60,t:.6,m:'+'+v,pf:1});}
+function mg5Start(){if(MG.raf)cancelAnimationFrame(MG.raf);MG={e:0,l:0,raf:0,s:0,c:0,bc:0,U:[],sp:.6,fx:[],miss:0,mt:2.2,ms:'유령이 나온다코! 박쥐는 누르지 마라코!'};$('mgr').style.display='none';mgPlay('gh');
   const c=$('mgc'),g=c.getContext('2d');g.imageSmoothingEnabled=false;if(!TKI){TKI=new Image();TKI.src=TAKO;}const H=mgH(g);
   const GW=PXA.SP.q_ghost,GG=ghTint('q_ghost',{w:'V',p:'P',N:'v'}),BT=PXA.SP.q_bat,PK=PXA.SP.q_pumpkin;
   const loop=ts=>{if(!$('mg'))return;if(!MG.l)MG.l=ts;const dt=Math.min(.05,(ts-MG.l)/1000);MG.l=ts;MG.e+=dt;MG.sp-=dt;if(MG.mt>0)MG.mt-=dt;if(MG.miss>0)MG.miss-=dt;
@@ -1001,7 +1001,7 @@ function mg5Start(){if(MG.raf)cancelAnimationFrame(MG.raf);MG={e:0,l:0,raf:0,s:0
     if(MG.e>=30){mg5End();return;}MG.raf=requestAnimationFrame(loop);};MG.raf=requestAnimationFrame(loop);}
 function mg5End(){MG.raf=0;const sc=MG.s,td=todayStr();if(S.mg.d!==td)S.mg={...S.mg,d:td,n:0};let m;
   if(S.mg.n<ECO.mgPlays){const r=sc>=24?2:sc>=12?1:0;if(r)S.mg.n++;S.acorns+=r;m=r?'🌰 +'+r+' 받았어요!':'12점부터 도토리를 받아요 (보상 기회는 아직 남았어요)';}else m='오늘 보상은 다 받았어요 (연습은 계속 가능!)';
-  const nb=sc>(S.mg.b5||0);if(nb)S.mg.b5=sc;save();sfx('fan');$('mgh').innerHTML='끝! 유령 '+sc+'점 · 최대 콤보 '+MG.bc+(nb?' · 최고 기록!':'')+'<br>'+m;$('mgr').style.display='';
+  const nb=sc>(S.mg.b5||0);if(nb)S.mg.b5=sc;save();mgStop();fxSnd('gh_end');$('mgh').innerHTML='끝! 유령 '+sc+'점 · 최대 콤보 '+MG.bc+(nb?' · 최고 기록!':'')+'<br>'+m;$('mgr').style.display='';
   if(sc>=12)setTimeout(()=>tako('=유령 사냥 대성공이다코~! 🎃','',3000,0),500);}
 /* ===== v6.4 명절 미니게임 공통 · 도트 그림 원본은 tools/mg/fest_sprites.py (python3로 실행하면 그림 확인용 png) =====
    그림 한 칸 = 화면 2px로 통일, 빛은 왼쪽 위, 테두리는 진한 같은 색 계열 */
@@ -1020,7 +1020,7 @@ const mgXY=(e,c)=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*3
 /* 보상: r개(0~2) 주기 · 하루 횟수는 다른 미니게임과 합산 · low=true면 기록은 작을수록 좋음 */
 function mgRw(r,fail,bk,rec,low){const td=todayStr();if(S.mg.d!==td)S.mg={...S.mg,d:td,n:0};let m;
   if(S.mg.n<ECO.mgPlays){if(r)S.mg.n++;S.acorns+=r;m=r?'🌰 +'+r+' 받았어요!':fail+' (보상 기회는 아직 남았어요)';}else m='오늘 보상은 다 받았어요 (연습은 계속 가능!)';
-  const o=S.mg[bk]||0,nb=low?(!o||rec<o):rec>o;if(nb)S.mg[bk]=rec;save();sfx('fan');return[m,nb];}
+  const o=S.mg[bk]||0,nb=low?(!o||rec<o):rec>o;if(nb)S.mg[bk]=rec;save();return[m,nb];}
 /* 결과 카드 (게임 화면 안) */
 /* 요즘 도트 게임식 창: 주황 나무 테두리(왼쪽 위 밝게·오른쪽 아래 어둡게) + 크림색 종이 */
 function fxPanel(g,x,y,w,h){const k='pn'+w+'x'+h;if(!fxC[k]){const[c,q]=fxCv(w,h),W=w/2,H=h/2,P=(a,b,col)=>{q.fillStyle=col;q.fillRect(a*2,b*2,2,2);};
@@ -1036,6 +1036,67 @@ function fxCard(g,title,lines,stars){g.fillStyle='rgba(10,6,20,.5)';g.fillRect(0
   lines.forEach((l,i)=>fxTd(g,l,160,(stars!=null?232:198)+i*26,15));}
 const mjWeek=()=>{const md=todayStr().slice(5);return md>='11-24'&&md<='11-30';};
 const xmWeek=()=>{const md=todayStr().slice(5);return md>='12-18'&&md<='12-25';};
+/* ===== v6.5 명절 미니게임 소리: 게임마다 전용 배경음악(칩튠 반복) + 효과음. 설정의 소리 켜기·크기를 따르고, 다른 미니게임처럼 70% 크기 ===== */
+const MGA={tm:0,song:null,step:0,next:0,bus:null,nz:null};
+function mgAC(){if(!S.snd||S.sv===0)return null;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();return AC;}catch(e){return null;}}
+const mgV=()=>.7*S.sv/100;
+function mgN(t){const m=/^([A-G])([#b]?)(\d)$/.exec(t);if(!m)return 0;const n={C:0,D:2,E:4,F:5,G:7,A:9,B:11}[m[1]]+(m[2]==='#'?1:m[2]==='b'?-1:0)+(+m[3]+1)*12;return 440*Math.pow(2,(n-69)/12);}
+function mgOsc(f,t,len,type,vol,bus,f2){const A=AC,o=A.createOscillator(),v=A.createGain();o.type=type;o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+len);
+  v.gain.setValueAtTime(.0001,t);v.gain.exponentialRampToValueAtTime(vol,t+.006);v.gain.exponentialRampToValueAtTime(.0001,t+len);o.connect(v);v.connect(bus||A.destination);o.start(t);o.stop(t+len+.03);}
+function mgNz(t,len,vol,hp,bus,lp){const A=AC;if(!MGA.nz){const b=A.createBuffer(1,A.sampleRate*.6|0,A.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;MGA.nz=b;}
+  const s=A.createBufferSource(),f=A.createBiquadFilter(),v=A.createGain();s.buffer=MGA.nz;f.type=lp?'lowpass':'highpass';f.frequency.value=hp;v.gain.setValueAtTime(vol,t);v.gain.exponentialRampToValueAtTime(.0001,t+len);s.connect(f);f.connect(v);v.connect(bus||A.destination);s.start(t,Math.random()*.3);s.stop(t+len+.02);}
+/* 악보: 한 칸 = 16분음표, '.' 쉼, '-' 앞 음 늘이기. 칸 문자열을 마디(|)로 나눠 적음 */
+const mgTr=(s,p)=>({n:s.replace(/\|/g,' ').trim().split(/\s+/),p});
+const P_LEAD=(v,g=.9,ty='square')=>(f,t,l,b)=>f&&mgOsc(f,t,Math.max(.05,l*g),ty,v,b);
+const P_BASS=(v,ty='triangle')=>(f,t,l,b)=>f&&mgOsc(f,t,Math.max(.08,l*.85),ty,v,b);
+const P_PLUCK=v=>(f,t,l,b)=>{if(!f)return;mgOsc(f,t,.45,'triangle',v,b);mgOsc(f*2,t,.12,'sine',v*.35,b);};
+const P_DRUM=v=>(f,t,l,b,k)=>{if(k==='K'){mgOsc(140,t,.12,'sine',v*1.6,b,45);}else if(k==='S')mgNz(t,.09,v*.8,1500,b);else if(k==='H')mgNz(t,.03,v*.5,7000,b);else if(k==='J'){mgNz(t,.07,v*.6,6500,b);mgNz(t+.035,.05,v*.4,8000,b);}else if(k==='W'){mgOsc(900,t,.04,'sine',v*.9,b,700);mgNz(t,.02,v*.4,2500,b);}};
+const MG_SONG={
+  /* 유령 잡기: 통통 튀는 으스스한 E단조 */
+  gh:{bpm:138,vol:.55,tr:[mgTr('E5 . . G5 . . B5 . A#5 . A5 . G5 . . .|E5 . . G5 . . B5 . C6 . B5 . A5 . . .|F#5 . . A5 . . C6 . B5 . A5 . G5 . F#5 .|E5 . B4 . E5 . G5 . F#5 - - - . . . .',P_LEAD(.07,.55)),
+    mgTr('E3 . . . B2 . . . E3 . . . B2 . . .|E3 . . . B2 . . . A2 . . . B2 . . .|D3 . . . A2 . . . D3 . . . A2 . . .|E3 . . . B2 . . . E3 . B2 . E2 . . .',P_BASS(.16)),
+    mgTr('K . H . . . H . K . H . . . H .|K . H . . . H . K . H . . . H .|K . H . . . H . K . H . . . H .|K . H . . . H . K . K . H . H .',P_DRUM(.12))]},
+  /* 사탕 미로: 쫓고 쫓기는 A단조 아르페지오 */
+  mz:{bpm:152,vol:.5,tr:[mgTr('A4 . C5 . E5 . A5 . G5 . E5 . C5 . E5 .|F4 . A4 . C5 . F5 . E5 . C5 . A4 . C5 .|G4 . B4 . D5 . G5 . F5 . D5 . B4 . D5 .|E4 . G#4 . B4 . E5 . D5 . B4 . G#4 . B4 .',P_LEAD(.05,.6)),
+    mgTr('A2 . . . A3 . . . A2 . . . A3 . . .|F2 . . . F3 . . . F2 . . . F3 . . .|G2 . . . G3 . . . G2 . . . G3 . . .|E2 . . . E3 . . . E2 . . . G#2 . . .',P_BASS(.15)),
+    mgTr('K . H . S . H . K . H . S . H H',P_DRUM(.1))]},
+  /* 사탕 미로: 유령이 겁먹었을 때 빙글빙글 */
+  mzp:{bpm:184,vol:.45,tr:[mgTr('B5 C6 D6 C6 B5 C6 D6 C6 A5 B5 C6 B5 A5 B5 C6 B5',P_LEAD(.045,.8)),mgTr('B2 . B3 . B2 . B3 . A2 . A3 . A2 . A3 .',P_BASS(.13)),mgTr('K . H H S . H H',P_DRUM(.09))]},
+  /* 마작: 느긋한 5음계, 목탁 소리 */
+  mj:{bpm:84,vol:.6,tr:[mgTr('E5 . . . G5 . A5 . . . G5 . E5 . . .|D5 . . . E5 . G5 - - - . . . . . .|A5 . . . G5 . E5 . D5 . . . C5 . . .|D5 . . . E5 - - - . . . . G4 . A4 .',P_PLUCK(.13)),
+    mgTr('C3 - - - - - - - G2 - - - - - - -|A2 - - - - - - - E2 - - - - - - -|F2 - - - - - - - C3 - - - - - - -|G2 - - - - - - - G2 - - - - - - -',P_BASS(.12,'sine')),
+    mgTr('W . . . . . . . W . . . W . . .',P_DRUM(.12))]},
+  /* 썰매 배달: 징글벨(옛 민요, 저작권 끝남) + 방울 소리 */
+  sn:{bpm:168,vol:.5,tr:[mgTr('E5 . . . E5 . . . E5 - - - - - . .|E5 . . . E5 . . . E5 - - - - - . .|E5 . . . G5 . . . C5 - - . . . D5 .|E5 - - - - - - - - - - - . . . .|F5 . . . F5 . . . F5 - - . . . F5 .|F5 . . . E5 . . . E5 . . . E5 . E5 .|E5 . . . D5 . . . D5 . . . E5 . . .|D5 - - - - - . . G5 - - - - - . .',P_LEAD(.06,.75)),
+    mgTr('C3 . . . G2 . . . C3 . . . G2 . . .|C3 . . . G2 . . . C3 . . . G2 . . .|C3 . . . G2 . . . C3 . . . G2 . . .|C3 . . . G2 . . . C3 . . . E3 . . .|F2 . . . C3 . . . F2 . . . C3 . . .|C3 . . . G2 . . . C3 . . . G2 . . .|G2 . . . D3 . . . G2 . . . D3 . . .|G2 . . . D3 . . . G2 . . . B2 . . .',P_BASS(.15)),
+    mgTr('J . H . J . H . J . H . J . H H',P_DRUM(.1))]}};
+function mgPlay(k){if(MGA.song===MG_SONG[k])return;mgStop();const A=mgAC();if(!A)return;const s=MG_SONG[k],bus=A.createGain();bus.gain.value=mgV()*s.vol*1.8;bus.connect(A.destination);
+  Object.assign(MGA,{bus,song:s,step:0,next:A.currentTime+.08});MGA.tm=setInterval(mgSched,50);mgSched();}
+function mgSched(){const A=AC,s=MGA.song;if(!s||!A)return;if(!$('mg')){mgStop();return;}const sp=60/s.bpm/4;
+  while(MGA.next<A.currentTime+.22){s.tr.forEach(tr=>{const L=tr.n.length,tok=tr.n[MGA.step%L];if(tok!=='.'&&tok!=='-'){let k=1;while(k<16&&tr.n[(MGA.step+k)%L]==='-')k++;tr.p(mgN(tok),MGA.next,sp*k,MGA.bus,tok);}});MGA.step++;MGA.next+=sp;}}
+function mgStop(){clearInterval(MGA.tm);MGA.tm=0;MGA.song=null;if(MGA.bus){const b=MGA.bus;MGA.bus=null;try{b.gain.setTargetAtTime(0,AC.currentTime,.04);setTimeout(()=>b.disconnect(),300);}catch(e){}}}
+/* 효과음 */
+function fxSnd(k){const A=mgAC();if(!A)return;const t=A.currentTime,V=mgV(),O=(f,dt,l,ty,v,f2)=>mgOsc(f,t+dt,l,ty,v*V,null,f2),Z=(dt,l,v,hp,lp)=>mgNz(t+dt,l,v*V,hp,null,lp),arp=(fs,step,l,ty,v)=>fs.forEach((f,i)=>O(f,i*step,l,ty,v));
+  ({gh_catch:()=>{Z(0,.12,.25,1200);O(660,0,.09,'square',.08,1320);},
+    gh_purple:()=>{Z(0,.1,.2,1500);arp([880,1175,1568,2093],.045,.12,'triangle',.16);},
+    gh_bat:()=>{O(240,0,.22,'square',.09,90);Z(0,.15,.12,300,1);},
+    gh_end:()=>{arp([330,392,494,659],.11,.22,'square',.07);O(165,.44,.6,'triangle',.18);},
+    mz_eat:()=>{MGA.wk=!MGA.wk;O(MGA.wk?520:700,0,.05,'triangle',.14,MGA.wk?700:520);},
+    mz_pow:()=>{arp([523,659,784,1047,1319],.04,.12,'square',.06);Z(0,.25,.12,4000);},
+    mz_ghost:()=>{O(1200,0,.25,'square',.06,300);arp([1568,2093],.12,.18,'triangle',.14);},
+    mz_hit:()=>{O(660,0,.55,'square',.08,110);Z(.05,.3,.15,600,1);},
+    mz_end:()=>{arp([440,523,659,880],.1,.2,'square',.06);O(220,.4,.5,'triangle',.18);},
+    mz_clear:()=>{arp([523,659,784,1047,784,1047,1319],.08,.18,'square',.07);O(262,.56,.7,'triangle',.2);},
+    mj_flip:()=>{Z(0,.035,.25,900);O(320,0,.05,'triangle',.18,260);},
+    mj_pon:()=>{O(1047,0,.32,'triangle',.18);O(1568,.07,.36,'triangle',.15);Z(0,.04,.12,3000);},
+    mj_miss:()=>{O(196,0,.14,'triangle',.18,150);},
+    mj_win:()=>{O(110,0,1.8,'sine',.3);O(111.5,0,1.8,'sine',.22);O(165,0,1.4,'sine',.12);arp([659,784,880,1047,1175,1319],.09,.3,'triangle',.12);},
+    sn_drop:()=>{Z(0,.12,.15,3000);O(1319,0,.07,'triangle',.1);},
+    sn_hit:()=>{Z(0,.08,.2,250,1);arp([1568,2093],.05,.2,'triangle',.15);Z(.02,.12,.15,7000);},
+    sn_hit2:()=>{Z(0,.08,.2,250,1);arp([1568,2093,2637,3136],.045,.22,'triangle',.15);Z(.02,.25,.18,7500);},
+    sn_miss:()=>{Z(0,.18,.18,500,1);},
+    sn_nose:()=>{arp([2093,2637],.07,.1,'sine',.12);},
+    sn_end:()=>{arp([523,659,784,1047],.1,.25,'square',.06);Z(.1,.5,.15,7000);O(262,.4,.6,'triangle',.18);}})[k]?.();}
 /* ===== 🍬 토리의 사탕 미로 (할로윈 주간 10/25~31) · 밀어서 토리를 움직여 사탕을 모아요. 호박 등불을 먹으면 유령이 겁먹어요 ===== */
 const MZ=["#############","#o.........o#","#.##.###.##.#","#...........#","#.#.##-##.#.#","#.#.#GGG#.#.#","#...#####...#","###.......###","#...##.##...#","#.#.......#.#","#.#.##.##.#.#","#o...#.#...o#","#.##.....##.#","#.....T.....#","#############"];
 const MZT=24,MZX=4,MZY=46,MZD=[[1,0],[0,1],[-1,0],[0,-1]];
@@ -1091,11 +1152,11 @@ function mzGhDec(gh){if(gh.lv){if(gh.r>3)return gh.c!==6?(gh.c<6?0:2):3;gh.lv=0;
   return opts.reduce((b,d)=>{const q=Math.hypot(gh.c+MZD[d][0]-tx,gh.r+MZD[d][1]-ty);return q<b[1]?[d,q]:b;},[opts[0],1e9])[0];}
 function mzHome(gh,delay){Object.assign(gh,{st:'h',c:gh.i?7:5,r:5,d:-1,t:0,lv:0,fr:0,rel:MG.e+delay});}
 function mzReset(){MG.P={c:6,r:13,d:-1,t:0,w:-1,fl:0,arr:mzEat};MG.G.forEach((gh,i)=>mzHome(gh,1+i*2.5));MG.inv=1.5;}
-function mzEat(P){const k=P.r*13+P.c;if(MG.cd.delete(k)){MG.s+=1;wcSnd(MG.cd.size%2?660:880,.04,.05);}
-  if(MG.pw.delete(k)){MG.s+=2;sfx('coin');MG.G.forEach(gh=>{if(gh.st==='o'){gh.fr=6;if(gh.d>=0&&gh.t>0){gh.c+=MZD[gh.d][0];gh.r+=MZD[gh.d][1];gh.t=1-gh.t;gh.d=(gh.d+2)%4;}}});MG.msg='유령들이 겁먹었다코! 지금 잡아라코!';MG.mt=2;}
+function mzEat(P){const k=P.r*13+P.c;if(MG.cd.delete(k)){MG.s+=1;fxSnd('mz_eat');}
+  if(MG.pw.delete(k)){MG.s+=2;fxSnd('mz_pow');MG.G.forEach(gh=>{if(gh.st==='o'){gh.fr=6;if(gh.d>=0&&gh.t>0){gh.c+=MZD[gh.d][0];gh.r+=MZD[gh.d][1];gh.t=1-gh.t;gh.d=(gh.d+2)%4;}}});MG.msg='유령들이 겁먹었다코! 지금 잡아라코!';MG.mt=2;}
   if(!MG.cd.size&&!MG.pw.size){MG.s+=10;mg6End(1);}}
 function mg6Start(){if(MG.raf)cancelAnimationFrame(MG.raf);const cd=new Set(),pw=new Set();MZ.forEach((row,r)=>[...row].forEach((ch,c)=>{if(ch==='.')cd.add(r*13+c);if(ch==='o')pw.add(r*13+c);}));
-  MG={k:'mz',e:0,l:0,raf:0,s:0,lv:3,cd,pw,G:[{i:0},{i:1}],ht:0,inv:0,msg:'손가락으로 밀어서 토리를 움직여라코!',mt:2.5,fx:[]};mzReset();$('mgr').style.display='none';
+  MG={k:'mz',e:0,l:0,raf:0,s:0,lv:3,cd,pw,G:[{i:0},{i:1}],ht:0,inv:0,msg:'손가락으로 밀어서 토리를 움직여라코!',mt:2.5,fx:[]};mzReset();$('mgr').style.display='none';mgPlay('mz');
   const c=$('mgc'),g=c.getContext('2d');g.imageSmoothingEnabled=false;const cand=fxS('candy');
   const loop=ts=>{if(!$('mg'))return;if(!MG.l)MG.l=ts;const dt=Math.min(.05,(ts-MG.l)/1000);MG.l=ts;MG.e+=dt;if(MG.mt>0)MG.mt-=dt;if(MG.inv>0)MG.inv-=dt;
     if(MG.ht>0){MG.ht-=dt;if(MG.ht<=0){if(MG.lv<=0){mg6End(0);return;}mzReset();}}
@@ -1103,9 +1164,10 @@ function mg6Start(){if(MG.raf)cancelAnimationFrame(MG.raf);const cd=new Set(),pw
       MG.G.forEach(gh=>{if(gh.fr>0)gh.fr-=dt;if(gh.st==='h'){if(MG.e>=gh.rel){gh.st='o';gh.lv=1;gh.d=-1;gh.t=0;}return;}
         mzStep(gh,gh.fr>0?2.6:gh.lv?3:Math.min(4.9,3.8+MG.e*.02),dt,mzGhDec);
         const a=mzPx(gh),b=mzPx(MG.P);if(Math.hypot(a[0]-b[0],a[1]-b[1])<16){
-          if(gh.fr>0){MG.s+=5;sfx('coin');MG.fx.push({x:a[0],y:a[1],t:.6,m:'+5'});mzHome(gh,3);}
-          else if(MG.inv<=0&&MG.ht<=0){MG.lv--;MG.ht=1.1;sfx('no');MG.msg=MG.lv>0?'앗! 유령한테 잡혔다코!':'토리가 잡혀 버렸다코…';MG.mt=1.1;}}});}
+          if(gh.fr>0){MG.s+=5;fxSnd('mz_ghost');MG.fx.push({x:a[0],y:a[1],t:.6,m:'+5'});mzHome(gh,3);}
+          else if(MG.inv<=0&&MG.ht<=0){MG.lv--;MG.ht=1.1;fxSnd('mz_hit');MG.msg=MG.lv>0?'앗! 유령한테 잡혔다코!':'토리가 잡혀 버렸다코…';MG.mt=1.1;}}});}
     if(MG.over)return;
+    mgPlay(MG.G.some(gh=>gh.fr>0)?'mzp':'mz');
     /* 그리기 */
     g.drawImage(mzBack(),0,0);
     MG.cd.forEach(k=>{const cc=k%13,r=(k-cc)/13;fxShadow(g,MZX+cc*MZT+12,MZY+r*MZT+20,12);g.drawImage(cand,MZX+cc*MZT+5,MZY+r*MZT+4+((cc+r+Math.floor(MG.e*2))%4===0?-2:0));});
@@ -1120,7 +1182,7 @@ function mg6Start(){if(MG.raf)cancelAnimationFrame(MG.raf);const cd=new Set(),pw
     if(MG.mt>0)fxMsg(g,MG.msg,424);
     $('mgh').textContent='토리의 사탕 미로 · 점수 '+MG.s;
     if(MG.e>=60){mg6End(0);return;}MG.raf=requestAnimationFrame(loop);};MG.raf=requestAnimationFrame(loop);}
-function mg6End(win){if(MG.over)return;MG.over=1;cancelAnimationFrame(MG.raf);MG.raf=0;const sc=MG.s,r=sc>=80?2:sc>=40?1:0,[m,nb]=mgRw(r,'40점부터 도토리를 받아요','b6',sc);
+function mg6End(win){if(MG.over)return;MG.over=1;cancelAnimationFrame(MG.raf);MG.raf=0;const sc=MG.s,r=sc>=80?2:sc>=40?1:0,[m,nb]=mgRw(r,'40점부터 도토리를 받아요','b6',sc);mgStop();fxSnd(win?'mz_clear':'mz_end');
   const g=$('mgc').getContext('2d');fxCard(g,win?'사탕을 다 모았어요!':'끝!',['점수 '+sc+(nb?' · 최고 기록!':''),'남은 사탕 '+MG.cd.size+'개'],null);
   $('mgh').innerHTML=(win?'다 모았다! ':'끝! ')+'점수 '+sc+(nb?' · 최고 기록!':'')+'<br>'+m;$('mgr').style.display='';if(sc>=40)setTimeout(()=>tako('=사탕 부자 토리다코~! 🎃','',3000,0),500);}
 /* ===== 🀄 마작패 짝 맞추기 (11월 마지막 주 11/24~30) · 진짜 마작패(통수·삭수·만수·자패) 20장, 같은 패 두 장을 찾아요 ===== */
@@ -1169,7 +1231,7 @@ const mjPos=t=>[MJ_X+t.c*(MJ_TW+MJ_G[0]),MJ_Y+t.r*(MJ_TH+MJ_G[1])];
 function mg7Open(){const c=mgShell('#123d28','mg7Start()');if(!c)return;c.addEventListener('pointerdown',e=>{e.preventDefault();const[x,y]=mgXY(e,c);mg7Tap(x,y);});mg7Start();}
 function mg7Start(){if(MG.raf)cancelAnimationFrame(MG.raf);$('mgr').style.display='none';
   const ids=MJ_POOL.slice().sort(()=>Math.random()-.5).slice(0,10),d=[...ids,...ids].sort(()=>Math.random()-.5);
-  MG={k:'mj',e:0,l:0,raf:0,T:d.map((id,i)=>({id,c:i%4,r:Math.floor(i/4),f:0,ft:0,done:0,dt:0,sh:0})),open:[],wait:0,tries:0,cb:0,bc:0,fx:[],msg:'같은 패 두 장을 찾아라코!',mt:2.5,over:0};
+  MG={k:'mj',e:0,l:0,raf:0,T:d.map((id,i)=>({id,c:i%4,r:Math.floor(i/4),f:0,ft:0,done:0,dt:0,sh:0})),open:[],wait:0,tries:0,cb:0,bc:0,fx:[],msg:'같은 패 두 장을 찾아라코!',mt:2.5,over:0};mgPlay('mj');
   const c=$('mgc'),g=c.getContext('2d');g.imageSmoothingEnabled=false;const back=mjBase(1);let ready=0;
   Promise.race([document.fonts.load('11px Galmuri11','一二三四五六七八九萬東南西北中發'),new Promise(r=>setTimeout(r,1500))]).catch(()=>{}).then(()=>{ids.forEach(mjFace);ready=1;});
   const loop=ts=>{if(!$('mg'))return;if(!MG.l)MG.l=ts;const dt=Math.min(.05,(ts-MG.l)/1000);MG.l=ts;if(!MG.over&&ready)MG.e+=dt;if(MG.mt>0)MG.mt-=dt;
@@ -1183,10 +1245,10 @@ function mg7Start(){if(MG.raf)cancelAnimationFrame(MG.raf);$('mgr').style.displa
     if(MG.over)MG.card(g);
     if(!MG.over)$('mgh').textContent='마작패 짝 맞추기 · 시도 '+MG.tries;MG.raf=requestAnimationFrame(loop);};MG.raf=requestAnimationFrame(loop);}
 function mg7Tap(x,y){if(MG.over||MG.wait>0)return;const t=MG.T.find(t=>{const[tx,ty]=mjPos(t);return!t.done&&!t.f&&x>=tx&&x<=tx+MJ_TW&&y>=ty&&y<=ty+MJ_TH;});if(!t)return;
-  t.f=1;wcSnd(520,.04,.05);MG.open.push(t);if(MG.open.length<2)return;MG.tries++;const[a,b]=MG.open;MG.wait=1;
-  if(a.id===b.id){MG.cb++;MG.bc=Math.max(MG.bc,MG.cb);setTimeout(()=>{if(MG.k!=='mj')return;a.done=b.done=1;[a,b].forEach((t,i)=>{const[x,y]=mjPos(t);MG.fx.push({x:x+MJ_TW/2,y:y+MJ_TH/2,t:.5,m:i?'':'퐁!'});});wcSnd(880,.06,.07);setTimeout(()=>wcSnd(1175,.08,.07),70);MG.open=[];MG.wait=0;if(MG.T.every(t=>t.done))setTimeout(mg7End,500);},380);}
-  else{MG.cb=0;setTimeout(()=>{if(MG.k!=='mj')return;a.sh=b.sh=.25;wcSnd(220,.07,.05);setTimeout(()=>{a.f=b.f=0;MG.open=[];MG.wait=0;},250);},650);}}
-function mg7End(){if(MG.over||MG.k!=='mj')return;MG.over=1;const tr=MG.tries,st=tr<=14?3:tr<=20?2:1,r=st===3?2:st===2?1:0,[m,nb]=mgRw(r,'별 2개부터 도토리를 받아요','b7',tr,1);
+  t.f=1;fxSnd('mj_flip');MG.open.push(t);if(MG.open.length<2)return;MG.tries++;const[a,b]=MG.open;MG.wait=1;
+  if(a.id===b.id){MG.cb++;MG.bc=Math.max(MG.bc,MG.cb);setTimeout(()=>{if(MG.k!=='mj')return;a.done=b.done=1;[a,b].forEach((t,i)=>{const[x,y]=mjPos(t);MG.fx.push({x:x+MJ_TW/2,y:y+MJ_TH/2,t:.5,m:i?'':'퐁!'});});fxSnd('mj_pon');MG.open=[];MG.wait=0;if(MG.T.every(t=>t.done))setTimeout(mg7End,500);},380);}
+  else{MG.cb=0;setTimeout(()=>{if(MG.k!=='mj')return;a.sh=b.sh=.25;fxSnd('mj_miss');setTimeout(()=>{a.f=b.f=0;MG.open=[];MG.wait=0;},250);},650);}}
+function mg7End(){if(MG.over||MG.k!=='mj')return;MG.over=1;const tr=MG.tries,st=tr<=14?3:tr<=20?2:1,r=st===3?2:st===2?1:0,[m,nb]=mgRw(r,'별 2개부터 도토리를 받아요','b7',tr,1);mgStop();fxSnd('mj_win');
   MG.card=g=>fxCard(g,'화료! 다 맞췄어요',['시도 '+tr+'번 · '+Math.floor(MG.e)+'초','최대 '+MG.bc+'연속'+(nb?' · 최고 기록!':'')],st);
   $('mgh').innerHTML='화료! 시도 '+tr+'번'+(nb?' · 최고 기록!':'')+'<br>'+m;$('mgr').style.display='';if(st>=2)setTimeout(()=>tako('=마작 고수다코~! 🀄','',3000,0),500);}
 /* ===== 🎅 루돌프 썰매 배달 (크리스마스 주간 12/18~25) · 탭하면 썰매에서 선물이 떨어져요. 굴뚝에 쏙! 루돌프 코가 반짝일 때 넣으면 2배 ===== */
@@ -1255,23 +1317,23 @@ function snHouses(){if(SNH)return SNH;SNH=[];const walls=[['#8a4b3c','#6e3a2e','
   return SNH;}
 function mg8Open(){const c=mgShell('#0d1430','mg8Start()');if(!c)return;c.addEventListener('pointerdown',e=>{e.preventDefault();mg8Tap();});mg8Start();}
 addEventListener('keydown',e=>{if($('mg')&&MG.k==='sn'&&(e.key===' '||e.key==='Enter')){e.preventDefault();mg8Tap();}});
-function mg8Tap(){if(MG.k!=='sn'||MG.over||MG.left<=0||MG.cd>0)return;MG.cd=.4;MG.left--;const y=MG.sy+22;MG.pr.push({x:MG.sx+16,y,vx:42,vy:-50,pk:'g'+Math.floor(Math.random()*4),x2:MG.nz>0});wcSnd(440,.05,.05);}
+function mg8Tap(){if(MG.k!=='sn'||MG.over||MG.left<=0||MG.cd>0)return;MG.cd=.4;MG.left--;const y=MG.sy+22;MG.pr.push({x:MG.sx+16,y,vx:42,vy:-50,pk:'g'+Math.floor(Math.random()*4),x2:MG.nz>0});fxSnd('sn_drop');}
 function mg8Start(){if(MG.raf)cancelAnimationFrame(MG.raf);$('mgr').style.display='none';const HS=snHouses();
-  MG={k:'sn',e:0,l:0,raf:0,s:0,left:20,cd:0,pr:[],H:[],pf:[],fx:[],dist:0,sx:22,sy:96,nz:0,nzN:3.5,cb:0,msg:'굴뚝에 선물을 쏙 넣어라코! 탭!',mt:2.5,over:0};
+  MG={k:'sn',e:0,l:0,raf:0,s:0,left:20,cd:0,pr:[],H:[],pf:[],fx:[],dist:0,sx:22,sy:96,nz:0,nzN:3.5,cb:0,msg:'굴뚝에 선물을 쏙 넣어라코! 탭!',mt:2.5,over:0};mgPlay('sn');
   let hx=200;while(hx<520){const v=Math.floor(Math.random()*6);MG.H.push({v,x:hx,pt:Math.random()});hx+=HS[v].w+60+Math.random()*60;}
   const c=$('mgc'),g=c.getContext('2d');g.imageSmoothingEnabled=false;
   const snow=[];for(let i=0;i<60;i++)snow.push([Math.random()*320,Math.random()*440,.5+Math.random()]);
   const loop=ts=>{if(!$('mg'))return;if(!MG.l)MG.l=ts;const dt=Math.min(.05,(ts-MG.l)/1000);MG.l=ts;MG.e+=dt;if(MG.mt>0)MG.mt-=dt;if(MG.cd>0)MG.cd-=dt;
     const v=MG.over?0:95+MG.e*1.6;MG.dist+=v*dt;MG.sy=96+Math.round(Math.sin(MG.e*2.6)*3)*2;
-    if(MG.nz>0)MG.nz-=dt;else if(MG.e>=MG.nzN){MG.nz=1.3;MG.nzN=MG.e+1.3+2.8+Math.random()*2.2;}
+    if(MG.nz>0)MG.nz-=dt;else if(MG.e>=MG.nzN&&!MG.over){MG.nz=1.3;fxSnd('sn_nose');MG.nzN=MG.e+1.3+2.8+Math.random()*2.2;}
     MG.H.forEach(h=>h.x-=v*dt);MG.H=MG.H.filter(h=>h.x+HS[h.v].w>-20);{const L=MG.H[MG.H.length-1];if(!L||L.x+HS[L.v].w<320+40){const nv=Math.floor(Math.random()*6);MG.H.push({v:nv,x:(L?L.x+HS[L.v].w:320)+55+Math.random()*70,pt:0});}}
     /* 굴뚝 연기 */MG.H.forEach(h=>{h.pt-=dt;if(h.pt<=0){h.pt=.45;const S=HS[h.v];MG.pf.push({x:h.x+S.cx,y:SN_G-S.h-2,t:1.6,r:3});}});
     MG.pf=MG.pf.filter(p=>{p.t-=dt;p.y-=18*dt;p.x-=(v*.15+8)*dt;p.r+=3*dt;return p.t>0;});
     /* 선물 떨어뜨리기 */
     MG.pr=MG.pr.filter(p=>{if(p.land!=null){p.land-=dt;p.x-=v*dt;return p.land>0;}const b0=p.y+18;p.vy+=560*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;const b1=p.y+18,cxp=p.x+9;
-      for(const h of MG.H){const S=HS[h.v],top=SN_G-S.h+S.cy,ccx=h.x+S.cx;if(b0<=top+2&&b1>top+2&&Math.abs(cxp-ccx)<=S.cw/2+3){const pts=p.x2?2:1;MG.s+=pts;MG.cb++;sfx('coin');MG.fx.push({x:ccx,y:top,t:.6,m:'+'+pts,c:p.x2?'#ff7a6a':'#fff0a6'});MG.msg=p.x2?'반짝 배달! 2배다코!':MG.cb>=3?MG.cb+'연속 배달이다코!':'배달 완료다코!';MG.mt=.9;return false;}
-        const ry=SN_G-S.h+S.roof(cxp-h.x);if(cxp>h.x&&cxp<h.x+S.w&&b1>=ry){p.y=ry-18;p.land=.6;MG.cb=0;wcSnd(200,.06,.05);return true;}}
-      if(b1>=SN_G+6){p.y=SN_G-12;p.land=.6;MG.cb=0;return true;}return p.y<460;});
+      for(const h of MG.H){const S=HS[h.v],top=SN_G-S.h+S.cy,ccx=h.x+S.cx;if(b0<=top+2&&b1>top+2&&Math.abs(cxp-ccx)<=S.cw/2+3){const pts=p.x2?2:1;MG.s+=pts;MG.cb++;fxSnd(p.x2?'sn_hit2':'sn_hit');MG.fx.push({x:ccx,y:top,t:.6,m:'+'+pts,c:p.x2?'#ff7a6a':'#fff0a6'});MG.msg=p.x2?'반짝 배달! 2배다코!':MG.cb>=3?MG.cb+'연속 배달이다코!':'배달 완료다코!';MG.mt=.9;return false;}
+        const ry=SN_G-S.h+S.roof(cxp-h.x);if(cxp>h.x&&cxp<h.x+S.w&&b1>=ry){p.y=ry-18;p.land=.6;MG.cb=0;fxSnd('sn_miss');return true;}}
+      if(b1>=SN_G+6){p.y=SN_G-12;p.land=.6;MG.cb=0;fxSnd('sn_miss');return true;}return p.y<460;});
     /* 그리기 */
     g.drawImage(snSky(),0,0);
     for(let i=0;i<14;i++){if(Math.sin(MG.e*3+i*7)>.7){const x=Math.floor(sdH(i,1,51)*160)*2,y=Math.floor(sdH(i,2,51)*130)*2;g.fillStyle='#ffffff';g.fillRect(x,y,2,2);}}
@@ -1294,7 +1356,7 @@ function mg8Start(){if(MG.raf)cancelAnimationFrame(MG.raf);$('mgr').style.displa
     if(!MG.over)$('mgh').textContent='루돌프 썰매 배달 · '+MG.s+'점';
     if(!MG.over&&(MG.e>=30||(MG.left<=0&&!MG.pr.some(p=>p.land==null))))mg8End();
     if(MG.over)MG.card(g);MG.raf=requestAnimationFrame(loop);};MG.raf=requestAnimationFrame(loop);}
-function mg8End(){if(MG.over)return;MG.over=1;const sc=MG.s,r=sc>=16?2:sc>=8?1:0,[m,nb]=mgRw(r,'8점부터 도토리를 받아요','b8',sc);
+function mg8End(){if(MG.over)return;MG.over=1;const sc=MG.s,r=sc>=16?2:sc>=8?1:0,[m,nb]=mgRw(r,'8점부터 도토리를 받아요','b8',sc);mgStop();fxSnd('sn_end');
   MG.card=g=>fxCard(g,'메리 크리스마스!',['선물 배달 '+sc+'점'+(nb?' · 최고 기록!':''),'남은 선물 '+MG.left+'개'],null);
   $('mgh').innerHTML='배달 끝! '+sc+'점'+(nb?' · 최고 기록!':'')+'<br>'+m;$('mgr').style.display='';if(sc>=8)setTimeout(()=>tako('=산타 조수 토리다코~! 🎄','',3000,0),500);}
 function actGot(k){return S.actRw.d===todayStr()&&S.actRw.done[k];}
@@ -1346,9 +1408,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v6.4',d:'2026.10.03',log:['명절 미니게임 3개 (사탕 미로 · 마작패 · 썰매 배달)']};
+const APP_VER={v:'v6.5',d:'2026.10.03',log:['명절 미니게임 전용 배경음악 · 효과음']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v6.5',d:'2026.10.03',log:['유령 잡기 · 토리의 사탕 미로 · 마작패 짝 맞추기 · 루돌프 썰매 배달에 게임마다 전용 배경음악과 효과음을 넣었어요','사탕 미로에서 유령이 겁먹으면 음악이 빨라져요']},
  {v:'v6.4',d:'2026.10.03',log:['할로윈 주간(10/25~31) 새 미니게임 "토리의 사탕 미로": 마녀 모자 토리를 밀어서 움직여 사탕을 모아요. 호박 등불을 먹으면 유령을 잡을 수 있어요','11월 마지막 주(11/24~30) 새 미니게임 "마작패 짝 맞추기": 진짜 마작패 20장으로 하는 짝 맞추기','크리스마스 주간(12/18~25) 새 미니게임 "루돌프 썰매 배달": 굴뚝에 선물을 쏙! 루돌프 코가 반짝일 때 2배']},
  {v:'v5.9',d:'2026.10.03',log:['유령 잡기의 3점짜리 금빛 유령을 보라 유령으로 바꿨어요']},
  {v:'v5.8',d:'2026.10.03',log:['할로윈(10월 31일)을 기념일에 넣었어요. 홈 기념일 카드에 D-day가 나오고, 그날엔 토리가 할로윈 인사를 해요','할로윈 날엔 홈 토리의 방에 박쥐가 날아다니고 유령이 둥실 떠 있어요','할로윈 주간(10월 25~31일)에만 열리는 미니게임 "유령 잡기"가 생겼어요. 호박 등불에서 튀어나오는 유령을 탭! 금빛 유령은 3점, 박쥐는 -2점']},
