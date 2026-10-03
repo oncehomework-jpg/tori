@@ -1173,7 +1173,7 @@ function mg6Start(){if(MG.raf)cancelAnimationFrame(MG.raf);const cd=new Set(),pw
     MG.cd.forEach(k=>{const cc=k%13,r=(k-cc)/13;fxShadow(g,MZX+cc*MZT+12,MZY+r*MZT+20,12);g.drawImage(cand,MZX+cc*MZT+5,MZY+r*MZT+4+((cc+r+Math.floor(MG.e*2))%4===0?-2:0));});
     const lf=Math.floor(MG.e*5)%2;MG.pw.forEach(k=>{const cc=k%13,r=(k-cc)/13,x=MZX+cc*MZT+12,y=MZY+r*MZT+12;g.drawImage(fxGlow('#ffb347',lf?26:22),x-(lf?26:22),y-(lf?26:22));fxShadow(g,x,y+12,26);g.drawImage(fxS('lan'+lf),x-14,y-14);});
     MG.G.forEach(gh=>{let x,y;if(gh.st==='h'){x=MZX+gh.c*MZT+12;y=MZY+gh.r*MZT+12+Math.round(Math.sin(MG.e*4+gh.i*2)*2)*2;}else[x,y]=mzPx(gh);
-      fxShadow(g,x,y+11,22);const fr=Math.floor(MG.e*4+gh.i)%2,pk=gh.fr>0?(gh.fr<2&&Math.floor(MG.e*8)%2?'flash':'scared'):(gh.i?'purp2':'purp');g.drawImage(fxS('gh'+fr,pk,gh.d===2),Math.round(x-16),Math.round(y-18));});
+      fxShadow(g,x,y+11,22);const fr=Math.floor(MG.e*4+gh.i)%2,pk=gh.fr>0?(gh.fr<2&&Math.floor(MG.e*8)%2?'flash':'scared'):(gh.i?'purp2':'purp');if(pk==='purp'||pk==='purp2')g.globalAlpha=.7;g.drawImage(fxS('gh'+fr,pk,gh.d===2),Math.round(x-16),Math.round(y-18));g.globalAlpha=1;});
     {const[x,y]=mzPx(MG.P),mv=MG.P.d>=0&&MG.ht<=0;fxShadow(g,x,y+10,26);if(!(MG.inv>0&&Math.floor(MG.e*10)%2)){g.drawImage(fxS(mv&&Math.floor(MG.e*8)%2?'to1':'to0',null,MG.P.fl),Math.round(x-16),Math.round(y-20));}}
     MG.fx=MG.fx.filter(f=>{f.t-=dt;f.y-=24*dt;fxTx(g,f.m,f.x,f.y,16,'#fff0a6');return f.t>0;});
     /* 점수판 */
