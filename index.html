@@ -54,7 +54,7 @@ main{padding:16px 14px calc(96px + env(safe-area-inset-bottom,0px))}
 .row>.btn:not(.full),.row>span>.btn:not(.full),.row>div>.btn:not(.full),.q>.btn{white-space:nowrap;flex-shrink:0}.row.sp{flex-wrap:wrap;row-gap:6px}.row.sp>span.row{flex-wrap:wrap;justify-content:flex-end;margin-left:auto}
 /* 홈 '내역 · 퀘스트 하러 가기'는 늘 한 줄로 붙어 다녀요. 자리가 모자라면 묶음째 아랫줄로, 아주 좁으면 글자만 살짝 작게 */
 .row.sp>span.row.bpair{flex-wrap:nowrap}.row .bpair .btn.sm{font-size:min(calc(16px*var(--fs,1)),calc((100vw - 64px)/13.5))!important}
-input,select,textarea{font-family:inherit;font-size:16px;color:var(--tx);background:var(--cream);border:3px solid var(--ol);border-radius:0;padding:8px 10px;width:100%;margin:3px 0 8px}
+input,select,textarea{box-sizing:border-box;max-width:100%;min-width:0;font-family:inherit;font-size:16px;color:var(--tx);background:var(--cream);border:3px solid var(--ol);border-radius:0;padding:8px 10px;width:100%;margin:3px 0 8px}
 input::placeholder,textarea::placeholder{color:var(--mut)}
 textarea{resize:vertical}
 label{font-size:13px;color:var(--gold)}
@@ -158,6 +158,7 @@ nav button b .pxi{width:32px;height:32px}
 *{-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
 body{-webkit-user-select:none;user-select:none}
 input,textarea,select,[contenteditable]{-webkit-user-select:text;user-select:text}
+input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;display:block;min-height:44px}   /* 일정 입력칸이 화면 오른쪽 끝까지 삐져나가던 것 (v6.7) */
 img,canvas,svg{-webkit-user-drag:none;user-drag:none}
 .dc.sel{animation:bl .6s steps(2) infinite;outline:3px dashed var(--gold);outline-offset:2px}
 .hal{position:absolute;line-height:1;pointer-events:none}.hal .pxi{width:30px;height:30px}.hb2 .pxi{width:22px;height:22px}
@@ -178,7 +179,7 @@ html:not(.bold) *{text-shadow:.4px 0 0 currentColor}
 html:not(.bold) .card h2{text-shadow:.4px 0 0 currentColor,2px 2px 0 rgba(90,61,36,.2)}
 nav button{padding:14px 2px 16px}
 input[type=range]{padding:0;border:0;background:none}
-.hero img.pt{animation:chew .5s steps(4)}
+.hero.pt .timg,.hero.pt .tfill,.hero.pt .tlive>img,.hero.pt .accs{animation:chew .5s steps(4);transform-origin:var(--pto,50% 50%)}   /* 쓰담: 사진·움직이는 겹·메운 겹·장신구가 같은 점을 중심으로 함께 출렁 (v6.7) */
 /* nav: 아이콘+라벨 높이 보정 */
 nav button{padding:6px 2px 8px;line-height:1.2}
 nav button b{font-size:24px;line-height:1.2;margin-bottom:2px}
@@ -243,6 +244,7 @@ nav button{padding:15px 2px 15px;font-size:16px}
 #splash .go{animation:bl 1s steps(2) infinite}
 @media (prefers-reduced-motion:reduce){#splash,#splash img,#splash .go{animation:none}}
 .stx{position:absolute;font-size:34px;z-index:3;pointer-events:none;animation:bl 1s steps(2) infinite}
+option,optgroup{color:#4a3423;background:#fffaf0}html.dk option,html.dk optgroup{color:#f1e3c8;background:#2f251c}html.dk{color-scheme:dark}   /* 고르기 목록 글씨가 흰 바탕에 흰색으로 안 보이던 것 (v6.7) */
 html.dk{--bg:#2a2019;--bg2:#33281f;--win:#3d3025;--win2:#4d3d2d;--in:#6b563d;--tx:#f1e3c8;--mut:#c0a880;--gold:#f0b95a;--grn:#79ad4f;--pink-l:#5a3a44;--ol:#8a6d45;--ol2:#120c08;--cream:#2f251c}
 html.dk .btn:not(.wood):not(.pink):not(.ghost){color:#1c130d}
 html.dk .chip.on{color:#1c130d}
@@ -442,8 +444,8 @@ function mhDel(id){askOk('이 기념일을 지울까요?',()=>{S.myHol=S.myHol.f
 function schCard(){const t=todayStr(),up=(S.sched||[]).filter(s=>s.date>=t),past=(S.sched||[]).filter(s=>s.date<t).slice(-5).reverse();
   const row=(s,dim)=>`<div class="q ${dim?'dim':''}"><span>🗓 ${esc(s.name)}<div class="muted">${esc(s.date)} (${wdOf(s.date)})${s.time?' · '+esc(s.time):''}${s.memo?' · '+esc(s.memo):''}</div></span><span class="row"><button class="btn ghost sm" onclick="schForm('${s.id}')">✏️</button><button class="btn ghost sm" onclick="schDel('${s.id}')">✕</button></span></div>`;
   return `<div class="card"><h2>📅 일정 · 기념일</h2><div class="muted" style="margin-bottom:6px">가까운 일정과 기념일 5개를 홈 화면에 보여줘요.</div>
-  <div class="row sp" style="margin-top:8px"><b>🗓 일정</b><button class="btn sm" onclick="schForm()">+ 일정 추가</button></div>${up.map(s=>row(s)).join('')||'<div class="muted">다가오는 일정이 없어요.</div>'}${past.length?'<div class="muted" style="margin-top:6px">지난 일정</div>'+past.map(s=>row(s,1)).join(''):''}
-  <div class="row sp" style="margin-top:14px"><b>🎉 내 기념일 (매년)</b><button class="btn sm" onclick="mhForm()">+ 기념일 추가</button></div>${(S.myHol||[]).map(x=>`<div class="q"><span>${x.e} ${esc(x.name)}<div class="muted">매년 ${+x.md.slice(0,2)}월 ${+x.md.slice(3)}일</div></span><span class="row"><button class="btn ghost sm" onclick="mhForm('${x.id}')">✏️</button><button class="btn ghost sm" onclick="mhDel('${x.id}')">✕</button></span></div>`).join('')||'<div class="muted">아직 없어요. 처음 만난 날 같은 날을 넣어 보세요.</div>'}
+  <div class="row sp" style="margin-top:8px;margin-bottom:10px"><b>🗓 일정</b><button class="btn sm" onclick="schForm()">+ 일정 추가</button></div>${up.map(s=>row(s)).join('')||'<div class="muted">다가오는 일정이 없어요.</div>'}${past.length?'<div class="muted" style="margin-top:6px">지난 일정</div>'+past.map(s=>row(s,1)).join(''):''}
+  <div class="row sp" style="margin-top:14px;margin-bottom:10px"><b>🎉 내 기념일 (매년)</b><button class="btn sm" onclick="mhForm()">+ 기념일 추가</button></div>${(S.myHol||[]).map(x=>`<div class="q"><span>${x.e} ${esc(x.name)}<div class="muted">매년 ${+x.md.slice(0,2)}월 ${+x.md.slice(3)}일</div></span><span class="row"><button class="btn ghost sm" onclick="mhForm('${x.id}')">✏️</button><button class="btn ghost sm" onclick="mhDel('${x.id}')">✕</button></span></div>`).join('')||'<div class="muted">아직 없어요. 처음 만난 날 같은 날을 넣어 보세요.</div>'}
   <div style="margin-top:14px"><b>📌 기본 기념일</b><div class="muted">눌러서 켜고 끌 수 있어요 (꺼 두면 홈에 안 나와요).</div></div>${Object.keys(HG).map(g=>`<div class="muted" style="margin:10px 0 4px">${HG[g]}</div><div class="row wrap" style="gap:6px">${HOL.filter(h=>h[5]===g).map(h=>`<button class="chip ${(S.holOff||{})[h[0]]?'':'on'}" onclick="holTog('${h[0]}')">${h[1]} ${esc(h[2])}</button>`).join('')}</div>`).join('')}</div>`;}
 function holTog(id){if(!S.holOff)S.holOff={};if(S.holOff[id])delete S.holOff[id];else S.holOff[id]=1;save();rSet();}
 /* 매년 반복 D-day: 오늘 이후(오늘 포함) 가장 가까운 기념일 */
@@ -479,7 +481,7 @@ function rCoupon(){if(cTab==='month')return rMonth();
     <div class="row sp" style="margin-top:6px"><span class="qty">${(+c.qty||0)>0?'남은 '+(+c.qty)+'장':'모두 사용했어요'}</span><span class="row"><button class="btn sm" ${dead?'disabled style="opacity:.4"':''} onclick="cpUse('${c.id}')">사용하기</button></span></div></div></div></div>`;}).join('');
   const used=[...S.used].reverse().slice(0,20).map(u=>`<div class="row sp" style="padding:5px 0;border-top:2px dashed var(--in)"><span>${esc(u.emoji)} ${esc(u.name)}</span><span class="muted">${esc(u.date)}</span></div>`).join('');
   $('s-coupon').innerHTML=`<div class="card" style="background:var(--pink-l)"><h2>🐹 쓰담쓰담 보상</h2><div>${esc(hn())}가 오늘도 애쓴 진우를 쓰담쓰담~ 볼주머니에 아껴 둔 보답을 보상으로 준비했어요!</div></div>
-  ${cpTabs()}<button class="btn full" style="margin-bottom:14px" onclick="cpForm()">+ 새 보상 넣기</button>${list||'<div class="empty">아직 보상이 없어요.</div>'}${cpg>1?`<div class="row sp" style="margin-bottom:22px"><button class="btn sm" onclick="cPg(-1)">◀ 이전</button><span class="muted">${cPage+1} / ${cpg}</span><button class="btn sm" onclick="cPg(1)">다음 ▶</button></div>`:''}
+  ${cpTabs()}${list||'<div class="empty">아직 보상이 없어요.</div>'}${cpg>1?`<div class="row sp" style="margin-bottom:22px"><button class="btn sm" onclick="cPg(-1)">◀ 이전</button><span class="muted">${cPage+1} / ${cpg}</span><button class="btn sm" onclick="cPg(1)">다음 ▶</button></div>`:''}
   <div class="card"><h2>📜 사용 내역</h2>${used||'<div class="empty">아직 사용한 보상이 없어요.</div>'}</div>`;
 }
 function cpForm(){const id='',c={emoji:'🎟️',name:'',desc:'',grade:'일반',qty:1,expire:''};   /* 이미 있는 보상은 고칠 수 없어요 (새 보상 넣기 전용) */
@@ -567,7 +569,7 @@ function pat(){if(dMv!=null)return;const td=todayStr();if(!S.patD||S.patD.d!==td
   if(P.n===10&&!P.got){P.got=1;S.acorns+=ECO.pat;m+=' · 쓰담쓰담 10번 보너스 🌰 +'+ECO.pat;sfx('fan');}else sfx('coin');
   if(md!=='sleep'){const nw=Date.now();patS=nw-patS.t>900?{n:1,t:nw}:{n:patS.n+1,t:nw};const c=patS.n;
     if(c>=6&&!/🌰/.test(m)){if(c>=16){m='그만!! 진짜 화났어요! 💢';rx('angry');}else if(c>=11){m='흥! 삐졌어요… 그만 만져요 😒';rx('sulk');}else{m='아야! 너무 세게 만지면 슬퍼요… 😢';rx('sad2');}}else rx('pat');}
-  save();toast('🐹 '+hn()+': '+m);fx('star',4);const im=document.querySelector('.hero img');if(im){im.classList.remove('pt');void im.offsetWidth;im.classList.add('pt');}}
+  save();toast('🐹 '+hn()+': '+m);fx('star',4);const hc=document.querySelector('.card.hero'),im=hc&&hc.querySelector('.timg');if(hc&&im){hc.style.setProperty('--pto','50% '+Math.round(im.offsetHeight/2)+'px');hc.classList.remove('pt');void hc.offsetWidth;hc.classList.add('pt');}}
 async function icsDl(){const h=$('rh').value,t=todayStr().replace(/-/g,''),ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//JWDiary//KR','BEGIN:VEVENT','UID:jwdiary-remind@local','DTSTAMP:'+t+'T000000Z','DTSTART:'+t+'T'+h+'0000','DTEND:'+t+'T'+h+'1000','RRULE:FREQ=DAILY','SUMMARY:토리가 기다려요! 오늘 기록 남기기','DESCRIPTION:JW Diary 열어서 도토리 받기','BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY','DESCRIPTION:토리가 기다려요','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n')+'\r\n';
   const nm='jw-diary-reminder.ics';
   if(/iP(hone|ad|od)/.test(navigator.userAgent)){try{const f=new File([ics],nm,{type:'text/calendar'});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'JW Diary 알림'});toast('캘린더 앱으로 열어 추가해 주세요');return;}}catch(e){if(e&&e.name==='AbortError')return;}}
@@ -862,7 +864,7 @@ function mg2Start(){if(MG.raf)cancelAnimationFrame(MG.raf);MG={e:0,l:0,raf:0,y:2
     if(!MG.ab)MG.ab=Array.from({length:7},(_,i)=>({x:20+i*44,y:120+Math.random()*280,v:18+Math.random()*16}));g.fillStyle='rgba(230,247,255,.6)';MG.ab.forEach(b=>{b.y-=b.v*dt;b.x-=v*.35*dt;if(b.y<56||b.x<-6){b.y=380+Math.random()*30;b.x=40+Math.random()*290;}const z=b.v>26?4:2;g.fillRect(Math.round(b.x),Math.round(b.y),z,z);});}
     if(MG.d>10000){g.fillStyle='rgba(15,40,100,'+Math.min(.4,(MG.d-10000)/60000).toFixed(2)+')';g.fillRect(0,44,320,396);}
     g.fillStyle='#e6f7ff';MG.bb.forEach(b=>g.fillRect(Math.round(b.x),Math.round(b.y),4,4));
-    MG.ob.forEach(o=>{if(o.k==='r')H.dr('r',o.x,410-6*o.z,o.z);else if(o.k==='c'){H.dr(o.s,o.x,o.y,o.z);if(o.x>318)H.tx('!',296,o.y+o.h/2-10);}else H.dr('j',o.x,o.y,6);});
+    MG.ob.forEach(o=>{if(o.k==='r')H.dr('r',o.x,410-6*o.z,o.z);else if(o.k==='c'){H.dr(o.s,o.x,o.y,o.z);if(o.x>318&&Math.floor(MG.e*6)%2){const wy=Math.round((o.y+o.h/2-10)/2)*2;g.fillStyle='#4a1a1a';g.fillRect(306,wy-2,8,24);g.fillStyle='#ff5a4d';g.fillRect(308,wy,4,12);g.fillRect(308,wy+16,4,4);}}else H.dr('j',o.x,o.y,6);});
     if(MG.iv<=0||Math.floor(MG.e*12)%2)H.tk(TX,MG.y);
     if(MG.top>1){g.fillStyle='#4a3423';g.fillRect(TX-18,MG.y+24,36,6);g.fillStyle=MG.top>3.5?'#e0524d':'#f4c542';g.fillRect(TX-16,MG.y+26,Math.round(32*Math.min(1,MG.top/5)),2);}
     if(MG.mt>0)H.tx(MG.ms,TX+30,MG.y-46);
@@ -881,7 +883,7 @@ function gtSnd(l){if(!S.snd||S.sv===0)return;try{AC=AC||new(window.AudioContext|
 const TORI_FACE=new Image();TORI_FACE.src='assets/tori-face-76ee5c37.png';
 function mgH(g){return {dr:(k,x,y,z)=>MGS[k].forEach((row,j)=>[...row].forEach((ch,i)=>{if(ch!=='.'){g.fillStyle=MGP[ch];const X=Math.round(x+i*z),Y=Math.round(y+j*z);g.fillRect(X,Y,Math.round(x+(i+1)*z)-X,Math.round(y+(j+1)*z)-Y);}})),
   tk:(x,y)=>{if(TKI.complete&&TKI.naturalWidth)g.drawImage(TKI,Math.round(x-24),Math.round(y-24),48,48);else{g.fillStyle='#e79aa8';g.fillRect(x-16,y-16,32,32);}},
-  tx:(t,x,y)=>{g.font='14px NeoDunggeunmo,Galmuri11,monospace';g.textBaseline='middle';const w=Math.ceil(g.measureText(t).width)+12,bx=Math.max(2,Math.min(318-w,Math.round(x-w/2))),by=Math.max(4,Math.round(y));g.fillStyle='#4a3423';g.fillRect(bx-2,by-2,w+4,24);g.fillStyle='#fffaf0';g.fillRect(bx,by,w,20);g.fillStyle='#4a3423';g.fillText(t,bx+6,by+10);}};}
+  tx:(t,x,y)=>{g.font=fxF(14);g.textBaseline='middle';const w=Math.ceil(g.measureText(t).width)+12,bx=Math.max(2,Math.min(318-w,Math.round(x-w/2))),by=Math.max(4,Math.round(y));g.fillStyle='#4a3423';g.fillRect(bx-2,by-2,w+4,24);g.fillStyle='#fffaf0';g.fillRect(bx,by,w,20);g.fillStyle='#4a3423';g.fillText(t,bx+6,by+10);}};}
 /* 기타리스트 음표: 동그란 보석 (m=0 음표, 1 받는 자리 테두리, 2 받는 자리 반짝) */
 const GEM=["....kkkk....","..kkcccckk..",".kchhccccck.",".kchcccccck.","kcccccccccsk","kcccccccccsk","kcccccccccsk","kccccccccssk",".kccccccssk.",".kcccccsssk.","..kksssskk..","....kkkk...."];
 function gtGem(g,cx,cy,col,m){const z=2,x0=Math.round(cx-12),y0=Math.round(cy-12);GEM.forEach((r,j)=>[...r].forEach((ch,i)=>{if(ch==='.')return;
@@ -1012,7 +1014,9 @@ function fxS(n,pk,fl){const k=n+'|'+(pk||'')+'|'+(fl?1:0);if(fxC[k])return fxC[k
 function fxCv(w,h){const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');g.imageSmoothingEnabled=false;return[c,g];}
 /* 도트식 둥근 빛 (2px 칸, 3단 밝기) */
 function fxGlow(col,r){const k='glow'+col+r;if(fxC[k])return fxC[k];const[c,g]=fxCv(r*2,r*2);g.fillStyle=col;for(let y=0;y<r*2;y+=2)for(let x=0;x<r*2;x+=2){const d=Math.hypot(x+1-r,y+1-r)/r;if(d>1)continue;g.globalAlpha=d<.45?.38:d<.75?.22:.1;g.fillRect(x,y,2,2);}return fxC[k]=c;}
-function fxTx(g,t,x,y,sz,col,al){g.font=(sz||16)+'px NeoDunggeunmo,Galmuri11,monospace';g.textAlign=al||'center';g.textBaseline='middle';g.fillStyle='rgba(20,12,30,.85)';g.fillText(t,x+2,y+2);g.fillStyle=col||'#fffaf0';g.fillText(t,x,y);}
+/* 도트 글꼴은 원래 크기에서만 또렷해요: 작은 글씨는 갈무리14(14px), 큰 글씨는 둥근모(16px). 그림자는 1칸만 (v6.7) */
+const fxF=sz=>(sz||16)<=15?"14px Galmuri14,Galmuri11,NeoDunggeunmo,monospace":"16px NeoDunggeunmo,Galmuri11,monospace";
+function fxTx(g,t,x,y,sz,col,al){g.font=fxF(sz);g.textAlign=al||'center';g.textBaseline='middle';g.fillStyle='rgba(20,12,30,.7)';g.fillText(t,Math.round(x)+1,Math.round(y)+1);g.fillStyle=col||'#fffaf0';g.fillText(t,Math.round(x),Math.round(y));}
 function mgShell(bg,again){if($('mg'))return null;const o=document.createElement('div');o.id='mg';o.style.cssText='position:fixed;inset:0;z-index:70;background:'+bg+';display:flex;flex-direction:column;align-items:center;justify-content:center;touch-action:none;color:#fffaf0';
   o.innerHTML='<div id="mgh" style="margin-bottom:8px;text-align:center"></div><canvas id="mgc" width="320" height="440" style="max-width:100%;max-height:74vh;image-rendering:pixelated;border:4px solid #fffaf0;background:'+bg+';touch-action:none"></canvas><div class="row" style="margin-top:10px;width:min(320px,90%)"><button class="btn ghost full" onclick="mgClose()">닫기</button><button class="btn full" id="mgr" style="display:none" onclick="'+again+'">한 번 더</button></div>';
   document.body.appendChild(o);const c=$('mgc');c.getContext('2d').imageSmoothingEnabled=false;return c;}
@@ -1027,8 +1031,8 @@ function fxPanel(g,x,y,w,h){const k='pn'+w+'x'+h;if(!fxC[k]){const[c,q]=fxCv(w,h
     for(let b=0;b<H;b++)for(let a=0;a<W;a++){const e=Math.min(a,b,W-1-a,H-1-b),cor=(a<2||a>W-3)&&(b<2||b>H-3);if(cor&&((a===0||a===W-1)||(b===0||b===H-1)))continue;
       let col;if(e===0)col='#5b2b14';else if(e===1)col=(a===1||b===1)?'#ec9a45':'#c2621f';else if(e===2)col=(a===W-3||b===H-3)?'#8a3f12':'#d07a2c';else if(e===3)col='#7a3a14';else col=(a+b)%2&&sdH(a,b,71)<.25?'#f1cf90':'#f8dca2';P(a,b,col);}
     fxC[k]=c;}g.drawImage(fxC[k],Math.round(x/2)*2,Math.round(y/2)*2);}
-function fxTd(g,t,x,y,sz,col,al){g.font=(sz||16)+'px NeoDunggeunmo,Galmuri11,monospace';g.textAlign=al||'center';g.textBaseline='middle';g.fillStyle='#fff3d0';g.fillText(t,x+1,y+2);g.fillStyle=col||'#5b2b14';g.fillText(t,x,y);}
-function fxMsg(g,t,y){g.font='14px NeoDunggeunmo,Galmuri11,monospace';const w=Math.ceil(g.measureText(t).width/2)*2+28;fxPanel(g,160-w/2,y-15,w,30);fxTd(g,t,160,y+1,14);}
+function fxTd(g,t,x,y,sz,col,al){g.font=fxF(sz);g.textAlign=al||'center';g.textBaseline='middle';g.fillStyle=col||'#5b2b14';g.fillText(t,Math.round(x),Math.round(y));}
+function fxMsg(g,t,y){g.font=fxF(14);const w=Math.ceil(g.measureText(t).width/2)*2+28;fxPanel(g,160-w/2,y-15,w,30);fxTd(g,t,160,y+1,14);}
 function fxShadow(g,cx,cy,w){const k='sh'+w;if(!fxC[k]){const hh=Math.max(4,Math.round(w/3/2)*2),[c,q]=fxCv(w,hh);q.fillStyle='#0a0614';for(let y=0;y<hh;y+=2)for(let x=0;x<w;x+=2){const d=Math.hypot((x+1-w/2)/(w/2),(y+1-hh/2)/(hh/2));if(d<=1){q.globalAlpha=d<.6?.42:.26;q.fillRect(x,y,2,2);}}fxC[k]=c;}const c=fxC[k];g.drawImage(c,Math.round((cx-w/2)/2)*2,Math.round((cy-c.height/2)/2)*2);}
 function fxCard(g,title,lines,stars){g.fillStyle='rgba(10,6,20,.5)';g.fillRect(0,0,320,440);fxPanel(g,32,128,256,stars!=null?184:160);
   fxTd(g,title,160,160,20,'#a8461a');
@@ -1417,9 +1421,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v6.6',d:'2026.10.03',log:['마작 화료 징 소리']};
+const APP_VER={v:'v6.7',d:'2026.10.05',log:['토리 쓰담·숨쉬기 자연스럽게 · 글자·입력칸 손보기']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v6.7',d:'2026.10.05',log:['토리를 쓰다듬을 때 사진만 출렁이고 얼굴은 가만히 있던 것을 고쳤어요 (슬퍼할 때 · 밤에도)','토리가 숨 쉴 때 도토리 쥔 손이 늘어나 보이던 것을 고쳤어요','미니게임 글자를 얇고 또렷하게 바꿨어요','타코 띄워 주기에서 바다 생물이 나오기 전 흰 상자 대신 작은 빨간 느낌표가 깜빡여요','도감 장소 종류 글씨가 안 보이던 것 · 일정 입력칸이 화면 밖으로 나가던 것 · 내 기념일 버튼 간격을 고쳤어요','보상 탭의 "새 보상 넣기"를 뺐어요 (이미 있는 보상은 그대로예요)']},
  {v:'v6.6',d:'2026.10.03',log:['마작패 짝 맞추기: 다 맞췄을 때 "쾅—" 하고 크게 울리는 진짜 징 소리로 바꿨어요']},
  {v:'v6.5',d:'2026.10.03',log:['유령 잡기 · 토리의 사탕 미로 · 마작패 짝 맞추기 · 루돌프 썰매 배달에 게임마다 전용 배경음악과 효과음을 넣었어요','사탕 미로에서 유령이 겁먹으면 음악이 빨라져요','루돌프 썰매 배달: 시작·배달·끝에 맑은 종소리가 울리고, 배경음악에도 종이 울려요']},
  {v:'v6.4',d:'2026.10.03',log:['할로윈 주간(10/25~31) 새 미니게임 "토리의 사탕 미로": 마녀 모자 토리를 밀어서 움직여 사탕을 모아요. 호박 등불을 먹으면 유령을 잡을 수 있어요','11월 마지막 주(11/24~30) 새 미니게임 "마작패 짝 맞추기": 진짜 마작패 20장으로 하는 짝 맞추기','크리스마스 주간(12/18~25) 새 미니게임 "루돌프 썰매 배달": 굴뚝에 선물을 쏙! 루돌프 코가 반짝일 때 2배']},
@@ -2193,7 +2198,7 @@ function liveOk(k){return !LIVE_OFF.has(k)&&!heroDim(k)&&!reduceMo();}
 function liveHtml(k){return liveOk(k)?'<div class="tlive" aria-hidden="true"><img alt=""></div>':'';}
 /* 토리 윗몸 오려 내기: 진한 테두리선 안쪽을 토리 얼굴 쪽에서부터 칠해 나가 토리만 남겨요(그림마다 한 번만, 결과는 기억).
    잘 안 오려지면(너무 크거나 작으면) 그 그림에서는 움직이지 않아요. */
-const CUTS={},FILLS={},CUT_Y=[.5,.6],AP=6;
+const CUTS={},FILLS={},CUT_Y=[.5,.66],AP=6;   /* v6.7: .6→.66 까지 찾아서 도토리 쥔 손 아래(배)에서 자르게 — 손을 지나 자르면 숨 쉴 때 손이 늘어나 보였어요 */
 function cutOf(im){const src=im.currentSrc||im.src;if(src in CUTS)return CUTS[src];if(!im.complete||!im.naturalWidth)return undefined;CUTS[src]=null;
   try{const W=im.naturalWidth,H=im.naturalHeight,cv=document.createElement('canvas');cv.width=W;cv.height=H;const g=cv.getContext('2d',{willReadFrequently:true});g.drawImage(im,0,0);
     const x0=Math.round(W*.15),x1=Math.round(W*.9),y0=Math.round(H*.3);
@@ -2210,7 +2215,7 @@ function cutOf(im){const src=im.currentSrc||im.src;if(src in CUTS)return CUTS[sr
     const st=[best];m[best]=1;let n=0;while(st.length){const p=st.pop(),px=p%w;n++;
       if(px>0&&!m[p-1]&&!wall[p-1]){m[p-1]=1;st.push(p-1);}if(px<w-1&&!m[p+1]&&!wall[p+1]){m[p+1]=1;st.push(p+1);}
       if(p>=w&&!m[p-w]&&!wall[p-w]){m[p-w]=1;st.push(p-w);}if(p<N-w&&!m[p+w]&&!wall[p+w]){m[p+w]=1;st.push(p+w);}}
-    if(n<W*H*.03||n>W*H*.13)return null;
+    if(n<W*H*.03||n>W*H*.17)return null;
     /* 구멍(눈·입·도토리 등) 메우기: 바깥에서 칠해서 닿지 않은 곳은 토리 */
     const out=new Uint8Array(N),os=[];for(let x=0;x<w;x++){os.push(x,N-w+x);}for(let y=0;y<h;y++){os.push(y*w,y*w+w-1);}
     for(const p of os)if(!m[p]&&!out[p])out[p]=1;
