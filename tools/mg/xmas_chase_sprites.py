@@ -1,7 +1,7 @@
 """v6.8 '도망가는 루돌프를 잡아라!' 그림 원본 (그림 한 칸 = 화면 2px).
 python3 tools/mg/xmas_chase_sprites.py  → index.html FX 에 넣을 JSON 출력
 - tos0/tos1: 산타 모자 토리 (마녀 모자 토리 to0/to1 의 몸 + 새 모자)
-- carrot: 당근 / snowtk: 눈사람 타코 (머리는 타코, 몸은 눈덩이)"""
+- carrot: 당근 (눈사람 타코·나무·배경은 index.html의 chSnowman·chTree·chBack이 그림)"""
 import json, re, os, sys
 HAT=["................",
      "......kkkk......",
@@ -59,7 +59,7 @@ def build(fx):
     out={}
     for n in ('to0','to1'):
         rows,pal=fx['S'][n];out['tos'+n[-1]]=[HAT+rows[6:],{**pal,**SANTA_PAL}]  # 모자 7줄 + 머리부터 아래
-    out['carrot']=[CARROT,CARROT_PAL];out['snowtk']=[snowtk(),SNOWTK_PAL]
+    out['carrot']=[CARROT,CARROT_PAL]
     return out
 if __name__=='__main__':
     s=open(os.path.join(os.path.dirname(__file__),'..','..','index.html'),encoding='utf-8').read()

@@ -1397,8 +1397,8 @@ function mg8End(){if(MG.over)return;MG.over=1;const sc=MG.s,r=sc>=16?2:sc>=8?1:0
   MG.card=g=>fxCard(g,'메리 크리스마스!',['선물 배달 '+sc+'점'+(nb?' · 최고 기록!':''),'남은 선물 '+MG.left+'개'],null);
   $('mgh').innerHTML='배달 끝! '+sc+'점'+(nb?' · 최고 기록!':'')+'<br>'+m;$('mgr').style.display='';if(sc>=8)setTimeout(()=>tako('=산타 조수 토리다코~! 🎄','',3000,0),500);}
 /* ===== 🦌 도망가는 루돌프를 잡아라! (크리스마스 주간 12/18~25, v6.8) · 손가락을 끌면 산타 모자 토리가 그쪽으로 달려요 ===== */
-/* 그림 원본: tools/mg/xmas_chase_sprites.py (tos0·tos1 산타 모자 토리, carrot 당근, snowtk 눈사람 타코) */
-Object.assign(FX.S,{"tos0":[["................","......kkkk......",".kk..khhhHk.....","kWWk.khhhhHk....","kWWkkhhhhhhHk...",".kkhhhhhhhhHHk..",".kyYyyyyyyyyyk..","..kkLLooooOkk...","..kLLLooooOOk...",".kLLLLooooOOOk..","koooooooccWeOOk.","kooooocccceecOk.","kooooocccccccOpk","koooooccccccrrk.",".kOOOOccccccck..","..kOOOOCCCCCk...","...kkPOOCkPk...."],{"k":"#3b2a1e","o":"#e9a85c","O":"#c47f3c","L":"#f6c98a","c":"#fff3dc","C":"#ecd3a9","p":"#f4a3ad","e":"#2a1c12","W":"#ffffff","r":"#f08a8a","P":"#f4a3ad","h":"#d63a32","H":"#9e2620","y":"#eef0f8","Y":"#ffffff"}],"tos1":[["................","......kkkk......",".kk..khhhHk.....","kWWk.khhhhHk....","kWWkkhhhhhhHk...",".kkhhhhhhhhHHk..",".kyYyyyyyyyyyk..","..kkLLooooOkk...","..kLLLooooOOk...",".kLLLLooooOOOk..","koooooooccWeOOk.","kooooocccceecOk.","kooooocccccccOpk","koooooccccccrrk.",".kOOOOccccccck..","..kOOOOCCCCCk...","...kkkPOCkkPk..."],{"k":"#3b2a1e","o":"#e9a85c","O":"#c47f3c","L":"#f6c98a","c":"#fff3dc","C":"#ecd3a9","p":"#f4a3ad","e":"#2a1c12","W":"#ffffff","r":"#f08a8a","P":"#f4a3ad","h":"#d63a32","H":"#9e2620","y":"#eef0f8","Y":"#ffffff"}],"carrot":[["...g.g..","..kgGgk.","..kGgGk.",".kLoooOk",".kLoooOk","..kLooOk","..kLoOk.","...koOk.","...kOk..","....k..."],{"k":"#5a2a10","o":"#f08a2a","O":"#c25a14","L":"#ffb866","g":"#6fb84a","G":"#3f7a2e"}],"snowtk":[["........kkkk........","......kkLLLpkk......",".....kLLLLpppPk.....","....kLLLLppppPPk....","...kLLLppppppPPPk...","...kLLpppppppPPPk...","...kLppWppppWPPPk...","...kpppeppppePPPk...","...kpcpppppppPcPk...","...kpppppeeppPPPk...","....kPPPPPPPPPPk....","...krrrrrrrrrrrrk...","b..krrrrrrrrRRRRk...","b...kWWWWWwwwvrRk..b",".b.kWWWWwwwwwvrRk.b.","..bWWWWwwwwwwvrRvb..","..kWWWwwwwewwvrRvk..",".kWWwwwwwwwwwvvvvvk.",".kWwwwwwwwwwwvvvvvk.",".kwwwwwwwwewwvvvvvk.",".kwwwwwwwwwwwvvvvvk.",".kwwwwwwwwwwwvvvvvk.","..kwwwwwwwewwvvvvk..","..kvvvvvvvvvvvvvvk..","...kvvvvvvvvvvvvk...","....kvvvvvvvvvvk....",".....kkkvvvvkkk....."],{"k":"#2a3050","p":"#f29bb0","P":"#d06f8c","L":"#ffc6d4","e":"#2a1c30","W":"#ffffff","c":"#ff7f9a","r":"#d63a32","R":"#9e2620","w":"#eef3fb","v":"#bccbe6","b":"#6a4428"}]});
+/* 그림 원본: tools/mg/xmas_chase_sprites.py (tos0·tos1 산타 모자 토리, carrot 당근) · 배경·나무·눈사람 타코는 아래 chBack·chTree·chSnowman이 칸 단위로 그림 */
+Object.assign(FX.S,{"tos0":[["................","......kkkk......",".kk..khhhHk.....","kWWk.khhhhHk....","kWWkkhhhhhhHk...",".kkhhhhhhhhHHk..",".kyYyyyyyyyyyk..","..kkLLooooOkk...","..kLLLooooOOk...",".kLLLLooooOOOk..","koooooooccWeOOk.","kooooocccceecOk.","kooooocccccccOpk","koooooccccccrrk.",".kOOOOccccccck..","..kOOOOCCCCCk...","...kkPOOCkPk...."],{"k":"#3b2a1e","o":"#e9a85c","O":"#c47f3c","L":"#f6c98a","c":"#fff3dc","C":"#ecd3a9","p":"#f4a3ad","e":"#2a1c12","W":"#ffffff","r":"#f08a8a","P":"#f4a3ad","h":"#d63a32","H":"#9e2620","y":"#eef0f8","Y":"#ffffff"}],"tos1":[["................","......kkkk......",".kk..khhhHk.....","kWWk.khhhhHk....","kWWkkhhhhhhHk...",".kkhhhhhhhhHHk..",".kyYyyyyyyyyyk..","..kkLLooooOkk...","..kLLLooooOOk...",".kLLLLooooOOOk..","koooooooccWeOOk.","kooooocccceecOk.","kooooocccccccOpk","koooooccccccrrk.",".kOOOOccccccck..","..kOOOOCCCCCk...","...kkkPOCkkPk..."],{"k":"#3b2a1e","o":"#e9a85c","O":"#c47f3c","L":"#f6c98a","c":"#fff3dc","C":"#ecd3a9","p":"#f4a3ad","e":"#2a1c12","W":"#ffffff","r":"#f08a8a","P":"#f4a3ad","h":"#d63a32","H":"#9e2620","y":"#eef0f8","Y":"#ffffff"}],"carrot":[["...g.g..","..kgGgk.","..kGgGk.",".kLoooOk",".kLoooOk","..kLooOk","..kLoOk.","...koOk.","...kOk..","....k..."],{"k":"#5a2a10","o":"#f08a2a","O":"#c25a14","L":"#ffb866","g":"#6fb84a","G":"#3f7a2e"}]});
 const CH={x0:12,x1:308,y0:66,y1:432,
   tree:[{x:58,y:196},{x:262,y:300},{x:128,y:424}],
   ice:[{x:204,y:172,rx:58,ry:24},{x:84,y:318,rx:48,ry:22}],
@@ -1406,27 +1406,88 @@ const CH={x0:12,x1:308,y0:66,y1:432,
   tk:{x:290,y:122},
   hint:['구석으로 몰면 옆으로 튄다코!','얼음판은 미끄럽다코! 조심하라코!','눈더미에 들어가면 느려진다코!','나무 뒤에 숨으면 코만 반짝인다코!','당근을 주우면 루돌프가 느려진다코!']};
 const chIn=(L,x,y)=>L.some(o=>((x-o.x)/o.rx)**2+((y-o.y)/o.ry)**2<1);
-let CHB=null,CHT=null;
-/* 배경: 눈 덮인 숲속 빈터 (왼쪽 위에서 빛) · 얼음판 · 눈더미 */
-function chBack(){if(CHB)return CHB;const[c,g]=fxCv(320,440),P=(x,y,col)=>{g.fillStyle=col;g.fillRect(x*2,y*2,2,2);};
-  for(let y=0;y<220;y++)for(let x=0;x<160;x++){const n=sdH(x>>3,y>>3,91)*.6+sdH(x>>1,y>>1,92)*.4;let col=n>.78?'#e1e8f5':n<.12?'#f7faff':'#edf2fb';if(sdH(x,y,93)<.012)col='#ffffff';if(sdH(x,y,94)<.006)col='#cfd9ee';P(x,y,col);}
-  /* 얼음판: 한 가지 테두리 + 왼쪽 위 빛줄기 */
-  CH.ice.forEach(o=>{const cx=o.x/2,cy=o.y/2,rx=o.rx/2,ry=o.ry/2;for(let y=Math.floor(cy-ry)-1;y<=cy+ry+1;y++)for(let x=Math.floor(cx-rx)-1;x<=cx+rx+1;x++){const d=((x+.5-cx)/rx)**2+((y+.5-cy)/ry)**2;if(d>1.18)continue;
-    let col;if(d>.86)col='#7fb6d6';else{const s=(x-cx)+(y-cy)*2.2;col=(Math.abs(((x-y*2)%9+9)%9-4)<1&&x<cx+rx*.3)?'#eaf8ff':s>rx*.55?'#a2d0ea':'#c2e4f6';}P(x,y,col);}
-    for(let k=0;k<4;k++)P(Math.round(cx-rx*.5+k),Math.round(cy-ry*.5),'#ffffff');});
-  /* 눈더미: 볼록 솟은 눈 (아래 그늘 → 위 하이라이트) */
-  CH.pile.forEach(o=>{const cx=o.x/2,cy=o.y/2,rx=o.rx/2,ry=o.ry/2;for(let x=Math.floor(cx-rx-1);x<=cx+rx+1;x++)P(x,Math.round(cy+ry*.55),'#c3cee6');
-    for(let y=Math.floor(cy-ry)-1;y<=cy+ry;y++)for(let x=Math.floor(cx-rx)-1;x<=cx+rx+1;x++){const dx=(x+.5-cx)/rx,dy=(y+.5-cy)/ry;const d=dx*dx+dy*dy*(dy<0?1:2.2);if(d>1.12)continue;
-      const l=-dx*.6-dy*.8;P(x,y,d>.9?'#9fb0d0':l>.55?'#ffffff':l<-.35?'#c8d4ea':'#eef3fb');}});
-  return CHB=c;}
-/* 눈 쌓인 전나무 40x48칸: 3단 잎 + 눈 모자 + 줄기, 한 가지 테두리 */
-function chTree(){if(CHT)return CHT;const W=40,H=48,a=[];for(let y=0;y<H;y++)a.push(new Array(W).fill(''));const cx=19.5;
-  for(let y=40;y<H;y++)for(let x=17;x<23;x++)a[y][x]=x===17?'#93622f':x>=21?'#553419':'#734a22';
-  [[2,18,9],[12,30,14],[22,42,19]].forEach(([y0,y1,hw],ti)=>{for(let y=y0;y<=y1;y++){const half=hw*(y-y0)/(y1-y0)+1.5;for(let x=0;x<W;x++){const dx=x+.5-cx;if(Math.abs(dx)>half)continue;
-    const edge=y>=y1-1&&((x+ti)%4<2||y===y1-1),cap=y<y0+3&&Math.abs(dx)<half-.5;let col=dx<-half*.35?'#4f9a52':dx>half*.4?'#2a5a38':'#3c7a48';
-    if(cap||edge)col=dx>half*.4?'#c8d4ea':'#f4f8ff';if(!cap&&!edge&&sdH(x,y,95)<.08)col='#f4f8ff';a[y][x]=col;}}});
-  const[c,g]=fxCv(W*2,H*2);for(let y=0;y<H;y++)for(let x=0;x<W;x++){let col=a[y][x];if(!col&&[[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>(a[y+dy]||[])[x+dx]&&(a[y+dy]||[])[x+dx]!=='#1a3324'))col='#1a3324';if(col){g.fillStyle=col;g.fillRect(x*2,y*2,2,2);}}
-  return CHT=c;}
+let CHB=null;
+/* ---- v7.2 그림 (스타듀 느낌 겨울 숲): 칸 하나 = 2px, 왼쪽 위에서 빛, 그림마다 테두리 한 가지 색 ---- */
+const CHC={s0:'#ffffff',s1:'#f1f5fc',s2:'#e2e9f6',s3:'#cad6ec',s4:'#a9b9dc',s5:'#8293c2',
+  i0:'#f2fbff',i1:'#cdeefa',i2:'#a8dcf2',i3:'#84c6e8',i4:'#5ea6d6',i5:'#4283bd',
+  g0:'#173229',g1:'#1f4a3d',g2:'#2b6650',g3:'#3c8462',g4:'#58a571',g5:'#86c47e',b0:'#3a2216',b1:'#5c3a22',b2:'#80542f',ol:'#1a2a3a'};
+const CH_BY=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
+const chDi=(x,y,t)=>t*16>CH_BY[(y&3)*4+(x&3)];
+const chVN=(x,y,sc,k)=>{const X=x/sc,Y=y/sc,x0=Math.floor(X),y0=Math.floor(Y),fx=X-x0,fy=Y-y0,s=t=>t*t*(3-2*t),a=sdH(x0,y0,k),b=sdH(x0+1,y0,k),c=sdH(x0,y0+1,k),d=sdH(x0+1,y0+1,k);return a+(b-a)*s(fx)+(c-a)*s(fy)+(a-b-c+d)*s(fx)*s(fy);};
+/* 칸 그림판: s(x,y,색) · 빈 칸 옆에 테두리 · 캔버스로 */
+function chGrid(W,H){const a=[];for(let y=0;y<H;y++)a.push(new Array(W).fill(null));
+  return{W,H,a,s(x,y,c){x|=0;y|=0;if(x>=0&&y>=0&&x<W&&y<H)a[y][x]=c;},g(x,y){return x>=0&&y>=0&&x<W&&y<H?a[y][x]:null;},
+    outline(col){const p=[];for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(!a[y][x]&&[[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>{const v=this.g(x+dx,y+dy);return v&&v!==col;}))p.push([x,y]);p.forEach(([x,y])=>a[y][x]=col);},
+    cv(){const[c,g]=fxCv(W*2,H*2);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(a[y][x]){g.fillStyle=a[y][x];g.fillRect(x*2,y*2,2,2);}return c;}};}
+/* 동그란 덩어리 칠하기: 빛 방향(왼쪽 위)으로 밝기 단계 */
+function chBall(G,cx,cy,rx,ry,ramp,cut){for(let y=Math.floor(cy-ry);y<=cy+ry;y++)for(let x=Math.floor(cx-rx);x<=cx+rx;x++){const nx=(x+.5-cx)/rx,ny=(y+.5-cy)/ry,d=nx*nx+ny*ny;if(d>1||(cut&&cut(x,y)))continue;
+  const nz=Math.sqrt(1-d),l=-nx*.55-ny*.65+nz*.5,i=l>.78?0:l>.52?1:l>.22?2:l>-.12?3:4;G.s(x,y,ramp[Math.min(ramp.length-1,i)]);}}
+/* 배경: 울타리 너머 숲 · 바람에 쌓인 눈결 · 발자국 길 · 얼음 연못 · 눈더미 · 풀·돌 */
+function chBack(){if(CHB)return CHB;const W=160,H=220,G=chGrid(W,H),C=CHC;
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){const n=chVN(x,y,22,3)*.7+chVN(x,y,7,4)*.3;let c=n>.62?(chDi(x,y,(n-.62)*5)?C.s2:C.s1):n<.32?(chDi(x,y,(.32-n)*5)?C.s0:C.s1):C.s1;G.s(x,y,c);}
+  /* 눈결(바람에 쌓인 언덕): 볕 드는 등성이 + 아래쪽 푸른 그늘 */
+  for(let k=0;k<9;k++){const y0=40+k*21+sdH(k,1,7)*8,A=2+sdH(k,2,7)*3,f=.05+sdH(k,3,7)*.05,ph=sdH(k,4,7)*6,x0=sdH(k,5,7)*W*.6,x1=x0+40+sdH(k,6,7)*70;
+    for(let x=Math.floor(x0);x<x1&&x<W;x++){const yy=Math.round(y0+A*Math.sin(x*f+ph)),e=Math.min(x-x0,x1-x)/14;if(e<.15)continue;G.s(x,yy-1,C.s0);G.s(x,yy,C.s0);
+      for(let j=1;j<5;j++){const t=Math.min(1,e)*(1-j/5);if(chDi(x,yy+j,t*1.2))G.s(x,yy+j,j<2?C.s3:C.s2);}}}
+  /* 발자국 난 길 (아래 → 위로 구불구불) */
+  const px=y=>80+26*Math.sin(y/26)+8*Math.sin(y/9);
+  for(let y=26;y<H;y++){const cx=px(y),w=7+Math.sin(y/13)*1.5;for(let x=Math.floor(cx-w);x<=cx+w;x++){const e=(x-cx)/w;let c=Math.abs(e)>.82?(e<0?C.s3:C.s0):chDi(x,y,.35+.3*Math.sin(y*.7))?C.s3:C.s2;G.s(x,y,c);}
+    if(y%7===0){const s=(y/7)%2?-1:1,fx=Math.round(cx+s*3);G.s(fx,y,C.s4);G.s(fx,y+1,C.s4);G.s(fx+1,y,C.s4);G.s(fx,y+2,C.s3);}}
+  /* 위쪽: 어두운 숲 그림자 + 눈 쌓인 나무 울타리 */
+  for(let x=0;x<W;x++){const t=20+Math.round(3*Math.sin(x*.21)+2*Math.sin(x*.53));for(let y=22;y<t+8;y++)G.s(x,y,y<t?C.g1:chDi(x,y,(t+8-y)/8)?C.s3:G.g(x,y));
+    for(let k=0;k<6;k++){const tx=(k*29+11)%W;if(Math.abs(x-tx)<5-((t)%3))G.s(x,t-1-(4-Math.abs(x-tx)),C.g0);}}
+  for(let x=0;x<W;x++){[[27,2],[31,2]].forEach(([ry,h])=>{for(let j=0;j<h;j++)G.s(x,ry+j,j?C.b1:C.b2);G.s(x,ry-1,(x+ry)%5?C.s1:C.s0);});
+    if(x%12===4)for(let y=23;y<36;y++)G.s(x,y,y<25?C.s0:x%2?C.b2:C.b1),G.s(x+1,y,y<25?C.s1:C.b1),G.s(x+2,y,y<25?C.s2:C.b0);}
+  for(let x=0;x<W;x++)for(let j=0;j<3;j++)if(chDi(x,36+j,(3-j)/4))G.s(x,36+j,C.s3);
+  /* 얼음 연못: 눈 둑(테두리) · 둑 그늘 · 깊어질수록 진한 파랑 · 빛줄기 · 금 · 얼음 위 눈 */
+  CH.ice.forEach((o,oi)=>{const cx=o.x/2,cy=o.y/2,rx=o.rx/2,ry=o.ry/2;
+    for(let y=Math.floor(cy-ry-3);y<=cy+ry+3;y++)for(let x=Math.floor(cx-rx-3);x<=cx+rx+3;x++){const nx=(x+.5-cx)/rx,ny=(y+.5-cy)/ry,d=Math.sqrt(nx*nx+ny*ny);
+      if(d>1.22)continue;if(d>1){const lit=nx+ny<0;G.s(x,y,d>1.14?(lit?C.s1:C.s3):lit?C.s0:C.s2);continue;}
+      let c=ny<-.45&&d>.62?C.i4:d>.9?C.i3:ny>.25?C.i2:chDi(x,y,(ny+.75))?C.i2:C.i1;if(d>.93&&ny<-.2)c=C.i5;
+      const st=(x-cx)*.8-(y-cy)*2;if(Math.abs(st+rx*.35)<1.2||Math.abs(st+rx*.35+5)<.6)c=d<.85?C.i0:c;G.s(x,y,c);}
+    /* 금 */let x=cx+rx*.15,y=cy-ry*.1,a=oi?2.3:.6;for(let k=0;k<22;k++){const nx=(x+.5-cx)/rx,ny=(y+.5-cy)/ry;if(nx*nx+ny*ny>.75)break;G.s(x,y,C.i0);G.s(x,y+1,C.i4);x+=Math.cos(a);y+=Math.sin(a)*.6;a+=(sdH(k,oi,9)-.5)*1.4;if(k===9){let bx=x,by=y;for(let j=0;j<6;j++){bx+=.9;by-=.5;G.s(bx,by,C.i0);}}}
+    for(let k=0;k<3;k++){const sx=Math.round(cx+rx*(sdH(k,oi,8)-.5)*1.2),sy=Math.round(cy+ry*(sdH(k,oi,6)-.3)*.8);G.s(sx,sy,C.s1);G.s(sx+1,sy,C.s2);G.s(sx,sy-1,C.s0);}});
+  /* 눈더미: 혹 셋이 겹친 무더기 + 오른쪽 아래 그림자 + 꽂힌 나뭇가지 */
+  CH.pile.forEach((o,oi)=>{const cx=o.x/2,cy=o.y/2,rx=o.rx/2,ry=o.ry/2;
+    for(let y=Math.floor(cy);y<cy+ry*.9+2;y++)for(let x=Math.floor(cx-rx*.6);x<cx+rx*1.25;x++){const nx=(x+.5-cx-rx*.25)/(rx*.95),ny=(y+.5-cy-ry*.45)/(ry*.5);if(nx*nx+ny*ny<1)G.s(x,y,chDi(x,y,.6)?C.s4:C.s3);}
+    const P=chGrid(W,H),bumps=[[-.45,.15,.55,.75],[.4,.2,.6,.7],[0,-.15,.62,1]];bumps.forEach(([bx,by,sx,sy])=>chBall(P,cx+bx*rx,cy+by*ry,rx*sx,ry*sy*1.1,[C.s0,C.s1,C.s2,C.s3,C.s4],(x,y)=>y>cy+ry*.55));
+    P.outline(C.s5);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(P.a[y][x])G.s(x,y,P.a[y][x]);
+    for(let k=0;k<4;k++){G.s(cx+rx*.5+k*.6,cy-ry*.9-k,C.b1);}G.s(cx+rx*.5+2,cy-ry*.9-4,C.b2);G.s(cx+rx*.5+3,cy-ry*.9-3,C.b1);
+    for(let k=0;k<3;k++)G.s(cx-rx*.3+k*3,cy-ry*.55+k%2,C.s0);});
+  /* 풀 · 돌 · 솔방울 */
+  [[20,70],[146,140],[18,200],[110,90],[64,214],[150,60]].forEach(([x,y],i)=>{if(i%2){G.s(x,y,C.g3);G.s(x+1,y-1,C.g4);G.s(x+2,y,C.g3);G.s(x+1,y,C.g2);G.s(x-1,y+1,C.s3);G.s(x+3,y+1,C.s3);}
+    else{chBall(G,x,y,3,2,['#c7c2d6','#a49fb8','#7f7b96','#5f5b78','#4a4660']);for(let k=-2;k<=2;k++)G.s(x+k,y-2+(Math.abs(k)>1?1:0),k<1?C.s0:C.s1);}});
+  /* 반짝이 */
+  for(let k=0;k<26;k++){const x=Math.floor(sdH(k,3,99)*W),y=40+Math.floor(sdH(k,4,99)*(H-40));if(G.g(x,y)===C.s1||G.g(x,y)===C.s2){G.s(x,y,C.s0);if(k%3===0){G.s(x-1,y,C.s0);G.s(x+1,y,C.s0);G.s(x,y-1,C.s0);G.s(x,y+1,C.s0);}}}
+  return CHB=G.cv();}
+/* 눈 쌓인 전나무 44x56칸 · 첫 번째는 별·전구 단 크리스마스 트리 */
+const CHT={};
+function chTree(dec){if(CHT[dec])return CHT[dec];const W=44,H=56,G=chGrid(W,H),C=CHC,cx=21.5;
+  for(let y=46;y<53;y++)for(let x=19;x<25;x++)G.s(x,y,x<20?C.b2:x>22?C.b0:C.b1);
+  const T=[[3,15,6],[10,24,10],[17,33,14],[25,42,18],[33,49,21]];
+  for(let i=T.length-1;i>=0;i--){const[y0,y1,hw]=T[i];for(let y=y0;y<=y1+2;y++)for(let x=0;x<W;x++){const dx=x+.5-cx,t=(y-y0)/(y1-y0),half=hw*Math.min(1,t)+1,tipY=y1-1.6*Math.abs(Math.sin(dx/2.6))+(Math.abs(dx)/hw)*1.5;
+      if(Math.abs(dx)>half||y>tipY+1)continue;const r=dx/half;
+      let c=r<-.5?C.g4:r<-.1?C.g3:r<.45?C.g2:C.g1;if(y>tipY-1)c=r<0?C.g3:C.g1;if(y<y0+2+t*1&&i>0)c=C.g0;
+      if(y<tipY-1&&((x+y*2+i)%6===0||(x+y*2+i)%6===1)&&(y-y0)%3===1)c=r<-.45?C.g5:r<.1?C.g4:r<.5?C.g3:C.g2;
+      /* 잎 위에 쌓인 눈 */const top=y-y0-Math.abs(dx)/hw*(y1-y0);if(top<2.2&&top>-1){c=r<-.2?C.s0:r<.35?C.s1:C.s3;if(top>1.3)c=r<.35?C.s2:C.s4;}
+      if(y>tipY-.5&&Math.abs(Math.sin(dx/2.6))<.35&&r<.7)c=r<0?C.s1:C.s3;G.s(x,y,c);}}
+  if(dec){const L=['#ff5a4a','#ffd84a','#5ab8ff','#ff8ad0'];T.slice(1).forEach(([y0,y1,hw],i)=>{for(let k=0;k<7;k++){const t=(k+.5)/7,x=Math.round(cx-hw*.85+t*hw*1.7),y=Math.round(y0+(y1-y0)*.62+Math.sin(t*Math.PI)*2.5-(1-Math.abs(t-.5)*2)*0);if(G.g(x,y)){G.s(x,y,L[(k+i)%4]);G.s(x+1,y,L[(k+i)%4]);G.s(x,y-1,'#fff6d0');}}});
+    [[21,0],[22,0],[20,1],[21,1],[22,1],[23,1],[19,2],[20,2],[21,2],[22,2],[23,2],[24,2],[20,3],[21,3],[22,3],[23,3],[20,4],[23,4]].forEach(([x,y])=>G.s(x,y,y<2&&x<22?'#fff6b0':'#f4c542'));}
+  G.outline(C.ol);return CHT[dec]=G.cv();}
+/* 눈사람 타코 24x34칸: 눈덩이 둘 + 타코 머리 + 줄무늬 목도리 + 나뭇가지 팔 + 손에 든 팻말 */
+let CHS=null;
+function chSnowman(){if(CHS)return CHS;const G=chGrid(26,34),C=CHC;
+  chBall(G,12,25.5,9,8,[C.s0,C.s1,C.s2,C.s3,C.s4]);chBall(G,12,15.5,7,5.5,[C.s0,C.s1,C.s2,C.s3,C.s4]);
+  chBall(G,12,7.5,7,6.5,['#ffd6e0','#fbb0c2','#f08aa6','#d46a8a','#b0506e'],(x,y)=>y>11);
+  for(let x=6;x<19;x++)G.s(x,11,x<9?'#fbb0c2':x>15?'#d46a8a':'#f08aa6');
+  [[6,13],[9,14],[15,14],[18,13]].forEach(([x,y])=>{G.s(x,y-1,'#f08aa6');G.s(x,y,'#d46a8a');});
+  [[9,6],[14,6]].forEach(([x,y])=>{G.s(x,y,'#2a1c30');G.s(x+1,y,'#2a1c30');G.s(x,y+1,'#2a1c30');G.s(x+1,y+1,'#2a1c30');G.s(x,y,'#ffffff');});
+  G.s(7,9,'#ff7f9a');G.s(8,9,'#ff7f9a');G.s(16,9,'#ff7f9a');G.s(17,9,'#ff7f9a');G.s(11,9,'#7a2e48');G.s(12,10,'#7a2e48');G.s(13,9,'#7a2e48');
+  for(let x=5;x<20;x++){G.s(x,12,(x>>1)%2?'#f4f4fa':'#d63a32');G.s(x,13,x>15?'#9e2620':(x>>1)%2?'#d8dcea':'#b8302a');}
+  for(let y=14;y<20;y++){G.s(16,y,(y>>1)%2?'#f4f4fa':'#d63a32');G.s(17,y,(y>>1)%2?'#d8dcea':'#9e2620');}G.s(16,20,'#d63a32');G.s(17,20,'#9e2620');
+  [[12,17],[12,22],[12,26]].forEach(([x,y])=>{G.s(x,y,'#3a3348');G.s(x+1,y,'#2a2438');G.s(x,y+1,'#2a2438');G.s(x+1,y+1,'#2a2438');G.s(x,y,'#6a6280');});
+  [[4,16],[3,15],[2,14],[1,13],[2,12],[0,14]].forEach(([x,y])=>G.s(x,y,C.b1));[[20,16],[21,15],[22,14],[23,13],[24,12],[23,11]].forEach(([x,y])=>G.s(x,y,C.b1));
+  G.outline('#2b3354');return CHS=G.cv();}
 function mg9Open(){const c=mgShell('#16203f','mg9Start()');if(!c)return;
   const pd=e=>{if(MG.k!=='ch')return;e.preventDefault();MG.tp=mgXY(e,c);};
   c.addEventListener('pointerdown',e=>{try{c.setPointerCapture(e.pointerId);}catch(_){}pd(e);});c.addEventListener('pointermove',e=>{if(MG.tp)pd(e);});
@@ -1464,10 +1525,10 @@ function mg9Start(){if(MG.raf)cancelAnimationFrame(MG.raf);$('mgr').style.displa
             /* 구석에 몰리면 옆으로 휙! */
             if(wl&&dist<62&&D.jc<=0){let px=-ey/dist,py=ex/dist;const cx=(CH.x0+CH.x1)/2,cy=(CH.y0+CH.y1)/2;if(px*(cx-D.x)+py*(cy-D.y)<0){px=-px;py=-py;}
               D.vx=(px*.85+(cx-D.x)/300)*base*2.6;D.vy=(py*.85+(cy-D.y)/300)*base*2.6;D.jt=.38;D.jc=1.3;D.f=D.vx>0?1:-1;fxSnd('ch_jump');if(Math.random()<.5)chSay(CH.hint[0],2);}}
-          else{D.wt-=dt;if(D.wt<=0){D.wt=1.6+Math.random()*1.6;if(Math.random()<.4){const tr=CH.tree[Math.floor(Math.random()*CH.tree.length)];D.wx=tr.x+(Math.random()-.5)*16;D.wy=tr.y-26;}else{D.wx=CH.x0+30+Math.random()*(CH.x1-CH.x0-60);D.wy=CH.y0+30+Math.random()*(CH.y1-CH.y0-60);}}
+          else{D.wt-=dt;if(D.wt<=0){D.wt=1.6+Math.random()*1.6;if(Math.random()<.4){const tr=CH.tree[Math.floor(Math.random()*CH.tree.length)];D.wx=tr.x+(Math.random()-.5)*16;D.wy=tr.y-30;}else{D.wx=CH.x0+30+Math.random()*(CH.x1-CH.x0-60);D.wy=CH.y0+30+Math.random()*(CH.y1-CH.y0-60);}}
             fx=D.wx-D.x;fy=D.wy-D.y;const l=Math.hypot(fx,fy);if(l<6){fx=fy=0;}else{fx/=l;fy/=l;}sp=base*.45;}
           const l=Math.hypot(fx,fy);if(l>1){fx/=l;fy/=l;}mv(D,fx,fy,sp,dt);}
-        D.hid=CH.tree.some(tr=>Math.abs(D.x-tr.x)<24&&D.y<tr.y-6&&D.y>tr.y-56);if(D.hid&&MG.hI!==3&&dist>110&&Math.random()<dt*.15){MG.hI=3;chSay(CH.hint[3],2.4);}
+        D.hid=CH.tree.some(tr=>Math.abs(D.x-tr.x)<26&&D.y<tr.y-6&&D.y>tr.y-64);if(D.hid&&MG.hI!==3&&dist>110&&Math.random()<dt*.15){MG.hI=3;chSay(CH.hint[3],2.4);}
         /* 잡았다! */
         if(D.inv<=0&&Math.hypot(T.x-D.x,T.y-6-(D.y-10))<28){MG.s++;D.gone=.7;D.jt=0;fxSnd('ch_catch');
           MG.gifts.push({x:D.x,y:D.y,t:0,pk:'g'+(MG.s%4)});MG.fx.push({x:D.x,y:D.y-20,t:.6,m:'+1',c:'#fff0a6'});chSay(MG.s>=6?'벌써 '+MG.s+'마리다코! 대단하다코!':'잡았다코! '+MG.s+'마리째다코!',1.6);}}
@@ -1478,8 +1539,8 @@ function mg9Start(){if(MG.raf)cancelAnimationFrame(MG.raf);$('mgr').style.displa
       $('mgh').textContent='도망가는 루돌프를 잡아라! · '+MG.s+'마리';if(MG.e>=45)mg9End();}
     /* ---- 그리기 ---- */
     g.drawImage(chBack(),0,0);
-    const ents=[];CH.tree.forEach(tr=>ents.push([tr.y,()=>{fxShadow(g,tr.x,tr.y,60);g.drawImage(chTree(),Math.round((tr.x-40)/2)*2,tr.y-94);}]));
-    ents.push([CH.tk.y,()=>{fxShadow(g,CH.tk.x,CH.tk.y,34);g.drawImage(fxS('snowtk'),Math.round((CH.tk.x-20)/2)*2,CH.tk.y-52);}]);
+    const ents=[];CH.tree.forEach((tr,i)=>ents.push([tr.y,()=>{fxShadow(g,tr.x+4,tr.y,72);g.drawImage(chTree(i===0),Math.round((tr.x-44)/2)*2,tr.y-106);}]));
+    ents.push([CH.tk.y,()=>{fxShadow(g,CH.tk.x+2,CH.tk.y,40);g.drawImage(chSnowman(),Math.round((CH.tk.x-26)/2)*2,CH.tk.y-66);}]);
     MG.gifts.forEach(p=>ents.push([p.y,()=>{const h=Math.max(0,Math.round(Math.sin(Math.min(1,p.t/.5)*Math.PI)*16/2)*2);fxShadow(g,p.x,p.y,16);g.drawImage(fxS('gift',p.pk),Math.round((p.x-9)/2)*2,Math.round((p.y-18-h)/2)*2);}]));
     if(MG.cr){const cr=MG.cr;ents.push([cr.y,()=>{if(cr.t<2&&Math.floor(cr.t*8)%2)return;const b=Math.round(Math.sin(MG.e*5))*2;g.drawImage(fxGlow('#ffb866',14),cr.x-14,cr.y-24);fxShadow(g,cr.x,cr.y,14);g.drawImage(fxS('carrot'),Math.round((cr.x-8)/2)*2,cr.y-22+b);}]);}
     const sink=(o,w)=>{if(chIn(CH.pile,o.x,o.y)){g.fillStyle='#ffffff';g.fillRect(Math.round((o.x-w/2)/2)*2,Math.round(o.y/2)*2-6,w,4);g.fillStyle='#eef3fb';g.fillRect(Math.round((o.x-w/2)/2)*2+2,Math.round(o.y/2)*2-2,w-4,2);}};
