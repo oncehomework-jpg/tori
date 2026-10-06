@@ -1423,9 +1423,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v7.0',d:'2026.10.06',log:['홈 백업 알림 글씨를 흰색으로 또렷하게']};
+const APP_VER={v:'v7.1',d:'2026.10.06',log:['레벨이 오를수록 필요한 도토리가 늘어나요 (최고 Lv.100) · 칭호 10단계']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v7.1',d:'2026.10.06',log:['레벨 올리는 데 필요한 도토리가 점점 늘어나요: Lv.2~10은 5개, 11~30은 10개, 31~60은 25개, 61~100은 50개씩이고 Lv.100이 최고예요','칭호가 10단계로 늘었어요 (견습 햄스터 · 견습 모험가 · 모험가 · 기사 · 마법사 · 대마법사 · 도토리 귀족 · 도토리 왕 · 도토리 황제 · 전설의 용사)','레벨 기준이 바뀌었다는 안내창을 한 번 보여 줘요. 먹인 도토리와 보물상자는 그대로예요']},
  {v:'v7.0',d:'2026.10.06',log:['홈 맨 위 "마지막 백업 후 n일이 지났어요" 글씨가 어두운 빨간 바탕에서 잘 안 보이던 것을 흰색으로 또렷하게 고쳤어요']},
  {v:'v6.9',d:'2026.10.06',log:['도감·가고 싶은 곳에서 장소 종류(식당·카페·놀거리·기타) 글씨가 흰색이라 안 보이던 것을 진한 갈색으로 고쳤어요']},
  {v:'v6.8',d:'2026.10.06',log:['아이폰(사파리)에서 홈 화면에 추가할 때 쓰는 토리 아이콘을 넣었어요','토리가 기지개를 켤 때 머리 위 물병과 겹쳐 보이던 것을 줄였어요']},
@@ -1600,7 +1601,7 @@ function titleLine(){const t=S.titleOn&&TITLES[S.titleOn];return t?`<div class="
 function titleSet(k){S.titleOn=S.titleOn===k?'':k;save();rPet();}
 function titleCard(){if(!S.titles.length)return '';
   return `<div class="card"><h2>🏷️ 칭호</h2>${S.titles.filter(k=>TITLES[k]).map(k=>`<div class="q"><span>${TITLES[k][0]} ${esc(TITLES[k][1])}</span><button class="btn sm ${S.titleOn===k?'':'ghost'}" onclick="titleSet('${k}')">${S.titleOn===k?'착용 중':'착용'}</button></div>`).join('')}</div>`;}
-const LV=['견습 햄스터','견습 모험가','기사','대마법사','도토리 왕','전설의 용사'],SAY=['냠냠! 도토리 최고!','볼이 빵빵해졌어 🐹','찍찍! 고마워, 진우!','행복해!'];
+const LV_T=[[1,'견습 햄스터'],[5,'견습 모험가'],[10,'모험가'],[20,'기사'],[30,'마법사'],[40,'대마법사'],[50,'도토리 귀족'],[60,'도토리 왕'],[80,'도토리 황제'],[100,'전설의 용사']],lvName=l=>LV_T.filter(t=>l>=t[0]).pop()[1],SAY=['냠냠! 도토리 최고!','볼이 빵빵해졌어 🐹','찍찍! 고마워, 진우!','행복해!'];
 function qToday(){if(S.qdone.d!==todayStr())S.qdone={d:todayStr(),ids:[],p:0,clr:0};return S.qdone.ids;}
 function wkKey(){const d=kst();return new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate())-((d.getUTCDay()+6)%7)*864e5).toISOString().slice(0,10);}
 function wkChk(){if(S.wp.w!==wkKey())S.wp={w:wkKey(),c:{},d:{},done:[]};return S.wp;}
@@ -1649,7 +1650,10 @@ const QTK={hi:['퀘스트 편집이다코! 타코가 옆에서 도와준다코 �
 function qTkMsg(){S.tkG=S.tkG||{};const first=!S.tkG.q;if(first){S.tkG.q=1;window.qG=1;save();} /* 타코 안내는 처음 한 번만 */
   const m=window.qTkM;window.qTkM='';const t=m||(first?QTK.hi[Math.floor(Math.random()*QTK.hi.length)]:'');if(t)setTimeout(()=>tako('='+t,'',4500,1),350);return '';}
 function qHint(k){if(!window.qG)return;if(QTK[k])tako('='+QTK[k],'',4200,1);}
-const lvOf=f=>1+Math.floor(f/5);
+/* 레벨(v7.1): Lv.2~10은 5개, 11~30은 10개, 31~60은 25개, 61~100은 50개씩 — Lv.100이 최고 (누적 약 2995개) */
+const LV_MAX=100,lvCost=n=>n<=10?5:n<=30?10:n<=60?25:50;
+function lvInfo(f){let lv=1,cum=0;while(lv<LV_MAX){const c=lvCost(lv+1);if(f<cum+c)return{lv,cur:f-cum,need:c,max:false};cum+=c;lv++;}return{lv:LV_MAX,cur:0,need:0,max:true};}
+const lvOf=f=>lvInfo(f).lv;
 /* 레벨별 장식: [필요 레벨, 이모지, 이름, 클래스] — 레벨이 오르면 하나씩 늘어나요 */
 const ACC=[[2,'🎀','리본','ribbon'],[4,'🎸','기타','guitar'],[7,'👑','왕관','crown']];
 /* 레벨이 올라 얻은 장식은 햄스터 탭에서 하나씩 끄고 켤 수 있어요 (S.accOff에 꺼 둔 장식 이름을 저장) */
@@ -1667,7 +1671,9 @@ function eat(n){const a=$('pav');if(a){a.classList.remove('eat');void a.offsetWi
 function feed(n){if(S.acorns<n){toast('도토리가 부족해요. 퀘스트로 모아 보세요');sfx('no');return;}
   const up=msVis().some(m=>S.fed<m.n&&S.fed+n>=m.n),l0=lvOf(S.fed);S.acorns-=n;S.fed+=n;S.lastFeed=Date.now();save();const lu=lvOf(S.fed)>l0,nac=ACC.filter(a=>a[0]>l0&&a[0]<=lvOf(S.fed)).pop();
   toast(up?'🎁 보물상자가 열렸어요!':'🐹 '+hn()+': '+SAY[Math.floor(Math.random()*SAY.length)]);rPet();eat(n);rx('acorn');sfx(lu?'fan':'eat');
-  if(lu){fx('star',18);setTimeout(()=>modal(`<img class="rxm" src="${TORI_IMG.joy}" alt=""><h3 style="text-align:center">LEVEL UP!</h3><div class="card" style="text-align:center">${esc(hn())}: Lv.${lvOf(S.fed)} 달성! 🎉${nac?`<div class="muted" style="margin-top:6px">${nac[1]} ${nac[2]}을(를) 얻었어요! 토리가 착용했어요</div>`:''}</div><button class="btn full" onclick="closeM()">야호!</button>`),800);}}
+  if(lu){fx('star',18);setTimeout(()=>modal(`<img class="rxm" src="${TORI_IMG.joy}" alt=""><h3 style="text-align:center">LEVEL UP!</h3><div class="card" style="text-align:center">${esc(hn())}: Lv.${lvOf(S.fed)} 달성! 🎉${lvName(lvOf(S.fed))!==lvName(l0)?`<div style="margin-top:6px">새 칭호: <b>${lvName(lvOf(S.fed))}</b></div>`:''}${lvInfo(S.fed).max?'<div class="muted" style="margin-top:6px">최고 레벨이에요! 👑</div>':''}${nac?`<div class="muted" style="margin-top:6px">${nac[1]} ${nac[2]}을(를) 얻었어요! 토리가 착용했어요</div>`:''}</div><button class="btn full" onclick="closeM()">야호!</button>`),800);}}
+function lvNotice(){if(S.lvNote||hold||loadErr||fresh)return;S.lvNote=1;save();const f=+S.fed||0,o=1+Math.floor(f/5),n=lvOf(f);if(o===n)return;
+  modal(`<h3 style="text-align:center">레벨 기준이 바뀌었어요</h3><div class="card" style="text-align:center">앞으로는 레벨이 오를수록 조금씩 더 많은 도토리가 필요해요. 최고 레벨은 Lv.100이에요.<br><b>Lv.${o} → Lv.${n}</b><div class="muted" style="margin-top:6px">먹인 도토리 ${f}개와 보물상자는 그대로예요. 칭호도 10단계로 늘었어요.</div></div><button class="btn full" onclick="closeM()">알겠어요</button>`);}
 function freeFeed(){const td=todayStr();if(S.freeD===td){toast('오늘 밥은 이미 줬어요');sfx('no');return;}
   if(mood()[1]==='sleep'){toast(hn()+'는 쿨쿨 자는 중이에요. 아침에 밥 주세요');sfx('no');return;}
   S.freeD=td;S.lastFeed=Date.now();save();notiSync();toast('🐹 '+hn()+': 밥 냠냠! 든든해요');rPet();eat(1);rx('acorn');sfx('eat');}
@@ -1830,8 +1836,8 @@ function importFile(f){if(!f)return;const r=new FileReader();r.onload=()=>{let d
 let msPage=-1;const MPP=5;function msPg(d){const pg=Math.max(1,Math.ceil(msVis().length/MPP));msPage=(((msPage+d)%pg)+pg)%pg;rPet();}
 function msHtml(){const f=S.fed,vis=msVis(),pg=Math.ceil(vis.length/MPP);if(msPage<0){const i=vis.findIndex(x=>!S.claimed.includes(x.n));msPage=i<0?0:Math.floor(i/MPP);}msPage=((msPage%pg)+pg)%pg;const s=msPage*MPP;
   return vis.slice(s,s+MPP).map(m=>{const ok=f>=m.n,c=S.claimed.includes(m.n);return `<div class="q ${ok?'':'dim'}"><span>${m.e} ${esc(m.name)}<div class="muted">🌰 ${m.n}개 먹이기 · ${m.t}</div></span>${c?'<span class="muted">획득 ✔</span>':`<button class="btn sm ${ok?'wood':'ghost'}" ${ok?'':'disabled'} onclick="claim(${m.n})">${ok?'열기':'🔒'}</button>`}</div>`;}).join('')+`<div class="row sp" style="margin-top:10px"><button class="btn sm" onclick="msPg(-1)">◀ 이전</button><span class="muted">${msPage+1} / ${pg}</span><button class="btn sm" onclick="msPg(1)">다음 ▶</button></div>`;}
-function rPet(){const f=S.fed,lv=lvOf(f),vis=msVis(),nx=vis.find(m=>f<m.n),ids=qToday(),w=wkChk(),md=mood();
-  $('s-pet').innerHTML=`<div class="card"><div class="row"><span class="pavw"><img id="pav" class="${md[1]==='sleep'?'night':''} ${avCls()}" src="${AVATAR}" alt="" style="width:72px;height:72px;border:3px solid var(--ol);image-rendering:pixelated">${accHtml()}</span><div style="flex:1"><h2 style="margin:0">${esc(hn())}</h2><div>Lv.${lv} ${LV[[5,15,30,50,100].filter(n=>f>=n).length]}</div>${titleLine()}<div class="muted">EXP ${f%5}/5</div><div class="bar"><i style="width:${(f%5)*20}%"></i></div></div></div>
+function rPet(){const f=S.fed,LI=lvInfo(f),lv=LI.lv,vis=msVis(),nx=vis.find(m=>f<m.n),ids=qToday(),w=wkChk(),md=mood();
+  $('s-pet').innerHTML=`<div class="card"><div class="row"><span class="pavw"><img id="pav" class="${md[1]==='sleep'?'night':''} ${avCls()}" src="${AVATAR}" alt="" style="width:72px;height:72px;border:3px solid var(--ol);image-rendering:pixelated">${accHtml()}</span><div style="flex:1"><h2 style="margin:0">${esc(hn())}</h2><div>Lv.${lv} ${lvName(lv)}</div>${titleLine()}<div class="muted">${LI.max?'EXP MAX · 최고 레벨!':'EXP '+LI.cur+'/'+LI.need}</div><div class="bar"><i style="width:${LI.max?100:Math.round(LI.cur/LI.need*100)}%"></i></div></div></div>
   <div class="muted" style="margin-top:8px">💬 ${esc(hn())}: ${md[0]}</div>${toriLine()}${stLine()}
   <div class="row sp" style="margin-top:8px"><span>🌰 보유 <b class="qty">${S.acorns}개</b></span><span class="muted">준 도토리 ${f}개</span></div>
   <div class="row" style="margin-top:8px"><button class="btn full" onclick="feed(1)">🌰 1개 주기</button><button class="btn wood full" onclick="feed(5)">🌰 5개 주기</button></div>
@@ -2504,7 +2510,7 @@ function dyEdSave(){const ds=$('dyd').value,v=$('dyt').value.trim(),t=todayStr()
 function dyDel(){const ds=$('dyd').value;askOk('이 날 일기를 지울까요?',()=>{S.diary=(S.diary||[]).filter(x=>x.d!==ds);save();render();toast('지웠어요');});}
 /* 도토리 내역용 이름표: 함수를 부르는 동안 들어오는 도토리에 이유를 붙여요 */
 [['checkIn','출석 체크'],['qDone','퀘스트'],['wDone','주간 퀘스트'],['quickAct','빠른 기록'],['actSave','활동 기록'],['plSave','도감 기록'],['songUp','곡 완성'],['mgEnd','미니게임'],['mg2End','미니게임'],['mg3End','미니게임'],['mg4End','미니게임'],['mg5End','미니게임'],['mg6End','미니게임'],['mg7End','미니게임'],['mg8End','미니게임'],['pat','쓰담쓰담'],['feed','토리에게 주기'],['dBuy','토리 집 꾸미기'],['dSetChk','장식 세트 완성'],['gachaGo','보상 뽑기'],['claimBday','생일 선물'],['achChk','업적']].forEach(([n,l])=>{const f=window[n];if(typeof f!=='function')return;window[n]=function(){const o=ACW;if(!o)ACW=l;try{return f.apply(this,arguments);}finally{ACW=o;}};});
-hold=fresh||loadErr;checkIn();if(hold)idbRestore();else save();render();try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist();}catch(e){}setTimeout(autoBackup,2500);
+hold=fresh||loadErr;checkIn();if(hold)idbRestore();else save();render();try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist();}catch(e){}setTimeout(autoBackup,2500);setTimeout(lvNotice,3800);
 /* 실행 화면: 화면을 터치해야 넘어가요 */
 (function(){const o=document.createElement('div');o.id='splash';
 o.innerHTML=`<div class="spf"><img src="${AVATAR}" alt=""><h1>안녕 진우야!</h1><p>${esc(hn())}가 기다리고 있었어요 🌰</p><div class="muted go">▼ 터치해서 시작</div></div>`;
