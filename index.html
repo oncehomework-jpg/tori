@@ -1509,9 +1509,10 @@ function chSnowman(){if(CHS)return CHS;if(!CH_TK){CH_TK=new Image();CH_TK.src=TA
              "......rRWW",
              "....rrrRR.",
              "..rrrrrRR.",
-             ".wwwwwwwW.",
-             "WWWWWWWWW."];
-  HAT.forEach((row,j)=>{const first=row.search(/[rR]/);[...row].forEach((ch,i)=>{if(ch==='.')return;let c=ch==='w'?'#ffffff':ch==='W'?'#dfe3ee':ch==='R'?HR[2]:HR[1];if(ch==='r'&&(i===first||j===1))c=HR[0];hs(6+i,j-3,c);});});
+             ".rrrrrrrRR",
+             ".wwwwwwwwW",
+             "WWWWWWWWWW"];
+  HAT.forEach((row,j)=>{const first=row.search(/[rR]/);[...row].forEach((ch,i)=>{if(ch==='.')return;let c=ch==='w'?'#ffffff':ch==='W'?'#dfe3ee':ch==='R'?HR[2]:HR[1];if(ch==='r'&&(i===first||j===1))c=HR[0];hs(5+i,j-3,c);});});
   for(const[x,y]of hat)for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]])if(!G.g(x+dx,y+dy)&&y+dy>=0&&x+dx>=0&&x+dx<W)G.s(x+dx,y+dy,'#1a1a24');
   const SN=new Set([C.s0,C.s1,C.s2,C.s3,C.s4]);for(const[x,y]of snow)if(SN.has(G.a[y][x]))for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]])if(!G.g(x+dx,y+dy)&&y+dy>=0&&y+dy<H&&x+dx>=0&&x+dx<W)G.s(x+dx,y+dy,'#2b3354');
   const[c,g]=fxCv(W,H);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(G.a[y][x]){g.fillStyle=G.a[y][x];g.fillRect(x,y,1,1);}return CHS=c;}
