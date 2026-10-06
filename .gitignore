@@ -4,3 +4,5 @@ _전달*/
 __pycache__/
 .DS_Store
 preview-*.html
+price_table.csv
+preview-shop.html
