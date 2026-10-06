@@ -334,6 +334,9 @@ html.dk .suc{background:#2f251c;color:#f1e3c8}html.dk .suc.me,html.dk .supad but
 .tcp.turn{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold)}
 .tcp.my b{color:var(--grn)}.tcp.op b{color:#c8392f}html.dk .tcp.op b{color:#ff8a7a}
 .tcb{display:inline-block;background:#e0604a;color:#fffaf0;font-size:11px!important;padding:0 4px;margin-left:2px}
+.tcq{display:flex;align-items:center;gap:8px;background:#fffaf0;color:#4a3423;border:3px solid var(--ol);padding:4px 8px;margin:14px 0 2px;line-height:1.4}.tcq.new,.suq.new{animation:tcqIn .25s steps(3)}.tcq b{color:#3c7a2a}.tcq.op b{color:#c8392f}.tcq .bgi{flex:none}
+@keyframes tcqIn{from{transform:translateY(4px);opacity:.3}to{transform:none;opacity:1}}@media (prefers-reduced-motion:reduce){.tcq.new,.suq.new{animation:none}}
+.suq{display:flex;align-items:center;gap:8px;background:#fffaf0;color:#4a3423;border:3px solid var(--ol);padding:4px 8px;margin-bottom:8px;line-height:1.4;min-height:44px}.suq b{color:#3c7a2a}.suq .bgi{flex:none}
 .tcsay{position:absolute;left:50%;bottom:-13px;transform:translateX(-50%);background:#fffaf0;color:#4a3423;border:2px solid var(--ol);padding:0 5px;white-space:nowrap;font-size:12px!important;z-index:2;max-width:160px;overflow:hidden;text-overflow:ellipsis}
 .tctab{background:#3f7a4c;border:3px solid var(--ol);box-shadow:inset 0 0 0 3px #2f5e39;min-height:124px;padding:10px 6px;color:#fffaf0;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center;justify-content:center}
 .tctab .muted{color:#d9f0d0}
@@ -1711,10 +1714,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v7.8',d:'2026.10.06',log:['홈에 보드게임: 스도쿠 · 티츄','햄스터·설정 탭 바로 가기 · 맨 위로 버튼']};
+const APP_VER={v:'v7.8',d:'2026.10.06',log:['홈에 보드게임: 스도쿠 · 티츄 (토리·타코·도치 대사)','햄스터·설정 탭 바로 가기 · 맨 위로 버튼']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
- {v:'v7.8',d:'2026.10.06',log:['홈에 새 "🎳 보드게임" 칸: 스도쿠(쉬움·보통·어려움, 메모·힌트·되돌리기, 중간에 나가도 저장)와 티츄(진우·토리 팀 대 타코·도치 팀, 컴퓨터 3명, 200점 먼저 넘기면 승리)','보상: 스도쿠 다 풀면 🌰1(어려움 🌰2), 티츄 이기면 🌰2 — 미니게임과 합쳐 하루 2번','보드게임 아이콘과 티츄 특수 카드(참새·강아지·봉황·용)를 새로 그렸어요','햄스터·설정 탭 위에 바로 가기 칸, 많이 내려가면 "맨 위로" 버튼, 한글이 단어 중간에서 끊기지 않게','눈사람 타코 모자 아래·목도리 위에 검은 테두리','설정 백업 칸: "파일 저장"과 "파일에서 복원" 버튼을 한 줄에 나란히']},
+ {v:'v7.8',d:'2026.10.06',log:['홈에 새 "🎳 보드게임" 칸: 스도쿠(쉬움·보통·어려움, 메모·힌트·되돌리기, 중간에 나가도 저장)와 티츄(진우·토리 팀 대 타코·도치 팀, 컴퓨터 3명, 200점 먼저 넘기면 승리)','보상: 스도쿠 다 풀면 🌰1(어려움 🌰2), 티츄 이기면 🌰2 — 미니게임과 합쳐 하루 2번','보드게임 아이콘과 티츄 특수 카드(참새·강아지·봉황·용)를 새로 그렸어요','보드게임 대사: 티츄에서 토리(찍찍!)·타코(~다코)·도치(허세 많은 "가시 대장")가 카드 낼 때·패스·티츄·폭탄·용·판 끝에 한마디, 스도쿠에선 토리가 옆에서 응원','햄스터·설정 탭 위에 바로 가기 칸, 많이 내려가면 "맨 위로" 버튼, 한글이 단어 중간에서 끊기지 않게','눈사람 타코 모자 아래·목도리 위에 검은 테두리','설정 백업 칸: "파일 저장"과 "파일에서 복원" 버튼을 한 줄에 나란히']},
  {v:'v7.3',d:'2026.10.06',log:['루돌프 잡기: 눈사람 타코의 산타 모자를 작고 깜찍하게 줄였어요','루돌프가 펄쩍 뛸 때 목 방울이 짤랑, 당근을 주우면 종소리가 울려요']},
  {v:'v7.2',d:'2026.10.06',log:['크리스마스 주간(12/18~25) 새 미니게임 "도망가는 루돌프를 잡아라!": 손가락을 끌면 빨간 산타 모자를 쓴 토리가 달려가요. 루돌프를 잡을 때마다 선물이 떨어지고, 잡을수록 루돌프가 빨라져요','눈더미에선 느려지고 얼음판은 미끄러워요. 나무 뒤에 숨은 루돌프는 코만 반짝! 당근을 주우면 3초 동안 루돌프가 느려지고, 산타 모자를 쓰고 목도리를 두른 채 눈덩이 위에 앉은 눈사람 타코가 힌트를 알려 줘요','45초 동안 3마리면 도토리 1개, 6마리면 2개 (보상 횟수는 다른 미니게임과 합산). 루돌프 썰매 배달도 그대로 있어요','"백업 보내기" 버튼: 공유 창에서 카톡 나에게 보내기·드라이브·메일로 백업 파일을 보내요 (설정 · 홈 백업 카드)','백업한 지 7일이 지나면 홈 백업 카드가 콩콩 뛰고 토리와 타코가 말로 알려 줘요']},
  {v:'v6.9',d:'2026.10.06',log:['도감·가고 싶은 곳에서 장소 종류(식당·카페·놀거리·기타) 글씨가 흰색이라 안 보이던 것을 진한 갈색으로 고쳤어요']},
@@ -3112,7 +3115,14 @@ function bgShell(title,onClose){bgClose(1);const o=document.createElement('div')
 function bgClose(quiet){clearInterval(SU.tm);SU.tm=0;clearTimeout(TC.to);TC.to=0;const o=$('bgo');if(o)o.remove();document.documentElement.classList.remove('bgon');if(!quiet){save();if(tab==='home')rHome();}}
 
 /* ---------- 스도쿠 ---------- */
-const SU_LV=['쉬움','보통','어려움'],SU_CL=[40,32,26],SU_RW=[1,1,2],SU={sel:-1,memo:0,tm:0};
+const SU_LV=['쉬움','보통','어려움'],SU_CL=[40,32,26],SU_RW=[1,1,2],SU={sel:-1,memo:0,tm:0,q:'',qn:0,idle:0};
+/* 토리 응원(찍찍! + 해요체). SU.q=말, SU.qn=새 말이면 살짝 튀어나옴, SU.idle=가만히 있은 초 */
+const SU_LN={new:['찍찍! 천천히 같이 풀어 봐요!','찍찍찍~ ♪ 토리가 옆에서 응원할게요!','찍찍! 쉬운 칸부터 하나씩 찾아봐요!'],back:['찍찍! 이어서 풀어요. 토리 기다렸어요!','찍찍! 아까 하던 판이에요!'],
+ ok:['찍찍! 맞았어요!','찍찍찍~ ♪ 척척이에요!','찍찍! 진우 눈썰미 최고예요!','찍찍! 그 칸 딱 맞아요!'],bad:['찍찍… 괜찮아요, 다시 보면 돼요!','찍찍! 아깝다, 빨간 숫자 한 번 더 봐요!','찍찍… 토리도 자주 틀려요. 천천히요!'],
+ hint:['찍찍! 토리가 살짝 알려 줄게요!','찍찍, 이 칸은 토리가 찾아 놨어요!'],half:['찍찍! 벌써 반이나 채웠어요!'],near:['찍찍찍! 이제 몇 칸 안 남았어요!'],
+ idle:['찍찍… 막혔어요? 힌트 써도 괜찮아요!','찍찍! 숫자가 많이 채워진 줄부터 보면 쉬워요','찍찍~ 잠깐 쉬어도 돼요. 토리는 기다릴 수 있어요!','찍찍! 아래 숫자 버튼에 남은 개수가 적은 숫자를 찾아봐요'],
+ done:['찍찍찍~ ♪ 다 풀었어요! 진우 천재예요!','찍찍! 다 풀었어요! 토리 볼이 빵빵해질 만큼 기뻐요!']};
+function suQ(k,low){if(low&&Math.random()>.3)return;const a=SU_LN[k];SU.q=a[Math.random()*a.length|0];SU.qn=1;}
 const suPc=m=>{let n=0;while(m){m&=m-1;n++;}return n;};
 const suBx=i=>((i/27|0)*3+((i%9)/3|0));
 function suShuf(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
@@ -3138,9 +3148,10 @@ function suPick(){const b=bgS(),sw=b.sw||[0,0,0];const el=bgShell('🔢 스도�
   el.innerHTML=`<div class="card"><h2>단계 고르기</h2>${SU_LV.map((n,i)=>`<button class="bglv" onclick="suNew(${i})"><b>${n}</b><span>${['처음 하는 사람도 술술','조금 생각해야 해요','머리를 꽤 써야 해요'][i]} · 다 풀면 🌰${SU_RW[i]}</span><span class="muted">${S.mg['bs'+i]?'최고 기록 '+bgT(S.mg['bs'+i])+' · ':''}푼 판 ${sw[i]||0}</span></button>`).join('')}</div>
   <div class="card"><h2>하는 법</h2><div class="bghelp">① 빈칸을 누르고 ② 아래 숫자를 눌러 넣어요.<br>· 가로줄, 세로줄, 굵은 선 네모(3×3) 안에 1~9가 한 번씩만 들어가요.<br>· 틀린 숫자는 빨갛게 보여요(실수 횟수만 세고 끝나지 않아요).<br>· ✏️ 메모를 켜면 작은 후보 숫자를 적어 둘 수 있어요.<br>· 중간에 나가도 그대로 저장돼요.</div></div>`;}
 function suNew(lv){const el=$('bgb');if(el)el.innerHTML='<div class="card empty">문제를 만드는 중이에요…</div>';
-  setTimeout(()=>{bgS().su=suMake(lv);SU.sel=-1;SU.memo=0;save();suPlay();},30);}
-function suPlay(){const z=bgS().su;if(!z)return suPick();bgShell('🔢 스도쿠 · '+SU_LV[z.lv],()=>save());SU.sel=SU.sel>=0?SU.sel:-1;suDraw();
-  clearInterval(SU.tm);SU.tm=setInterval(()=>{const q=bgS().su;if(!q||q.done||document.hidden||!$('bgo'))return;q.t++;const t=$('bgtm');if(t)t.textContent=bgT(q.t);if(q.t%15===0)save();},1000);}
+  setTimeout(()=>{bgS().su=suMake(lv);SU.sel=-1;SU.memo=0;suQ('new');save();suPlay();},30);}
+function suPlay(){const z=bgS().su;if(!z)return suPick();if(!SU.q)suQ('back');SU.idle=0;bgShell('🔢 스도쿠 · '+SU_LV[z.lv],()=>save());SU.sel=SU.sel>=0?SU.sel:-1;suDraw();
+  clearInterval(SU.tm);SU.tm=setInterval(()=>{const q=bgS().su;if(!q||q.done||document.hidden||!$('bgo'))return;q.t++;const t=$('bgtm');if(t)t.textContent=bgT(q.t);if(q.t%15===0)save();
+    if(++SU.idle===75||SU.idle===200){suQ('idle');suDraw();}},1000);}
 function suDraw(){const z=bgS().su,el=$('bgb');if(!z||!el)return;const sel=SU.sel,sv=sel>=0?(z.p[sel]!=='0'?z.p[sel]:z.u[sel]):'0';
   const left=d=>9-[...Array(81).keys()].filter(i=>(z.p[i]===d)||(z.u[i]===d&&z.s[i]===d)).length;
   let g='';for(let bx=0;bx<9;bx++){g+='<div class="sub">';for(let k=0;k<9;k++){const i=((bx/3|0)*3+(k/3|0))*9+(bx%3)*3+k%3,gv=z.p[i]!=='0',v=gv?z.p[i]:z.u[i];
@@ -3149,30 +3160,32 @@ function suDraw(){const z=bgS().su,el=$('bgb');if(!z||!el)return;const sel=SU.se
     if(sv!=='0'&&v===sv&&i!==sel)c+=' same';
     const nt=v==='0'&&z.n[i]?`<span class="sunt">${[1,2,3,4,5,6,7,8,9].map(d=>`<i>${z.n[i]&(1<<d)?d:''}</i>`).join('')}</span>`:'';
     g+=`<button class="${c}" onclick="suTap(${i})" aria-label="${(i/9|0)+1}줄 ${i%9+1}칸 ${v!=='0'?v:'빈칸'}">${v!=='0'?v:nt}</button>`;}g+='</div>';}
-  el.innerHTML=`<div class="suinfo"><span>실수 <b>${z.mis}</b></span><span>힌트 <b>${z.hn}</b></span><span>남은 칸 <b>${[...z.u].filter((d,i)=>z.p[i]==='0'&&d!==z.s[i]).length}</b></span></div>
+  const qn=SU.qn;SU.qn=0;
+  el.innerHTML=`${SU.q?`<div class="suq${qn?' new':''}">${bgIco('q_ham',28)}<div><b>토리</b> ${esc(SU.q)}</div></div>`:''}<div class="suinfo"><span>실수 <b>${z.mis}</b></span><span>힌트 <b>${z.hn}</b></span><span>남은 칸 <b>${[...z.u].filter((d,i)=>z.p[i]==='0'&&d!==z.s[i]).length}</b></span></div>
   <div class="sugrid">${g}</div>
   <div class="sutools"><button class="btn ghost sm" onclick="suUndo()" ${z.h.length?'':'disabled'}>↩ 되돌리기</button><button class="btn ghost sm" onclick="suErase()">지우기</button><button class="btn sm ${SU.memo?'':'ghost'}" onclick="SU.memo^=1;suDraw()">✏️ 메모 ${SU.memo?'켬':'끔'}</button><button class="btn ghost sm" onclick="suHint()">✨ 힌트</button></div>
   <div class="supad">${[1,2,3,4,5,6,7,8,9].map(d=>{const l=left(''+d);return `<button class="${l?'':'done'}${SU.memo?' memo':''}" onclick="suNum(${d})"><b>${d}</b><small>${l?l+'개':'✅'}</small></button>`;}).join('')}</div>
   <div class="muted" style="text-align:center;margin-top:8px">${sel<0?'빈칸을 먼저 눌러 주세요.':SU.memo?'메모 중: 숫자를 누르면 작은 후보가 적혀요.':'같은 숫자를 한 번 더 누르면 지워져요.'}</div>`;
   const t=$('bgtm');if(t)t.textContent=bgT(z.t);}
-function suTap(i){SU.sel=SU.sel===i?-1:i;suDraw();}
+function suTap(i){SU.sel=SU.sel===i?-1:i;SU.idle=0;suDraw();}
 function suPush(z){z.h.push([SU.sel,z.u,z.n.slice()]);if(z.h.length>60)z.h.shift();}
 function suSet(z,i,d){z.u=z.u.slice(0,i)+d+z.u.slice(i+1);}
 function suNum(d){const z=bgS().su,i=SU.sel;if(!z||z.done)return;if(i<0){toast('빈칸을 먼저 눌러 주세요');return;}if(z.p[i]!=='0'){toast('처음부터 있던 숫자는 바꿀 수 없어요');return;}
-  const ds=''+d;suPush(z);
+  const ds=''+d;suPush(z);SU.idle=0;
   if(SU.memo){if(z.u[i]!=='0'){z.h.pop();toast('숫자를 지우면 메모할 수 있어요');return;}z.n[i]^=1<<d;sfx('tick');}
   else if(z.u[i]===ds){suSet(z,i,'0');}
-  else{suSet(z,i,ds);z.n[i]=0;if(z.s[i]!==ds){z.mis++;sfx('no');}else{sfx('coin');
+  else{suSet(z,i,ds);z.n[i]=0;if(z.s[i]!==ds){z.mis++;sfx('no');suQ('bad',z.mis>1);}else{sfx('coin');{const L=[...z.u].filter((x,j)=>z.p[j]==='0'&&x!==z.s[j]).length,tot=[...z.p].filter(x=>x==='0').length,dn=[...Array(81).keys()].filter(j=>z.p[j]===ds||z.u[j]===ds&&z.s[j]===ds).length;
+      if(L===3)suQ('near');else if(L===Math.floor(tot/2))suQ('half');else if(dn===9&&L){SU.q='찍찍! 숫자 '+d+' 아홉 개를 다 찾았어요!';SU.qn=1;}else suQ('ok',1);}
     for(let j=0;j<81;j++)if((j/9|0)===(i/9|0)||j%9===i%9||suBx(j)===suBx(i))z.n[j]&=~(1<<d);}}
   save();suDraw();suChk();}
 function suErase(){const z=bgS().su,i=SU.sel;if(!z||i<0||z.p[i]!=='0')return;if(z.u[i]==='0'&&!z.n[i])return;suPush(z);suSet(z,i,'0');z.n[i]=0;save();suDraw();}
 function suUndo(){const z=bgS().su;if(!z||!z.h.length)return;const[s,u,n]=z.h.pop();z.u=u;z.n=n;SU.sel=s;save();suDraw();}
 function suHint(){const z=bgS().su;if(!z||z.done)return;let i=SU.sel;
   if(i<0||z.p[i]!=='0'||z.u[i]===z.s[i]){const e=[...Array(81).keys()].filter(j=>z.p[j]==='0'&&z.u[j]!==z.s[j]);if(!e.length)return;i=e[Math.random()*e.length|0];}
-  suPush(z);suSet(z,i,z.s[i]);z.n[i]=0;z.hn++;SU.sel=i;sfx('coin');save();suDraw();suChk();}
+  suPush(z);suSet(z,i,z.s[i]);z.n[i]=0;z.hn++;SU.sel=i;SU.idle=0;suQ('hint');sfx('coin');save();suDraw();suChk();}
 function suChk(){const z=bgS().su;if(!z||z.done)return;for(let i=0;i<81;i++)if(z.p[i]==='0'&&z.u[i]!==z.s[i])return;
   z.done=1;clearInterval(SU.tm);SU.tm=0;const b=bgS();b.sw=b.sw||[0,0,0];b.sw[z.lv]=(b.sw[z.lv]||0)+1;
-  const[m,nb]=mgRw(SU_RW[z.lv],'다 풀었어요!','bs'+z.lv,z.t,true);b.su=null;save();sfx('fan');
+  const[m,nb]=mgRw(SU_RW[z.lv],'다 풀었어요!','bs'+z.lv,z.t,true);b.su=null;save();sfx('fan');suQ('done');const sq=document.querySelector('#bgb .suq div');if(sq)sq.innerHTML='<b>토리</b> '+esc(SU.q);SU.q='';
   const el=$('bgb');if(!el)return;SU.sel=-1;
   el.insertAdjacentHTML('afterbegin',`<div class="card legend bgdone"><h2>🎉 다 풀었어요!</h2><div>${SU_LV[z.lv]} · 걸린 시간 <b>${bgT(z.t)}</b>${nb?' · 🏆 최고 기록!':''}</div><div class="muted">실수 ${z.mis}번 · 힌트 ${z.hn}번</div><div style="margin:6px 0">${m}</div><div class="row"><button class="btn full" onclick="suPick()">한 판 더</button><button class="btn ghost full" onclick="bgClose()">닫기</button></div></div>`);
   el.querySelectorAll('.supad button,.sutools button,.suc').forEach(x=>x.disabled=true);window.scrollTo(0,0);$('bgo').scrollTop=0;}
@@ -3252,13 +3265,13 @@ function tcWishOpts(T,p){if(!T.wish)return[];return tcGen(T.h[p],T.cur?T.cur.c:n
 function tcOpen(){const b=bgS();if(!b.tc||b.tc.ph==='over'){b.tc={sc:[0,0],rn:0};tcRound();}tcShow();}
 function tcRound(){const T=bgS().tc,d=suShuf([...Array(56).keys()]);T.rn=(T.rn||0)+1;
   T.h=[0,1,2,3].map(p=>tcSort(d.slice(p*8,p*8+8)));T.rest=[0,1,2,3].map(p=>d.slice(32+p*6,38+p*6));
-  T.calls=[0,0,0,0];T.won=[[],[],[],[]];T.out=[];T.cur=null;T.tr=[];T.wish=0;T.last=['','','',''];T.passed=[];T.played=[0,0,0,0];T.recv=null;T.ph='gt';T.turn=0;T.log=[];T.rd=null;
-  for(let p=1;p<4;p++)if(tcStr(T.h[p])>=10)T.calls[p]=2;TC.sel=[];TC.pk=[null,null,null];save();}
+  T.calls=[0,0,0,0];T.won=[[],[],[],[]];T.out=[];T.cur=null;T.tr=[];T.wish=0;T.last=['','','',''];T.passed=[];T.played=[0,0,0,0];T.recv=null;T.ph='gt';T.turn=0;T.log=[];T.rd=null;T.q=null;T.qs=null;T.na=0;
+  for(let p=1;p<4;p++)if(tcStr(T.h[p])>=10)T.calls[p]=2;{const g=[1,2,3].find(p=>T.calls[p]===2);if(g)tcQ('grand',g);}TC.sel=[];TC.pk=[null,null,null];save();}
 /* 손패 힘(컴퓨터가 티츄를 부를지 정할 때) */
 function tcStr(h){let s=0;const by={};h.forEach(id=>{const r=tcR(id);by[r]=(by[r]||0)+1;});
   h.forEach(id=>{if(id===55)s+=3.5;else if(id===54)s+=3;else if(id<52){const r=id%13+2;if(r===14)s+=2;else if(r===13)s+=.8;}});
   Object.entries(by).forEach(([r,n])=>{if(n===4&&+r<15)s+=5;});if(h.includes(53))s-=1;return s;}
-function tcGrand(yes){const T=bgS().tc;if(T.ph!=='gt')return;T.calls[0]=yes?2:0;if(yes)sfx('fan');
+function tcGrand(yes){const T=bgS().tc;if(T.ph!=='gt')return;T.calls[0]=yes?2:0;if(yes){sfx('fan');tcQ('jTichu',2);}
   for(let p=0;p<4;p++)T.h[p]=tcSort(T.h[p].concat(T.rest[p]));T.rest=null;T.ph='pass';TC.pk=[null,null,null];TC.sel=[];save();tcDraw();}
 /* 컴퓨터가 줄 카드 [오른쪽(다음 사람), 짝꿍, 왼쪽] — 짝꿍에겐 좋은 카드, 상대에겐 낮은 카드(개는 상대에게) */
 function tcAIGive(h){const s=tcSort(h.slice()),hi=s.filter(id=>id!==54&&id!==52).reverse(),bomb=new Set();const by={};s.forEach(id=>{if(id<52){const r=tcR(id);(by[r]=by[r]||[]).push(id);}});Object.values(by).forEach(a=>{if(a.length===4)a.forEach(id=>bomb.add(id));});
@@ -3270,10 +3283,38 @@ function tcPassGo(){const T=bgS().tc;if(T.ph!=='pass')return;if(TC.pk.some(x=>x=
   for(let p=1;p<4;p++)give[p]=tcAIGive(T.h[p]);
   const got=[[],[],[],[]];for(let p=0;p<4;p++){give[p].forEach((id,j)=>{const to=(p+1+j)%4;got[to].push([p,id]);});T.h[p]=T.h[p].filter(id=>!give[p].includes(id));}
   for(let p=0;p<4;p++)T.h[p]=tcSort(T.h[p].concat(got[p].map(x=>x[1])));T.recv=got[0];
-  for(let p=1;p<4;p++)if(!T.calls[p]&&!T.calls[(p+2)%4]&&tcStr(T.h[p])>=8.5)T.calls[p]=1;
+  let tq=0;for(let p=1;p<4;p++)if(!T.calls[p]&&!T.calls[(p+2)%4]&&tcStr(T.h[p])>=8.5){T.calls[p]=1;tq=p;}
+  if(tq)tcQ('tichu',tq);else if(!T.q||T.calls.every(x=>x!==2))tcQ('start');
   T.ph='play';T.turn=[0,1,2,3].find(p=>T.h[p].includes(52));T.log=[TC_NM[T.turn]+'(이)가 참새를 가져서 먼저 시작해요'];TC.sel=[];save();tcDraw();tcNext();}
-function tcTichu(){const T=bgS().tc;if(T.played[0]||T.calls[0])return;askOk('티츄! 를 부를까요? 진우가 1등으로 카드를 다 내면 +100점, 못 하면 -100점이에요.',()=>{T.calls[0]=1;sfx('fan');tcSay(0,'티츄!');save();tcDraw();});}
+function tcTichu(){const T=bgS().tc;if(T.played[0]||T.calls[0])return;askOk('티츄! 를 부를까요? 진우가 1등으로 카드를 다 내면 +100점, 못 하면 -100점이에요.',()=>{T.calls[0]=1;sfx('fan');tcSay(0,'티츄!');tcQ('jTichu',Math.random()<.6?2:Math.random()<.5?3:1);save();tcDraw();});}
 function tcSay(p,t){const T=bgS().tc;T.last[p]=t;}
+/* 캐릭터 대사(자리 1 타코 '~다코', 2 토리 '찍찍!'+해요체, 3 도치 허세 승부사 '가시 대장'). T.q=[자리,말,그때 행동 수] → 표 아래 말 칸 .tcq */
+const TC_LN={
+ start:{1:['오늘은 지지 않는다코~!','카드 냄새가 좋다코!','타코 팀이 이긴다코!'],2:['찍찍! 진우, 우리 팀 화이팅이에요!','찍찍찍~ ♪ 같이 이겨요!','찍찍! 토리가 진우 뒤를 지킬게요!'],3:['이 판은 내가 접수한다!','가시 대장 등장! 다들 긴장해라!','후후, 오늘 카드 좋은데?']},
+ tichu:{1:['티츄다코! 다 내 버릴 거다코!'],2:['찍찍! 티츄! 토리가 1등 할게요!'],3:['티츄! 1등은 당연히 이 몸이지!','티츄! 가시 대장은 도망 안 간다!']},
+ grand:{1:['그랜드 티츄다코~! 다리가 떨린다코…'],2:['찍찍! 그랜드 티츄! 볼주머니에 용기 가득이에요!'],3:['그랜드 티츄! 이 패면 눈 감고도 이긴다!']},
+ bomb:{1:['폭탄이다코! 쾅!'],2:['찍찍! 폭탄이에요! 비켜 주세요~'],3:['봤냐! 가시 폭탄이다!']},
+ dragon:{1:['용이다코! 아무도 못 이긴다코~'],2:['찍찍! 용이에요! 토리 볼이 빵빵해졌어요'],3:['용은 원래 대장 거다!']},
+ phoenix:{1:['봉황이다코~ 훨훨!'],2:['찍찍! 봉황 날아가요~'],3:['봉황도 대장 편이지!']},
+ dog:{1:['도치한테 넘긴다코~'],2:['찍찍! 진우 차례로 넘겨요!'],3:['타코, 맡긴다! 실수하지 마라!']},
+ wish:{1:['소원 빌었다코~ 꼭 내라코!'],2:['찍찍! 소원 빌었어요!'],3:['소원이다! 이 숫자 내 봐라!']},
+ play:{1:['자, 간다코!','쭉쭉 나간다코~','이 정도는 쉽다코!','받아 보라코!'],2:['찍찍! 이거 어때요?','찍찍찍~ ♪ 토리도 낼게요!','찍찍! 진우, 토리 잘했어요?'],3:['어때, 놀랐지?','이 정도는 기본이다!','후후, 아직 반도 안 보여 줬다!']},
+ pass:{1:['패스다코~','음… 이번엔 쉰다코'],2:['찍찍… 패스할게요','찍찍, 진우가 해 줄 거죠?'],3:['흥, 일부러 봐준 거다','대장은 기다릴 줄도 안다!']},
+ take:{1:['점수 냠냠이다코~'],2:['찍찍! 점수 볼주머니에 쏙!'],3:['점수는 대장이 챙긴다!']},
+ out1:{1:['다 냈다코~! 1등이다코!'],2:['찍찍! 토리가 1등이에요! 진우 봤어요?'],3:['봐라, 이 몸이 1등이다!']},
+ jTichu:{2:['찍찍! 진우 티츄! 토리가 도와줄게요!'],3:['흥, 과연 될까?'],1:['진우가 티츄다코?! 긴장된다코…']},
+ jBomb:{2:['찍찍! 진우 최고예요!!'],1:['으악, 폭탄이다코!'],3:['뭐, 뭐야! 가시가 떨린다…']},
+ jDragon:{2:['찍찍! 용이다! 진우 멋져요!'],3:['칫, 용이 거기 있었냐…'],1:['용이었다코…?!']},
+ jOut1:{2:['찍찍찍~ ♪ 진우가 1등이에요!'],3:['오늘은 가시 컨디션이…'],1:['진우 빠르다코…']},
+ rWin:{2:['찍찍! 이번 판은 우리 팀이 앞섰어요!'],3:['다음 판은 다르다! 진짜다!']},
+ rLose:{2:['찍찍… 괜찮아요, 다음 판이 있어요!'],3:['봤냐! 가시 대장 실력!']},
+ r12us:{2:['찍찍찍! 원투예요! 진우랑 토리 최고 팀!']},r12op:{3:['원투다! 대장님이라 불러라!']},
+ gWin:{2:['찍찍찍~ ♪ 우리가 이겼어요! 진우 최고!'],3:['오늘은 가시 컨디션이… 다음엔 진짜 안 봐준다!'],1:['졌다코… 그래도 재밌었다코~']},
+ gLose:{2:['찍찍… 아쉬워요. 그래도 진우랑 해서 즐거웠어요!'],3:['역시 가시 대장! 언제든 덤벼라!'],1:['이겼다코~! 또 하자코!']}};
+const tcLn=(ev,p)=>{const a=(TC_LN[ev]||{})[p];return a?a[Math.random()*a.length|0]:'';};
+/* ev 대사를 p가 말해요(p 없으면 대사가 있는 사람 중 아무나). low=1이면 가끔(pr 확률)만, 방금 한 말은 덮지 않아요 */
+function tcQ(ev,p,low,pr){const T=bgS().tc;T.na=(T.na||0)+1;if(low&&(Math.random()>(pr||.25)||T.q&&T.na-T.q[2]<3))return;
+  const ps=Object.keys(TC_LN[ev]||{}).map(Number);if(p==null){if(!ps.length)return;p=ps[Math.random()*ps.length|0];}const t=tcLn(ev,p);if(t)T.q=[p,t,T.na];}
 
 /* --- 차례 진행 --- */
 function tcNext(){clearTimeout(TC.to);const T=bgS().tc;if(!T||T.ph!=='play'||!$('bgo'))return;if(T.turn!==0)TC.to=setTimeout(tcAITurn,820);}
@@ -3304,11 +3345,13 @@ function tcPlay(p,k,w){const T=bgS().tc,c=tcBest(k,T.cur?T.cur.c:null);if(!c)ret
   T.last=T.last.map((x,i)=>i===p?tcShort(c,k):x==='패스'?'':x);
   T.log.unshift(TC_NM[p]+': '+tcLabel(c,k));T.log=T.log.slice(0,6);
   sfx(c.bomb?'fan':'coin');
-  if(!T.h[p].length){T.out.push(p);T.log.unshift(TC_NM[p]+(T.out.length===1?'(이)가 1등으로 다 냈어요!':'(이)가 다 냈어요'));if(tcEndChk(T))return;}
+  if(p){const ev=c.bomb?'bomb':c.t==='dog'?'dog':c.t==='s'&&k[0]===55?'dragon':k.includes(52)&&w?'wish':c.t==='s'&&k[0]===54?'phoenix':'';if(ev)tcQ(ev,p);else tcQ('play',p,1);}
+  else if(c.bomb)tcQ('jBomb');else if(c.t==='s'&&k[0]===55)tcQ('jDragon');
+  if(!T.h[p].length){T.out.push(p);if(T.out.length===1)tcQ(p?'out1':'jOut1',p||null);T.log.unshift(TC_NM[p]+(T.out.length===1?'(이)가 1등으로 다 냈어요!':'(이)가 다 냈어요'));if(tcEndChk(T))return;}
   if(c.t==='dog'){T.won[p].push(...T.tr);T.cur=null;T.tr=[];T.passed=[];T.last=['','','',''];const m=(p+2)%4;T.turn=T.h[m].length?m:tcNx(T,m);}
   else T.turn=tcNx(T,p);
   save();tcDraw();tcNext();}
-function tcPass(p){const T=bgS().tc;T.passed.push(p);T.last[p]='패스';
+function tcPass(p){const T=bgS().tc;T.passed.push(p);T.last[p]='패스';if(p)tcQ('pass',p,1,.2);
   const act=tcAct(T),need=act.filter(i=>i!==T.cur.by);
   if(need.every(i=>T.passed.includes(i))){tcTake(T);return;}
   T.turn=tcNx(T,p);save();tcDraw();tcNext();}
@@ -3317,7 +3360,7 @@ function tcTake(T,quiet){const w=T.cur.by;
   if(T.cur.c.t==='s'&&T.cur.k[0]===55){
     if(w===0&&!quiet){T.ph='dragon';save();tcDraw();return;}
     const to=tcDragonTo(T,w);T.won[to].push(...T.tr);T.log.unshift(TC_NM[w]+'(이)가 용으로 이긴 카드를 '+TC_NM[to]+'에게 줬어요');}
-  else{T.won[w].push(...T.tr);T.log.unshift(TC_NM[w]+'(이)가 이번 판 카드를 가져가요'+(tcSum(T.tr)?' ('+tcSum(T.tr)+'점)':''));}
+  else{if(w&&!quiet&&tcSum(T.tr)>=20)tcQ('take',w,1,.6);T.won[w].push(...T.tr);T.log.unshift(TC_NM[w]+'(이)가 이번 판 카드를 가져가요'+(tcSum(T.tr)?' ('+tcSum(T.tr)+'점)':''));}
   T.tr=[];T.cur=null;T.passed=[];T.last=['','','',''];if(quiet)return;
   T.turn=T.h[w].length?w:tcNx(T,w);save();tcDraw();tcNext();}
 function tcDragonTo(T,w){const a=(w+1)%4,b=(w+3)%4;return T.h[a].length>=T.h[b].length?a:b;}
@@ -3333,6 +3376,7 @@ function tcEndChk(T){const act=tcAct(T),dbl=T.out.length===2&&T.out[0]%2===T.out
   for(let p=0;p<4;p++)if(T.calls[p]){const v=T.calls[p]===2?200:100,ok=T.out[0]===p;pts[p%2]+=ok?v:-v;det.push(TC_NM[p]+' '+(T.calls[p]===2?'그랜드 티츄':'티츄')+(ok?' 성공 +':' 실패 -')+v);}
   T.sc[0]+=pts[0];T.sc[1]+=pts[1];T.rd={pts,det,out:T.out.slice()};T.ph='end';
   const fin=(T.sc[0]>=TC_GOAL||T.sc[1]>=TC_GOAL)&&T.sc[0]!==T.sc[1];
+  {const ev=fin?(T.sc[0]>T.sc[1]?'gWin':'gLose'):dbl?(T.out[0]%2?'r12op':'r12us'):pts[0]>=pts[1]?'rWin':'rLose';T.qs=[2,3,1].map(p=>[p,tcLn(ev,p)]).filter(x=>x[1]);}
   if(fin){T.ph='over';const b=bgS(),win=T.sc[0]>T.sc[1];if(win)b.tw=(b.tw||0)+1;else b.tl=(b.tl||0)+1;
     const[m]=win?mgRw(2,'','btw',b.tw):['아쉬워요! 다음엔 꼭 이겨요'];T.rw=m;sfx(win?'fan':'no');}
   else sfx('fan');
@@ -3364,11 +3408,13 @@ function tcDraw(){const T=bgS().tc,el=$('bgb');if(!T||!el)return;const my=T.h[0]
     el.innerHTML=head+`<div class="card${T.ph==='over'&&win?' legend':''}"><h2>${T.ph==='over'?(win?'🏆 우리 팀이 이겼어요!':'타코 팀이 이겼어요'):'🎴 '+T.rn+'번째 판 끝'}</h2>
     <div>이번 판: 우리 팀 <b>${r.pts[0]>=0?'+':''}${r.pts[0]}</b> · 상대 팀 <b>${r.pts[1]>=0?'+':''}${r.pts[1]}</b></div><div class="muted">나간 순서: ${r.out.map((p,i)=>(i+1)+'. '+TC_NM[p]).join(' · ')}</div>
     <ul class="tcdet">${r.det.map(d=>`<li>${esc(d)}</li>`).join('')}</ul>
+    ${(T.qs||[]).map(([p,t])=>`<div class="tcq${p%2?' op':' my'}">${bgIco(TC_AV[p],28)}<div><b>${TC_NM[p]}</b> ${esc(t)}</div></div>`).join('')}
     ${T.ph==='over'?`<div style="margin:6px 0">${T.rw||''}</div><div class="row"><button class="btn full" onclick="bgS().tc=null;tcOpen()">새 게임</button><button class="btn ghost full" onclick="bgClose()">닫기</button></div>`:`<button class="btn full" onclick="tcRound();tcDraw()">다음 판</button>`}</div>`;return;}
   const seats=`<div class="tct"><div class="tcl">${tcSeat(T,3)}</div><div class="tcm">${tcSeat(T,2)}
     <div class="tctab">${T.cur?`<div class="tcby">${TC_NM[T.cur.by]}: ${esc(tcLabel(T.cur.c,T.cur.k))}</div><div class="tccur">${T.cur.k.map(id=>tcCard(id,'sm')).join('')}</div>`:`<div class="tcby">${T.ph==='play'?(T.turn===0?'진우가 시작할 차례예요':TC_NM[T.turn]+'(이)가 시작해요'):T.ph==='gt'?'카드 8장을 받았어요':'카드 주고받기'}</div>`}
     ${T.wish?`<div class="tcwish">참새의 소원: <b>${tcRN(T.wish)}</b></div>`:''}${T.tr.length?`<div class="muted">이번 바퀴 점수 ${tcSum(T.tr)}</div>`:''}</div></div>
     <div class="tcr">${tcSeat(T,1)}</div></div>`;
+  const q=T.q,qn=q&&q[2]!==TC.qn;if(q)TC.qn=q[2];const qb=q?`<div class="tcq${q[0]%2?' op':' my'}${qn?' new':''}">${bgIco(TC_AV[q[0]],28)}<div><b>${TC_NM[q[0]]}</b> ${esc(q[1])}</div></div>`:'';
   let ctl='',info='';
   if(T.ph==='gt'){ctl=`<div class="card"><h2>그랜드 티츄?</h2><div class="muted">8장만 보고 '내가 1등으로 다 낸다'에 걸어요. 성공 +200, 실패 -200. 보통은 안 불러요.</div><div class="row" style="margin-top:6px"><button class="btn ghost full" onclick="tcGrand(0)">안 불러요 (6장 더 받기)</button><button class="btn pink full" onclick="tcGrand(1)">그랜드 티츄!</button></div></div>`;}
   else if(T.ph==='pass'){const nm=['토리(우리 팀)','타코','도치'];ctl=`<div class="card"><h2>카드 주고받기</h2><div class="muted">세 사람에게 한 장씩 줘요. 카드를 누르면 차례로 들어가요. 토리에겐 좋은 카드, 상대에겐 낮은 카드!</div>
@@ -3381,7 +3427,7 @@ function tcDraw(){const T=bgS().tc,el=$('bgb');if(!T||!el)return;const my=T.h[0]
   const n=my.length,ov=n>1?Math.min(0,Math.floor((Math.min(innerWidth-28,456)-48)/(n-1))-48):0;
   const hand=`<div class="tchand" style="--ov:${ov}px">${my.map(id=>tcCard(id,(TC.sel.includes(id)?'on':'')+(TC.pk.includes(id)&&T.ph==='pass'?' gone':''),T.ph==='pass'||T.ph==='play'?`tcTap(${id})`:'')).join('')}</div>`;
   const recv=T.recv&&!T.played[0]&&T.ph==='play'?`<div class="muted" style="text-align:center">받은 카드: ${T.recv.map(([f,id])=>TC_NM[f]+'→'+(TC_SP[id]?TC_SP[id][2]:tcRN(tcR(id)))).join(' · ')}</div>`:'';
-  el.innerHTML=head+seats+`<div id="tcwish"></div>`+hand+recv+ctl+`<div class="tclog">${T.log.slice(0,3).map(x=>`<div>${esc(x)}</div>`).join('')}</div><div style="text-align:center;margin-top:8px"><button class="btn ghost sm" onclick="tcRules()">규칙 보기</button></div>`;}
+  el.innerHTML=head+seats+qb+`<div id="tcwish"></div>`+hand+recv+ctl+`<div class="tclog">${T.log.slice(0,3).map(x=>`<div>${esc(x)}</div>`).join('')}</div><div style="text-align:center;margin-top:8px"><button class="btn ghost sm" onclick="tcRules()">규칙 보기</button></div>`;}
 function tcRules(){modal(`<h3>🎴 티츄 규칙 (짧게)</h3><div class="bghelp">· 진우·토리가 한 팀, 타코·도치가 한 팀. 손에 든 카드를 먼저 다 내는 게 목표예요.<br>
 · 앞사람보다 <b>같은 모양으로 더 센</b> 카드를 내요: 한 장, 페어, 트리플, 풀하우스(3+2), 스트레이트(5장 이상 이어진 숫자), 연속 페어(이어진 페어 2쌍 이상). 못 내거나 안 내면 패스.<br>
 · 모두 패스하면 마지막에 낸 사람이 카드를 가져가고 새로 시작해요.<br>
