@@ -146,6 +146,12 @@ g.put(0, 0, [r.replace('.', '_') for r in art])
 g.halo('k', diag=False)
 N['tdragon'] = g.rows()
 
+# 보드게임 말 칸 얼굴(v7.8 대사): 타코(q_octo)처럼 앞모습·큰 눈·볼터치. 왼쪽 반만 적고 좌우 대칭
+M = lambda l: l + l[::-1]
+S = lambda *r: [x if len(x) == 16 else M(x) for x in r]
+N['tori_f'] = S("........",".kkk....","kpPpk.kk","kpppkkbb",".kbbbbbb","kbbbbbbb","kbbbbbbb","kbbbkkbb","kbbbkhbb","kbppbbbP","kbppbbww","kbbbbwwk",".kbbbwww",".kbbbbww","..kkbbbb","....kkkk")
+N['dochi_f'] = S("...k..k.","..kDkkDk",".kDdDDdD","kDDdDDdD","kDdDDdDD","kDDDtttt","kDdttttt","kDDtkktt","kDdtkhtt","kDtppttt","kDtppttk","kDDttttt",".kDDtttt","..kDDttt","...kkkkk","........")
+
 for k, v in N.items():
     assert len(v) == 16 and all(len(r) == 16 for r in v), (k, [len(r) for r in v])
 print(json.dumps({'q_' + k: v for k, v in N.items()}))
