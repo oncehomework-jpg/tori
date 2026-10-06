@@ -1683,10 +1683,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v7.6',d:'2026.10.07',log:['보물상자가 도토리 상점으로 바뀌었어요: 토리에게 도토리를 주면 준 만큼 도토리 코인이 생기고, 코인으로 원하는 쿠폰·사진·타코 축복·꾸미기·편의 아이템을 골라 살 수 있어요 (한 번만 살 수 있어요)','이미 연 상자는 전부 보유로 남아 있고, 레벨과 준 도토리는 그대로예요','상점은 탭(전체·쿠폰·사진·타코 축복·꾸미기·편의)과 가격 낮은 순·살 수 있는 것만·산 것 숨기기로 볼 수 있어요']};
+const APP_VER={v:'v7.6',d:'2026.10.07',log:['보물상자가 도토리 상점으로 바뀌었어요: 토리에게 도토리를 주면 준 만큼 도토리 코인이 생기고, 코인으로 원하는 쿠폰·사진·타코 축복·꾸미기·편의 아이템을 골라 살 수 있어요 (한 번만 살 수 있어요)','이미 연 상자는 전부 보유로 남아 있고, 레벨과 준 도토리는 그대로예요','햄스터 탭에는 코인과 지금 살 만한 것 3개만 보이고, 상점 전체 보기에서 탭(쿠폰·사진·타코 축복·꾸미기·편의)과 살 수 있는 것만 보기로 싼 순으로 볼 수 있어요']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
- {v:'v7.6',d:'2026.10.07',log:['보물상자가 도토리 상점으로 바뀌었어요: 토리에게 도토리를 주면 준 만큼 도토리 코인이 생기고, 코인으로 원하는 쿠폰·사진·타코 축복·꾸미기·편의 아이템을 골라 살 수 있어요 (한 번만 살 수 있어요)','이미 연 상자는 전부 보유로 남아 있고, 레벨과 준 도토리는 그대로예요','상점은 탭(전체·쿠폰·사진·타코 축복·꾸미기·편의)과 가격 낮은 순·살 수 있는 것만·산 것 숨기기로 볼 수 있어요']},
+ {v:'v7.6',d:'2026.10.07',log:['보물상자가 도토리 상점으로 바뀌었어요: 토리에게 도토리를 주면 준 만큼 도토리 코인이 생기고, 코인으로 원하는 쿠폰·사진·타코 축복·꾸미기·편의 아이템을 골라 살 수 있어요 (한 번만 살 수 있어요)','이미 연 상자는 전부 보유로 남아 있고, 레벨과 준 도토리는 그대로예요','햄스터 탭에는 코인과 지금 살 만한 것 3개만 보이고, 상점 전체 보기에서 탭(쿠폰·사진·타코 축복·꾸미기·편의)과 살 수 있는 것만 보기로 싼 순으로 볼 수 있어요']},
  {v:'v7.5',d:'2026.10.06',log:['12월 23일에 이름이 생겼어요: 크리스마스 이브의 이브 (기념일 카드·달력·토리 말풍선)','유령 잡기를 새로 그렸어요: 보름달 밤하늘·유령의 집·묘지 울타리·불 켜지는 호박·박쥐, 점수판도 나무 창으로 (규칙·보상은 그대로)','사탕 미로의 보라 유령이 겁먹었을 때도 반투명하게 보여요']},
  {v:'v7.4',d:'2026.10.06',log:['레벨 올리는 데 필요한 도토리가 점점 늘어나요: Lv.2~10은 5개, 11~30은 10개, 31~60은 25개, 61~100은 50개씩이고 Lv.100이 최고예요','칭호가 10단계로 늘었어요 (견습 햄스터 · 견습 모험가 · 모험가 · 기사 · 마법사 · 대마법사 · 도토리 귀족 · 도토리 왕 · 도토리 황제 · 전설의 용사)','레벨 기준이 바뀌었다는 안내창을 한 번 보여 줘요. 먹인 도토리와 보물상자는 그대로예요']},
  {v:'v7.3',d:'2026.10.06',log:['루돌프 잡기: 눈사람 타코의 산타 모자를 작고 깜찍하게 줄였어요','루돌프가 펄쩍 뛸 때 목 방울이 짤랑, 당근을 주우면 종소리가 울려요']},
@@ -1951,7 +1951,7 @@ function shAsk(n){const m=MS.find(x=>x.n===n);if(!m||S.claimed.includes(n))retur
 function shBuy(n){const m=MS.find(x=>x.n===n);if(!m||S.claimed.includes(n)||coinOf()<m.p)return;S.claimed.push(n);S.coinSpent=(+S.coinSpent||0)+m.p;
   const auto=/^(title|bgp|deco|photo):/.test(m.fx||'');let note='보상에 넣어 뒀어요';
   if(auto)note=fxAuto(m.fx);else S.coupons.push({id:uid(),emoji:m.e,name:m.name,desc:m.d,grade:m.t,qty:1,expire:'',ms:n,...(m.fx?{fx:m.fx}:{})});
-  save();rPet();sfx('fan');fx('star',18);
+  save();rPet();shDraw();sfx('fan');fx('star',18);
   const phk=(m.fx||'').startsWith('photo:')&&PH[m.fx.slice(6)];
   modal(`<img class="rxm${phk?' rxp':''}" src="${phk?phk[2]:TORI_IMG.joy}" alt="${phk?esc(phk[1]):''}">${phk?'':`<div class="big">${m.e}</div>`}<h3 style="text-align:center">구매 완료!</h3><div class="card" style="text-align:center"><div class="nm">${esc(m.name)}</div><div class="muted">${esc(note)}</div></div><button class="btn full" onclick="closeM()">확인</button>`);}
 const DECO=[['🍪','쿠키 접시',3],['💐','꽃다발',5],['🌙','달 조명',6],['⭐','별 장식',8],['🎸','미니 기타',12],['🎁','선물 상자',10],['🎲','주사위 장난감',7],['👑','왕관',30],
@@ -2111,19 +2111,27 @@ async function backupSend(){const txt=JSON.stringify(S),name='jw-diary-'+todaySt
   bkDl(txt,name);S.lastBackup=new Date().toISOString();save();toast('이 브라우저는 보내기가 안 돼서 파일로 저장했어요');bkRe();}
 function importFile(f){if(!f)return;const r=new FileReader();r.onload=()=>{let d;try{d=chkBackup(JSON.parse(r.result));if(!d)throw 0;}catch(e){alert('올바른 백업 파일이 아니에요.');return;}
   askOk('현재 기록이 파일 내용으로 덮어써져요. (직전 상태는 설정에서 되돌릴 수 있어요) 복원할까요?',()=>{snapSave();S=d;S.mig4=1;fix();save();toast('복원했어요');go('home');});};r.readAsText(f);}
-const SH_TABS=['전체','쿠폰','사진','타코 축복','꾸미기','편의'],SH_PP=8,SH_TIP={'전체':'모든 물건이 한곳에 모여 있어요.','쿠폰':'진우에게 쓰는 소원 쿠폰이에요. 사면 보상 탭에 들어가요.','사진':'사면 토리 앨범에 바로 들어가요.','타코 축복':'타코가 도와주는 특별 효과(응원·운세·자장가 등)예요.','꾸미기':'칭호, 배경 무늬, 토리의 방 장식이에요.','편의':'앱을 쓰기 편하게 해 주는 아이템이에요: 퀘스트 패스권, 출석 휴식권, 미니게임 한 번 더, 무료 뽑기권 등.'};
-const SHV={tab:'전체',sort:0,can:0,hide:0,pg:0};
-function shSet(k,v){if(k==='pg')SHV.pg=v;else{SHV[k]=v;SHV.pg=0;}shDraw();}
-function shList(){const c=coinOf();let a=MS.filter(m=>SHV.tab==='전체'||m.c===SHV.tab);if(SHV.can)a=a.filter(m=>!S.claimed.includes(m.n)&&m.p<=c);if(SHV.hide)a=a.filter(m=>!S.claimed.includes(m.n));if(SHV.sort)a=a.slice().sort((x,y)=>x.p-y.p||x.n-y.n);return a;}
-function shopHtml(){const a=shList(),pg=Math.max(1,Math.ceil(a.length/SH_PP));SHV.pg=((SHV.pg%pg)+pg)%pg;const mine=MS.filter(m=>(SHV.tab==='전체'||m.c===SHV.tab)&&S.claimed.includes(m.n)).length,tot=MS.filter(m=>SHV.tab==='전체'||m.c===SHV.tab).length,c=coinOf();
-  const on=v=>v?'wood':'ghost';
-  return `<div>쓸 수 있는 코인 <b class="qty">🪙 ${c}개</b></div><div class="muted">도토리를 주면 준 만큼 코인이 생겨요 (1개 = 1코인). 한 번만 살 수 있어요.</div>
-  <div class="row sp" style="margin-top:8px;flex-wrap:wrap">${SH_TABS.map(t=>`<button class="btn sm ${on(SHV.tab===t)}" onclick="shSet('tab','${t}')">${t}</button>`).join('')}</div>
-  <div class="muted" style="margin:6px 0">ℹ️ ${SH_TIP[SHV.tab]}</div>
-  <div class="row sp" style="flex-wrap:wrap"><button class="btn sm ${on(SHV.sort)}" onclick="shSet('sort',${SHV.sort?0:1})">가격 낮은 순</button><button class="btn sm ${on(SHV.can)}" onclick="shSet('can',${SHV.can?0:1})">살 수 있는 것만</button><button class="btn sm ${on(SHV.hide)}" onclick="shSet('hide',${SHV.hide?0:1})">산 것 숨기기</button></div>`+
-  (a.slice(SHV.pg*SH_PP,SHV.pg*SH_PP+SH_PP).map(m=>{const o=S.claimed.includes(m.n),ok=c>=m.p;return `<div class="q ${o||!ok?'dim':''}"><span>${m.e} ${esc(m.name)}<div class="muted">${m.t} · ${m.c}</div></span>${o?'<span class="muted">보유 ✔</span>':`<button class="btn sm ${ok?'wood':'ghost'}" ${ok?'':'disabled'} onclick="shAsk(${m.n})">🪙 ${m.p}</button>`}</div>`;}).join('')||'<div class="empty">보여 줄 물건이 없어요</div>')+
-  `<div class="row sp" style="margin-top:10px"><button class="btn sm" onclick="shSet('pg',${SHV.pg-1})">◀ 이전</button><span class="muted">${SHV.pg+1} / ${pg}</span><button class="btn sm" onclick="shSet('pg',${SHV.pg+1})">다음 ▶</button></div><div class="muted" style="margin-top:6px">산 것 ${mine} / ${tot}개</div>`;}
-function shDraw(){const e=$('shop');if(e)e.innerHTML=shopHtml();}
+const SH_TABS=['쿠폰','사진','타코 축복','꾸미기','편의'],SH_STEP=10,SH_TIP={'쿠폰':'진우에게 쓰는 소원 쿠폰이에요. 사면 보상 탭에 들어가요.','사진':'사면 토리 앨범에 바로 들어가요.','타코 축복':'타코가 도와주는 특별 효과(응원·운세·자장가 등)예요.','꾸미기':'칭호, 배경 무늬, 토리의 방 장식이에요.','편의':'앱을 쓰기 편하게 해 주는 아이템이에요: 퀘스트 패스권, 출석 휴식권, 미니게임 한 번 더, 무료 뽑기권 등.'};
+const SHV={tab:'쿠폰',can:0,lim:SH_STEP};
+const shOwn=m=>S.claimed.includes(m.n);
+function shSet(k,v){SHV[k]=v;if(k!=='lim')SHV.lim=SH_STEP;shDraw();}
+/* 햄스터 탭 카드: 코인 + 지금 살 만한 것 3개 + 전체 보기 버튼 */
+function shopHtml(){const c=coinOf(),left=MS.filter(m=>!shOwn(m)).sort((a,b)=>a.p-b.p||a.n-b.n),ok=left.filter(m=>m.p<=c),pick=(ok.length?ok:left).slice(0,3),have=MS.length-left.length;
+  return `<div>쓸 수 있는 코인 <b class="qty">🪙 ${c}개</b></div><div class="muted">도토리를 주면 준 만큼 코인이 생겨요. 한 번만 살 수 있어요.</div>`+
+  (pick.length?`<div class="muted" style="margin-top:8px">${ok.length?'지금 살 수 있는 것 (싼 순)':'가장 싼 것 (코인을 더 모아 봐요)'}</div>`+pick.map(m=>`<div class="q ${m.p<=c?'':'dim'}"><span>${m.e} ${esc(m.name)}<div class="muted">${m.t} · ${m.c}</div></span><button class="btn sm ${m.p<=c?'wood':'ghost'}" ${m.p<=c?'':'disabled'} onclick="shAsk(${m.n})">🪙 ${m.p}</button></div>`).join(''):'<div class="empty">모든 물건을 샀어요! 👑</div>')+
+  `<button class="btn full" style="margin-top:8px" onclick="shFull()">상점 전체 보기 (산 것 ${have}/${MS.length})</button>`;}
+/* 전체 보기: 새 화면. 탭 5개 + '살 수 있는 것만' 하나, 싼 순, 산 것은 맨 뒤 */
+function shFull(){if($('shopov'))return;const o=document.createElement('div');o.id='shopov';o.style.cssText='position:fixed;inset:0;z-index:15;background:var(--bg,#fff7e6);overflow:auto;padding:12px 14px calc(24px + env(safe-area-inset-bottom,0px))';document.body.appendChild(o);document.body.style.overflow='hidden';shDraw();}
+function shClose(){const o=$('shopov');if(o)o.remove();document.body.style.overflow='';}
+function shList(){const c=coinOf();let a=MS.filter(m=>m.c===SHV.tab);if(SHV.can)a=a.filter(m=>!shOwn(m)&&m.p<=c);return a.sort((x,y)=>shOwn(x)-shOwn(y)||x.p-y.p||x.n-y.n);}
+function shFullHtml(){const a=shList(),c=coinOf(),on=v=>v?'wood':'ghost',cnt=t=>MS.filter(m=>m.c===t&&shOwn(m)).length+'/'+MS.filter(m=>m.c===t).length;
+  return `<div class="row sp"><button class="btn sm ghost" onclick="shClose()">◀ 닫기</button><b class="qty">🪙 ${c}개</b></div><h2 style="margin:10px 0 6px">🪙 도토리 상점</h2>
+  <div class="row sp" style="flex-wrap:wrap">${SH_TABS.map(t=>`<button class="btn sm ${on(SHV.tab===t)}" onclick="shSet('tab','${t}')">${t}</button>`).join('')}</div>
+  <div class="muted" style="margin:6px 0">ℹ️ ${SH_TIP[SHV.tab]} (산 것 ${cnt(SHV.tab)})</div>
+  <button class="btn sm ${on(SHV.can)}" style="margin-bottom:6px" onclick="shSet('can',${SHV.can?0:1})">${SHV.can?'✔ ':''}살 수 있는 것만 보기</button>`+
+  (a.slice(0,SHV.lim).map(m=>{const o=shOwn(m),ok=c>=m.p;return `<div class="q ${o||!ok?'dim':''}"><span>${m.e} ${esc(m.name)}<div class="muted">${m.t}${m.c==='사진'?'':' · '+esc(m.d)}</div></span>${o?'<span class="muted">보유 ✔</span>':`<button class="btn sm ${ok?'wood':'ghost'}" ${ok?'':'disabled'} onclick="shAsk(${m.n})">🪙 ${m.p}</button>`}</div>`;}).join('')||'<div class="empty">보여 줄 물건이 없어요</div>')+
+  (a.length>SHV.lim?`<button class="btn ghost full" style="margin-top:10px" onclick="shSet('lim',${SHV.lim+SH_STEP})">더 보기 (남은 ${a.length-SHV.lim}개)</button>`:'');}
+function shDraw(){const e=$('shop');if(e)e.innerHTML=shopHtml();const o=$('shopov');if(o){const t=o.scrollTop;o.innerHTML=shFullHtml();o.scrollTop=t;}}
 function rPet(){const f=S.fed,LI=lvInfo(f),lv=LI.lv,ids=qToday(),w=wkChk(),md=mood();
   $('s-pet').innerHTML=`<div class="card"><div class="row"><span class="pavw"><img id="pav" class="${md[1]==='sleep'?'night':''} ${avCls()}" src="${AVATAR}" alt="" style="width:72px;height:72px;border:3px solid var(--ol);image-rendering:pixelated">${accHtml()}</span><div style="flex:1"><h2 style="margin:0">${esc(hn())}</h2><div>Lv.${lv} ${lvName(lv)}</div>${titleLine()}<div class="muted">${LI.max?'EXP MAX · 최고 레벨!':'EXP '+LI.cur+'/'+LI.need}</div><div class="bar"><i style="width:${LI.max?100:Math.round(LI.cur/LI.need*100)}%"></i></div></div></div>
   <div class="muted" style="margin-top:8px">💬 ${esc(hn())}: ${md[0]}</div>${toriLine()}${stLine()}
