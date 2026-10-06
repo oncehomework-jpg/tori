@@ -1496,15 +1496,23 @@ function chSnowman(){if(CHS)return CHS;if(!CH_TK){CH_TK=new Image();CH_TK.src=TA
   for(let x=OX+2;x<=OX+17;x++)G.s(x,OY+16,'#1a1a24');
   for(let y=OY+16;y<=OY+20;y++){G.s(OX+13,y,'#1a1a24');G.s(OX+14,y,sc(0,y,0));G.s(OX+15,y,sc(0,y,1));G.s(OX+16,y,'#1a1a24');}
   G.s(OX+14,OY+21,SC[0]);G.s(OX+15,OY+21,SC[1]);G.s(OX+13,OY+21,'#1a1a24');G.s(OX+16,OY+21,'#1a1a24');G.s(OX+14,OY+22,'#1a1a24');G.s(OX+15,OY+22,'#1a1a24');
-  /* 산타 모자: 타코 그림의 세일러 모자 칸을 지우고(타코 칸 기준 x11~ 윗줄), 머리 위에 하얀 털 테두리 + 오른쪽으로 휘는 빨간 고깔 + 하얀 방울. 빛은 왼쪽 위 */
-  for(let y=0;y<=3;y++)for(let x=11;x<20;x++)if(y<=2||x>=14)G.s(OX+x,OY+y,null);
+  /* 산타 모자 (v7.3): 타코 머리는 동그래야 해요. 원래 그림은 세일러 모자 때문에 머리 오른쪽 위가 비어 있어서,
+     (1) 세일러 모자 칸을 지우고 머리 윗부분(타코 칸 0~4줄)의 오른쪽을 왼쪽과 똑같이(좌우 대칭) 다시 그려 둥근 머리를 만든 뒤
+     (2) 모자는 그 둥근 머리 꼭대기 위에 얹어요. 털 테두리가 머리 윗선만 살짝 덮어야 머리가 모자 속으로 들어가 보이지 않아요 */
+  for(let y=0;y<=4;y++)for(let x=11;x<20;x++)G.s(OX+x,OY+y,null);
+  const rimR=G.g(OX+15,OY+5),hl=c=>{const v=parseInt(c.slice(1),16);return (v>>16&255)>234&&(v>>8&255)>120;};
+  for(let y=2;y<=4;y++)for(let x=10;x<20;x++){const c=G.g(OX+19-x,OY+y);if(!c)continue;const dk=parseInt(c.slice(1),16)===0;
+    G.s(OX+x,OY+y,dk?c:(G.g(OX+19-x-1,OY+y)&&parseInt(G.g(OX+19-x-1,OY+y).slice(1),16)===0?rimR:hl(c)?G.g(OX+10,OY+5):c));}
   const HR=['#ef6a5e','#d63a32','#9e2620'],hat=[],hs=(x,y,c)=>{G.s(OX+x,OY+y,c);hat.push([OX+x,OY+y]);};
-  [[-1,11,14],[0,9,14],[1,8,14]].forEach(([y,x0,x1])=>{for(let x=x0;x<=x1;x++)hs(x,y,x>=x1||y===1&&x>x1-3?HR[2]:x<=x0||y===-1?HR[0]:HR[1]);});hs(15,-1,HR[2]);
-  for(let x=7;x<=15;x++)hs(x,2,x>12?'#dfe3ee':'#ffffff');for(let x=6;x<=16;x++)hs(x,3,x>12||x%3===0?'#dfe3ee':'#f4f6fb');
-  [[16,-2,'#ffffff'],[17,-2,'#f4f6fb'],[16,-1,'#f4f6fb'],[17,-1,'#dfe3ee']].forEach(([x,y,c])=>hs(x,y,c));
+  /* 모자 칸 그림(타코 칸 x6~15, y-3~2): 방울(오른쪽 위) · 고깔(끝이 오른쪽으로) · 털 테두리 두 줄 */
+  const HAT=["........wW",
+             "......rRWW",
+             "....rrrRR.",
+             "..rrrrrRR.",
+             ".wwwwwwwW.",
+             "WWWWWWWWW."];
+  HAT.forEach((row,j)=>{const first=row.search(/[rR]/);[...row].forEach((ch,i)=>{if(ch==='.')return;let c=ch==='w'?'#ffffff':ch==='W'?'#dfe3ee':ch==='R'?HR[2]:HR[1];if(ch==='r'&&(i===first||j===1))c=HR[0];hs(6+i,j-3,c);});});
   for(const[x,y]of hat)for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]])if(!G.g(x+dx,y+dy)&&y+dy>=0&&x+dx>=0&&x+dx<W)G.s(x+dx,y+dy,'#1a1a24');
-  /* 세일러 모자 밑에 있던 머리 윗선(타코 칸 4째 줄 x14~15)은 산타 모자 털 밑이라 머리색으로 메우고, x16은 오른쪽 테두리로 둠 */
-  {const hc=G.g(OX+10,OY+5);G.s(OX+14,OY+4,hc);G.s(OX+15,OY+4,hc);G.s(OX+16,OY+4,G.g(OX+16,OY+5));}   /* x16은 머리 오른쪽 테두리선으로 남겨야 머리가 위로 늘어나 보이지 않아요 */
   const SN=new Set([C.s0,C.s1,C.s2,C.s3,C.s4]);for(const[x,y]of snow)if(SN.has(G.a[y][x]))for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]])if(!G.g(x+dx,y+dy)&&y+dy>=0&&y+dy<H&&x+dx>=0&&x+dx<W)G.s(x+dx,y+dy,'#2b3354');
   const[c,g]=fxCv(W,H);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(G.a[y][x]){g.fillStyle=G.a[y][x];g.fillRect(x,y,1,1);}return CHS=c;}
 function mg9Open(){const c=mgShell('#16203f','mg9Start()');if(!c)return;
