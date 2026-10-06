@@ -1496,15 +1496,12 @@ function chSnowman(){if(CHS)return CHS;if(!CH_TK){CH_TK=new Image();CH_TK.src=TA
   for(let x=OX+2;x<=OX+17;x++)G.s(x,OY+16,'#1a1a24');
   for(let y=OY+16;y<=OY+20;y++){G.s(OX+13,y,'#1a1a24');G.s(OX+14,y,sc(0,y,0));G.s(OX+15,y,sc(0,y,1));G.s(OX+16,y,'#1a1a24');}
   G.s(OX+14,OY+21,SC[0]);G.s(OX+15,OY+21,SC[1]);G.s(OX+13,OY+21,'#1a1a24');G.s(OX+16,OY+21,'#1a1a24');G.s(OX+14,OY+22,'#1a1a24');G.s(OX+15,OY+22,'#1a1a24');
-  /* 산타 모자: 타코 그림의 세일러 모자 칸을 지우고(타코 칸 기준 x11~ 윗줄), 머리 위에 하얀 털 테두리 + 오른쪽으로 휘는 빨간 고깔 + 하얀 방울. 빛은 왼쪽 위 */
+  /* 산타 모자 (v7.3): 원래 세일러 모자처럼 머리 오른쪽 위에 비스듬히 얹힌 작은 모자. 세일러 모자 칸만 지우고(머리 윗선은 그대로), 털 테두리는 오른쪽 아래로 기울고 고깔 끝은 오른쪽으로 휘어 방울이 달랑. 빛은 왼쪽 위 */
   for(let y=0;y<=3;y++)for(let x=11;x<20;x++)if(y<=2||x>=14)G.s(OX+x,OY+y,null);
   const HR=['#ef6a5e','#d63a32','#9e2620'],hat=[],hs=(x,y,c)=>{G.s(OX+x,OY+y,c);hat.push([OX+x,OY+y]);};
-  [[-1,11,14],[0,9,14],[1,8,14]].forEach(([y,x0,x1])=>{for(let x=x0;x<=x1;x++)hs(x,y,x>=x1||y===1&&x>x1-3?HR[2]:x<=x0||y===-1?HR[0]:HR[1]);});hs(15,-1,HR[2]);
-  for(let x=7;x<=15;x++)hs(x,2,x>12?'#dfe3ee':'#ffffff');for(let x=6;x<=16;x++)hs(x,3,x>12||x%3===0?'#dfe3ee':'#f4f6fb');
-  [[16,-2,'#ffffff'],[17,-2,'#f4f6fb'],[16,-1,'#f4f6fb'],[17,-1,'#dfe3ee']].forEach(([x,y,c])=>hs(x,y,c));
+  const HAT=["......wW.","....rrRwW","...rrrrR.","..rrrrrRR","WwwrrrRRR","..wwwwwWW"],HC={r:HR[1],R:HR[2],w:'#ffffff',W:'#dfe3ee'};
+  HAT.forEach((row,j)=>[...row].forEach((ch,i)=>{if(ch==='.')return;let c=HC[ch];if(ch==='r'&&(j===1||i<=j))c=HR[0];hs(10+i,j-2,c);}));
   for(const[x,y]of hat)for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]])if(!G.g(x+dx,y+dy)&&y+dy>=0&&x+dx>=0&&x+dx<W)G.s(x+dx,y+dy,'#1a1a24');
-  /* 세일러 모자 밑에 있던 머리 윗선(타코 칸 4째 줄 x14~16)은 산타 모자 털 밑이라 머리색으로 메움 */
-  {const hc=G.g(OX+10,OY+5);for(let x=14;x<=16;x++)G.s(OX+x,OY+4,hc);}
   const SN=new Set([C.s0,C.s1,C.s2,C.s3,C.s4]);for(const[x,y]of snow)if(SN.has(G.a[y][x]))for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]])if(!G.g(x+dx,y+dy)&&y+dy>=0&&y+dy<H&&x+dx>=0&&x+dx<W)G.s(x+dx,y+dy,'#2b3354');
   const[c,g]=fxCv(W,H);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(G.a[y][x]){g.fillStyle=G.a[y][x];g.fillRect(x,y,1,1);}return CHS=c;}
 function mg9Open(){const c=mgShell('#16203f','mg9Start()');if(!c)return;
@@ -1633,10 +1630,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v7.3',d:'2026.10.06',log:['눈사람 타코 산타 모자 작게 · 루돌프 잡기 효과음에 종소리']};
+const APP_VER={v:'v7.3',d:'2026.10.06',log:['눈사람 타코 비스듬한 작은 산타 모자 · 루돌프 잡기 효과음에 종소리']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
- {v:'v7.3',d:'2026.10.06',log:['루돌프 잡기: 눈사람 타코의 산타 모자를 작고 깜찍하게 줄였어요','루돌프가 펄쩍 뛸 때 목 방울이 짤랑, 당근을 주우면 종소리가 울려요']},
+ {v:'v7.3',d:'2026.10.06',log:['루돌프 잡기: 눈사람 타코의 산타 모자를 원래 세일러 모자처럼 머리 옆에 비스듬히 얹은 작은 모자로 바꿨어요','루돌프가 펄쩍 뛸 때 목 방울이 짤랑, 당근을 주우면 종소리가 울려요']},
  {v:'v7.2',d:'2026.10.06',log:['크리스마스 주간(12/18~25) 새 미니게임 "도망가는 루돌프를 잡아라!": 손가락을 끌면 빨간 산타 모자를 쓴 토리가 달려가요. 루돌프를 잡을 때마다 선물이 떨어지고, 잡을수록 루돌프가 빨라져요','눈더미에선 느려지고 얼음판은 미끄러워요. 나무 뒤에 숨은 루돌프는 코만 반짝! 당근을 주우면 3초 동안 루돌프가 느려지고, 산타 모자를 쓰고 목도리를 두른 채 눈덩이 위에 앉은 눈사람 타코가 힌트를 알려 줘요','45초 동안 3마리면 도토리 1개, 6마리면 2개 (보상 횟수는 다른 미니게임과 합산). 루돌프 썰매 배달도 그대로 있어요','"백업 보내기" 버튼: 공유 창에서 카톡 나에게 보내기·드라이브·메일로 백업 파일을 보내요 (설정 · 홈 백업 카드)','백업한 지 7일이 지나면 홈 백업 카드가 콩콩 뛰고 토리와 타코가 말로 알려 줘요']},
  {v:'v6.9',d:'2026.10.06',log:['도감·가고 싶은 곳에서 장소 종류(식당·카페·놀거리·기타) 글씨가 흰색이라 안 보이던 것을 진한 갈색으로 고쳤어요']},
  {v:'v6.8',d:'2026.10.06',log:['아이폰(사파리)에서 홈 화면에 추가할 때 쓰는 토리 아이콘을 넣었어요','토리가 기지개를 켤 때 머리 위 물병과 겹쳐 보이던 것을 줄였어요']},
