@@ -1,6 +1,7 @@
 """v6.8 '도망가는 루돌프를 잡아라!' 그림 원본 (그림 한 칸 = 화면 2px).
 python3 tools/mg/xmas_chase_sprites.py  → index.html FX 에 넣을 JSON 출력
-- tos0/tos1: 산타 모자 토리 (마녀 모자 토리 to0/to1 의 몸 + 새 모자)
+- tos0/tos1: 빨간 산타 모자 토리 (마녀 모자 토리 to0/to1 의 몸 + 새 모자)
+  (v7.2: 예전엔 아래 산타 시안 색표와 이름이 같아 모자가 보라색으로 나왔음 → HAT_PAL로 나눔. 산타 시안은 사용자가 토리를 골라 뺌)
 - carrot: 당근 (눈사람 타코·나무·배경은 index.html의 chSnowman·chTree·chBack이 그림)"""
 import json, re, os, sys
 HAT=["................",
@@ -10,7 +11,7 @@ HAT=["................",
      "kWWkkhhhhhhHk...",
      ".kkhhhhhhhhHHk..",
      ".kyYyyyyyyyyyk.."]
-SANTA_PAL={'h':'#d63a32','H':'#9e2620','y':'#eef0f8','Y':'#ffffff','W':'#ffffff'}
+HAT_PAL={'h':'#d63a32','H':'#9e2620','y':'#eef0f8','Y':'#ffffff','W':'#ffffff'}
 CARROT=["...g.g..",
         "..kgGgk.",
         "..kGgGk.",
@@ -55,33 +56,11 @@ def snowtk():
     for x,y in pts:a[y][x]='k'
     return [''.join(r) for r in a]
 SNOWTK_PAL={'k':'#2a3050','p':'#f29bb0','P':'#d06f8c','L':'#ffc6d4','e':'#2a1c30','W':'#ffffff','c':'#ff7f9a','r':'#d63a32','R':'#9e2620','w':'#eef3fb','v':'#bccbe6','b':'#6a4428'}
-# 산타 16x20 (오른쪽 보기, 2장: 다리) — 시안
-SANTA_TOP=["................",
-           "...kkkkk........",
-           "..krrrrrkk......",
-           ".krrrrrrrRk.....",
-           "kWkrrrrrrRRk....",
-           "kWkwwwwwwwwwk...",
-           ".kkfffffffffk...",
-           "..kfffffefpfk...",
-           "..kwwffwwwwfk...",
-           ".kwwwwwwwwwwk...",
-           ".kWwwwwwwwwWk...",
-           "..kWwwwwwwWk....",
-           ".kRrkWWWWkrrk...",
-           "kRrrrkkkkrrrrk..",
-           "kfkbbbbybbbkfk..",
-           ".kkRrrrrrrRkk...",
-           "..kwwwwwwwwk...."]
-SANTA_LEG=[["..kRRk..kRRk....",".kBBBk..kBBBk...",".kkkk....kkkk..."],
-           ["...kRRkkRRk.....","..kBBBkkBBBk....","..kkkkkkkkkk...."]]
-SANTA_PAL={'k':'#2a1410','r':'#d63a32','R':'#9e2620','w':'#ffffff','W':'#dfe3ee','f':'#f6c7a0','e':'#2a1410','p':'#f08a8a','b':'#2a1c20','y':'#f4c542','B':'#3a2a2a'}
 def build(fx):
     out={}
     for n in ('to0','to1'):
-        rows,pal=fx['S'][n];out['tos'+n[-1]]=[HAT+rows[6:],{**pal,**SANTA_PAL}]  # 모자 7줄 + 머리부터 아래
+        rows,pal=fx['S'][n];out['tos'+n[-1]]=[HAT+rows[6:],{**pal,**HAT_PAL}]  # 모자 7줄 + 머리부터 아래
     out['carrot']=[CARROT,CARROT_PAL]
-    for i in (0,1): out['san%d'%i]=[SANTA_TOP+SANTA_LEG[i],SANTA_PAL]
     return out
 if __name__=='__main__':
     s=open(os.path.join(os.path.dirname(__file__),'..','..','index.html'),encoding='utf-8').read()

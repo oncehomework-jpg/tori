@@ -1397,16 +1397,14 @@ function mg8End(){if(MG.over)return;MG.over=1;const sc=MG.s,r=sc>=16?2:sc>=8?1:0
   MG.card=g=>fxCard(g,'메리 크리스마스!',['선물 배달 '+sc+'점'+(nb?' · 최고 기록!':''),'남은 선물 '+MG.left+'개'],null);
   $('mgh').innerHTML='배달 끝! '+sc+'점'+(nb?' · 최고 기록!':'')+'<br>'+m;$('mgr').style.display='';if(sc>=8)setTimeout(()=>tako('=산타 조수 토리다코~! 🎄','',3000,0),500);}
 /* ===== 🦌 도망가는 루돌프를 잡아라! (크리스마스 주간 12/18~25, v6.8) · 손가락을 끌면 산타 모자 토리가 그쪽으로 달려요 ===== */
-/* 그림 원본: tools/mg/xmas_chase_sprites.py (tos0·tos1 산타 모자 토리, carrot 당근) · 배경·나무·눈사람 타코는 아래 chBack·chTree·chSnowman이 칸 단위로 그림 */
-Object.assign(FX.S,{"tos0":[["................","......kkkk......",".kk..khhhHk.....","kWWk.khhhhHk....","kWWkkhhhhhhHk...",".kkhhhhhhhhHHk..",".kyYyyyyyyyyyk..","..kkLLooooOkk...","..kLLLooooOOk...",".kLLLLooooOOOk..","koooooooccWeOOk.","kooooocccceecOk.","kooooocccccccOpk","koooooccccccrrk.",".kOOOOccccccck..","..kOOOOCCCCCk...","...kkPOOCkPk...."],{"k":"#2a1410","o":"#e9a85c","O":"#c47f3c","L":"#f6c98a","c":"#fff3dc","C":"#ecd3a9","p":"#f08a8a","e":"#2a1410","W":"#dfe3ee","r":"#d63a32","P":"#f4a3ad","h":"#7b55b5","H":"#4e3480","y":"#f4c542","Y":"#fff0a6","R":"#9e2620","w":"#ffffff","f":"#f6c7a0","b":"#2a1c20","B":"#3a2a2a"}],"tos1":[["................","......kkkk......",".kk..khhhHk.....","kWWk.khhhhHk....","kWWkkhhhhhhHk...",".kkhhhhhhhhHHk..",".kyYyyyyyyyyyk..","..kkLLooooOkk...","..kLLLooooOOk...",".kLLLLooooOOOk..","koooooooccWeOOk.","kooooocccceecOk.","kooooocccccccOpk","koooooccccccrrk.",".kOOOOccccccck..","..kOOOOCCCCCk...","...kkkPOCkkPk..."],{"k":"#2a1410","o":"#e9a85c","O":"#c47f3c","L":"#f6c98a","c":"#fff3dc","C":"#ecd3a9","p":"#f08a8a","e":"#2a1410","W":"#dfe3ee","r":"#d63a32","P":"#f4a3ad","h":"#7b55b5","H":"#4e3480","y":"#f4c542","Y":"#fff0a6","R":"#9e2620","w":"#ffffff","f":"#f6c7a0","b":"#2a1c20","B":"#3a2a2a"}],"carrot":[["...g.g..","..kgGgk.","..kGgGk.",".kLoooOk",".kLoooOk","..kLooOk","..kLoOk.","...koOk.","...kOk..","....k..."],{"k":"#5a2a10","o":"#f08a2a","O":"#c25a14","L":"#ffb866","g":"#6fb84a","G":"#3f7a2e"}],"san0":[["................","...kkkkk........","..krrrrrkk......",".krrrrrrrRk.....","kWkrrrrrrRRk....","kWkwwwwwwwwwk...",".kkfffffffffk...","..kfffffefpfk...","..kwwffwwwwfk...",".kwwwwwwwwwwk...",".kWwwwwwwwwWk...","..kWwwwwwwWk....",".kRrkWWWWkrrk...","kRrrrkkkkrrrrk..","kfkbbbbybbbkfk..",".kkRrrrrrrRkk...","..kwwwwwwwwk....","..kRRk..kRRk....",".kBBBk..kBBBk...",".kkkk....kkkk..."],{"k":"#2a1410","r":"#d63a32","R":"#9e2620","w":"#ffffff","W":"#dfe3ee","f":"#f6c7a0","e":"#2a1410","p":"#f08a8a","b":"#2a1c20","y":"#f4c542","B":"#3a2a2a"}],"san1":[["................","...kkkkk........","..krrrrrkk......",".krrrrrrrRk.....","kWkrrrrrrRRk....","kWkwwwwwwwwwk...",".kkfffffffffk...","..kfffffefpfk...","..kwwffwwwwfk...",".kwwwwwwwwwwk...",".kWwwwwwwwwWk...","..kWwwwwwwWk....",".kRrkWWWWkrrk...","kRrrrkkkkrrrrk..","kfkbbbbybbbkfk..",".kkRrrrrrrRkk...","..kwwwwwwwwk....","...kRRkkRRk.....","..kBBBkkBBBk....","..kkkkkkkkkk...."],{"k":"#2a1410","r":"#d63a32","R":"#9e2620","w":"#ffffff","W":"#dfe3ee","f":"#f6c7a0","e":"#2a1410","p":"#f08a8a","b":"#2a1c20","y":"#f4c542","B":"#3a2a2a"}]});
+/* 그림 원본: tools/mg/xmas_chase_sprites.py (tos0·tos1 빨간 산타 모자 토리, carrot 당근) · 배경·나무·눈사람 타코는 아래 chBack·chTree·chSnowman이 칸 단위로 그림 */
+Object.assign(FX.S,{"tos0":[["................","......kkkk......",".kk..khhhHk.....","kWWk.khhhhHk....","kWWkkhhhhhhHk...",".kkhhhhhhhhHHk..",".kyYyyyyyyyyyk..","..kkLLooooOkk...","..kLLLooooOOk...",".kLLLLooooOOOk..","koooooooccWeOOk.","kooooocccceecOk.","kooooocccccccOpk","koooooccccccrrk.",".kOOOOccccccck..","..kOOOOCCCCCk...","...kkPOOCkPk...."],{"k":"#3b2a1e","o":"#e9a85c","O":"#c47f3c","L":"#f6c98a","c":"#fff3dc","C":"#ecd3a9","p":"#f4a3ad","e":"#2a1c12","W":"#ffffff","r":"#f08a8a","P":"#f4a3ad","h":"#d63a32","H":"#9e2620","y":"#eef0f8","Y":"#ffffff"}],"tos1":[["................","......kkkk......",".kk..khhhHk.....","kWWk.khhhhHk....","kWWkkhhhhhhHk...",".kkhhhhhhhhHHk..",".kyYyyyyyyyyyk..","..kkLLooooOkk...","..kLLLooooOOk...",".kLLLLooooOOOk..","koooooooccWeOOk.","kooooocccceecOk.","kooooocccccccOpk","koooooccccccrrk.",".kOOOOccccccck..","..kOOOOCCCCCk...","...kkkPOCkkPk..."],{"k":"#3b2a1e","o":"#e9a85c","O":"#c47f3c","L":"#f6c98a","c":"#fff3dc","C":"#ecd3a9","p":"#f4a3ad","e":"#2a1c12","W":"#ffffff","r":"#f08a8a","P":"#f4a3ad","h":"#d63a32","H":"#9e2620","y":"#eef0f8","Y":"#ffffff"}],"carrot":[["...g.g..","..kgGgk.","..kGgGk.",".kLoooOk",".kLoooOk","..kLooOk","..kLoOk.","...koOk.","...kOk..","....k..."],{"k":"#5a2a10","o":"#f08a2a","O":"#c25a14","L":"#ffb866","g":"#6fb84a","G":"#3f7a2e"}]});
 const CH={x0:12,x1:308,y0:66,y1:432,
   tree:[{x:58,y:196},{x:262,y:300},{x:128,y:424}],
   ice:[{x:204,y:172,rx:58,ry:24},{x:84,y:318,rx:48,ry:22}],
   pile:[{x:156,y:262,rx:32,ry:15},{x:270,y:414,rx:34,ry:15},{x:56,y:110,rx:28,ry:13}],
   tk:{x:290,y:122},
   hint:['구석으로 몰면 옆으로 튄다코!','얼음판은 미끄럽다코! 조심하라코!','눈더미에 들어가면 느려진다코!','나무 뒤에 숨으면 코만 반짝인다코!','당근을 주우면 루돌프가 느려진다코!']};
-/* 쫓는 사람: tos=산타 모자 토리, san=산타(시안) */
-const CH_PL='tos';
 const chIn=(L,x,y)=>L.some(o=>((x-o.x)/o.rx)**2+((y-o.y)/o.ry)**2<1);
 let CHB=null;
 /* ---- v7.2 그림 (스타듀 느낌 겨울 숲): 칸 하나 = 2px, 왼쪽 위에서 빛, 그림마다 테두리 한 가지 색 ---- */
@@ -1476,21 +1474,30 @@ function chTree(dec){if(CHT[dec])return CHT[dec];const W=44,H=56,G=chGrid(W,H),C
   if(dec){const L=['#ff5a4a','#ffd84a','#5ab8ff','#ff8ad0'];T.slice(1).forEach(([y0,y1,hw],i)=>{for(let k=0;k<7;k++){const t=(k+.5)/7,x=Math.round(cx-hw*.85+t*hw*1.7),y=Math.round(y0+(y1-y0)*.62+Math.sin(t*Math.PI)*2.5-(1-Math.abs(t-.5)*2)*0);if(G.g(x,y)){G.s(x,y,L[(k+i)%4]);G.s(x+1,y,L[(k+i)%4]);G.s(x,y-1,'#fff6d0');}}});
     [[21,0],[22,0],[20,1],[21,1],[22,1],[23,1],[19,2],[20,2],[21,2],[22,2],[23,2],[24,2],[20,3],[21,3],[22,3],[23,3],[20,4],[23,4]].forEach(([x,y])=>G.s(x,y,y<2&&x<22?'#fff6b0':'#f4c542'));}
   G.outline(C.ol);return CHT[dec]=G.cv();}
-/* 눈 맞은 타코 26x34칸: 앱의 진짜 타코 그림(20x22칸, 한 칸=8px)을 그대로 옮기고 머리·모자 위에 눈을 소복이, 다리는 눈 둔덕에 살짝 묻힘 */
-let CHS=null,CH_TK=null;
-function chSnowman(){if(CHS)return CHS;if(!CH_TK){CH_TK=new Image();CH_TK.src=TAKO;}if(!(CH_TK.complete&&CH_TK.naturalWidth))return null;const G=chGrid(26,34),C=CHC,OX=3,OY=9;let px;
+/* 눈사람 타코 26x38칸(칸 하나=1px로 만들고 1.5배로 찍음 → 타코가 예전보다 작게): 눈덩이 몸통 위에 앱의 진짜 타코 그림(20x22칸)이 올라가 앉고, 얼굴과 다리 사이에 초록·크림 줄무늬 목도리, 머리·모자 위에 눈 */
+let CHS=null,CH_TK=null;const CH_SM=1.5,CH_TS=1.25;/* 눈사람 타코 1.5배, 쫓는 토리 1.25배(v7.2 사용자 요청: 타코 작게·토리 조금 크게) */
+function chSnowman(){if(CHS)return CHS;if(!CH_TK){CH_TK=new Image();CH_TK.src=TAKO;}if(!(CH_TK.complete&&CH_TK.naturalWidth))return null;const W=26,H=38,G=chGrid(W,H),C=CHC,OX=3,OY=2;let px;
   try{const[c,g]=fxCv(CH_TK.naturalWidth,CH_TK.naturalHeight);g.drawImage(CH_TK,0,0);px=g.getImageData(0,0,c.width,c.height).data;}catch(e){return null;}
-  const tw=CH_TK.naturalWidth/8|0,th=CH_TK.naturalHeight/8|0,hx=(r,g,b)=>'#'+[r,g,b].map(v=>v.toString(16).padStart(2,'0')).join('');
-  for(let y=0;y<th;y++)for(let x=0;x<tw;x++){const i=((y*8+4)*CH_TK.naturalWidth+x*8+4)*4;if(px[i+3]>128)G.s(OX+x,OY+y,hx(px[i],px[i+1],px[i+2]));}
+  const tw=CH_TK.naturalWidth/8|0,th=CH_TK.naturalHeight/8|0,hx=(r,g,b)=>'#'+[r,g,b].map(v=>v.toString(16).padStart(2,'0')).join(''),snow=[];
+  /* 눈덩이 몸통 (타코 다리가 위에 걸터앉음) + 나뭇가지 팔 + 석탄 단추 */
+  const BY=29;chBall(G,13,BY,10.5,8.5,[C.s0,C.s1,C.s2,C.s3,C.s4]);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(G.a[y][x])snow.push([x,y]);
+  [[2,25],[1,24],[0,23],[1,22],[23,25],[24,24],[25,23],[25,22]].forEach(([x,y])=>G.s(x,y,C.b1));
+  for(let x=0;x<tw;x++)for(let y=0;y<th;y++){const i=((y*8+4)*CH_TK.naturalWidth+x*8+4)*4;if(px[i+3]>128)G.s(OX+x,OY+y,hx(px[i],px[i+1],px[i+2]));}
+  [[12,31],[13,31],[12,34],[13,34]].forEach(([x,y])=>G.s(x,y,'#2a2a3a'));G.s(12,31,'#4a4a5e');G.s(12,34,'#4a4a5e');
+  /* 목도리: 타코 14~15째 줄(얼굴 아래, 다리 위)을 감싸고 오른쪽으로 끝자락이 내려옴 */
+  const SG=['#58a571','#3c8462','#2b6650'],SC=['#fff3dc','#ecd3a9','#c9ae86'],sc=(x,y,sh)=>{const st=((x+y)>>1)%2?SC:SG;return st[sh];};
+  for(let x=OX+1;x<=OX+18;x++){G.s(x,OY+14,sc(x,0,x>OX+13?1:0));G.s(x,OY+15,sc(x,0,x>OX+13?2:1));}
+  G.s(OX+1,OY+14,'#1a1a24');G.s(OX+18,OY+14,'#1a1a24');G.s(OX+1,OY+15,'#1a1a24');G.s(OX+18,OY+15,'#1a1a24');
+  for(let x=OX+2;x<=OX+17;x++)G.s(x,OY+16,'#1a1a24');
+  for(let y=OY+16;y<=OY+20;y++){G.s(OX+13,y,'#1a1a24');G.s(OX+14,y,sc(0,y,0));G.s(OX+15,y,sc(0,y,1));G.s(OX+16,y,'#1a1a24');}
+  G.s(OX+14,OY+21,SC[0]);G.s(OX+15,OY+21,SC[1]);G.s(OX+13,OY+21,'#1a1a24');G.s(OX+16,OY+21,'#1a1a24');G.s(OX+14,OY+22,'#1a1a24');G.s(OX+15,OY+22,'#1a1a24');
   /* 머리 위 눈: 칸마다 맨 윗줄을 찾아 그 위에 둥글게 쌓기 (가운데 두껍게) */
-  const tops=[];for(let x=0;x<26;x++){let t=-1;for(let y=0;y<OY+8;y++)if(G.a[y][x]){t=y;break;}tops.push(t);}
-  const xs=tops.map((t,x)=>t>=0?x:-1).filter(x=>x>=0),L=xs[0],R=xs[xs.length-1],snow=[];
-  for(let x=L-1;x<=R+1;x++){const t=tops[Math.max(L,Math.min(R,x))],u=(x-L+1)/(R-L+2),h=Math.round(.6+1.8*Math.sin(Math.PI*u)+(x%4===1?.5:0));
-    for(let j=0;j<=h;j++){const y=t-h+j+1;if(y<0)continue;const r=(u-.5)*2;G.s(x,y,j===h?(r<.1?C.s2:C.s4):j===0?(r<.3?C.s0:C.s1):r<-.35?C.s0:r<.35?C.s1:C.s3);snow.push([x,y]);}
-    if((x===L+3||x===R-4||x===L+8)&&tops[x]>=0){G.s(x,tops[x]+1,C.s1);G.s(x,tops[x]+2,C.s3);snow.push([x,tops[x]+1],[x,tops[x]+2]);}}
-  /* 눈 둔덕 */for(let y=28;y<34;y++)for(let x=0;x<26;x++){const nx=(x+.5-13)/12.5,ny=(y+.5-31.5)/3.6;if(nx*nx+ny*ny>1)continue;G.s(x,y,ny<-.55?(nx<.2?C.s0:C.s1):nx>.45?C.s3:C.s1);snow.push([x,y]);}
-  for(const[x,y]of snow)for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]])if(!G.g(x+dx,y+dy)&&y+dy>=0&&y+dy<34&&x+dx>=0&&x+dx<26)G.s(x+dx,y+dy,'#2b3354');
-  return CHS=G.cv();}
+  const tops=[];for(let x=0;x<W;x++){let t=-1;for(let y=0;y<OY+8;y++)if(G.a[y][x]){t=y;break;}tops.push(t);}
+  const xs=tops.map((t,x)=>t>=0?x:-1).filter(x=>x>=0),L=xs[0],R=xs[xs.length-1];
+  for(let x=L;x<=R;x++){const t=tops[x],u=(x-L+1)/(R-L+2),h=Math.round(.3+1.2*Math.sin(Math.PI*u));
+    for(let j=0;j<=h;j++){const y=t-h+j+1;if(y<0)continue;const r=(u-.5)*2;G.s(x,y,j===h?(r<.1?C.s2:C.s4):j===0?(r<.3?C.s0:C.s1):r<-.35?C.s0:r<.35?C.s1:C.s3);snow.push([x,y]);}}
+  const SN=new Set([C.s0,C.s1,C.s2,C.s3,C.s4]);for(const[x,y]of snow)if(SN.has(G.a[y][x]))for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]])if(!G.g(x+dx,y+dy)&&y+dy>=0&&y+dy<H&&x+dx>=0&&x+dx<W)G.s(x+dx,y+dy,'#2b3354');
+  const[c,g]=fxCv(W,H);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(G.a[y][x]){g.fillStyle=G.a[y][x];g.fillRect(x,y,1,1);}return CHS=c;}
 function mg9Open(){const c=mgShell('#16203f','mg9Start()');if(!c)return;
   const pd=e=>{if(MG.k!=='ch')return;e.preventDefault();MG.tp=mgXY(e,c);};
   c.addEventListener('pointerdown',e=>{try{c.setPointerCapture(e.pointerId);}catch(_){}pd(e);});c.addEventListener('pointermove',e=>{if(MG.tp)pd(e);});
@@ -1543,11 +1550,11 @@ function mg9Start(){if(MG.raf)cancelAnimationFrame(MG.raf);$('mgr').style.displa
     /* ---- 그리기 ---- */
     g.drawImage(chBack(),0,0);
     const ents=[];CH.tree.forEach((tr,i)=>ents.push([tr.y,()=>{fxShadow(g,tr.x+4,tr.y,72);g.drawImage(chTree(i===0),Math.round((tr.x-44)/2)*2,tr.y-106);}]));
-    ents.push([CH.tk.y,()=>{const sm=chSnowman();fxShadow(g,CH.tk.x+2,CH.tk.y,44);if(sm)g.drawImage(sm,Math.round((CH.tk.x-26)/2)*2,CH.tk.y-66);}]);
+    ents.push([CH.tk.y,()=>{const sm=chSnowman();fxShadow(g,CH.tk.x+2,CH.tk.y,32);if(sm)g.drawImage(sm,Math.round(CH.tk.x-26*CH_SM/2),Math.round(CH.tk.y-37*CH_SM),26*CH_SM,38*CH_SM);}]);
     MG.gifts.forEach(p=>ents.push([p.y,()=>{const h=Math.max(0,Math.round(Math.sin(Math.min(1,p.t/.5)*Math.PI)*16/2)*2);fxShadow(g,p.x,p.y,16);g.drawImage(fxS('gift',p.pk),Math.round((p.x-9)/2)*2,Math.round((p.y-18-h)/2)*2);}]));
     if(MG.cr){const cr=MG.cr;ents.push([cr.y,()=>{if(cr.t<2&&Math.floor(cr.t*8)%2)return;const b=Math.round(Math.sin(MG.e*5))*2;g.drawImage(fxGlow('#ffb866',14),cr.x-14,cr.y-24);fxShadow(g,cr.x,cr.y,14);g.drawImage(fxS('carrot'),Math.round((cr.x-8)/2)*2,cr.y-22+b);}]);}
     const sink=(o,w)=>{if(chIn(CH.pile,o.x,o.y)){g.fillStyle='#ffffff';g.fillRect(Math.round((o.x-w/2)/2)*2,Math.round(o.y/2)*2-6,w,4);g.fillStyle='#eef3fb';g.fillRect(Math.round((o.x-w/2)/2)*2+2,Math.round(o.y/2)*2-2,w-4,2);}};
-    ents.push([T.y,()=>{const fr=Math.floor(T.st)%2,hp=Math.hypot(T.vx,T.vy)>30&&fr?2:0;fxShadow(g,T.x,T.y,26);const ps=fxS(CH_PL+fr,'',T.f<0);g.drawImage(ps,Math.round((T.x-16)/2)*2,Math.round((T.y-ps.height+2-hp)/2)*2);sink(T,26);}]);
+    ents.push([T.y,()=>{const fr=Math.floor(T.st)%2,hp=Math.hypot(T.vx,T.vy)>30&&fr?2:0;fxShadow(g,T.x,T.y,32);const ps=fxS('tos'+fr,'',T.f<0),w=Math.round(ps.width*CH_TS),h=Math.round(ps.height*CH_TS);g.drawImage(ps,Math.round(T.x-w/2),Math.round(T.y-h+2-hp),w,h);sink(T,30);}]);
     if(D.gone<=0)ents.push([D.y,()=>{const fr=Math.floor(MG.e*(Math.hypot(D.vx,D.vy)>40?9:3))%2,up=D.jt>0?Math.round(Math.sin((.38-D.jt)/.38*Math.PI)*14/2)*2:0;
       if(D.inv>0&&Math.floor(D.inv*12)%2)return;fxShadow(g,D.x,D.y,40);g.drawImage(fxS('deer'+fr,'',D.f<0),Math.round((D.x-30)/2)*2,Math.round((D.y-42-up)/2)*2);if(!up)sink(D,40);
       if(MG.slow>0)g.drawImage(fxS('carrot'),Math.round((D.x-8+D.f*20)/2)*2,D.y-56);}]);
@@ -1620,7 +1627,7 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
 const APP_VER={v:'v7.2',d:'2026.10.06',log:['크리스마스 주간 새 미니게임 "도망가는 루돌프를 잡아라!" · 백업 보내기']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
- {v:'v7.2',d:'2026.10.06',log:['크리스마스 주간(12/18~25) 새 미니게임 "도망가는 루돌프를 잡아라!": 손가락을 끌면 산타 모자 토리가 달려가요. 루돌프를 잡을 때마다 선물이 떨어지고, 잡을수록 루돌프가 빨라져요','눈더미에선 느려지고 얼음판은 미끄러워요. 나무 뒤에 숨은 루돌프는 코만 반짝! 당근을 주우면 3초 동안 루돌프가 느려지고, 눈사람 타코가 힌트를 알려 줘요','45초 동안 3마리면 도토리 1개, 6마리면 2개 (보상 횟수는 다른 미니게임과 합산). 루돌프 썰매 배달도 그대로 있어요','"백업 보내기" 버튼: 공유 창에서 카톡 나에게 보내기·드라이브·메일로 백업 파일을 보내요 (설정 · 홈 백업 카드)','백업한 지 7일이 지나면 홈 백업 카드가 콩콩 뛰고 토리와 타코가 말로 알려 줘요']},
+ {v:'v7.2',d:'2026.10.06',log:['크리스마스 주간(12/18~25) 새 미니게임 "도망가는 루돌프를 잡아라!": 손가락을 끌면 빨간 산타 모자를 쓴 토리가 달려가요. 루돌프를 잡을 때마다 선물이 떨어지고, 잡을수록 루돌프가 빨라져요','눈더미에선 느려지고 얼음판은 미끄러워요. 나무 뒤에 숨은 루돌프는 코만 반짝! 당근을 주우면 3초 동안 루돌프가 느려지고, 눈덩이 위에 앉아 목도리를 두른 눈사람 타코가 힌트를 알려 줘요','45초 동안 3마리면 도토리 1개, 6마리면 2개 (보상 횟수는 다른 미니게임과 합산). 루돌프 썰매 배달도 그대로 있어요','"백업 보내기" 버튼: 공유 창에서 카톡 나에게 보내기·드라이브·메일로 백업 파일을 보내요 (설정 · 홈 백업 카드)','백업한 지 7일이 지나면 홈 백업 카드가 콩콩 뛰고 토리와 타코가 말로 알려 줘요']},
  {v:'v6.7',d:'2026.10.05',log:['토리를 쓰다듬을 때 사진만 출렁이고 얼굴은 가만히 있던 것을 고쳤어요 (슬퍼할 때 · 밤에도)','토리가 숨 쉴 때 도토리 쥔 손이 늘어나 보이던 것을 고쳤어요','미니게임 글자를 얇고 또렷하게 바꿨어요','타코 띄워 주기에서 바다 생물이 나오기 전 흰 상자 대신 작은 빨간 느낌표가 깜빡여요','도감 장소 종류 글씨가 안 보이던 것 · 일정 입력칸이 화면 밖으로 나가던 것 · 내 기념일 버튼 간격을 고쳤어요','보상 탭의 "새 보상 넣기"를 뺐어요 (이미 있는 보상은 그대로예요)']},
  {v:'v6.6',d:'2026.10.03',log:['마작패 짝 맞추기: 다 맞췄을 때 "쾅—" 하고 크게 울리는 진짜 징 소리로 바꿨어요']},
  {v:'v6.5',d:'2026.10.03',log:['유령 잡기 · 토리의 사탕 미로 · 마작패 짝 맞추기 · 루돌프 썰매 배달에 게임마다 전용 배경음악과 효과음을 넣었어요','사탕 미로에서 유령이 겁먹으면 음악이 빨라져요','루돌프 썰매 배달: 시작·배달·끝에 맑은 종소리가 울리고, 배경음악에도 종이 울려요']},
