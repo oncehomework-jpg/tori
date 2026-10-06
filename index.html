@@ -1476,19 +1476,19 @@ function chTree(dec){if(CHT[dec])return CHT[dec];const W=44,H=56,G=chGrid(W,H),C
   if(dec){const L=['#ff5a4a','#ffd84a','#5ab8ff','#ff8ad0'];T.slice(1).forEach(([y0,y1,hw],i)=>{for(let k=0;k<7;k++){const t=(k+.5)/7,x=Math.round(cx-hw*.85+t*hw*1.7),y=Math.round(y0+(y1-y0)*.62+Math.sin(t*Math.PI)*2.5-(1-Math.abs(t-.5)*2)*0);if(G.g(x,y)){G.s(x,y,L[(k+i)%4]);G.s(x+1,y,L[(k+i)%4]);G.s(x,y-1,'#fff6d0');}}});
     [[21,0],[22,0],[20,1],[21,1],[22,1],[23,1],[19,2],[20,2],[21,2],[22,2],[23,2],[24,2],[20,3],[21,3],[22,3],[23,3],[20,4],[23,4]].forEach(([x,y])=>G.s(x,y,y<2&&x<22?'#fff6b0':'#f4c542'));}
   G.outline(C.ol);return CHT[dec]=G.cv();}
-/* 눈사람 타코 36x43칸(칸 하나=1px로 만들고 1.5배로 찍음 → 타코가 예전보다 작게): 눈덩이 몸통 위에 앱의 진짜 타코 그림(20x22칸)이 올라가 앉고, 얼굴과 다리 사이에 초록·크림 줄무늬 목도리, 원래 세일러 모자 대신 빨간 산타 모자(하얀 털 테두리·방울) */
-let CHS=null,CH_TK=null;const CH_SM=1.5,CH_TS=1.25;/* 눈사람 타코 1.5배, 쫓는 토리 1.25배(v7.2 사용자 요청: 타코 작게·토리 조금 크게) */
-function chSnowman(){if(CHS)return CHS;if(!CH_TK){CH_TK=new Image();CH_TK.src=TAKO;}if(!(CH_TK.complete&&CH_TK.naturalWidth))return null;const W=36,H=43,G=chGrid(W,H),C=CHC,OX=8,OY=7;let px;
+/* 눈사람 타코 42x47칸(칸 하나=1px로 만들고 1.25배로 찍음 → 타코가 예전보다 작게): 눈덩이 몸통 위에 앱의 진짜 타코 그림(20x22칸)이 올라가 앉고, 얼굴과 다리 사이에 초록·크림 줄무늬 목도리, 원래 세일러 모자 대신 빨간 산타 모자(하얀 털 테두리·방울) */
+let CHS=null,CH_TK=null;const CH_SM=1.25,CH_TS=1.25;/* 눈사람 타코 1.25배(눈덩이 몸통은 크게·타코는 작게), 쫓는 토리 1.25배(v7.2 사용자 요청: 타코 작게·토리 조금 크게) */
+function chSnowman(){if(CHS)return CHS;if(!CH_TK){CH_TK=new Image();CH_TK.src=TAKO;}if(!(CH_TK.complete&&CH_TK.naturalWidth))return null;const W=42,H=47,G=chGrid(W,H),C=CHC,OX=11,OY=7;let px;
   try{const[c,g]=fxCv(CH_TK.naturalWidth,CH_TK.naturalHeight);g.drawImage(CH_TK,0,0);px=g.getImageData(0,0,c.width,c.height).data;}catch(e){return null;}
   const tw=CH_TK.naturalWidth/8|0,th=CH_TK.naturalHeight/8|0,hx=(r,g,b)=>'#'+[r,g,b].map(v=>v.toString(16).padStart(2,'0')).join(''),snow=[];
   /* 눈덩이 몸통 (타코 다리가 위에 걸터앉음) + 나뭇가지 팔 + 석탄 단추 */
-  const BY=34;chBall(G,18,BY,10.5,8.5,[C.s0,C.s1,C.s2,C.s3,C.s4]);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(G.a[y][x])snow.push([x,y]);
+  const BY=35.5;chBall(G,21,BY,13,10.5,[C.s0,C.s1,C.s2,C.s3,C.s4]);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(G.a[y][x])snow.push([x,y]);
   /* 나뭇가지 팔(도트 눈사람 요령): 몸통 옆에서 비스듬히 위로 뻗은 줄기(위 칸 밝은 갈색 + 아래 칸 진한 갈색 = 두 칸 굵기), 중간에 작은 곁가지, 끝은 Y자 손가락. 가지끼리 빈칸을 두어 뭉개지지 않게 (왼쪽 그리고 좌우 뒤집기) */
   const ARM=[[7,25,C.b2],[6,24,C.b2],[5,23,C.b2],[4,22,C.b2],[3,21,C.b2],[2,20,C.b2],[1,19,C.b1],[7,26,C.b0],[6,25,C.b0],[5,24,C.b0],[4,23,C.b0],[3,22,C.b0],[2,21,C.b0],
     [5,21,C.b1],[5,20,C.b0],[0,18,C.b0],[2,18,C.b1],[3,17,C.b0]];
-  ARM.forEach(([x,y,c])=>{y+=5;G.s(x,y,c);G.s(W-1-x,y,c);});
+  ARM.forEach(([x,y,c])=>{x+=1;y+=8;G.s(x,y,c);G.s(W-1-x,y,c);});
   for(let x=0;x<tw;x++)for(let y=0;y<th;y++){const i=((y*8+4)*CH_TK.naturalWidth+x*8+4)*4;if(px[i+3]>128)G.s(OX+x,OY+y,hx(px[i],px[i+1],px[i+2]));}
-  [[17,36],[18,36],[17,39],[18,39]].forEach(([x,y])=>G.s(x,y,'#2a2a3a'));G.s(17,36,'#4a4a5e');G.s(17,39,'#4a4a5e');
+  [[20,37],[21,37],[20,41],[21,41]].forEach(([x,y])=>G.s(x,y,'#2a2a3a'));G.s(20,37,'#4a4a5e');G.s(20,41,'#4a4a5e');
   /* 목도리: 타코 14~15째 줄(얼굴 아래, 다리 위)을 감싸고 오른쪽으로 끝자락이 내려옴 */
   const SG=['#58a571','#3c8462','#2b6650'],SC=['#fff3dc','#ecd3a9','#c9ae86'],sc=(x,y,sh)=>{const st=((x+y)>>1)%2?SC:SG;return st[sh];};
   for(let x=OX+1;x<=OX+18;x++){G.s(x,OY+14,sc(x,0,x>OX+13?1:0));G.s(x,OY+15,sc(x,0,x>OX+13?2:1));}
@@ -1559,7 +1559,7 @@ function mg9Start(){if(MG.raf)cancelAnimationFrame(MG.raf);$('mgr').style.displa
     /* ---- 그리기 ---- */
     g.drawImage(chBack(),0,0);
     const ents=[];CH.tree.forEach((tr,i)=>ents.push([tr.y,()=>{fxShadow(g,tr.x+4,tr.y,72);g.drawImage(chTree(i===0),Math.round((tr.x-44)/2)*2,tr.y-106);}]));
-    ents.push([CH.tk.y,()=>{const sm=chSnowman();fxShadow(g,CH.tk.x+2,CH.tk.y,32);if(sm)g.drawImage(sm,Math.round(CH.tk.x-36*CH_SM/2),Math.round(CH.tk.y-42*CH_SM),36*CH_SM,43*CH_SM);}]);
+    ents.push([CH.tk.y,()=>{const sm=chSnowman();fxShadow(g,CH.tk.x+2,CH.tk.y,32);if(sm)g.drawImage(sm,Math.round(CH.tk.x-42*CH_SM/2),Math.round(CH.tk.y-46*CH_SM),Math.round(42*CH_SM),Math.round(47*CH_SM));}]);
     MG.gifts.forEach(p=>ents.push([p.y,()=>{const h=Math.max(0,Math.round(Math.sin(Math.min(1,p.t/.5)*Math.PI)*16/2)*2);fxShadow(g,p.x,p.y,16);g.drawImage(fxS('gift',p.pk),Math.round((p.x-9)/2)*2,Math.round((p.y-18-h)/2)*2);}]));
     if(MG.cr){const cr=MG.cr;ents.push([cr.y,()=>{if(cr.t<2&&Math.floor(cr.t*8)%2)return;const b=Math.round(Math.sin(MG.e*5))*2;g.drawImage(fxGlow('#ffb866',14),cr.x-14,cr.y-24);fxShadow(g,cr.x,cr.y,14);g.drawImage(fxS('carrot'),Math.round((cr.x-8)/2)*2,cr.y-22+b);}]);}
     const sink=(o,w)=>{if(chIn(CH.pile,o.x,o.y)){g.fillStyle='#ffffff';g.fillRect(Math.round((o.x-w/2)/2)*2,Math.round(o.y/2)*2-6,w,4);g.fillStyle='#eef3fb';g.fillRect(Math.round((o.x-w/2)/2)*2+2,Math.round(o.y/2)*2-2,w-4,2);}};
