@@ -150,22 +150,22 @@ N['tdragon'] = g.rows()
 M = lambda l: l + l[::-1]
 S = lambda *r: [x if len(x) == 16 else M(x) for x in r]
 N['tori_f'] = S("........",".kkk....","kpPpk.kk","kpppkkbb",".kbbbbbb","kbbbbbbb","kbbbbbbb","kbbkkbbb","kbbkhbbb","kbbkkbbb","kbppbbwk","kbppbwww",".kbbbwww",".kbbbbww","..kkbbbb","....kkkk")
-# 도치: 옆모습 전신 — 세모 가시·앞으로 뾰족한 코·눈 반짝임·볼터치·발 두 개 (너무 동그랗다고 해서 고슴도치답게 다시 그림)
+# 도치: 옆모습 전신, 도트 고슴도치 요령대로 — 뒤로 누운 톱니 가시(밝은 가시 끝 s), 위·등 쪽 가시 결, 작은 귀, 크림 얼굴, 앞으로 뾰족한 코 끝 까만 코, 볼터치, 발 두 개
 N['dochi'] = [
  "................",
+ "..k..k..k.......",
+ "..kskkskksk.....",
+ ".kkDDdDDdDDk....",
+ "ksDDdDDdDDDkk...",
+ ".kDdDDdDDDktbk..",
+ "ksDDdDDdDkttttk.",
+ ".kDdDDdDDktkttk.",
+ "ksDDdDDdDttktttk",
+ ".kDDdDDDDtpttkk.",
+ "..kDDDDDkbbtk...",
+ "...kkkkkkkkk....",
+ "....kk...kk.....",
  "................",
- "...k...k...k....",
- "..kDk.kDk.kDk...",
- ".kDdDkDdDkDdDk..",
- "kDDDDDDDDDDDDk..",
- "kDdDDdDDdDtttk..",
- ".kDDdDDdDtkhttk.",
- "kDdDDdDDdtkktttk",
- ".kDDdDDdDtppttkk",
- "kDDDdDDDDttttk..",
- ".kkkkkkkkkkkk...",
- "..ktk....ktk....",
- "..kk.....kk.....",
  "................",
  "................",
 ]
