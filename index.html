@@ -364,6 +364,8 @@ body{word-break:keep-all;overflow-wrap:break-word}
 #totop{position:fixed;right:max(12px,calc(50% - 228px));bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:6;width:46px;height:46px;border:3px solid var(--ol);background:var(--win);color:var(--gold);box-shadow:0 3px 0 var(--ol2);font-size:13px!important;line-height:1.1;padding:0;display:none;cursor:pointer}
 #totop.on{display:block}html.bgon #totop{display:none!important}
 input[type=range]{accent-color:var(--gold)}
+/* v7.8 백업 칸: 파일 저장 · 파일에서 복원을 한 줄에 반씩 */
+.bkpair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}.bkpair .btn{width:100%;display:block;text-align:center;white-space:normal;padding-left:4px;padding-right:4px;font-size:calc(15px*var(--fs,1))!important}
 </style>
 </head>
 <body>
@@ -1712,7 +1714,7 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
 const APP_VER={v:'v7.8',d:'2026.10.06',log:['홈에 보드게임: 스도쿠 · 티츄','햄스터·설정 탭 바로 가기 · 맨 위로 버튼']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
- {v:'v7.8',d:'2026.10.06',log:['홈에 새 "🎳 보드게임" 칸: 스도쿠(쉬움·보통·어려움, 메모·힌트·되돌리기, 중간에 나가도 저장)와 티츄(진우·토리 팀 대 타코·도치 팀, 컴퓨터 3명, 200점 먼저 넘기면 승리)','보상: 스도쿠 다 풀면 🌰1(어려움 🌰2), 티츄 이기면 🌰2 — 미니게임과 합쳐 하루 2번','보드게임 아이콘과 티츄 특수 카드(참새·강아지·봉황·용)를 새로 그렸어요','햄스터·설정 탭 위에 바로 가기 칸, 많이 내려가면 "맨 위로" 버튼, 한글이 단어 중간에서 끊기지 않게','눈사람 타코 모자 아래·목도리 위에 검은 테두리']},
+ {v:'v7.8',d:'2026.10.06',log:['홈에 새 "🎳 보드게임" 칸: 스도쿠(쉬움·보통·어려움, 메모·힌트·되돌리기, 중간에 나가도 저장)와 티츄(진우·토리 팀 대 타코·도치 팀, 컴퓨터 3명, 200점 먼저 넘기면 승리)','보상: 스도쿠 다 풀면 🌰1(어려움 🌰2), 티츄 이기면 🌰2 — 미니게임과 합쳐 하루 2번','보드게임 아이콘과 티츄 특수 카드(참새·강아지·봉황·용)를 새로 그렸어요','햄스터·설정 탭 위에 바로 가기 칸, 많이 내려가면 "맨 위로" 버튼, 한글이 단어 중간에서 끊기지 않게','눈사람 타코 모자 아래·목도리 위에 검은 테두리','설정 백업 칸: "파일 저장"과 "파일에서 복원" 버튼을 한 줄에 나란히']},
  {v:'v7.3',d:'2026.10.06',log:['루돌프 잡기: 눈사람 타코의 산타 모자를 작고 깜찍하게 줄였어요','루돌프가 펄쩍 뛸 때 목 방울이 짤랑, 당근을 주우면 종소리가 울려요']},
  {v:'v7.2',d:'2026.10.06',log:['크리스마스 주간(12/18~25) 새 미니게임 "도망가는 루돌프를 잡아라!": 손가락을 끌면 빨간 산타 모자를 쓴 토리가 달려가요. 루돌프를 잡을 때마다 선물이 떨어지고, 잡을수록 루돌프가 빨라져요','눈더미에선 느려지고 얼음판은 미끄러워요. 나무 뒤에 숨은 루돌프는 코만 반짝! 당근을 주우면 3초 동안 루돌프가 느려지고, 산타 모자를 쓰고 목도리를 두른 채 눈덩이 위에 앉은 눈사람 타코가 힌트를 알려 줘요','45초 동안 3마리면 도토리 1개, 6마리면 2개 (보상 횟수는 다른 미니게임과 합산). 루돌프 썰매 배달도 그대로 있어요','"백업 보내기" 버튼: 공유 창에서 카톡 나에게 보내기·드라이브·메일로 백업 파일을 보내요 (설정 · 홈 백업 카드)','백업한 지 7일이 지나면 홈 백업 카드가 콩콩 뛰고 토리와 타코가 말로 알려 줘요']},
  {v:'v6.9',d:'2026.10.06',log:['도감·가고 싶은 곳에서 장소 종류(식당·카페·놀거리·기타) 글씨가 흰색이라 안 보이던 것을 진한 갈색으로 고쳤어요']},
@@ -1782,7 +1784,7 @@ function rSet(){const t=S.lastBackup?new Date(S.lastBackup).toLocaleString('ko-K
   <label>볼륨</label><input type="range" min="0" max="100" value="${S.sv==null?35:S.sv}" oninput="S.sv=+this.value" onchange="save();sfx('coin')"></div>
   <div class="card"><h2>🐹 햄스터 이름</h2><input id="hn" maxlength="8" value="${esc(hn())}"><button class="btn full" onclick="hnSave()">이름 저장</button></div>
   <div class="card"><h2>💾 백업 · 복원</h2><div class="muted" style="margin-bottom:8px">${t?'마지막 백업: '+esc(t):'아직 백업한 적이 없어요.'}</div>
-  <button class="btn wood full" style="margin-bottom:6px" onclick="backupSend()">💾 백업 보내기 (카톡·드라이브·메일)</button><div class="muted" style="margin-bottom:8px">공유 창이 뜨면 카톡 '나에게 보내기'나 드라이브·메일을 고르세요. 복원할 땐 받은 파일을 저장한 뒤 아래 '파일에서 복원'으로 골라요.</div><button class="btn ghost full" style="margin-bottom:8px" onclick="exportFile().then(rSet)">백업 파일 저장 (.json)</button><label class="btn ghost full" style="display:block;text-align:center;margin-bottom:8px">📂 파일에서 복원<input type="file" accept=".json,application/json" style="display:none" onchange="importFile(this.files[0])"></label><button class="btn full" onclick="exportBackup()">백업 코드 만들기</button><textarea id="bt" rows="4" style="margin-top:8px" placeholder="여기에 백업 코드가 나타나요. 복원할 땐 이 칸에 붙여넣으세요."></textarea>
+  <button class="btn wood full" style="margin-bottom:6px" onclick="backupSend()">💾 백업 보내기 (카톡·드라이브·메일)</button><div class="muted" style="margin-bottom:8px">공유 창이 뜨면 카톡 '나에게 보내기'나 드라이브·메일을 고르세요. '파일 저장'은 폰에 백업 파일(.json)을 저장해요. 복원할 땐 받은 파일을 저장한 뒤 '파일에서 복원'으로 골라요.</div><div class="bkpair"><button class="btn ghost" onclick="exportFile().then(rSet)">💾 파일 저장</button><label class="btn ghost">📂 파일에서 복원<input type="file" accept=".json,application/json" style="display:none" onchange="importFile(this.files[0])"></label></div><button class="btn full" onclick="exportBackup()">백업 코드 만들기</button><textarea id="bt" rows="4" style="margin-top:8px" placeholder="여기에 백업 코드가 나타나요. 복원할 땐 이 칸에 붙여넣으세요."></textarea>
   <div class="row"><button class="btn ghost full" onclick="copyBackup()">복사</button><button class="btn wood full" onclick="importBackup()">이 코드로 복원</button></div>
   <div class="muted" style="margin-top:8px">복사한 코드는 메모 앱이나 카카오톡 '나에게 보내기'에 보관하세요. 복원하면 현재 기록이 코드 내용으로 덮어써져요.</div>
   <div class="muted" style="margin-top:12px">${snapMeta()?'직전 상태 보관 중 · '+esc(new Date(snapMeta()).toLocaleString('ko-KR')):'복원·초기화 직전 상태를 1개 보관해요.'}</div><button class="btn ghost full" style="margin-top:6px" onclick="snapUndo()">↩ 직전 상태로 되돌리기</button></div>
