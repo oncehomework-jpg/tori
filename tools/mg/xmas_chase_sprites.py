@@ -55,11 +55,33 @@ def snowtk():
     for x,y in pts:a[y][x]='k'
     return [''.join(r) for r in a]
 SNOWTK_PAL={'k':'#2a3050','p':'#f29bb0','P':'#d06f8c','L':'#ffc6d4','e':'#2a1c30','W':'#ffffff','c':'#ff7f9a','r':'#d63a32','R':'#9e2620','w':'#eef3fb','v':'#bccbe6','b':'#6a4428'}
+# 산타 16x20 (오른쪽 보기, 2장: 다리) — 시안
+SANTA_TOP=["................",
+           "...kkkkk........",
+           "..krrrrrkk......",
+           ".krrrrrrrRk.....",
+           "kWkrrrrrrRRk....",
+           "kWkwwwwwwwwwk...",
+           ".kkfffffffffk...",
+           "..kfffffefpfk...",
+           "..kwwffwwwwfk...",
+           ".kwwwwwwwwwwk...",
+           ".kWwwwwwwwwWk...",
+           "..kWwwwwwwWk....",
+           ".kRrkWWWWkrrk...",
+           "kRrrrkkkkrrrrk..",
+           "kfkbbbbybbbkfk..",
+           ".kkRrrrrrrRkk...",
+           "..kwwwwwwwwk...."]
+SANTA_LEG=[["..kRRk..kRRk....",".kBBBk..kBBBk...",".kkkk....kkkk..."],
+           ["...kRRkkRRk.....","..kBBBkkBBBk....","..kkkkkkkkkk...."]]
+SANTA_PAL={'k':'#2a1410','r':'#d63a32','R':'#9e2620','w':'#ffffff','W':'#dfe3ee','f':'#f6c7a0','e':'#2a1410','p':'#f08a8a','b':'#2a1c20','y':'#f4c542','B':'#3a2a2a'}
 def build(fx):
     out={}
     for n in ('to0','to1'):
         rows,pal=fx['S'][n];out['tos'+n[-1]]=[HAT+rows[6:],{**pal,**SANTA_PAL}]  # 모자 7줄 + 머리부터 아래
     out['carrot']=[CARROT,CARROT_PAL]
+    for i in (0,1): out['san%d'%i]=[SANTA_TOP+SANTA_LEG[i],SANTA_PAL]
     return out
 if __name__=='__main__':
     s=open(os.path.join(os.path.dirname(__file__),'..','..','index.html'),encoding='utf-8').read()

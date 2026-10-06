@@ -3,3 +3,4 @@ _전달*/
 .claude/
 __pycache__/
 .DS_Store
+preview-*.html
