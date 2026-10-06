@@ -1499,7 +1499,7 @@ function chSnowman(){if(CHS)return CHS;if(!CH_TK){CH_TK=new Image();CH_TK.src=TA
   /* 산타 모자 (v7.3): 원래 세일러 모자처럼 머리 오른쪽 위에 비스듬히 얹힌 작은 모자. 세일러 모자 칸만 지우고(머리 윗선은 그대로), 털 테두리는 오른쪽 아래로 기울고 고깔 끝은 오른쪽으로 휘어 방울이 달랑. 빛은 왼쪽 위 */
   for(let y=0;y<=3;y++)for(let x=11;x<20;x++)if(y<=2||x>=14)G.s(OX+x,OY+y,null);
   const HR=['#ef6a5e','#d63a32','#9e2620'],hat=[],hs=(x,y,c)=>{G.s(OX+x,OY+y,c);hat.push([OX+x,OY+y]);};
-  /* 칸 그림(타코 칸 x11~20, y-4~3, 원래 세일러 모자와 비슷한 크기): 털 테두리는 두 칸 두께로 한 번만 꺾여 기울고, 고깔은 아래가 넓고 끝이 오른쪽으로 휘고, 그 옆에 동그란 방울(+모양, 작은 칸에선 둥글게 보여요). 빛은 왼쪽 위: 왼쪽 가장자리 밝게, 오른쪽 두 칸 어둡게 */
+  /* 칸 그림(타코 칸 x9~18, y-3~4: 머리 꼭대기에 올라앉아 오른쪽으로 살짝 기울게. 너무 오른쪽·위로 가면 미끄러져 떨어지는 것처럼 보여요): 털 테두리는 두 칸 두께로 한 번만 꺾여 기울고, 고깔은 아래가 넓고 끝이 오른쪽으로 휘고, 그 옆에 동그란 방울(+모양, 작은 칸에선 둥글게 보여요). 빛은 왼쪽 위: 왼쪽 가장자리 밝게, 오른쪽 두 칸 어둡게 */
   const HAT=["........w.",
              ".......wwW",
              "....rrR.W.",
@@ -1508,7 +1508,7 @@ function chSnowman(){if(CHS)return CHS;if(!CH_TK){CH_TK=new Image();CH_TK.src=TA
              "wwwrrrRR..",
              "WWWwwwwwW.",
              "...WWWWWW."];
-  HAT.forEach((row,j)=>{const first=row.search(/[rR]/);[...row].forEach((ch,i)=>{if(ch==='.'||ch==='k')return;let c=ch==='w'?'#ffffff':ch==='W'?'#dfe3ee':ch==='R'?HR[2]:HR[1];if(ch==='r'&&(i===first||j===2))c=HR[0];hs(11+i,j-4,c);});});
+  HAT.forEach((row,j)=>{const first=row.search(/[rR]/);[...row].forEach((ch,i)=>{if(ch==='.'||ch==='k')return;let c=ch==='w'?'#ffffff':ch==='W'?'#dfe3ee':ch==='R'?HR[2]:HR[1];if(ch==='r'&&(i===first||j===2))c=HR[0];hs(9+i,j-3,c);});});
   for(const[x,y]of hat)for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]])if(!G.g(x+dx,y+dy)&&y+dy>=0&&x+dx>=0&&x+dx<W)G.s(x+dx,y+dy,'#1a1a24');
   const SN=new Set([C.s0,C.s1,C.s2,C.s3,C.s4]);for(const[x,y]of snow)if(SN.has(G.a[y][x]))for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]])if(!G.g(x+dx,y+dy)&&y+dy>=0&&y+dy<H&&x+dx>=0&&x+dx<W)G.s(x+dx,y+dy,'#2b3354');
   const[c,g]=fxCv(W,H);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(G.a[y][x]){g.fillStyle=G.a[y][x];g.fillRect(x,y,1,1);}return CHS=c;}
