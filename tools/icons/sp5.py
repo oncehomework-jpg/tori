@@ -146,11 +146,29 @@ g.put(0, 0, [r.replace('.', '_') for r in art])
 g.halo('k', diag=False)
 N['tdragon'] = g.rows()
 
-# 보드게임 말 칸 얼굴(v7.8 대사): 타코(q_octo)처럼 앞모습·큰 눈·볼터치. 왼쪽 반만 적고 좌우 대칭
+# 보드게임 말 칸 얼굴(v7.8 대사): 토리는 타코(q_octo)처럼 앞모습·큰 눈·볼터치. 왼쪽 반만 적고 좌우 대칭
 M = lambda l: l + l[::-1]
 S = lambda *r: [x if len(x) == 16 else M(x) for x in r]
 N['tori_f'] = S("........",".kkk....","kpPpk.kk","kpppkkbb",".kbbbbbb","kbbbbbbb","kbbbbbbb","kbbbkkbb","kbbbkhbb","kbppbbbP","kbppbbww","kbbbbwwk",".kbbbwww",".kbbbbww","..kkbbbb","....kkkk")
-N['dochi_f'] = S("...k..k.","..kDkkDk",".kDdDDdD","kDDdDDdD","kDdDDdDD","kDDDtttt","kDdttttt","kDDtkktt","kDdtkhtt","kDtppttt","kDtppttk","kDDttttt",".kDDtttt","..kDDttt","...kkkkk","........")
+# 도치: 처음의 옆모습 전신(q_hedgehog)을 다듬음 — 가시 결·눈 반짝임·볼터치·발 두 개 (사용자 요청)
+N['dochi'] = [
+ "................",
+ "......k..k......",
+ "...k.kDkkDk.k...",
+ "..kDkDdDkDdDkDk.",
+ ".kDdDDDdDDDdDDk.",
+ ".kDDdDDDdDDtttk.",
+ "kDdDDdDDDDttttk.",
+ "kDDDDDdDDtthkttk",
+ "kDdDdDDDDttkktkk",
+ "kDDDDdDDtpptttkk",
+ ".kDdDDDDttttttk.",
+ ".kDDDDDDtttttk..",
+ "..kkkkkkkkkkk...",
+ "..ktk....ktk....",
+ "..kk.....kk.....",
+ "................",
+]
 
 for k, v in N.items():
     assert len(v) == 16 and all(len(r) == 16 for r in v), (k, [len(r) for r in v])
