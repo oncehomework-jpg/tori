@@ -13,6 +13,7 @@
 <link rel="preload" as="image" href="assets/hero-65a66c99.webp">
 <title>JW Diary</title>
 <link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@2.39.2/dist/galmuri.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neodgm/neodgm-webfont@1.530/neodgm/style.css">
@@ -65,6 +66,7 @@ label{font-size:13px;color:var(--gold)}
 .cp .em{font-size:30px;width:50px;height:50px;line-height:44px;text-align:center;flex:none;background:var(--cream);border:3px solid var(--in)}
 .cp .nm{font-size:17px}.cp .ds{font-size:13px;color:var(--mut)}
 .badge{display:inline-block;border:2px solid var(--ol);font-size:11px;padding:0 6px;margin-left:6px;vertical-align:middle}
+.badge.pty{background:var(--win2);color:var(--tx)}
 .g-일반{background:#2e7d4f}.g-희귀{background:#2f6fd6}.g-전설{background:#e9b949;color:var(--ol2)}
 .card.legend{background:linear-gradient(#f7e3a8,#ecc978);border-color:var(--gold)}
 .qty{color:var(--grn)}.dim{opacity:.5}.muted{font-size:12px;color:var(--mut)}.star{color:var(--gold);letter-spacing:1px}
@@ -271,7 +273,7 @@ html.dk body::before{opacity:.2}
 .hero .tlive .lid::after{content:'';position:absolute;left:12%;right:12%;top:52%;height:max(2px,14%);background:var(--lc,#4a3423);border-radius:2px}
 .hero .tlive.shut .lid{display:block}
 @keyframes tbreath{0%{translate:none}50%{translate:0 calc(var(--ap)*-1)}}
-@keyframes thop{0%{translate:0 calc(var(--ap)*-1)}14%{translate:0 calc(var(--ap)*-2)}64%{translate:0 calc(var(--ap)*-1)}82%{translate:none}}
+@keyframes thop{0%{translate:0 calc(var(--ap)*-1)}14%{translate:0 calc(var(--ap)*-1.5)}64%{translate:0 calc(var(--ap)*-1)}82%{translate:none}}
 @media (prefers-reduced-motion:reduce){.hero .tlive,.hero .ac,.hero.hop .tlive{animation:none}}
 .rxm{display:block;margin:0 auto 10px;height:min(38vh,300px);aspect-ratio:9/16;object-fit:cover;border:3px solid var(--ol);image-rendering:auto}.rxm.rxp{height:min(44vh,360px);background:var(--ol)}
 #rxp{position:fixed;left:50%;top:46%;transform:translate(-50%,-50%);height:min(56vh,440px);aspect-ratio:9/16;object-fit:cover;border:4px solid var(--ol);box-shadow:0 0 0 4px var(--ol2),0 8px 0 4px var(--ol2);z-index:44;pointer-events:none;animation:rxin 3s forwards}
@@ -1610,9 +1612,9 @@ function plList(){const q=pQ.trim().toLowerCase();
   const src=(pView==='dex'?S.places:S.wish).filter(p=>(pType==='전체'||p.type===pType)&&(!q||(p.name+' '+(p.comment||'')+' '+(p.memo||'')).toLowerCase().includes(q)));
   const items=pView==='dex'?src.sort((a,b)=>(b.date||'')<(a.date||'')?-1:1):src;
   $('plist').innerHTML=items.length?items.map(p=>{const u=safeUrl(p.url);
-    return pView==='dex'?`<div class="card"><div class="row sp"><div class="nm jua" style="font-size:17px">${esc(p.name)}<span class="badge">${esc(p.type)}</span></div><button class="btn ghost sm" onclick="plForm('dex','${p.id}')">✏️</button></div>
+    return pView==='dex'?`<div class="card"><div class="row sp"><div class="nm jua" style="font-size:17px">${esc(p.name)}<span class="badge pty">${esc(p.type)}</span></div><button class="btn ghost sm" onclick="plForm('dex','${p.id}')">✏️</button></div>
     <div class="star">${stars(p.stars||0)}</div><div class="muted">${esc(p.date)}${p.with?' · 👥 '+esc(p.with):''}</div>${p.comment?`<div>${esc(p.comment)}</div>`:''}${u?`<a href="${esc(u)}" target="_blank" rel="noopener">🗺️ 지도 보기</a>`:''}</div>`
-    :`<div class="card"><div class="row sp"><div class="nm jua" style="font-size:17px">${esc(p.name)}<span class="badge">${esc(p.type)}</span></div><button class="btn ghost sm" onclick="plForm('wish','${p.id}')">✏️</button></div>${p.memo?`<div>${esc(p.memo)}</div>`:''}${u?`<a href="${esc(u)}" target="_blank" rel="noopener">🗺️ 지도 보기</a><br>`:''}<button class="btn sm" style="margin-top:6px" onclick="plGone('${p.id}')">✅ 다녀왔어요</button></div>`;}).join(''):'<div class="empty">'+(pView==='dex'?'다녀온 곳을 기록해 보세요.':'가고 싶은 곳을 담아 보세요.')+'</div>';}
+    :`<div class="card"><div class="row sp"><div class="nm jua" style="font-size:17px">${esc(p.name)}<span class="badge pty">${esc(p.type)}</span></div><button class="btn ghost sm" onclick="plForm('wish','${p.id}')">✏️</button></div>${p.memo?`<div>${esc(p.memo)}</div>`:''}${u?`<a href="${esc(u)}" target="_blank" rel="noopener">🗺️ 지도 보기</a><br>`:''}<button class="btn sm" style="margin-top:6px" onclick="plGone('${p.id}')">✅ 다녀왔어요</button></div>`;}).join(''):'<div class="empty">'+(pView==='dex'?'다녀온 곳을 기록해 보세요.':'가고 싶은 곳을 담아 보세요.')+'</div>';}
 function plForm(view,id,pre){const isDex=view==='dex';const p=(isDex?S.places:S.wish).find(x=>x.id===id)||pre||{name:'',type:'식당',date:todayStr(),stars:4,comment:'',with:'',memo:'',url:''};
   modal(`<h3>${isDex?'다녀온 곳':'가고 싶은 곳'}</h3><label>이름</label><input id="pn" maxlength="40" value="${esc(p.name)}"><label>종류</label><select id="pt">${PTYPES.map(t=>`<option ${t===p.type?'selected':''}>${t}</option>`).join('')}</select>
   ${isDex?`<label>다녀온 날짜</label><input id="pd" type="date" value="${esc(p.date)}"><label>별점</label><select id="ps">${[5,4,3,2,1].map(n=>`<option value="${n}" ${n===p.stars?'selected':''}>${stars(n)}</option>`).join('')}</select><label>한 줄 평</label><input id="pc" maxlength="80" value="${esc(p.comment)}"><label>같이 간 사람</label><input id="pw" maxlength="30" value="${esc(p.with)}">`:`<label>메모</label><input id="pm" maxlength="80" value="${esc(p.memo)}">`}
@@ -1635,6 +1637,8 @@ const APP_VER={v:'v7.2',d:'2026.10.06',log:['크리스마스 주간 새 미니�
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
  {v:'v7.2',d:'2026.10.06',log:['크리스마스 주간(12/18~25) 새 미니게임 "도망가는 루돌프를 잡아라!": 손가락을 끌면 빨간 산타 모자를 쓴 토리가 달려가요. 루돌프를 잡을 때마다 선물이 떨어지고, 잡을수록 루돌프가 빨라져요','눈더미에선 느려지고 얼음판은 미끄러워요. 나무 뒤에 숨은 루돌프는 코만 반짝! 당근을 주우면 3초 동안 루돌프가 느려지고, 산타 모자를 쓰고 목도리를 두른 채 눈덩이 위에 앉은 눈사람 타코가 힌트를 알려 줘요','45초 동안 3마리면 도토리 1개, 6마리면 2개 (보상 횟수는 다른 미니게임과 합산). 루돌프 썰매 배달도 그대로 있어요','"백업 보내기" 버튼: 공유 창에서 카톡 나에게 보내기·드라이브·메일로 백업 파일을 보내요 (설정 · 홈 백업 카드)','백업한 지 7일이 지나면 홈 백업 카드가 콩콩 뛰고 토리와 타코가 말로 알려 줘요']},
+ {v:'v6.9',d:'2026.10.06',log:['도감·가고 싶은 곳에서 장소 종류(식당·카페·놀거리·기타) 글씨가 흰색이라 안 보이던 것을 진한 갈색으로 고쳤어요']},
+ {v:'v6.8',d:'2026.10.06',log:['아이폰(사파리)에서 홈 화면에 추가할 때 쓰는 토리 아이콘을 넣었어요','토리가 기지개를 켤 때 머리 위 물병과 겹쳐 보이던 것을 줄였어요']},
  {v:'v6.7',d:'2026.10.05',log:['토리를 쓰다듬을 때 사진만 출렁이고 얼굴은 가만히 있던 것을 고쳤어요 (슬퍼할 때 · 밤에도)','토리가 숨 쉴 때 도토리 쥔 손이 늘어나 보이던 것을 고쳤어요','미니게임 글자를 얇고 또렷하게 바꿨어요','타코 띄워 주기에서 바다 생물이 나오기 전 흰 상자 대신 작은 빨간 느낌표가 깜빡여요','도감 장소 종류 글씨가 안 보이던 것 · 일정 입력칸이 화면 밖으로 나가던 것 · 내 기념일 버튼 간격을 고쳤어요','보상 탭의 "새 보상 넣기"를 뺐어요 (이미 있는 보상은 그대로예요)']},
  {v:'v6.6',d:'2026.10.03',log:['마작패 짝 맞추기: 다 맞췄을 때 "쾅—" 하고 크게 울리는 진짜 징 소리로 바꿨어요']},
  {v:'v6.5',d:'2026.10.03',log:['유령 잡기 · 토리의 사탕 미로 · 마작패 짝 맞추기 · 루돌프 썰매 배달에 게임마다 전용 배경음악과 효과음을 넣었어요','사탕 미로에서 유령이 겁먹으면 음악이 빨라져요','루돌프 썰매 배달: 시작·배달·끝에 맑은 종소리가 울리고, 배경음악에도 종이 울려요']},
