@@ -8,18 +8,18 @@ for y in range(W):
         if d>7.9: continue
         l=-(dx+dy)           # 왼쪽 위가 밝음
         if d>7.0: ch='k'
-        elif d>5.9: ch='t' if l>5 else 'b' if l>-1 else 'd' if l>-6 else 'D'
-        else: ch='d'
+        elif d>5.9: ch='b' if l>4 else 'd' if l>-2 else 'D'
+        else: ch='t' if l>6 else 'b'
         g[y][x]=ch
-AC=["...DD...",".ttttbb.","ttttbbbb","bbbbbbbb",".DDDDDD.",".tbbbbd.",".tbbbbd.","..bbbd..","...bd..."]
+AC=["...kk...",".dDDDDD.","dDdDDDDD","DDDDDDDD",".kkkkkk.",".dddddD.",".ddddDD.","..dddD..","...dD..."]
 for j,row in enumerate(AC):      # 그림자(오른쪽 아래 한 칸) 먼저
     for i,ch in enumerate(row):
         x,y=4+i+1,3+j+1
-        if ch!='.' and 0<=x<W and 0<=y<W and g[y][x]=='d': g[y][x]='D'
+        if ch!='.' and 0<=x<W and 0<=y<W and g[y][x] in 'bt': g[y][x]='d'
 for j,row in enumerate(AC):
     for i,ch in enumerate(row):
         if ch!='.': g[3+j][4+i]=ch
-g[1][5]='h';g[2][4]='h'
+g[2][4]='h';g[2][5]='h'
 rows=[''.join(r) for r in g]
 print(json.dumps(rows))
 try:
