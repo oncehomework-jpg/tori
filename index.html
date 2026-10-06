@@ -13,6 +13,7 @@
 <link rel="preload" as="image" href="assets/hero-65a66c99.webp">
 <title>JW Diary</title>
 <link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@2.39.2/dist/galmuri.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neodgm/neodgm-webfont@1.530/neodgm/style.css">
@@ -266,7 +267,7 @@ html.dk body::before{opacity:.2}
 .hero .tlive .lid::after{content:'';position:absolute;left:12%;right:12%;top:52%;height:max(2px,14%);background:var(--lc,#4a3423);border-radius:2px}
 .hero .tlive.shut .lid{display:block}
 @keyframes tbreath{0%{translate:none}50%{translate:0 calc(var(--ap)*-1)}}
-@keyframes thop{0%{translate:0 calc(var(--ap)*-1)}14%{translate:0 calc(var(--ap)*-2)}64%{translate:0 calc(var(--ap)*-1)}82%{translate:none}}
+@keyframes thop{0%{translate:0 calc(var(--ap)*-1)}14%{translate:0 calc(var(--ap)*-1.5)}64%{translate:0 calc(var(--ap)*-1)}82%{translate:none}}
 @media (prefers-reduced-motion:reduce){.hero .tlive,.hero .ac,.hero.hop .tlive{animation:none}}
 .rxm{display:block;margin:0 auto 10px;height:min(38vh,300px);aspect-ratio:9/16;object-fit:cover;border:3px solid var(--ol);image-rendering:auto}.rxm.rxp{height:min(44vh,360px);background:var(--ol)}
 #rxp{position:fixed;left:50%;top:46%;transform:translate(-50%,-50%);height:min(56vh,440px);aspect-ratio:9/16;object-fit:cover;border:4px solid var(--ol);box-shadow:0 0 0 4px var(--ol2),0 8px 0 4px var(--ol2);z-index:44;pointer-events:none;animation:rxin 3s forwards}
@@ -1421,9 +1422,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v6.7',d:'2026.10.05',log:['토리 쓰담·숨쉬기 자연스럽게 · 글자·입력칸 손보기']};
+const APP_VER={v:'v6.8',d:'2026.10.06',log:['아이폰 홈 화면 아이콘 추가 · 기지개 때 물병 겹침 줄이기']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v6.8',d:'2026.10.06',log:['아이폰(사파리)에서 홈 화면에 추가할 때 쓰는 토리 아이콘을 넣었어요','토리가 기지개를 켤 때 머리 위 물병과 겹쳐 보이던 것을 줄였어요']},
  {v:'v6.7',d:'2026.10.05',log:['토리를 쓰다듬을 때 사진만 출렁이고 얼굴은 가만히 있던 것을 고쳤어요 (슬퍼할 때 · 밤에도)','토리가 숨 쉴 때 도토리 쥔 손이 늘어나 보이던 것을 고쳤어요','미니게임 글자를 얇고 또렷하게 바꿨어요','타코 띄워 주기에서 바다 생물이 나오기 전 흰 상자 대신 작은 빨간 느낌표가 깜빡여요','도감 장소 종류 글씨가 안 보이던 것 · 일정 입력칸이 화면 밖으로 나가던 것 · 내 기념일 버튼 간격을 고쳤어요','보상 탭의 "새 보상 넣기"를 뺐어요 (이미 있는 보상은 그대로예요)']},
  {v:'v6.6',d:'2026.10.03',log:['마작패 짝 맞추기: 다 맞췄을 때 "쾅—" 하고 크게 울리는 진짜 징 소리로 바꿨어요']},
  {v:'v6.5',d:'2026.10.03',log:['유령 잡기 · 토리의 사탕 미로 · 마작패 짝 맞추기 · 루돌프 썰매 배달에 게임마다 전용 배경음악과 효과음을 넣었어요','사탕 미로에서 유령이 겁먹으면 음악이 빨라져요','루돌프 썰매 배달: 시작·배달·끝에 맑은 종소리가 울리고, 배경음악에도 종이 울려요']},
