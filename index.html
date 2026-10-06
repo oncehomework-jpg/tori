@@ -301,6 +301,69 @@ img,svg,canvas{-webkit-user-select:none;user-select:none;-webkit-user-drag:none;
 /* 미니게임 화면(짙은 갈색 배경)의 닫기 버튼: 앱 전체 톤에 맞는 크림베이지 바탕 + 진한 갈색 글씨 */
 #mg .btn.ghost{background:#dcc59b;color:#4a3423;border-color:#b89a6a;box-shadow:0 4px 0 #8a6d43;font-weight:bold}
 #mg .btn.ghost:active{background:#cbb083;box-shadow:none}
+/* v7.8 보드게임 (홈 카드 · 스도쿠 · 티츄) */
+.bgi{display:inline-block;flex:none;background-size:100% 100%;image-rendering:pixelated;vertical-align:middle}
+.bgrow{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:2px dashed var(--in)}.card h2+.bgrow{border-top:0;padding-top:2px}
+.bgtx{flex:1;min-width:0}.bgsv{color:var(--grn);margin-top:2px}
+html.bgon,html.bgon body{overflow:hidden}
+#bgo{position:fixed;inset:0;z-index:15;background:var(--bg);overflow-y:auto;overscroll-behavior:contain;padding:calc(10px + env(safe-area-inset-top,0px)) 12px calc(24px + env(safe-area-inset-bottom,0px))}
+#bgo .bgin{max-width:480px;margin:0 auto}
+.bgtop{display:flex;align-items:center;gap:8px;margin-bottom:10px}.bgtop h3{flex:1;margin:0;color:var(--gold);font-size:calc(17px*var(--fs,1))}#bgtm{color:var(--gold);min-width:48px;text-align:right}
+.bglv{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;text-align:left;background:var(--cream);border:3px solid var(--ol);box-shadow:0 4px 0 var(--ol2);padding:10px 12px;margin:0 0 12px;color:var(--tx);cursor:pointer}.bglv b{font-size:calc(18px*var(--fs,1))}
+.bglv:active{transform:translateY(4px);box-shadow:none}
+.bghelp{line-height:1.7}
+.suinfo{display:flex;justify-content:space-around;margin-bottom:8px}
+.sugrid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--ol);border:4px solid var(--ol);width:min(100%,440px);margin:0 auto;box-shadow:0 0 0 3px var(--ol2)}
+.sub{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--in)}
+.suc{aspect-ratio:1;border:0;padding:0;margin:0;background:#fffaf0;color:#4a3423;font-size:min(6.4vw,27px)!important;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;min-width:0}
+.suc.me{color:#2563c9}.suc.bad{color:#d0302a;background:#ffd9d4}
+.suc.hl{background:#f3e7c9}.suc.same{background:#f1d38a}.suc.sel{background:#f7c948;box-shadow:inset 0 0 0 3px #a8641a}.suc.bad.sel{background:#ffb3aa}
+.sunt{display:grid;grid-template-columns:repeat(3,1fr);width:100%;height:100%;padding:1px}.sunt i{font-style:normal;font-size:min(2.6vw,10px)!important;line-height:1;color:#7a6040;display:flex;align-items:center;justify-content:center}
+.sutools{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0 8px}.sutools .btn{padding:6px 2px;white-space:nowrap;font-size:calc(14px*var(--fs,1))!important}
+.supad{display:grid;grid-template-columns:repeat(9,1fr);gap:4px}
+.supad button{border:3px solid var(--ol);background:var(--win2);color:var(--tx);padding:6px 0 2px;display:flex;flex-direction:column;align-items:center;box-shadow:0 3px 0 var(--ol2);cursor:pointer;min-width:0}
+.supad button b{font-size:calc(22px*var(--fs,1))!important;color:var(--tx);line-height:1}.supad small{font-size:10px!important;color:var(--mut);white-space:nowrap}
+.supad button.memo b{color:#2563c9}.supad button.done{opacity:.45}.supad button:active{transform:translateY(3px);box-shadow:none}
+html.dk .suc{background:#2f251c;color:#f1e3c8}html.dk .suc.me,html.dk .supad button.memo b{color:#8fb8ff}html.dk .suc.bad{background:#5a2420;color:#ff9a90}html.dk .suc.hl{background:#4a3a2a}html.dk .suc.same{background:#5a4520}html.dk .suc.sel{background:#7a5a1a}html.dk .sunt i{color:#c0a880}
+/* 티츄 */
+.tcsc{display:flex;justify-content:space-between;align-items:center;gap:6px;background:var(--win);border:3px solid var(--ol);padding:6px 10px;margin-bottom:8px}.tcsc b{font-size:calc(20px*var(--fs,1))}.tcsc .muted{text-align:center}
+.tct{display:grid;grid-template-columns:74px 1fr 74px;gap:6px;align-items:start}
+.tcm{display:flex;flex-direction:column;gap:8px;align-items:stretch;min-width:0}
+.tcp{position:relative;background:var(--win);border:3px solid var(--ol);padding:4px 2px 8px;display:flex;flex-direction:column;align-items:center;text-align:center;line-height:1.3}
+.tcm .tcp{flex-direction:row;justify-content:center;gap:8px}
+.tcp.turn{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold)}
+.tcp.my b{color:var(--grn)}.tcp.op b{color:#c8392f}html.dk .tcp.op b{color:#ff8a7a}
+.tcb{display:inline-block;background:#e0604a;color:#fffaf0;font-size:11px!important;padding:0 4px;margin-left:2px}
+.tcsay{position:absolute;left:50%;bottom:-13px;transform:translateX(-50%);background:#fffaf0;color:#4a3423;border:2px solid var(--ol);padding:0 5px;white-space:nowrap;font-size:12px!important;z-index:2;max-width:160px;overflow:hidden;text-overflow:ellipsis}
+.tctab{background:#3f7a4c;border:3px solid var(--ol);box-shadow:inset 0 0 0 3px #2f5e39;min-height:124px;padding:10px 6px;color:#fffaf0;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center;justify-content:center}
+.tctab .muted{color:#d9f0d0}
+.tccur{display:flex;flex-wrap:wrap;justify-content:center;gap:2px}
+.tcwish{background:#f4c542;color:#4a3423;padding:0 6px}.tcwish b{color:#4a3423}
+.tchand{display:flex;justify-content:center;padding:20px 0 6px;margin-top:8px}
+.tcd{flex:none;position:relative;width:48px;height:70px;background:#fffaf0;border:3px solid #4a3423;border-radius:5px;padding:0;box-shadow:0 3px 0 rgba(0,0,0,.25);transition:transform .08s;cursor:pointer}
+.tchand .tcd+.tcd{margin-left:var(--ov)}
+.tcd .rk{position:absolute;left:3px;top:2px;font-size:17px!important;line-height:1}
+.tcd .bgi{position:absolute;left:50%;bottom:7px;transform:translateX(-50%)}
+.tcd .bgi.mini{left:3px;top:22px;bottom:auto;transform:none}.tcd.sp{background:#fff3cf}
+html.bgon #tako{display:none!important}.tcby{word-break:keep-all}
+.tcd.on{transform:translateY(-16px);border-color:#a8641a;box-shadow:0 0 0 2px #f4c542}
+.tcd.gone{opacity:.25}
+.tcd.sm{width:34px;height:50px;border-width:2px;cursor:default}.tcd.sm .rk{font-size:13px!important}.tcd.sm .bgi{bottom:4px}
+.tcd.empty{background:transparent;border-style:dashed;cursor:default}
+.tcpk{display:flex;justify-content:space-around;text-align:center;margin:8px 0}.tcpk>div{display:flex;flex-direction:column;align-items:center;gap:4px}
+.tcinfo{text-align:center;color:var(--mut);margin:4px 0}.tcinfo.on{color:var(--gold)}
+.tcbtn{justify-content:center;flex-wrap:wrap;margin-bottom:6px}
+.tcwr{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:8px 0}.tcwr .btn{padding:5px 0}
+.tcdet{margin:6px 0;padding-left:18px}
+.tclog{color:var(--mut);text-align:center;margin-top:6px}
+@media (prefers-reduced-motion:reduce){.tcd{transition:none}}
+/* v7.8 읽기 편하게: 한글은 단어 단위로 줄바꿈, 긴 탭 위 '바로 가기' 칩 줄, '맨 위로' 버튼, 볼륨 막대도 앱 색 */
+body{word-break:keep-all;overflow-wrap:break-word}
+#secnav{position:sticky;top:calc(var(--hh,64px) + env(safe-area-inset-top,0px));z-index:4;margin:-16px -14px 16px;padding:8px 14px;background:var(--win2);border-bottom:3px solid var(--ol);box-shadow:0 3px 0 var(--ol2);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+#secnav[hidden]{display:none}#secnav::-webkit-scrollbar{display:none}#secnav .chip{white-space:nowrap;padding:3px 10px}
+#totop{position:fixed;right:max(12px,calc(50% - 228px));bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:6;width:46px;height:46px;border:3px solid var(--ol);background:var(--win);color:var(--gold);box-shadow:0 3px 0 var(--ol2);font-size:13px!important;line-height:1.1;padding:0;display:none;cursor:pointer}
+#totop.on{display:block}html.bgon #totop{display:none!important}
+input[type=range]{accent-color:var(--gold)}
 </style>
 </head>
 <body>
@@ -308,6 +371,7 @@ img,svg,canvas{-webkit-user-select:none;user-select:none;-webkit-user-drag:none;
 <div id="warn">⚠️ 저장에 실패했어요. 사생활 보호 모드이거나 저장 공간이 부족할 수 있어요. 설정에서 백업 코드를 꼭 만들어 두세요.</div>
 <header><img src="assets/avatar-ea043fd6.png" alt=""><div class="logo" role="img" aria-label="JW Diary"><svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 15" width="156" height="45" shape-rendering="crispEdges"><path fill="#c77a2a" d="M19 5h1v1h-1zM23 5h1v1h-1zM27 5h1v1h-1zM19 6h1v1h-1zM23 6h1v1h-1zM27 6h1v1h-1zM46 6h1v1h-1zM40 7h2v1h-2zM45 7h2v1h-2zM31 8h1v1h-1zM41 8h1v1h-1zM45 8h1v1h-1zM31 9h1v1h-1zM2 10h1v1h-1zM11 10h1v1h-1zM22 10h1v1h-1zM37 10h1v1h-1zM2 11h13v1h-13zM16 11h15v1h-15zM32 11h9v1h-9zM42 11h3v1h-3zM3 12h8v1h-8zM12 12h3v1h-3zM16 12h6v1h-6zM23 12h8v1h-8zM32 12h5v1h-5zM38 12h3v1h-3zM42 12h3v1h-3z"/><path fill="#3b2a1e" d="M6 2h5v1h-5zM12 2h3v1h-3zM16 2h6v1h-6zM23 2h5v1h-5zM29 2h14v1h-14zM44 2h3v1h-3zM6 3h1v1h-1zM8 3h1v1h-1zM10 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM16 3h1v1h-1zM21 3h3v1h-3zM27 3h3v1h-3zM33 3h2v1h-2zM39 3h2v1h-2zM42 3h1v1h-1zM44 3h1v1h-1zM46 3h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM10 4h1v1h-1zM12 4h1v1h-1zM14 4h1v1h-1zM16 4h1v1h-1zM18 4h3v1h-3zM22 4h3v1h-3zM26 4h3v1h-3zM30 4h3v1h-3zM34 4h1v1h-1zM36 4h3v1h-3zM40 4h1v1h-1zM42 4h3v1h-3zM46 4h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM10 5h3v1h-3zM14 5h1v1h-1zM16 5h1v1h-1zM18 5h1v1h-1zM20 5h1v1h-1zM22 5h1v1h-1zM24 5h1v1h-1zM26 5h1v1h-1zM28 5h1v1h-1zM30 5h3v1h-3zM34 5h1v1h-1zM36 5h3v1h-3zM40 5h2v1h-2zM43 5h1v1h-1zM45 5h2v1h-2zM2 6h3v1h-3zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM28 6h1v1h-1zM34 6h1v1h-1zM39 6h4v1h-4zM44 6h2v1h-2zM2 7h1v1h-1zM4 7h1v1h-1zM6 7h1v1h-1zM8 7h1v1h-1zM10 7h1v1h-1zM12 7h1v1h-1zM14 7h1v1h-1zM16 7h1v1h-1zM18 7h1v1h-1zM20 7h1v1h-1zM22 7h1v1h-1zM24 7h1v1h-1zM26 7h1v1h-1zM28 7h1v1h-1zM30 7h3v1h-3zM34 7h1v1h-1zM36 7h1v1h-1zM38 7h2v1h-2zM42 7h1v1h-1zM44 7h1v1h-1zM2 8h1v1h-1zM4 8h3v1h-3zM8 8h1v1h-1zM11 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM18 8h3v1h-3zM22 8h3v1h-3zM26 8h3v1h-3zM30 8h1v1h-1zM32 8h1v1h-1zM34 8h1v1h-1zM36 8h2v1h-2zM39 8h2v1h-2zM42 8h1v1h-1zM44 8h1v1h-1zM2 9h2v1h-2zM7 9h2v1h-2zM10 9h3v1h-3zM14 9h1v1h-1zM16 9h1v1h-1zM21 9h3v1h-3zM27 9h2v1h-2zM30 9h1v1h-1zM32 9h1v1h-1zM34 9h1v1h-1zM36 9h3v1h-3zM40 9h1v1h-1zM42 9h1v1h-1zM44 9h1v1h-1zM3 10h8v1h-8zM12 10h3v1h-3zM16 10h6v1h-6zM23 10h8v1h-8zM32 10h5v1h-5zM38 10h3v1h-3zM42 10h3v1h-3z"/><path fill="#ffd3dd" d="M7 3h1v1h-1zM9 3h1v1h-1zM13 3h1v1h-1z"/><path fill="#f7a1b6" d="M7 4h1v1h-1zM9 4h1v1h-1zM13 4h1v1h-1zM7 5h1v1h-1zM9 5h1v1h-1zM13 5h1v1h-1zM7 6h1v1h-1zM9 6h1v1h-1zM11 6h1v1h-1zM13 6h1v1h-1z"/><path fill="#e7788f" d="M3 7h1v1h-1zM7 7h1v1h-1zM9 7h1v1h-1zM11 7h1v1h-1zM13 7h1v1h-1zM3 8h1v1h-1zM7 8h1v1h-1zM9 8h2v1h-2zM12 8h2v1h-2zM4 9h3v1h-3zM9 9h1v1h-1zM13 9h1v1h-1z"/><path fill="#fff0a0" d="M17 3h4v1h-4zM24 3h3v1h-3zM30 3h3v1h-3zM35 3h4v1h-4zM41 3h1v1h-1zM45 3h1v1h-1z"/><path fill="#ffc93c" d="M17 4h1v1h-1zM21 4h1v1h-1zM25 4h1v1h-1zM29 4h1v1h-1zM33 4h1v1h-1zM35 4h1v1h-1zM39 4h1v1h-1zM41 4h1v1h-1zM45 4h1v1h-1zM17 5h1v1h-1zM21 5h1v1h-1zM25 5h1v1h-1zM29 5h1v1h-1zM33 5h1v1h-1zM35 5h1v1h-1zM39 5h1v1h-1zM42 5h1v1h-1zM44 5h1v1h-1zM17 6h1v1h-1zM21 6h1v1h-1zM25 6h1v1h-1zM29 6h5v1h-5zM35 6h4v1h-4zM43 6h1v1h-1z"/><path fill="#e8922a" d="M17 7h1v1h-1zM21 7h1v1h-1zM25 7h1v1h-1zM29 7h1v1h-1zM33 7h1v1h-1zM35 7h1v1h-1zM37 7h1v1h-1zM43 7h1v1h-1zM17 8h1v1h-1zM21 8h1v1h-1zM25 8h1v1h-1zM29 8h1v1h-1zM33 8h1v1h-1zM35 8h1v1h-1zM38 8h1v1h-1zM43 8h1v1h-1zM17 9h4v1h-4zM24 9h3v1h-3zM29 9h1v1h-1zM33 9h1v1h-1zM35 9h1v1h-1zM39 9h1v1h-1zM43 9h1v1h-1z"/><path class="tw" fill="#fffbe0" d="M50 1h1v1h-1zM49 2h3v1h-3zM50 3h1v1h-1z"/><path class="tw tw2" fill="#fffbe0" d="M1 11h1v1h-1zM0 12h3v1h-3zM1 13h1v1h-1z"/><path class="tw" fill="#fffbe0" d="M27 0h1v1h-1zM26 1h3v1h-3z"/></svg></div><span style="width:40px;flex:none"></span></header>
 <main>
+<div id="secnav" hidden></div>
 <section class="screen" id="s-home"></section>
 <section class="screen" id="s-pet"></section>
 <section class="screen" id="s-coupon"></section>
@@ -410,7 +474,7 @@ function rHome(){
   <div class="card"><h2>🌰 도토리 속 편지</h2><div id="letter" class="muted" style="font-size:15px;color:var(--tx);min-height:24px">${S.letter&&S.letter.d===todayStr()?letterHtml(S.letter.t):esc(hn())+'가 보낸 편지가 도토리 속에 들어 있어요.'}</div>
   <button id="lbtn" class="btn wood full" style="margin-top:8px${S.letter&&S.letter.d===todayStr()?';opacity:.5':''}" ${S.letter&&S.letter.d===todayStr()?'disabled':''} onclick="openLetter()">${S.letter&&S.letter.d===todayStr()?'내일 또 열 수 있어요':'🌰 도토리 열어보기'}</button></div>
   <div class="card"><h2>🎒 현재 상태</h2><div class="stg"><div class="stt"><span>🌰 도토리</span><b class="qty">${S.acorns}개</b><button class="btn ghost sm" onclick="acHist()">내역</button></div><div class="stt"><span>🎟️ 보상</span><b class="qty">${left}장</b><button class="btn sm" onclick="go('coupon')">보상 가기</button></div></div>
-  <button class="btn wood full" style="margin-top:8px" onclick="go('pet')">퀘스트 하러 가기</button></div>
+  <button class="btn wood full" style="margin-top:8px" onclick="go('pet')">퀘스트 하러 가기</button></div>${typeof bdgCard==='function'?bdgCard():''}
   <div class="card"><div class="row sp"><h2>📅 D-day</h2><button class="btn sm" onclick="ddForm()">+ 추가</button></div>
   <div class="q"><span>🎂 진우 생일 · ${+bdv().slice(0,2)}월 ${+bdv().slice(3)}일<div class="muted">${nb}</div></span><span class="dd">${ddLabel(nb)}</span></div>
   ${dds.map(d=>{const e=ddEff(d),n=d.rep?+e.slice(0,4)-+d.date.slice(0,4):0;return `<div class="q"><span>${esc(d.name)}<div class="muted">${esc(e)}${d.rep?' · 매년'+(n>0?' · '+n+'주년':''):''}</div></span><span class="row"><span class="dd">${ddLabel(e)}</span><button class="btn ghost sm" onclick="ddForm('${d.id}')">✏️</button></span></div>`;}).join('')}</div>${holCard()}`;
@@ -1514,6 +1578,9 @@ function chSnowman(){if(CHS)return CHS;if(!CH_TK){CH_TK=new Image();CH_TK.src=TA
              "WWWWWWWWWW"];
   HAT.forEach((row,j)=>{const first=row.search(/[rR]/);[...row].forEach((ch,i)=>{if(ch==='.')return;let c=ch==='w'?'#ffffff':ch==='W'?'#dfe3ee':ch==='R'?HR[2]:HR[1];if(ch==='r'&&(i===first||j===1))c=HR[0];hs(5+i,j-3,c);});});
   for(const[x,y]of hat)for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]])if(!G.g(x+dx,y+dy)&&y+dy>=0&&x+dx>=0&&x+dx<W)G.s(x+dx,y+dy,'#1a1a24');
+  /* v7.4 사용자 요청: 모자 털 테두리 아래·목도리 위에도 검은 경계선 (머리 빨강과 바로 붙어 경계가 안 보였음) */
+  for(let x=5;x<=14;x++)if(G.g(OX+x,OY+4))G.s(OX+x,OY+4,'#1a1a24');
+  for(let x=OX+1;x<=OX+18;x++)G.s(x,OY+13,'#1a1a24');
   const SN=new Set([C.s0,C.s1,C.s2,C.s3,C.s4]);for(const[x,y]of snow)if(SN.has(G.a[y][x]))for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]])if(!G.g(x+dx,y+dy)&&y+dy>=0&&y+dy<H&&x+dx>=0&&x+dx<W)G.s(x+dx,y+dy,'#2b3354');
   const[c,g]=fxCv(W,H);for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(G.a[y][x]){g.fillStyle=G.a[y][x];g.fillRect(x,y,1,1);}return CHS=c;}
 function mg9Open(){const c=mgShell('#16203f','mg9Start()');if(!c)return;
@@ -1642,9 +1709,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v7.3',d:'2026.10.06',log:['눈사람 타코 작은 산타 모자 · 루돌프 잡기 효과음에 종소리']};
+const APP_VER={v:'v7.8',d:'2026.10.06',log:['홈에 보드게임: 스도쿠 · 티츄','햄스터·설정 탭 바로 가기 · 맨 위로 버튼']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v7.8',d:'2026.10.06',log:['홈에 새 "🎳 보드게임" 칸: 스도쿠(쉬움·보통·어려움, 메모·힌트·되돌리기, 중간에 나가도 저장)와 티츄(진우·토리 팀 대 타코·도치 팀, 컴퓨터 3명, 200점 먼저 넘기면 승리)','보상: 스도쿠 다 풀면 🌰1(어려움 🌰2), 티츄 이기면 🌰2 — 미니게임과 합쳐 하루 2번','보드게임 아이콘과 티츄 특수 카드(참새·강아지·봉황·용)를 새로 그렸어요','햄스터·설정 탭 위에 바로 가기 칸, 많이 내려가면 "맨 위로" 버튼, 한글이 단어 중간에서 끊기지 않게','눈사람 타코 모자 아래·목도리 위에 검은 테두리']},
  {v:'v7.3',d:'2026.10.06',log:['루돌프 잡기: 눈사람 타코의 산타 모자를 작고 깜찍하게 줄였어요','루돌프가 펄쩍 뛸 때 목 방울이 짤랑, 당근을 주우면 종소리가 울려요']},
  {v:'v7.2',d:'2026.10.06',log:['크리스마스 주간(12/18~25) 새 미니게임 "도망가는 루돌프를 잡아라!": 손가락을 끌면 빨간 산타 모자를 쓴 토리가 달려가요. 루돌프를 잡을 때마다 선물이 떨어지고, 잡을수록 루돌프가 빨라져요','눈더미에선 느려지고 얼음판은 미끄러워요. 나무 뒤에 숨은 루돌프는 코만 반짝! 당근을 주우면 3초 동안 루돌프가 느려지고, 산타 모자를 쓰고 목도리를 두른 채 눈덩이 위에 앉은 눈사람 타코가 힌트를 알려 줘요','45초 동안 3마리면 도토리 1개, 6마리면 2개 (보상 횟수는 다른 미니게임과 합산). 루돌프 썰매 배달도 그대로 있어요','"백업 보내기" 버튼: 공유 창에서 카톡 나에게 보내기·드라이브·메일로 백업 파일을 보내요 (설정 · 홈 백업 카드)','백업한 지 7일이 지나면 홈 백업 카드가 콩콩 뛰고 토리와 타코가 말로 알려 줘요']},
  {v:'v6.9',d:'2026.10.06',log:['도감·가고 싶은 곳에서 장소 종류(식당·카페·놀거리·기타) 글씨가 흰색이라 안 보이던 것을 진한 갈색으로 고쳤어요']},
@@ -3000,6 +3068,9 @@ Object.assign(SP,{"q_chopstk": [".............kk.", "............krrk", ".......
 Object.assign(SP,{"q_bell":["................", ".......kk.......", "......kYYk......", ".....kyyyyk.....", "....kyZyyyyk....", "....kyZyyyyk....", "...kyyZyyyyyk...", "...kyyyyyyyyk...", "...kyyyyyyyyk...", "..kyyyyyyyyyyk..", ".kyyyyyyyyyyyyk.", ".kYYYYYYYYYYYYk.", ".kkkkkkkkkkkkkk.", "......kook......", ".......kk.......", "................"]});Object.assign(AL,{"🔔":"q_bell"});
 Object.assign(SP,{"q_right": ["................", "................", ".....kk.........", ".....kwk........", ".....kwwk.......", ".....kwwwk......", ".....kwwwwk.....", ".....kwwwwwk....", ".....kwwwwwk....", ".....kwwwwk.....", ".....kwwwk......", ".....kwwk.......", ".....kwk........", ".....kk.........", "................", "................"], "q_left": ["................", "................", ".........kk.....", "........kwk.....", ".......kwwk.....", "......kwwwk.....", ".....kwwwwk.....", "....kwwwwwk.....", "....kwwwwwk.....", ".....kwwwwk.....", "......kwwwk.....", ".......kwwk.....", "........kwk.....", ".........kk.....", "................", "................"]});Object.assign(AL,{"▶":"q_right","◀":"q_left"});
 Object.assign(SP,{"q_bat":["................", "................", "................", "................", "......k..k......", "k....kmkkmk....k", "kk...kmmmmk...kk", "kek..kmymyk..kek", "keek.kmmmmk.keek", "keeekkmwwmkkeeek", "keeeeekmmkeeeeek", ".keeeeekkeeeeek.", ".keekeekkeekeek.", "..kk.kk..kk.kk..", "................", "................"]});Object.assign(AL,{"🦇":"q_bat"});window.PXA={SP,PAL};   /* 유령 잡기 게임이 도트 아이콘을 그려요 */
+/* v7.8: 보드게임 아이콘 (tools/icons/sp5.py) — 보드게임 카드·스도쿠·티츄, 티츄 특수 카드(참새·강아지·봉황·용) */
+Object.assign(SP,{"q_bgame":["kkkkkkkkkkkkkkkk","krrrrrccgcgggggk","krhhhrcggcghhhgk","krhShrcggcghGhgk","krhhhrcggcghhhgk","krrrrScggcggggGk","kcccccggggccccck","krrrrrrZZyyyyyck","kcrrrrrZZyyyyyyk","kcccccuuuuccccck","kuuuuucuucyyyyyk","kuhhhucuucyhhhyk","kuhBhucuucyhYhyk","kuhhhucuucyhhhyk","kuuuuBduddyyyyYk","kkkkkkkkkkkkkkkk"],"q_sudoku":["kkkkkkkkkkkkkkkk","khhccccddcccccck","khckkkcddckkkcck","kcckcccddccckcck","kcckkkcddcckkcck","kcccckcddccckcck","kcckkkcddckkkcck","kddddddddddddddk","kddddddddddddddk","kcckkkcddZBBBZZk","kcccckcddZBZBZZk","kccckccddZBBBZZk","kccckccddZZZBZZk","kccckccddZBBBZZk","kccccccddZZZZZZk","kkkkkkkkkkkkkkkk"],"q_tichu":[".kkkkkkkk.......","ku.kkkkkkkk.....","kBkJ.kkkkkkkkkk.","kukJkyccccccccck","kBkJkhccccScScck","kukJkhcccrrrrcck","kBkJkhccrrkrrrck","kukJkhcrRrrrrrck","kBkJkhrrccrrSrck","kukJkhrRcrrSccck","kBkJkhccrrScccck",".kkJkhcrrSccccck","..kJkhcrScccccck","...kkhccccccccyk","....khccccccccck",".....kkkkkkkkkk."],"q_sparrow":["................","................","....kkkk........","...kDDDDk.......","..kDDDDDDk......","..kcckDDDDk...kk","kkkcccDDdddkkkDk","kYYkkccddddddkDk",".kkkkcdddDdDdDDk","...kbbdddDdDdDk.","...kbbbbddDdDDk.","...kbbbbbbddDk..","....kbbbbbbbk...",".....kkkkkkk....","......o..o......",".....oo.oo......"],"q_puppy":["................","................","....kkkkkkkk....",".kkkbbddddbbkkk.","kdddkbbbbbbkdddk","kdddkbbbbbbkdddk","kddkbbkbbkbbkddk","kddkbbkbbkbbkddk","kddkbbbbbbbbkddk",".kkkbpccccpbkkk.","...kbcckkccbk...","...kbckcckcbk...","....kbcrrcbk....",".....kkkkkk.....","................","................"],"q_phoenix":["...y.y..........","...kyk.....kk...","..koook...krrk..",".kookook.krOrk..","kyykoooookrOOrk.",".kkkooooorOOOrk.","...koooorrOOrk..","...kooooooOrk...","....kooooooook..",".....kkooorrrrk.",".......krrkyyyrk","......krrk.krryk",".....kyrk...krrk",".....kyk.....kyk","......k.......k.","................"],"q_tdragon":["....k....k......","...kyk..kyk.....","...kyyk.kyyk....","....kyykyyk.....","...krrrrrrrk....","..krrrrrrrrrk...",".krrhkrrrrrrrk..","krrrkkrrrrSrrk..","rrrrrrrrrrSrrOk.","rrrrrrrrrSSrrrOk","hShShSSrrSrrSrOk","rrrrrrrrrrSrrOk.","krrrrrrrrSrrkk..",".kykkkkrrrrkkOk.","kyk...krrrkkOk..",".k.....krrkOk..."]});
+Object.assign(AL,{"🎳":"q_bgame","🔢":"q_sudoku","🎴":"q_tichu"});
 const cache={};
 function url(n){if(cache[n])return cache[n];const r=[];SP[n].forEach((row,y)=>[...row].forEach((c,x)=>{if(c!=='.')r.push(`<rect x='${x}' y='${y}' width='1' height='1' fill='${PAL[c]||PAL.k}'/>`)}));
  return cache[n]="url(\"data:image/svg+xml,"+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${SP[n][0].length} ${SP[n].length}' shape-rendering='crispEdges'>${r.join('')}</svg>`)+"\")";}
@@ -3017,6 +3088,328 @@ let q=0;const mo=new MutationObserver(rs=>{if(busy)return;for(const r of rs){if(
 mo.observe(document.body,{childList:true,subtree:true,characterData:true});
 pix();
 })();
+</script>
+<script>
+/* ===== v7.8 보드게임: 홈 '🎳 보드게임' 카드 → 스도쿠·티츄 (전체 화면 #bgo, 앱 색 그대로라 밤 화면도 맞춰져요) =====
+   상태: S.bdg = {su:진행 중 스도쿠, tc:진행 중 티츄, sw:[단계별 푼 횟수], tw:티츄 이긴 판, tl:진 판}
+   보상: mgRw(미니게임과 하루 횟수 합산) · 최고 기록 S.mg.bs0~2(스도쿠 단계별 가장 빠른 초), S.mg.btw(티츄 이긴 판 수) */
+function bgS(){if(!S.bdg||typeof S.bdg!=='object')S.bdg={};return S.bdg;}
+const BGI={};
+function bgIco(n,sz,cls){if(!BGI[n]){const{SP,PAL}=window.PXA,r=SP[n];if(!r)return'';let s='';r.forEach((row,y)=>[...row].forEach((c,x)=>{if(c!=='.')s+=`<rect x='${x}' y='${y}' width='1' height='1' fill='${PAL[c]||PAL.k}'/>`;}));
+  BGI[n]='url(&quot;data:image/svg+xml,'+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'>${s}</svg>`)+'&quot;)';}
+  return `<i class="bgi${cls?' '+cls:''}" style="width:${sz}px;height:${sz}px;background-image:${BGI[n]}" aria-hidden="true"></i>`;}
+const bgT=s=>{s=Math.max(0,s|0);return (s/60|0)+':'+String(s%60).padStart(2,'0');};
+function bdgCard(){const b=bgS(),su=b.su&&!b.su.done?b.su:null,tc=b.tc&&b.tc.ph!=='over'?b.tc:null;
+  return `<div class="card" id="bgcard"><h2>🎳 보드게임</h2>
+  <div class="bgrow">${bgIco('q_sudoku',48)}<div class="bgtx"><b>스도쿠</b><div class="muted">가로줄·세로줄·굵은 네모 칸마다 1~9를 한 번씩 넣어요. 다 풀면 🌰1 (어려움은 🌰2)</div>${su?`<div class="bgsv">하던 판: ${SU_LV[su.lv]} · ${bgT(su.t)}</div>`:''}</div><button class="btn sm" onclick="suOpen()">${su?'이어하기':'시작'}</button></div>
+  <div class="bgrow">${bgIco('q_tichu',48)}<div class="bgtx"><b>티츄</b><div class="muted">진우·토리 팀 대 타코·${TC_NM[3]} 팀. 손에 든 카드를 먼저 다 내면 좋아요! 200점을 먼저 넘긴 팀이 이기고, 이기면 🌰2</div>${tc?`<div class="bgsv">하던 판: 우리 ${tc.sc[0]} : ${tc.sc[1]} 상대</div>`:''}</div><button class="btn sm" onclick="tcOpen()">${tc?'이어하기':'시작'}</button></div>
+  <div class="muted" style="margin-top:6px">보상은 미니게임과 합쳐서 하루 ${ECO.mgPlays}번까지 받아요. 보상을 다 받아도 연습은 얼마든지!</div></div>`;}
+/* 전체 화면 틀: 위에 제목·닫기, 아래 본문 #bgb */
+function bgShell(title,onClose){bgClose(1);const o=document.createElement('div');o.id='bgo';o.innerHTML=`<div class="bgin"><div class="bgtop"><button class="btn ghost sm" id="bgx">◀ 나가기</button><h3>${title}</h3><span id="bgtm"></span></div><div id="bgb"></div></div>`;
+  document.body.appendChild(o);$('bgx').onclick=()=>{if(onClose)onClose();bgClose();};document.documentElement.classList.add('bgon');return $('bgb');}
+function bgClose(quiet){clearInterval(SU.tm);SU.tm=0;clearTimeout(TC.to);TC.to=0;const o=$('bgo');if(o)o.remove();document.documentElement.classList.remove('bgon');if(!quiet){save();if(tab==='home')rHome();}}
+
+/* ---------- 스도쿠 ---------- */
+const SU_LV=['쉬움','보통','어려움'],SU_CL=[40,32,26],SU_RW=[1,1,2],SU={sel:-1,memo:0,tm:0};
+const suPc=m=>{let n=0;while(m){m&=m-1;n++;}return n;};
+const suBx=i=>((i/27|0)*3+((i%9)/3|0));
+function suShuf(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+/* 답의 개수 세기(lim개 찾으면 멈춤) — 빈칸 중 후보가 가장 적은 칸부터 */
+function suCount(g,lim){const R=new Uint16Array(9),C=new Uint16Array(9),B=new Uint16Array(9);
+  for(let i=0;i<81;i++){const v=g[i];if(v){const m=1<<v,r=i/9|0,c=i%9,b=suBx(i);if((R[r]|C[c]|B[b])&m)return 0;R[r]|=m;C[c]|=m;B[b]|=m;}}
+  let n=0;const rec=()=>{let bi=-1,bm=0,bc=10;
+    for(let i=0;i<81;i++)if(!g[i]){const m=~(R[i/9|0]|C[i%9]|B[suBx(i)])&0x3FE,k=suPc(m);if(k<bc){bc=k;bi=i;bm=m;if(k<2)break;}}
+    if(bi<0){n++;return n>=lim;}if(!bc)return false;const r=bi/9|0,c=bi%9,b=suBx(bi);
+    for(let v=1;v<=9;v++)if(bm&(1<<v)){const m=1<<v;g[bi]=v;R[r]|=m;C[c]|=m;B[b]|=m;const st=rec();g[bi]=0;R[r]&=~m;C[c]&=~m;B[b]&=~m;if(st)return true;}
+    return false;};
+  rec();return n;}
+function suFull(){const g=new Uint8Array(81),R=new Uint16Array(9),C=new Uint16Array(9),B=new Uint16Array(9);
+  const rec=i=>{if(i===81)return true;const r=i/9|0,c=i%9,b=suBx(i);for(const v of suShuf([1,2,3,4,5,6,7,8,9])){const m=1<<v;if((R[r]|C[c]|B[b])&m)continue;g[i]=v;R[r]|=m;C[c]|=m;B[b]|=m;if(rec(i+1))return true;g[i]=0;R[r]&=~m;C[c]&=~m;B[b]&=~m;}return false;};
+  rec(0);return g;}
+/* 문제 만들기: 다 채운 판에서 마주 보는 두 칸씩 지우되, 답이 하나뿐일 때만 지워요 */
+function suMake(lv){const s=suFull(),p=Uint8Array.from(s);let cl=81;
+  for(const i of suShuf([...Array(41).keys()])){if(cl<=SU_CL[lv])break;const j=80-i,a=p[i],b=p[j];p[i]=0;p[j]=0;
+    if(suCount(Uint8Array.from(p),2)!==1){p[i]=a;p[j]=b;}else cl-=i===j?1:2;}
+  return{lv,p:p.join(''),s:s.join(''),u:'0'.repeat(81),n:Array(81).fill(0),t:0,mis:0,hn:0,h:[]};}
+function suOpen(){const b=bgS();if(b.su&&!b.su.done)suPlay();else suPick();}
+function suPick(){const b=bgS(),sw=b.sw||[0,0,0];const el=bgShell('🔢 스도쿠');
+  el.innerHTML=`<div class="card"><h2>단계 고르기</h2>${SU_LV.map((n,i)=>`<button class="bglv" onclick="suNew(${i})"><b>${n}</b><span>${['처음 하는 사람도 술술','조금 생각해야 해요','머리를 꽤 써야 해요'][i]} · 다 풀면 🌰${SU_RW[i]}</span><span class="muted">${S.mg['bs'+i]?'최고 기록 '+bgT(S.mg['bs'+i])+' · ':''}푼 판 ${sw[i]||0}</span></button>`).join('')}</div>
+  <div class="card"><h2>하는 법</h2><div class="bghelp">① 빈칸을 누르고 ② 아래 숫자를 눌러 넣어요.<br>· 가로줄, 세로줄, 굵은 선 네모(3×3) 안에 1~9가 한 번씩만 들어가요.<br>· 틀린 숫자는 빨갛게 보여요(실수 횟수만 세고 끝나지 않아요).<br>· ✏️ 메모를 켜면 작은 후보 숫자를 적어 둘 수 있어요.<br>· 중간에 나가도 그대로 저장돼요.</div></div>`;}
+function suNew(lv){const el=$('bgb');if(el)el.innerHTML='<div class="card empty">문제를 만드는 중이에요…</div>';
+  setTimeout(()=>{bgS().su=suMake(lv);SU.sel=-1;SU.memo=0;save();suPlay();},30);}
+function suPlay(){const z=bgS().su;if(!z)return suPick();bgShell('🔢 스도쿠 · '+SU_LV[z.lv],()=>save());SU.sel=SU.sel>=0?SU.sel:-1;suDraw();
+  clearInterval(SU.tm);SU.tm=setInterval(()=>{const q=bgS().su;if(!q||q.done||document.hidden||!$('bgo'))return;q.t++;const t=$('bgtm');if(t)t.textContent=bgT(q.t);if(q.t%15===0)save();},1000);}
+function suDraw(){const z=bgS().su,el=$('bgb');if(!z||!el)return;const sel=SU.sel,sv=sel>=0?(z.p[sel]!=='0'?z.p[sel]:z.u[sel]):'0';
+  const left=d=>9-[...Array(81).keys()].filter(i=>(z.p[i]===d)||(z.u[i]===d&&z.s[i]===d)).length;
+  let g='';for(let bx=0;bx<9;bx++){g+='<div class="sub">';for(let k=0;k<9;k++){const i=((bx/3|0)*3+(k/3|0))*9+(bx%3)*3+k%3,gv=z.p[i]!=='0',v=gv?z.p[i]:z.u[i];
+    let c='suc';if(gv)c+=' gv';else if(v!=='0')c+=z.s[i]===v?' me':' bad';
+    if(i===sel)c+=' sel';else if(sel>=0&&(i/9|0)===(sel/9|0)||sel>=0&&i%9===sel%9||sel>=0&&suBx(i)===suBx(sel))c+=' hl';
+    if(sv!=='0'&&v===sv&&i!==sel)c+=' same';
+    const nt=v==='0'&&z.n[i]?`<span class="sunt">${[1,2,3,4,5,6,7,8,9].map(d=>`<i>${z.n[i]&(1<<d)?d:''}</i>`).join('')}</span>`:'';
+    g+=`<button class="${c}" onclick="suTap(${i})" aria-label="${(i/9|0)+1}줄 ${i%9+1}칸 ${v!=='0'?v:'빈칸'}">${v!=='0'?v:nt}</button>`;}g+='</div>';}
+  el.innerHTML=`<div class="suinfo"><span>실수 <b>${z.mis}</b></span><span>힌트 <b>${z.hn}</b></span><span>남은 칸 <b>${[...z.u].filter((d,i)=>z.p[i]==='0'&&d!==z.s[i]).length}</b></span></div>
+  <div class="sugrid">${g}</div>
+  <div class="sutools"><button class="btn ghost sm" onclick="suUndo()" ${z.h.length?'':'disabled'}>↩ 되돌리기</button><button class="btn ghost sm" onclick="suErase()">지우기</button><button class="btn sm ${SU.memo?'':'ghost'}" onclick="SU.memo^=1;suDraw()">✏️ 메모 ${SU.memo?'켬':'끔'}</button><button class="btn ghost sm" onclick="suHint()">✨ 힌트</button></div>
+  <div class="supad">${[1,2,3,4,5,6,7,8,9].map(d=>{const l=left(''+d);return `<button class="${l?'':'done'}${SU.memo?' memo':''}" onclick="suNum(${d})"><b>${d}</b><small>${l?l+'개':'✅'}</small></button>`;}).join('')}</div>
+  <div class="muted" style="text-align:center;margin-top:8px">${sel<0?'빈칸을 먼저 눌러 주세요.':SU.memo?'메모 중: 숫자를 누르면 작은 후보가 적혀요.':'같은 숫자를 한 번 더 누르면 지워져요.'}</div>`;
+  const t=$('bgtm');if(t)t.textContent=bgT(z.t);}
+function suTap(i){SU.sel=SU.sel===i?-1:i;suDraw();}
+function suPush(z){z.h.push([SU.sel,z.u,z.n.slice()]);if(z.h.length>60)z.h.shift();}
+function suSet(z,i,d){z.u=z.u.slice(0,i)+d+z.u.slice(i+1);}
+function suNum(d){const z=bgS().su,i=SU.sel;if(!z||z.done)return;if(i<0){toast('빈칸을 먼저 눌러 주세요');return;}if(z.p[i]!=='0'){toast('처음부터 있던 숫자는 바꿀 수 없어요');return;}
+  const ds=''+d;suPush(z);
+  if(SU.memo){if(z.u[i]!=='0'){z.h.pop();toast('숫자를 지우면 메모할 수 있어요');return;}z.n[i]^=1<<d;sfx('tick');}
+  else if(z.u[i]===ds){suSet(z,i,'0');}
+  else{suSet(z,i,ds);z.n[i]=0;if(z.s[i]!==ds){z.mis++;sfx('no');}else{sfx('coin');
+    for(let j=0;j<81;j++)if((j/9|0)===(i/9|0)||j%9===i%9||suBx(j)===suBx(i))z.n[j]&=~(1<<d);}}
+  save();suDraw();suChk();}
+function suErase(){const z=bgS().su,i=SU.sel;if(!z||i<0||z.p[i]!=='0')return;if(z.u[i]==='0'&&!z.n[i])return;suPush(z);suSet(z,i,'0');z.n[i]=0;save();suDraw();}
+function suUndo(){const z=bgS().su;if(!z||!z.h.length)return;const[s,u,n]=z.h.pop();z.u=u;z.n=n;SU.sel=s;save();suDraw();}
+function suHint(){const z=bgS().su;if(!z||z.done)return;let i=SU.sel;
+  if(i<0||z.p[i]!=='0'||z.u[i]===z.s[i]){const e=[...Array(81).keys()].filter(j=>z.p[j]==='0'&&z.u[j]!==z.s[j]);if(!e.length)return;i=e[Math.random()*e.length|0];}
+  suPush(z);suSet(z,i,z.s[i]);z.n[i]=0;z.hn++;SU.sel=i;sfx('coin');save();suDraw();suChk();}
+function suChk(){const z=bgS().su;if(!z||z.done)return;for(let i=0;i<81;i++)if(z.p[i]==='0'&&z.u[i]!==z.s[i])return;
+  z.done=1;clearInterval(SU.tm);SU.tm=0;const b=bgS();b.sw=b.sw||[0,0,0];b.sw[z.lv]=(b.sw[z.lv]||0)+1;
+  const[m,nb]=mgRw(SU_RW[z.lv],'다 풀었어요!','bs'+z.lv,z.t,true);b.su=null;save();sfx('fan');
+  const el=$('bgb');if(!el)return;SU.sel=-1;
+  el.insertAdjacentHTML('afterbegin',`<div class="card legend bgdone"><h2>🎉 다 풀었어요!</h2><div>${SU_LV[z.lv]} · 걸린 시간 <b>${bgT(z.t)}</b>${nb?' · 🏆 최고 기록!':''}</div><div class="muted">실수 ${z.mis}번 · 힌트 ${z.hn}번</div><div style="margin:6px 0">${m}</div><div class="row"><button class="btn full" onclick="suPick()">한 판 더</button><button class="btn ghost full" onclick="bgClose()">닫기</button></div></div>`);
+  el.querySelectorAll('.supad button,.sutools button,.suc').forEach(x=>x.disabled=true);window.scrollTo(0,0);$('bgo').scrollTop=0;}
+addEventListener('keydown',e=>{const z=bgS().su;if(!$('bgo')||!z||z.done||!document.querySelector('#bgo .sugrid'))return;
+  if(/^[1-9]$/.test(e.key)){suNum(+e.key);e.preventDefault();}
+  else if(e.key==='Backspace'||e.key==='Delete'||e.key==='0'){suErase();e.preventDefault();}
+  else if(e.key.startsWith('Arrow')){const d={ArrowLeft:-1,ArrowRight:1,ArrowUp:-9,ArrowDown:9}[e.key];SU.sel=SU.sel<0?40:(SU.sel+d+81)%81;suDraw();e.preventDefault();}});
+
+/* ---------- 티츄 (거의 진짜 규칙) ----------
+   자리: 0 진우(아래) → 1 타코(오른쪽) → 2 토리(위, 진우 팀) → 3 도치(왼쪽) 순서로 돌아요. 팀 = 자리%2 (0: 진우·토리, 1: 타코·도치)
+   카드 번호: 0~51 보통 카드(무늬*13 + 숫자-2, 무늬 = 도토리·클로버·하트·물방울), 52 참새(1), 53 개, 54 봉황, 55 용
+   간단히 한 것: 폭탄은 자기 차례에만 낼 수 있어요. 나머지(그랜드 티츄·티츄·카드 주고받기·참새 소원·개·봉황·용 주기·원투 200점)는 진짜 규칙 그대로 */
+const TC_NM=['진우','타코','토리','도치'],TC_AV=['','q_octo','q_ham','q_hedgehog'],TC_GOAL=200,TC={to:0,sel:[],pk:[null,null,null],wish:0};
+const TC_SU=['q_acorn','q_clover','q_heart','q_drop'],TC_SN=['도토리','클로버','하트','물방울'],TC_SC=['#8a5524','#3c7a2a','#c8392f','#2f69b8'];
+const TC_SP={52:['q_sparrow','1','참새'],53:['q_puppy','개','개'],54:['q_phoenix','봉','봉황'],55:['q_tdragon','용','용']};
+const tcR=id=>id<52?id%13+2:id===52?1:id===53?0:id===54?15:16;
+const tcS=id=>id<52?id/13|0:-1;
+const tcPt=id=>{if(id===55)return 25;if(id===54)return -25;if(id>51)return 0;const r=id%13+2;return r===5?5:r===10||r===13?10:0;};
+const tcRN=r=>r===1?'1':r<=10?''+r:'JQKA'[r-11];
+const tcSum=a=>a.reduce((s,id)=>s+tcPt(id),0);
+const tcSort=a=>a.sort((x,y)=>tcR(x)-tcR(y)||x-y);
+const tcCN={s:'한 장',p:'페어',t:'트리플',fh:'풀하우스',st:'스트레이트',pp:'연속 페어',b4:'폭탄(같은 숫자 4장)',sf:'폭탄(같은 무늬 스트레이트)',dog:'개'};
+function tcLabel(c,k){if(c.t==='dog')return '개 → 우리 팀에게 차례';if(c.t==='s'){if(k&&k[0]>51)return TC_SP[k[0]][2];return tcRN(c.r);}
+  return tcCN[c.t]+(c.t==='st'||c.t==='pp'||c.t==='sf'?' '+c.n+'장':'')+' · '+tcRN(c.r);}
+/* 자리 말풍선용 짧은 이름 */
+function tcShort(c,k){if(c.t==='dog')return '개';if(c.bomb)return '폭탄!';if(c.t==='s')return k[0]>51?TC_SP[k[0]][2]:tcRN(c.r);const r=tcRN(c.r);return {p:r+' 페어',t:r+' 트리플',fh:'풀하우스',st:'스트레이트',pp:'연속 페어'}[c.t];}
+/* 숫자 묶음 판정(봉황은 nat=null로 들어옴: 폭탄이 될 수 없어요) */
+function tcAna(rs,nat){rs=rs.slice().sort((a,b)=>a-b);const n=rs.length,cnt={};rs.forEach(r=>cnt[r]=(cnt[r]||0)+1);const ks=Object.keys(cnt).map(Number).sort((a,b)=>a-b),L=ks.length;
+  const run=L===n&&ks[L-1]-ks[0]===n-1;
+  if(rs[0]===1)return n>=5&&run?{t:'st',r:ks[L-1],n}:null;
+  if(L===1){if(n===2)return{t:'p',r:rs[0],n};if(n===3)return{t:'t',r:rs[0],n};if(n===4&&nat)return{t:'b4',r:rs[0],n,bomb:1};return null;}
+  if(n===5&&L===2&&(cnt[ks[0]]===3||cnt[ks[1]]===3))return{t:'fh',r:cnt[ks[0]]===3?ks[0]:ks[1],n};
+  if(n>=5&&run){if(nat&&nat.every(id=>tcS(id)===tcS(nat[0])))return{t:'sf',r:ks[L-1],n,bomb:1};return{t:'st',r:ks[L-1],n};}
+  if(n>=4&&n%2===0&&ks.every(k=>cnt[k]===2)&&ks[L-1]-ks[0]===L-1)return{t:'pp',r:ks[L-1],n};
+  return null;}
+/* 낸 카드로 될 수 있는 모든 뜻(봉황을 어느 숫자로 볼지) */
+function tcCombos(k,cur){const n=k.length;if(!n)return[];
+  if(n===1){const id=k[0];if(id===53)return[{t:'dog',r:0,n:1}];if(id===55)return[{t:'s',r:25,n:1}];
+    if(id===54){if(cur&&cur.t==='s'&&cur.r>=25)return[];return[{t:'s',r:(cur&&cur.t==='s'?cur.r:1)+.5,n:1}];}
+    return[{t:'s',r:tcR(id),n:1}];}
+  if(k.includes(53)||k.includes(55))return[];
+  const ph=k.includes(54),nat=k.filter(id=>id!==54),out=[];
+  for(const pr of ph?[2,3,4,5,6,7,8,9,10,11,12,13,14]:[0]){const rs=nat.map(tcR);if(pr)rs.push(pr);const c=tcAna(rs,ph?null:nat);if(c&&!out.some(o=>o.t===c.t&&o.r===c.r))out.push(c);}
+  return out;}
+function tcBeat(c,cur){if(!cur)return true;if(c.t==='dog')return false;
+  if(c.bomb){if(!cur.bomb)return true;if(c.t!==cur.t)return c.t==='sf';if(c.t==='sf'&&c.n!==cur.n)return c.n>cur.n;return c.r>cur.r;}
+  if(cur.bomb)return false;return c.t===cur.t&&c.n===cur.n&&c.r>cur.r;}
+/* 이 카드들로 지금 낼 수 있는 가장 센 뜻 */
+function tcBest(k,cur){let b=null;for(const c of tcCombos(k,cur))if(tcBeat(c,cur)&&(!b||c.r>b.r))b=c;return b;}
+/* 손패에서 지금 낼 수 있는 모든 수 (컴퓨터·소원 검사·추천에 씀) */
+function tcGen(h,cur){const out=[],seen=new Set(),by={},P=h.includes(54);
+  const add=k=>{const key=k.slice().sort((a,b)=>a-b).join(',');if(seen.has(key))return;seen.add(key);const c=tcBest(k,cur);if(c)out.push({k,c});};
+  h.forEach(id=>{if(id<=52){const r=tcR(id);(by[r]=by[r]||[]).push(id);}});
+  const want=t=>!cur||cur.t===t,R=[2,3,4,5,6,7,8,9,10,11,12,13,14],g=r=>by[r]||[];
+  if(want('s'))h.forEach(id=>{if(id!==53)add([id]);});
+  if(!cur&&h.includes(53))add([53]);
+  R.forEach(r=>{const a=g(r);
+    if(want('p')){if(a.length>=2)add(a.slice(0,2));else if(a.length===1&&P)add([a[0],54]);}
+    if(want('t')){if(a.length>=3)add(a.slice(0,3));else if(a.length===2&&P)add([...a,54]);}});
+  if(want('fh'))R.forEach(t=>R.forEach(p=>{if(p===t)return;const A=g(t),B=g(p);
+    if(A.length>=3&&B.length>=2)add([...A.slice(0,3),...B.slice(0,2)]);else if(P&&A.length>=3&&B.length===1)add([...A.slice(0,3),B[0],54]);else if(P&&A.length===2&&B.length>=2)add([...A,54,...B.slice(0,2)]);}));
+  if(want('st'))for(const L of cur?[cur.n]:[5,6,7,8,9,10,11,12,13,14])for(let top=L;top<=14;top++){const s0=top-L+1,k=[];let miss=0,m1=0;
+    for(let r=s0;r<=top;r++){const a=r===1?(h.includes(52)?[52]:[]):g(r);if(a.length)k.push(a[0]);else{miss++;if(r===1)m1=1;}}
+    if(!miss)add(k);else if(miss===1&&P&&!m1)add([...k,54]);}
+  if(want('pp'))for(const m of cur?[cur.n/2]:[2,3,4,5,6,7])for(let top=m+1;top<=14;top++){const k=[];let miss=0;
+    for(let r=top-m+1;r<=top;r++){const a=g(r);if(a.length>=2)k.push(a[0],a[1]);else if(a.length===1){k.push(a[0]);miss++;}else miss+=2;}
+    if(!miss)add(k);else if(miss===1&&P)add([...k,54]);}
+  R.forEach(r=>{const a=g(r).filter(id=>id<52);if(a.length===4)add(a);});
+  for(let s=0;s<4;s++){const has=r=>h.includes(s*13+r-2);for(let L=5;L<=13;L++)for(let top=L+1;top<=14;top++){let ok=1;for(let r=top-L+1;r<=top;r++)if(!has(r)){ok=0;break;}if(ok){const k=[];for(let r=top-L+1;r<=top;r++)k.push(s*13+r-2);add(k);}}}
+  return out;}
+const tcAct=T=>[0,1,2,3].filter(i=>T.h[i].length);
+const tcNx=(T,p)=>{for(let j=1;j<=4;j++){const q=(p+j)%4;if(T.h[q].length)return q;}return p;};
+/* 소원: 지금 낼 수 있는 수 중 소원 숫자를 품은 것 */
+function tcWishOpts(T,p){if(!T.wish)return[];return tcGen(T.h[p],T.cur?T.cur.c:null).filter(o=>o.k.some(id=>id<52&&tcR(id)===T.wish));}
+
+/* --- 판 시작 --- */
+function tcOpen(){const b=bgS();if(!b.tc||b.tc.ph==='over'){b.tc={sc:[0,0],rn:0};tcRound();}tcShow();}
+function tcRound(){const T=bgS().tc,d=suShuf([...Array(56).keys()]);T.rn=(T.rn||0)+1;
+  T.h=[0,1,2,3].map(p=>tcSort(d.slice(p*8,p*8+8)));T.rest=[0,1,2,3].map(p=>d.slice(32+p*6,38+p*6));
+  T.calls=[0,0,0,0];T.won=[[],[],[],[]];T.out=[];T.cur=null;T.tr=[];T.wish=0;T.last=['','','',''];T.passed=[];T.played=[0,0,0,0];T.recv=null;T.ph='gt';T.turn=0;T.log=[];T.rd=null;
+  for(let p=1;p<4;p++)if(tcStr(T.h[p])>=10)T.calls[p]=2;TC.sel=[];TC.pk=[null,null,null];save();}
+/* 손패 힘(컴퓨터가 티츄를 부를지 정할 때) */
+function tcStr(h){let s=0;const by={};h.forEach(id=>{const r=tcR(id);by[r]=(by[r]||0)+1;});
+  h.forEach(id=>{if(id===55)s+=3.5;else if(id===54)s+=3;else if(id<52){const r=id%13+2;if(r===14)s+=2;else if(r===13)s+=.8;}});
+  Object.entries(by).forEach(([r,n])=>{if(n===4&&+r<15)s+=5;});if(h.includes(53))s-=1;return s;}
+function tcGrand(yes){const T=bgS().tc;if(T.ph!=='gt')return;T.calls[0]=yes?2:0;if(yes)sfx('fan');
+  for(let p=0;p<4;p++)T.h[p]=tcSort(T.h[p].concat(T.rest[p]));T.rest=null;T.ph='pass';TC.pk=[null,null,null];TC.sel=[];save();tcDraw();}
+/* 컴퓨터가 줄 카드 [오른쪽(다음 사람), 짝꿍, 왼쪽] — 짝꿍에겐 좋은 카드, 상대에겐 낮은 카드(개는 상대에게) */
+function tcAIGive(h){const s=tcSort(h.slice()),hi=s.filter(id=>id!==54&&id!==52).reverse(),bomb=new Set();const by={};s.forEach(id=>{if(id<52){const r=tcR(id);(by[r]=by[r]||[]).push(id);}});Object.values(by).forEach(a=>{if(a.length===4)a.forEach(id=>bomb.add(id));});
+  const mate=hi.find(id=>!bomb.has(id))??hi[0];const lows=s.filter(id=>id!==mate&&id!==52&&id!==54&&id!==55&&!bomb.has(id));
+  const dog=lows.includes(53)?53:null,rest=lows.filter(id=>id!==53);const a=dog!=null?dog:rest[0],b=dog!=null?rest[0]:rest[1];
+  return[a??s.find(id=>id!==mate),mate,b??s.find(id=>id!==mate&&id!==a)];}
+function tcPassGo(){const T=bgS().tc;if(T.ph!=='pass')return;if(TC.pk.some(x=>x==null)){toast('세 장을 모두 골라 주세요');return;}
+  const give=[[TC.pk[1],TC.pk[0],TC.pk[2]]];/* 진우: [오른쪽 타코, 짝꿍 토리, 왼쪽 도치] */
+  for(let p=1;p<4;p++)give[p]=tcAIGive(T.h[p]);
+  const got=[[],[],[],[]];for(let p=0;p<4;p++){give[p].forEach((id,j)=>{const to=(p+1+j)%4;got[to].push([p,id]);});T.h[p]=T.h[p].filter(id=>!give[p].includes(id));}
+  for(let p=0;p<4;p++)T.h[p]=tcSort(T.h[p].concat(got[p].map(x=>x[1])));T.recv=got[0];
+  for(let p=1;p<4;p++)if(!T.calls[p]&&!T.calls[(p+2)%4]&&tcStr(T.h[p])>=8.5)T.calls[p]=1;
+  T.ph='play';T.turn=[0,1,2,3].find(p=>T.h[p].includes(52));T.log=[TC_NM[T.turn]+'(이)가 참새를 가져서 먼저 시작해요'];TC.sel=[];save();tcDraw();tcNext();}
+function tcTichu(){const T=bgS().tc;if(T.played[0]||T.calls[0])return;askOk('티츄! 를 부를까요? 진우가 1등으로 카드를 다 내면 +100점, 못 하면 -100점이에요.',()=>{T.calls[0]=1;sfx('fan');tcSay(0,'티츄!');save();tcDraw();});}
+function tcSay(p,t){const T=bgS().tc;T.last[p]=t;}
+
+/* --- 차례 진행 --- */
+function tcNext(){clearTimeout(TC.to);const T=bgS().tc;if(!T||T.ph!=='play'||!$('bgo'))return;if(T.turn!==0)TC.to=setTimeout(tcAITurn,820);}
+function tcAITurn(){const T=bgS().tc;if(!T||T.ph!=='play'||T.turn===0)return;const p=T.turn;let o=tcAI(T,p);if(!o&&!T.cur){const k=[tcSort(T.h[p].slice()).find(id=>id!==53)??T.h[p][0]];o={k};}
+  if(o){let w=0;if(o.k.includes(52))w=tcAIWish(T,p);tcPlay(p,o.k,w);}else tcPass(p);}
+function tcAIWish(T,p){const mine=new Set(T.h[p].map(tcR));const c=[14,13,12,11,10].filter(r=>!mine.has(r));return c.length?c[Math.random()*c.length|0]:0;}
+function tcAI(T,p){const h=T.h[p],cur=T.cur?T.cur.c:null,mate=(p+2)%4;let opts=tcGen(h,cur);
+  const wo=tcWishOpts(T,p);if(wo.length)opts=wo;if(!opts.length)return null;
+  const fin=opts.find(o=>o.k.length===h.length);if(fin)return fin;
+  const by={};h.forEach(id=>{if(id<52){const r=tcR(id);(by[r]=by[r]||[]).push(id);}});const bomb=new Set();Object.values(by).forEach(a=>{if(a.length===4)a.forEach(id=>bomb.add(id));});
+  const cost=o=>{let x=o.c.r;if(o.c.bomb)x+=40;if(o.k.includes(54))x+=12;if(o.k.includes(55))x+=10;if(!o.c.bomb&&o.k.some(id=>bomb.has(id)))x+=20;if(o.c.t==='s'&&o.k[0]<52&&(by[tcR(o.k[0])]||[]).length>1)x+=4;return x;};
+  if(!cur){if(wo.length)return wo.sort((a,b)=>cost(a)-cost(b))[0];
+    if(h.includes(53)&&T.h[mate].length&&(T.calls[mate]||T.h[mate].length<h.length-2))return{k:[53],c:{t:'dog',r:0,n:1}};
+    const L=opts.filter(o=>!o.c.bomb&&o.c.t!=='dog');if(!L.length)return opts[0];
+    return L.map(o=>[o,o.k.length*2.4-cost(o)*.9]).sort((a,b)=>b[1]-a[1])[0][0];}
+  const hold=T.cur.by;if(hold===mate&&!wo.length)return null;
+  const tp=tcSum(T.tr),urg=T.calls[hold]||T.h[hold].length<=3||tp>=20||T.calls[(hold+2)%4]&&T.h[(hold+2)%4].length<=4;
+  let cand=opts.filter(o=>!o.c.bomb&&!(o.k.includes(54)&&!urg)&&!(o.k.includes(55)&&!urg&&h.length>4));
+  if(!cand.length&&(urg||wo.length))cand=opts;if(!cand.length)return null;
+  cand.sort((a,b)=>cost(a)-cost(b));const o=cand[0];
+  if(!wo.length&&!urg&&o.c.r>=14&&h.length>7&&tp<10&&Math.random()<.5)return null;
+  return o;}
+function tcPlay(p,k,w){const T=bgS().tc,c=tcBest(k,T.cur?T.cur.c:null);if(!c)return;
+  T.h[p]=T.h[p].filter(id=>!k.includes(id));T.tr.push(...k);T.played[p]=1;
+  if(T.wish&&k.some(id=>id<52&&tcR(id)===T.wish)){T.wish=0;T.log.unshift('소원이 이루어졌어요!');}
+  if(k.includes(52)&&w){T.wish=w;T.log.unshift(TC_NM[p]+'의 소원: '+tcRN(w)+' (가진 사람은 낼 수 있으면 꼭 내야 해요)');}
+  if(c.t!=='dog'){T.cur={c,by:p,k:tcSort(k.slice())};T.passed=[];}
+  T.last=T.last.map((x,i)=>i===p?tcShort(c,k):x==='패스'?'':x);
+  T.log.unshift(TC_NM[p]+': '+tcLabel(c,k));T.log=T.log.slice(0,6);
+  sfx(c.bomb?'fan':'coin');
+  if(!T.h[p].length){T.out.push(p);T.log.unshift(TC_NM[p]+(T.out.length===1?'(이)가 1등으로 다 냈어요!':'(이)가 다 냈어요'));if(tcEndChk(T))return;}
+  if(c.t==='dog'){T.won[p].push(...T.tr);T.cur=null;T.tr=[];T.passed=[];T.last=['','','',''];const m=(p+2)%4;T.turn=T.h[m].length?m:tcNx(T,m);}
+  else T.turn=tcNx(T,p);
+  save();tcDraw();tcNext();}
+function tcPass(p){const T=bgS().tc;T.passed.push(p);T.last[p]='패스';
+  const act=tcAct(T),need=act.filter(i=>i!==T.cur.by);
+  if(need.every(i=>T.passed.includes(i))){tcTake(T);return;}
+  T.turn=tcNx(T,p);save();tcDraw();tcNext();}
+/* 한 바퀴 끝: 마지막에 낸 사람이 가져가요. 용으로 이긴 판은 상대에게 줘야 해요 */
+function tcTake(T,quiet){const w=T.cur.by;
+  if(T.cur.c.t==='s'&&T.cur.k[0]===55){
+    if(w===0&&!quiet){T.ph='dragon';save();tcDraw();return;}
+    const to=tcDragonTo(T,w);T.won[to].push(...T.tr);T.log.unshift(TC_NM[w]+'(이)가 용으로 이긴 카드를 '+TC_NM[to]+'에게 줬어요');}
+  else{T.won[w].push(...T.tr);T.log.unshift(TC_NM[w]+'(이)가 이번 판 카드를 가져가요'+(tcSum(T.tr)?' ('+tcSum(T.tr)+'점)':''));}
+  T.tr=[];T.cur=null;T.passed=[];T.last=['','','',''];if(quiet)return;
+  T.turn=T.h[w].length?w:tcNx(T,w);save();tcDraw();tcNext();}
+function tcDragonTo(T,w){const a=(w+1)%4,b=(w+3)%4;return T.h[a].length>=T.h[b].length?a:b;}
+function tcDragonGive(to){const T=bgS().tc;if(T.ph!=='dragon')return;T.won[to].push(...T.tr);T.log.unshift('진우가 용으로 이긴 카드를 '+TC_NM[to]+'에게 줬어요');
+  T.tr=[];T.cur=null;T.passed=[];T.last=['','','',''];T.ph='play';T.turn=T.h[0].length?0:tcNx(T,0);save();tcDraw();tcNext();}
+/* 판 끝: 원투(같은 팀 1·2등) 또는 한 명만 남았을 때 */
+function tcEndChk(T){const act=tcAct(T),dbl=T.out.length===2&&T.out[0]%2===T.out[1]%2;if(!dbl&&act.length>1)return false;
+  if(T.tr.length&&T.cur)tcTake(T,1);
+  const pts=[0,0],det=[];
+  if(dbl){pts[T.out[0]%2]+=200;det.push((T.out[0]%2?'상대 팀':'우리 팀')+' 원투! +200');}
+  else{const last=act[0];const hp=tcSum(T.h[last]);pts[(last+1)%2]+=hp;T.won[T.out[0]].push(...T.won[last]);T.won[last]=[];
+    for(let p=0;p<4;p++)pts[p%2]+=tcSum(T.won[p]);det.push('카드 점수: 우리 '+(pts[0])+' · 상대 '+(pts[1]));if(hp)det.push(TC_NM[last]+'의 남은 카드 '+hp+'점은 '+(last%2?'우리 팀':'상대 팀')+'에게');}
+  for(let p=0;p<4;p++)if(T.calls[p]){const v=T.calls[p]===2?200:100,ok=T.out[0]===p;pts[p%2]+=ok?v:-v;det.push(TC_NM[p]+' '+(T.calls[p]===2?'그랜드 티츄':'티츄')+(ok?' 성공 +':' 실패 -')+v);}
+  T.sc[0]+=pts[0];T.sc[1]+=pts[1];T.rd={pts,det,out:T.out.slice()};T.ph='end';
+  const fin=(T.sc[0]>=TC_GOAL||T.sc[1]>=TC_GOAL)&&T.sc[0]!==T.sc[1];
+  if(fin){T.ph='over';const b=bgS(),win=T.sc[0]>T.sc[1];if(win)b.tw=(b.tw||0)+1;else b.tl=(b.tl||0)+1;
+    const[m]=win?mgRw(2,'','btw',b.tw):['아쉬워요! 다음엔 꼭 이겨요'];T.rw=m;sfx(win?'fan':'no');}
+  else sfx('fan');
+  save();tcDraw();return true;}
+
+/* --- 진우 차례 --- */
+function tcTap(id){const T=bgS().tc;if(T.ph==='pass'){const j=TC.pk.indexOf(id);if(j>=0)TC.pk[j]=null;else{const e=TC.pk.indexOf(null);if(e<0){toast('세 장을 다 골랐어요. 바꾸려면 위 칸을 눌러요');return;}TC.pk[e]=id;}tcDraw();return;}
+  const i=TC.sel.indexOf(id);if(i>=0)TC.sel.splice(i,1);else TC.sel.push(id);tcDraw();}
+function tcGo(){const T=bgS().tc;if(T.ph!=='play'||T.turn!==0)return;const k=TC.sel.slice();if(!k.length){toast('낼 카드를 눌러 골라 주세요');return;}
+  const cur=T.cur?T.cur.c:null,c=tcBest(k,cur);
+  if(!c){toast(tcCombos(k,cur).length?'지금 테이블보다 세야 해요':'함께 낼 수 없는 카드예요');return;}
+  const wo=tcWishOpts(T,0);if(wo.length&&!k.some(id=>id<52&&tcR(id)===T.wish)){toast('소원 숫자 '+tcRN(T.wish)+'를 꼭 내야 해요!');return;}
+  TC.sel=[];if(k.includes(52)){tcWishAsk(k);return;}tcPlay(0,k,0);}
+function tcWishAsk(k){TC.wk=k;const el=$('tcwish');if(!el)return;el.innerHTML=`<div class="card"><h2>참새의 소원</h2><div class="muted">다른 사람이 꼭 내야 할 숫자를 골라요.</div><div class="tcwr">${[2,3,4,5,6,7,8,9,10,11,12,13,14].map(r=>`<button class="btn sm" onclick="tcWishPick(${r})">${tcRN(r)}</button>`).join('')}</div><button class="btn ghost full" onclick="tcWishPick(0)">소원 없이 내기</button></div>`;el.scrollIntoView({block:'center'});}
+function tcWishPick(r){const k=TC.wk;TC.wk=null;if(k)tcPlay(0,k,r);}
+function tcPassMe(){const T=bgS().tc;if(T.ph!=='play'||T.turn!==0)return;if(!T.cur){toast('내가 시작할 차례라 패스할 수 없어요');return;}
+  if(tcWishOpts(T,0).length){toast('소원 숫자 '+tcRN(T.wish)+'를 낼 수 있어서 꼭 내야 해요!');return;}TC.sel=[];tcPass(0);}
+function tcHint(){const T=bgS().tc;if(T.ph==='pass'){const g=tcAIGive(T.h[0]);TC.pk=[g[1],g[0],g[2]];tcDraw();return;}if(T.turn!==0)return;const o=tcAI(T,0);if(!o){toast(T.cur?'패스해도 괜찮아 보여요':'');TC.sel=[];}else TC.sel=o.k.slice();tcDraw();}
+
+/* --- 그리기 --- */
+function tcCard(id,cls,on){const sp=TC_SP[id],c=sp?'#4a3423':TC_SC[tcS(id)];
+  return `<button class="tcd ${cls||''}${sp?' sp':''}" ${on?`onclick="${on}"`:'tabindex="-1"'} aria-label="${sp?sp[2]:TC_SN[tcS(id)]+' '+tcRN(tcR(id))}"><span class="rk" style="color:${c}">${sp?sp[1]:tcRN(tcR(id))}</span>${cls&&cls.includes('sm')?'':bgIco(sp?sp[0]:TC_SU[tcS(id)],12,'mini')}${bgIco(sp?sp[0]:TC_SU[tcS(id)],cls&&cls.includes('sm')?16:24)}</button>`;}
+function tcShow(){bgShell('🎴 티츄',()=>save());tcDraw();if(bgS().tc.ph==='play')tcNext();}
+function tcSeat(T,p){const n=T.h[p].length,cl=T.calls[p],tn=T.ph==='play'&&T.turn===p,o=T.out.indexOf(p);
+  return `<div class="tcp${tn?' turn':''}${p%2?' op':' my'}">${p?bgIco(TC_AV[p],30):''}<div><b>${TC_NM[p]}</b>${cl?`<span class="tcb">${cl===2?'그랜드 티츄':'티츄'}</span>`:''}<div class="muted">${o>=0?(o+1)+'등!':n+'장'}</div></div>${T.last[p]?`<div class="tcsay">${esc(T.last[p])}</div>`:''}</div>`;}
+function tcDraw(){const T=bgS().tc,el=$('bgb');if(!T||!el)return;const my=T.h[0];
+  const head=`<div class="tcsc"><span>우리 팀 <b>${T.sc[0]}</b></span><span class="muted">${T.rn}판째<br>목표 ${TC_GOAL}점</span><span>상대 팀 <b>${T.sc[1]}</b></span></div>`;
+  if(T.ph==='end'||T.ph==='over'){const r=T.rd,win=T.sc[0]>T.sc[1];
+    el.innerHTML=head+`<div class="card${T.ph==='over'&&win?' legend':''}"><h2>${T.ph==='over'?(win?'🏆 우리 팀이 이겼어요!':'타코 팀이 이겼어요'):'🎴 '+T.rn+'번째 판 끝'}</h2>
+    <div>이번 판: 우리 팀 <b>${r.pts[0]>=0?'+':''}${r.pts[0]}</b> · 상대 팀 <b>${r.pts[1]>=0?'+':''}${r.pts[1]}</b></div><div class="muted">나간 순서: ${r.out.map((p,i)=>(i+1)+'. '+TC_NM[p]).join(' · ')}</div>
+    <ul class="tcdet">${r.det.map(d=>`<li>${esc(d)}</li>`).join('')}</ul>
+    ${T.ph==='over'?`<div style="margin:6px 0">${T.rw||''}</div><div class="row"><button class="btn full" onclick="bgS().tc=null;tcOpen()">새 게임</button><button class="btn ghost full" onclick="bgClose()">닫기</button></div>`:`<button class="btn full" onclick="tcRound();tcDraw()">다음 판</button>`}</div>`;return;}
+  const seats=`<div class="tct"><div class="tcl">${tcSeat(T,3)}</div><div class="tcm">${tcSeat(T,2)}
+    <div class="tctab">${T.cur?`<div class="tcby">${TC_NM[T.cur.by]}: ${esc(tcLabel(T.cur.c,T.cur.k))}</div><div class="tccur">${T.cur.k.map(id=>tcCard(id,'sm')).join('')}</div>`:`<div class="tcby">${T.ph==='play'?(T.turn===0?'진우가 시작할 차례예요':TC_NM[T.turn]+'(이)가 시작해요'):T.ph==='gt'?'카드 8장을 받았어요':'카드 주고받기'}</div>`}
+    ${T.wish?`<div class="tcwish">참새의 소원: <b>${tcRN(T.wish)}</b></div>`:''}${T.tr.length?`<div class="muted">이번 바퀴 점수 ${tcSum(T.tr)}</div>`:''}</div></div>
+    <div class="tcr">${tcSeat(T,1)}</div></div>`;
+  let ctl='',info='';
+  if(T.ph==='gt'){ctl=`<div class="card"><h2>그랜드 티츄?</h2><div class="muted">8장만 보고 '내가 1등으로 다 낸다'에 걸어요. 성공 +200, 실패 -200. 보통은 안 불러요.</div><div class="row" style="margin-top:6px"><button class="btn ghost full" onclick="tcGrand(0)">안 불러요 (6장 더 받기)</button><button class="btn pink full" onclick="tcGrand(1)">그랜드 티츄!</button></div></div>`;}
+  else if(T.ph==='pass'){const nm=['토리(우리 팀)','타코','도치'];ctl=`<div class="card"><h2>카드 주고받기</h2><div class="muted">세 사람에게 한 장씩 줘요. 카드를 누르면 차례로 들어가요. 토리에겐 좋은 카드, 상대에겐 낮은 카드!</div>
+    <div class="tcpk">${TC.pk.map((id,j)=>`<div><div class="muted">${nm[j]}</div>${id!=null?tcCard(id,'',`tcTap(${id})`):'<div class="tcd empty"></div>'}</div>`).join('')}</div>
+    <div class="row"><button class="btn ghost full" onclick="tcHint()">추천</button><button class="btn full" onclick="tcPassGo()">주기</button></div></div>`;}
+  else if(T.ph==='dragon'){ctl=`<div class="card legend"><h2>용으로 이겼어요!</h2><div>용으로 이긴 카드(${tcSum(T.tr)}점)는 상대 팀 한 명에게 줘야 해요.</div><div class="row" style="margin-top:6px"><button class="btn full" onclick="tcDragonGive(1)">타코에게 (${T.h[1].length}장)</button><button class="btn full" onclick="tcDragonGive(3)">도치에게 (${T.h[3].length}장)</button></div></div>`;}
+  else if(T.ph==='play'){const mine=T.turn===0&&my.length;const c=TC.sel.length?tcBest(TC.sel,T.cur?T.cur.c:null):null;
+    info=mine?(TC.sel.length?(c?'낼 수 있어요: '+tcLabel(c,TC.sel):'이 카드로는 낼 수 없어요'):T.cur?'더 센 카드를 고르거나 패스해요':'아무 조합이나 내서 시작해요'):!my.length?'진우는 다 냈어요! 기다리는 중…':TC_NM[T.turn]+' 생각 중…';
+    ctl=`<div class="tcinfo${mine?' on':''}">${esc(info)}</div><div class="row tcbtn"><button class="btn ghost sm" onclick="tcPassMe()" ${mine&&T.cur?'':'disabled'}>패스</button><button class="btn ghost sm" onclick="tcHint()" ${mine?'':'disabled'}>추천</button><button class="btn sm" onclick="tcGo()" ${mine&&c?'':'disabled'}>내기</button>${!T.played[0]&&!T.calls[0]?'<button class="btn pink sm" onclick="tcTichu()">티츄!</button>':''}</div>`;}
+  const n=my.length,ov=n>1?Math.min(0,Math.floor((Math.min(innerWidth-28,456)-48)/(n-1))-48):0;
+  const hand=`<div class="tchand" style="--ov:${ov}px">${my.map(id=>tcCard(id,(TC.sel.includes(id)?'on':'')+(TC.pk.includes(id)&&T.ph==='pass'?' gone':''),T.ph==='pass'||T.ph==='play'?`tcTap(${id})`:'')).join('')}</div>`;
+  const recv=T.recv&&!T.played[0]&&T.ph==='play'?`<div class="muted" style="text-align:center">받은 카드: ${T.recv.map(([f,id])=>TC_NM[f]+'→'+(TC_SP[id]?TC_SP[id][2]:tcRN(tcR(id)))).join(' · ')}</div>`:'';
+  el.innerHTML=head+seats+`<div id="tcwish"></div>`+hand+recv+ctl+`<div class="tclog">${T.log.slice(0,3).map(x=>`<div>${esc(x)}</div>`).join('')}</div><div style="text-align:center;margin-top:8px"><button class="btn ghost sm" onclick="tcRules()">규칙 보기</button></div>`;}
+function tcRules(){modal(`<h3>🎴 티츄 규칙 (짧게)</h3><div class="bghelp">· 진우·토리가 한 팀, 타코·도치가 한 팀. 손에 든 카드를 먼저 다 내는 게 목표예요.<br>
+· 앞사람보다 <b>같은 모양으로 더 센</b> 카드를 내요: 한 장, 페어, 트리플, 풀하우스(3+2), 스트레이트(5장 이상 이어진 숫자), 연속 페어(이어진 페어 2쌍 이상). 못 내거나 안 내면 패스.<br>
+· 모두 패스하면 마지막에 낸 사람이 카드를 가져가고 새로 시작해요.<br>
+· 점수: 5는 5점, 10·K는 10점, 용 25점, 봉황 -25점.<br>
+· <b>참새(1)</b>: 가진 사람이 먼저 시작. 낼 때 소원 숫자를 부르면, 그 숫자를 낼 수 있는 사람은 꼭 내야 해요.<br>
+· <b>개</b>: 처음에만 낼 수 있고, 차례를 짝꿍에게 넘겨요.<br>
+· <b>봉황</b>: 아무 숫자 대신 쓸 수 있어요. 한 장으로 내면 앞 카드보다 0.5 높아요(용은 못 이겨요).<br>
+· <b>용</b>: 가장 센 한 장. 용으로 이긴 카드는 상대 한 명에게 줘야 해요.<br>
+· <b>폭탄</b>(같은 숫자 4장, 같은 무늬 스트레이트): 무엇이든 이겨요. 이 앱에선 자기 차례에만 낼 수 있어요.<br>
+· <b>티츄!</b> 첫 카드를 내기 전에 부르면 1등일 때 +100, 아니면 -100. 8장만 보고 부르는 <b>그랜드 티츄</b>는 ±200.<br>
+· 같은 팀이 1·2등으로 다 내면 <b>원투</b>! 카드 점수 대신 +200.<br>
+· 꼴찌의 남은 카드 점수는 상대 팀에게, 꼴찌가 가져간 카드는 1등에게 가요. ${TC_GOAL}점을 먼저 넘긴 팀이 이겨요.</div><button class="btn full" onclick="closeM()">알겠어요</button>`);}
+
+/* ---------- v7.8 편리하게: 긴 탭(햄스터·설정) 위 바로 가기 칩, 맨 위로 버튼 ---------- */
+const SEC_TABS={pet:1,set:1};
+const secCards=()=>[...($('s-'+tab)||document).querySelectorAll(':scope>.card')].filter(c=>c.querySelector('h2'));
+const secName=c=>c.querySelector('h2').textContent.replace(/\s*\d+\s*\/\s*\d+\s*$/,'').trim();
+function secNav(){const el=$('secnav');if(!el)return;const h=document.querySelector('header');if(h)document.documentElement.style.setProperty('--hh',(h.offsetHeight+4)+'px');
+  if(!SEC_TABS[tab]){el.hidden=true;el.innerHTML='';return;}
+  el.hidden=false;el.innerHTML=secCards().map((c,i)=>`<button class="chip" onclick="secGo(${i})">${esc(secName(c))}</button>`).join('');secOn();}
+function secGo(i){const c=secCards()[i];if(!c)return;const off=($('secnav').offsetHeight||0)+(document.querySelector('header').offsetHeight||0)+12;
+  window.scrollTo({top:c.getBoundingClientRect().top+scrollY-off,behavior:S.noAnim?'auto':'smooth'});}
+function secOn(){const el=$('secnav');if(!el||el.hidden)return;const off=(el.offsetHeight||0)+(document.querySelector('header').offsetHeight||0)+24,cs=secCards();let k=0;
+  cs.forEach((c,i)=>{if(c.getBoundingClientRect().top<=off)k=i;});[...el.children].forEach((b,i)=>b.classList.toggle('on',i===k&&scrollY>40));
+  const b=el.children[k];if(b&&scrollY>40){const r=b.getBoundingClientRect(),er=el.getBoundingClientRect();if(r.left<er.left||r.right>er.right)el.scrollLeft+=r.left-er.left-20;}}
+let secT=0;addEventListener('scroll',()=>{if(secT)return;secT=requestAnimationFrame(()=>{secT=0;secOn();const t=$('totop');if(t)t.classList.toggle('on',scrollY>innerHeight*1.2);});},{passive:true});
+(()=>{const t=document.createElement('button');t.id='totop';t.setAttribute('aria-label','맨 위로');t.innerHTML='▲<br>위로';t.onclick=()=>window.scrollTo({top:0,behavior:S.noAnim?'auto':'smooth'});document.body.appendChild(t);
+  const r0=render;render=function(){r0.apply(this,arguments);secNav();};secNav();})();
+
+if(typeof tab!=='undefined'&&tab==='home')render();
 </script>
 <script>
 /* 토리 그림은 별도 파일이라, 켠 뒤에 조용히 하나씩 미리 불러 둬요 (반응 그림이 늦게 뜨지 않게) */
