@@ -391,7 +391,7 @@ function render(){dMv=null;msSync();bgApply();document.documentElement.classList
 /* ---------- 홈 ---------- */
 function ddLabel(d){const n=Math.round((Date.parse(d+'T00:00:00Z')-Date.parse(todayStr()+'T00:00:00Z'))/864e5);return n===0?'D-DAY':n>0?'D-'+n:'D+'+(-n);}
 function backupNag(){const lb=Date.parse(S.lastBackup||''),base=isNaN(lb)?(S.firstSeen||todayStr()):new Date(lb+9*36e5).toISOString().slice(0,10);const days=dAgo(base,todayStr());
-  return days>=3?`<div class="card" style="background:#7a1f3d"><b>💾 ${S.lastBackup?'마지막 백업 후 '+days+'일이 지났어요':'아직 백업한 적이 없어요'}.</b><br><button class="btn pink sm" onclick="exportFile().then(rHome)">지금 파일로 백업</button></div>`:'';}
+  return days>=3?`<div class="card" style="background:#7a1f3d;color:#fffaf0"><b style="color:#fffaf0">💾 ${S.lastBackup?'마지막 백업 후 '+days+'일이 지났어요':'아직 백업한 적이 없어요'}.</b><br><button class="btn pink sm" onclick="exportFile().then(rHome)">지금 파일로 백업</button></div>`:'';}
 function rHome(){
   const left=S.coupons.reduce((a,c)=>a+(+c.qty||0),0),y=+todayStr().slice(0,4),nb=nextBday();
   const dds=[...S.ddays].sort((a,b)=>{const x=ddEff(a),y=ddEff(b);return x<y?-1:x>y?1:0;});
@@ -1423,9 +1423,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v6.9',d:'2026.10.06',log:['도감 장소 종류 글씨가 흰색으로 안 보이던 것 고치기']};
+const APP_VER={v:'v7.0',d:'2026.10.06',log:['홈 백업 알림 글씨를 흰색으로 또렷하게']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v7.0',d:'2026.10.06',log:['홈 맨 위 "마지막 백업 후 n일이 지났어요" 글씨가 어두운 빨간 바탕에서 잘 안 보이던 것을 흰색으로 또렷하게 고쳤어요']},
  {v:'v6.9',d:'2026.10.06',log:['도감·가고 싶은 곳에서 장소 종류(식당·카페·놀거리·기타) 글씨가 흰색이라 안 보이던 것을 진한 갈색으로 고쳤어요']},
  {v:'v6.8',d:'2026.10.06',log:['아이폰(사파리)에서 홈 화면에 추가할 때 쓰는 토리 아이콘을 넣었어요','토리가 기지개를 켤 때 머리 위 물병과 겹쳐 보이던 것을 줄였어요']},
  {v:'v6.7',d:'2026.10.05',log:['토리를 쓰다듬을 때 사진만 출렁이고 얼굴은 가만히 있던 것을 고쳤어요 (슬퍼할 때 · 밤에도)','토리가 숨 쉴 때 도토리 쥔 손이 늘어나 보이던 것을 고쳤어요','미니게임 글자를 얇고 또렷하게 바꿨어요','타코 띄워 주기에서 바다 생물이 나오기 전 흰 상자 대신 작은 빨간 느낌표가 깜빡여요','도감 장소 종류 글씨가 안 보이던 것 · 일정 입력칸이 화면 밖으로 나가던 것 · 내 기념일 버튼 간격을 고쳤어요','보상 탭의 "새 보상 넣기"를 뺐어요 (이미 있는 보상은 그대로예요)']},

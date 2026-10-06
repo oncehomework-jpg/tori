@@ -3,7 +3,7 @@
 // - assets/ 그림·폰트: 파일 이름에 고유 번호가 있어서, 한 번 저장하면 계속 저장본을 써요.
 // - 새 버전을 받으면 다음에 앱을 켤 때 적용돼요.
 // - CDN 폰트/CSS: 한 번 받으면 저장본을 써요.
-const CACHE = 'jw-diary-v6.9';
+const CACHE = 'jw-diary-v7.0';
 // 토리 알림(v5.1): 앱이 적어 둔 상태(tori-state 캐시)를 보고, 폰이 깨워 줄 때(periodicsync) 하루 한 번만 알림
 const STATE = 'tori-state', STATE_URL = 'tori-state.json';
 const SHELL = ['./', 'index.html', 'manifest.json', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'apple-touch-icon.png'];
