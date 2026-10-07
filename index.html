@@ -298,6 +298,11 @@ img,svg,canvas{-webkit-user-select:none;user-select:none;-webkit-user-drag:none;
 #mg .btn.ghost{background:#dcc59b;color:#4a3423;border-color:#b89a6a;box-shadow:0 4px 0 #8a6d43;font-weight:bold}
 #mg .btn.ghost:active{background:#cbb083;box-shadow:none}
 /* v7.8 보드게임 (홈 카드 · 스도쿠 · 티츄) */
+details.grp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px}details.grp>summary::-webkit-details-marker{display:none}
+details.grp>summary h2{margin:0;flex:1}details.grp>summary::after{content:'▼';font-size:12px;color:var(--mut);transition:transform .15s}details.grp[open]>summary::after{transform:rotate(180deg)}
+details.grp>.grpin{margin-top:10px}.grpin>.card{margin:10px 0 0;box-shadow:none;border-width:2px}.grpin>.card:first-child{margin-top:0}
+.playin>.card{margin:12px 0 0;box-shadow:none;border:0;padding:0;background:none}.playin>.card>h2:first-child{display:none}
+.qh3{margin:14px 0 6px;font-size:calc(17px*var(--fs,1))}
 .mdp select{flex:1}
 .bgi{display:inline-block;flex:none;background-size:100% 100%;image-rendering:pixelated;vertical-align:middle}
 .bgrow{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:2px dashed var(--in)}.card h2+.bgrow{border-top:0;padding-top:2px}
@@ -487,19 +492,26 @@ function bkDue(){return bkDays()>=BK_DAYS&&!(S.bkSnz&&todayStr()<S.bkSnz);}
 function bkAsk(){const t=todayStr();if(!S.tk||S.tk.d!==t)S.tk={d:t};if(S.tk.bk||!bkDue())return;S.tk.bk=1;save();const d=bkDays();
   tako('='+(S.lastBackup?'진우, 백업한 지 '+d+'일이 지났다코! 카톡 나에게 보내 두라코 💾':'진우, 아직 백업을 한 번도 안 했다코! 카톡 나에게 보내 두라코 💾'),'',15000,1,[['백업 보내기',900],['나중에 할게',901]]);}
 function bkLater(){const d=new Date(Date.parse(todayStr()+'T00:00:00Z')+BK_DAYS*864e5).toISOString().slice(0,10);S.bkSnz=d;save();toast(BK_DAYS+'일 뒤에 다시 알려 줄게요');}
+/* v8.2 정리: 접는 묶음(열림 상태는 S.gOpen에 기억) · 놀이 카드(미니게임/보드게임 탭) */
+function grp(k,title,inner,cls){const o=S.gOpen&&S.gOpen[k];return inner?`<details class="card grp${cls?' '+cls:''}" ${o?'open':''} ontoggle="gTog('${k}',this.open)"><summary><h2>${title}</h2></summary><div class="grpin">${inner}</div></details>`:'';}
+function gTog(k,v){if(!S.gOpen||typeof S.gOpen!=='object')S.gOpen={};if(!!S.gOpen[k]===v)return;if(v)S.gOpen[k]=1;else delete S.gOpen[k];save();}
+function playCard(){const t=S.playT==='bg'?'bg':'mg';return `<div class="card playc"><h2>🎮 놀이</h2><div class="row"><button class="btn full ${t==='mg'?'wood':'ghost'}" onclick="playT('mg')">미니게임</button><button class="btn full ${t==='bg'?'wood':'ghost'}" onclick="playT('bg')">보드게임</button></div><div class="playin">${t==='mg'?mgList():(typeof bdgCard==='function'?bdgCard():'')}</div></div>`;}
+function playT(t){S.playT=t;save();const c=document.querySelector('.playc');if(c)c.outerHTML=playCard();}
 function rHome(){
   const left=S.coupons.reduce((a,c)=>a+(+c.qty||0),0),y=+todayStr().slice(0,4),nb=nextBday();
   const dds=[...S.ddays].sort((a,b)=>{const x=ddEff(a),y=ddEff(b);return x<y?-1:x>y?1:0;});
   const bd=isBday()?(S.bday===y?`<div class="card legend">🎂 <b>HAPPY BIRTHDAY, 진우!</b><div class="muted">오늘의 선물은 이미 받았어요. 좋은 하루 보내요!</div></div>`:`<div class="card legend"><h2>🎂 생일 축하해, 진우!</h2><div>${esc(hn())}가 선물 상자를 들고 기다리고 있어요!</div><button class="btn wood full" style="margin-top:8px" onclick="claimBday()">🎁 선물 받기</button></div>`):'';
   $('s-home').innerHTML=`${loadErr?'<div class="card" style="background:#7a1f3d">저장된 데이터를 읽지 못했어요. 설정에서 백업 코드로 복원해 보세요.</div>':''}<div class="card hero s-${tState().st}${heroFlag(heroKey())}" onclick="dHero(event)"><img class="timg${heroDim(heroKey())}" src="${toriSrc(heroKey())}" alt="햄스터" onclick="pat()">${decoHtml(1)}${liveHtml(heroKey())}${decoHtml()}${['normal','full','hungry'].includes(heroKey())?stHtml():''}<div class="accs">${accHtml()}</div><div class="bubble">${esc(greet())}</div><button class="chatb" onclick="event.stopPropagation();chatOpen()" aria-label="토리와 대화">💬</button></div>
-  ${bd}${expCard()}${actCard()}${streakCard()}${quickCard()}${dyCard()}${dyMemCard()}${balCard()}${reportCard()}${+todayStr().slice(5,7)===12?yearCard():''}${memCard()}
+  ${bd}${expCard()}${questCard()}
   <div class="card"><h2>🌰 도토리 속 편지</h2><div id="letter" class="muted" style="font-size:15px;color:var(--tx);min-height:24px">${S.letter&&S.letter.d===todayStr()?letterHtml(S.letter.t):esc(hn())+'가 보낸 편지가 도토리 속에 들어 있어요.'}</div>
   <button id="lbtn" class="btn wood full" style="margin-top:8px${S.letter&&S.letter.d===todayStr()?';opacity:.5':''}" ${S.letter&&S.letter.d===todayStr()?'disabled':''} onclick="openLetter()">${S.letter&&S.letter.d===todayStr()?'내일 또 열 수 있어요':'🌰 도토리 열어보기'}</button></div>
+  ${quickCard()}${dyCard()}
   <div class="card"><h2>🎒 현재 상태</h2><div class="stg"><div class="stt"><span>🌰 도토리</span><b class="qty">${S.acorns}개</b><button class="btn ghost sm" onclick="acHist()">내역</button></div><div class="stt"><span>🎟️ 보상</span><b class="qty">${left}장</b><button class="btn sm" onclick="go('coupon')">보상 가기</button></div></div>
-  <button class="btn wood full" style="margin-top:8px" onclick="go('pet')">퀘스트 하러 가기</button></div>${typeof bdgCard==='function'?bdgCard():''}
+</div>
   <div class="card"><div class="row sp"><h2>📅 D-day</h2><button class="btn sm" onclick="ddForm()">+ 추가</button></div>
   <div class="q"><span>🎂 진우 생일 · ${+bdv().slice(0,2)}월 ${+bdv().slice(3)}일<div class="muted">${nb}</div></span><span class="dd">${ddLabel(nb)}</span></div>
-  ${dds.map(d=>{const e=ddEff(d),n=d.rep?+e.slice(0,4)-+d.date.slice(0,4):0;return `<div class="q"><span>${esc(d.name)}<div class="muted">${esc(e)}${d.rep?' · 매년'+(n>0?' · '+n+'주년':''):''}</div></span><span class="row"><span class="dd">${ddLabel(e)}</span><button class="btn ghost sm" onclick="ddForm('${d.id}')">✏️</button></span></div>`;}).join('')}</div>${holCard()}`;
+  ${dds.map(d=>{const e=ddEff(d),n=d.rep?+e.slice(0,4)-+d.date.slice(0,4):0;return `<div class="q"><span>${esc(d.name)}<div class="muted">${esc(e)}${d.rep?' · 매년'+(n>0?' · '+n+'주년':''):''}</div></span><span class="row"><span class="dd">${ddLabel(e)}</span><button class="btn ghost sm" onclick="ddForm('${d.id}')">✏️</button></span></div>`;}).join('')}</div>${holCard()}${playCard()}
+  ${grp('hmore','📂 더 보기 (활동 · 출석 · 기록 모아 보기)',actCard()+streakCard()+dyMemCard()+balCard()+reportCard()+(+todayStr().slice(5,7)===12?yearCard():'')+memCard())}`;
 }
 const LETTERS=["찍찍! 진우야, 오늘도 수고했어. 네가 곁에 있어서 {n}의 볼주머니가 든든해.", "밥 잘 챙겨 먹고 물도 한 잔 마셔! {n}가 볼주머니에 응원을 담아 보낼게.", "기타 치는 진우가 제일 멋있다는 거, {n}는 다 알고 있지.", "힘든 날엔 도토리 하나 까먹고 쉬어가자. {n}가 옆에 있을게.", "내일의 진우도 오늘만큼 잘할 거야. {n}가 보증해!", "오늘 하루 어땠어? 좋은 일이 없었대도 괜찮아. 무사히 돌아온 게 제일 큰 일이야.", "{n}는 오늘 해바라기씨를 세 개나 먹었어. 진우도 맛있는 거 먹었으면 좋겠다!", "진우가 웃으면 {n}의 수염이 간질간질해. 오늘도 한 번만 웃어 줘!", "잠깐 눈 감고 숨을 크게 쉬어 봐. 후— 그리고 어깨 힘 빼기! {n}도 같이 할게.", "실수해도 괜찮아. {n}는 도토리를 자주 떨어뜨리지만 매번 다시 주워서 먹는걸.", "오늘 기타 줄 한 번 튕겨 봤어? 소리 하나만 내도 {n}는 신나서 쳇바퀴를 돌릴 거야.", "네가 열심히 하는 거, {n}가 다 보고 있어. 티가 안 나도 다 보고 있어!", "비 오는 날엔 굴속에서 도토리 까먹기 딱 좋아. 진우도 따뜻하게 있어.", "밤늦게까지 깨어 있진 않았지? {n}는 벌써 하품이 나와. 오늘은 일찍 자자.", "너무 애쓰지 않아도 돼. 오늘은 60점만 해도 {n}는 박수를 백 번 칠 거야.", "마작 모임 다녀오는 길이라면, 이겼든 졌든 재밌었던 얘기만 들려줘!", "진우야, 지금 이 순간에도 {n}는 네 편이야. 언제나, 어디서나.", "배고플 땐 뭐든 먹고 싶지? {n}도 그래. 오늘 하루 잘 버틴 진우는 맛있는 거 먹을 자격 충분해.", "오늘의 진우에게 별 하나를 붙여 줄게. 반짝반짝!", "걷다가 하늘 한 번 올려다봐. {n}가 구름 사이에서 손 흔들고 있을지도 몰라.", "혼자 끙끙 앓지 마. 힘들 땐 {n}한테 다 털어놔도 돼. 볼주머니는 넓으니까.", "노래 한 곡만 흥얼거려 봐. 기분이 조금 가벼워질 거야. {n}는 박자 맞춰서 달릴게!", "진우는 생각보다 훨씬 멋진 사람이야. {n}가 매일 가까이서 보고 있으니 믿어도 돼.", "도토리를 모으듯이 작은 하루가 쌓이면, 긴 겨울도 든든하게 날 수 있어.", "오늘 운동했다면 대단해! 안 했다면… 내일 조금만 움직여 볼까?", "{n}의 쳇바퀴는 오늘도 백 바퀴! 진우의 하루도 힘차게 굴러가고 있어.", "좋아하는 걸 하는 시간은 낭비가 아니야. 그 시간이 진우를 반짝이게 해.", "잘 자, 진우야. 내일 아침엔 {n}가 도토리 하나 먼저 까먹고 기다릴게.", "기분이 무거운 날엔 창문을 열어 봐. 바람이 {n}의 응원을 실어다 줄 거야.", "밥은 먹었어? 국물도 좀 마시고 채소도 한 입! {n}의 부탁이야.", "진우가 밴드 연습하는 소리, 굴속까지 들려. {n}는 그 소리가 제일 좋아.", "{n}가 오늘 발견한 비밀: 진우 옆에 있으면 볼주머니가 저절로 따뜻해져.", "오늘 못 한 일은 내일의 진우에게 살짝 맡겨 두자. 내일도 진우는 잘할 거야.", "힘내라는 말이 부담될 땐 그냥 쉬어. {n}는 말없이 옆에 앉아 있을게.", "방금 {n}가 도토리 껍질을 예쁘게 깠어. 진우에게 보여 주려고 몰래 숨겨 놨지!", "친구들 만나서 웃었다면 그걸로 오늘은 대성공이야. {n}도 기뻐!", "{n}는 작아서 큰 도움은 못 되지만, 응원만큼은 온 세상에서 제일 커.", "지치면 잠깐 멈춰도 돼. 도토리도 쉬엄쉬엄 먹어야 맛있는 법이야.", "진우야, 오늘 스스로에게 \"수고했어\" 한 번 말해 줘. 그게 제일 좋은 선물이야.", "게임 한 판 하고 싶은 날이지? 스트레스가 풀린다면 {n}는 대찬성! 대신 물도 마셔.", "어제보다 아주 조금만 나아지면 충분해. 딱 도토리 한 알만큼만!", "{n}가 꿈에서 진우를 만났어. 기타 치면서 활짝 웃고 있더라. 그 꿈, 곧 이뤄질 거야.", "몸은 마음의 집이래. 오늘은 따뜻하게 입고 푹 쉬어 줘. {n}가 지켜볼게.", "오늘 하루가 별로였어도 괜찮아. 이 편지를 열어 본 것만으로 벌써 한 걸음 나아간 거야.", "먹고 싶은 게 있다면 오늘은 조금 즐겨도 돼. {n}가 살짝 눈감아 줄게. 쉿!", "진우의 하루 끝엔 언제나 {n}가 있어. 문을 열면 찍찍 하고 반겨 줄 거야.", "마음이 복잡한 날엔 도토리를 세어 봐. 하나, 둘, 셋… 어느새 마음이 잔잔해질 거야.", "좋은 사람 곁엔 좋은 사람이 모인대. 진우 곁에 좋은 사람이 많은 건 다 이유가 있어.", "오늘도 여기까지 온 진우, 정말 대단해. {n}가 볼주머니 한가득 박수를 보낼게.", "내일도 모레도 {n}는 여기서 기다릴게. 편지는 매일 하나씩, 도토리 속에 넣어 둘게."];
 const LM=[["새해 첫 도토리는 진우한테 줄게! {n}가 올해도 곁에 있을게.","눈 오는 날엔 굴속에서 도토리 까먹기 딱이야. 따뜻하게 입고 다녀!"],["추운 날엔 기타 소리가 더 포근해. 오늘 한 곡 쳐 볼래?","{n}는 겨울잠 자고 싶지만, 진우가 궁금해서 눈을 떴어!"],["봄이 왔어! 굴 앞에 새싹이 쏙 올라왔더라. 진우도 쑥쑥 자라는 중이야.","3월엔 진우 생일이 있지! {n}가 벌써부터 선물 고르고 있어."],["벚꽃 잎 하나 주워 왔어. 진우 책상에 몰래 놓아둘게.","봄바람 맞으며 산책하면 기분이 좋아져. 오늘 5분만 나가 볼까?"],["5월 햇살은 도토리도 노릇노릇하게 만들어. 진우도 햇볕 좀 쬐자!","초록이 진해지는 달이야. {n}의 볼주머니도 초록 응원으로 가득해."],["장마 오기 전에 산책 한 번 더! {n}가 우산 들고 따라갈게.","벌써 올해의 절반이 다가와. 여기까지 온 진우, 정말 잘했어."],["더워서 쳇바퀴가 녹겠어… 진우, 물 많이 마셔!","비 오는 날엔 굴속에서 기타 소리 듣는 게 최고야."],["한여름엔 무리하지 마. 쉬는 것도 실력이야, {n}가 보증해!","수박씨 세 개 모아 뒀어. 진우 몫도 있어!"],["아침저녁으로 선선해졌어. 운동하기 딱 좋은 계절이야!","추석 지나면 도토리가 제일 맛있어져. {n}는 벌써 기대돼!"],["도토리가 후두둑 떨어지는 달이야! 진우 몫도 챙겨 뒀지.","단풍이 예뻐서 굴 앞에서 한참 구경했어. 진우한테도 보여 주고 싶다."],["빼빼로 나눠 먹을 사람 생각나? {n}는 진우 생각났어.","찬바람이 불어도 진우 마음은 따뜻하길. {n}가 볼로 데워 줄게!"],["한 해가 끝나 가. 올해 진우가 해낸 일, {n}는 다 기억해!","보상 아껴 두다 못 쓰면 아까워! 연말엔 꼭 하나 써 보자."]];
@@ -877,7 +889,7 @@ const MX={p:[],t:[],sh:0,fl:0,fc:'#fff',st:'play',cd:0,ct:0,raf:0,first:0,info:n
 /* 결과 카드에 넘길 보상 정보: rw=받은 도토리(0이면 note 글자를 보여 줘요) */
 function mxRw(r,limit,need){return limit?{rw:0,note:'오늘 보상은 다 받았어요'}:r?{rw:r}:{rw:0,note:need};}
 
-function mgClose(){mgStop();if(MG.raf)cancelAnimationFrame(MG.raf);MG.raf=0;cancelAnimationFrame(MX.raf);MX.st='play';const o=$('mg');if(o)o.remove();if(tab==='pet')rPet();}
+function mgClose(){mgStop();if(MG.raf)cancelAnimationFrame(MG.raf);MG.raf=0;cancelAnimationFrame(MX.raf);MX.st='play';const o=$('mg');if(o)o.remove();render();}
 function mgStart(){if(MG.raf)cancelAnimationFrame(MG.raf);MG={x:160,t:30,s:0,it:[],sp:0,e:0,l:0,raf:0,old:mgOld()};$('mgr').style.display='none';const c=$('mgc'),g=c.getContext('2d');g.imageSmoothingEnabled=false;
   const dr=(k,x,y,z)=>MGS[k].forEach((row,j)=>[...row].forEach((ch,i)=>{if(ch!=='.'){g.fillStyle=MGP[ch];const X=Math.round(x+i*z),Y=Math.round(y+j*z);g.fillRect(X,Y,Math.round(x+(i+1)*z)-X,Math.round(y+(j+1)*z)-Y);}}));
   const loop=ts=>{if(!$('mg'))return;if(!MG.l)MG.l=ts;const dt=Math.min(.05,(ts-MG.l)/1000);MG.l=ts;MG.t-=dt;MG.e+=dt;MG.sp-=dt;
@@ -1774,9 +1786,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v8.1',d:'2026.10.07',log:['보드게임에 새 추리 게임 "사라진 도토리 사건"이 들어왔어요','홈이 가운데 탭으로, 토리 사진이 맨 위로','백업 알림은 15일째부터 타코가 알려 줘요','도토리 상점 5개씩 페이지']};
+const APP_VER={v:'v8.2',d:'2026.10.07',log:['홈 정리: 토리 사진 · 오늘의 퀘스트 · 편지 · 기록 · 기념일 · 놀이 순서, 나머지는 "더 보기"에','미니게임과 보드게임을 홈의 "놀이" 카드 하나로','햄스터 탭은 상점 · 꾸미기 위주, 설정은 다섯 묶음으로 접기']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v8.2',d:'2026.10.07',log:['홈이 짧아졌어요: 토리 사진 → 오늘의 퀘스트(주간 퀘스트 포함) → 도토리 속 편지 → 빠른 기록 · 일기 → 현재 상태 → D-day · 기념일 → 놀이','활동 · 출석 · 일기 모아 보기 · 리포트 같은 카드는 홈 맨 아래 "더 보기"를 누르면 펼쳐져요','미니게임과 보드게임이 홈의 "놀이" 카드 하나에 모였어요 (위 버튼으로 바꿔 봐요)','햄스터 탭은 밥 주기 · 도토리 상점 · 장식 · 꾸미기 · 칭호 · 앨범 순서예요','설정은 백업 · 알림 · 화면과 소리 · 일정과 기념일 · 도움말 다섯 묶음으로 접고 펼쳐요']},
  {v:'v8.1',d:'2026.10.07',log:['보드게임에 새 추리 게임 "사라진 도토리 사건"이 들어왔어요','장소 6곳(토리의 방 · 챗바퀴 놀이터 · 도토리 숲 · 바닷가 · 무대 · 부엌)을 조사하고 증거와 친구들 말로 누가 · 무엇으로 · 어디서 가져갔는지 맞혀요','어려움에서는 범인이 거짓말을 해요. 맞히면 🌰1, 적게 조사하고 맞히면 🌰2','새 친구: 다람쥐 호두 · 부엉박사 · 고양이 냐옹이','홈이 아래 탭 가운데로 오고, 홈을 열면 토리 사진이 맨 위에 바로 보여요','백업 알림: 15일 동안 백업을 안 하면 타코가 알려 줘요. "나중에 할게"를 누르면 15일 뒤에 다시 알려 줘요','도토리 상점이 한 페이지에 5개씩 나오고, 첫 페이지와 마지막 페이지가 이어져요','내 기념일은 연도 없이 월 · 일만 골라요','새 사진들의 이모지도 도트 그림으로 바꿨어요','장식을 눌렀을 때 타코 말풍선이 짧아지고 버튼 4개가 한 줄로 나와요']},
  {v:'v8.0',d:'2026.10.07',log:['도토리 상점에 새 사진 150장이 들어왔어요 (일반 20코인, 전설 16장은 40코인)','새 테마: 조선·신라·고려·한복, 고대 그리스·이집트, 헤이안·겐지모노가타리, 상어·펭귄·타조, 수영장·목욕, 우주·심해 등 — 앨범에서 모아 볼 수 있어요','이미 산 사진과 코인은 그대로예요']},
  {v:'v7.9',d:'2026.10.07',log:['보물상자가 도토리 상점으로 바뀌었어요: 토리에게 도토리를 주면 준 만큼 도토리 코인이 생기고, 코인으로 원하는 쿠폰·사진·타코 축복·꾸미기·편의 아이템을 골라 살 수 있어요 (한 번만 살 수 있어요)','이미 연 상자는 전부 보유로 남아 있고, 레벨과 준 도토리는 그대로예요','햄스터 탭에는 코인과 지금 살 만한 것 3개만 보이고, 상점 전체 보기에서 탭(쿠폰·사진·타코 축복·꾸미기·편의)과 살 수 있는 것만 보기로 싼 순으로 볼 수 있어요']},
@@ -1862,7 +1875,14 @@ function rSet(){const t=S.lastBackup?new Date(S.lastBackup).toLocaleString('ko-K
   <div class="muted" style="margin-top:8px">자동 백업은 이 기기의 브라우저 안에 저장돼요. 앱 데이터를 지우면 함께 사라지니, 가끔 위의 '백업 파일 저장'도 해 주세요. '파일도 저장'을 켜면 백업할 때 파일이 다운로드 폴더에도 저장돼요(폰 설정에 따라 막힐 수 있어요).</div></div>
   ${schCard()}
   <div class="card"><h2>🏠 홈 화면에 추가하기</h2><div>갤럭시에서는 <b>삼성 인터넷</b>이나 <b>크롬</b>으로 열어 주세요.<br>· 삼성 인터넷: 아래 메뉴(≡) → <b>현재 페이지 추가</b> → <b>홈 화면</b><br>· 크롬: 오른쪽 위 ⋮ → <b>홈 화면에 추가</b> (또는 앱 설치)<br>그러면 앱처럼 바로 열려요.</div></div>
-   <div class="vinfo"><button type="button" class="vbtn" onclick="verOpen(0)">JW Diary ${APP_VER.v}</button></div>`;abFill();}
+   <div class="vinfo"><button type="button" class="vbtn" onclick="verOpen(0)">JW Diary ${APP_VER.v}</button></div>`;setGroup();abFill();}
+/* v8.2 정리: 설정 카드를 다섯 묶음으로 접기 (카드 제목으로 찾아서 옮김, 버전 표시는 맨 아래 그대로) */
+const SET_G=[['sbk','💾 백업',['💾 백업 · 복원','🤖 자동 백업']],['snt','🔔 알림',['🔔 토리 알림']],['sui','🎨 화면 · 소리 · 이름',['기본 설정','🎨 배경 꾸미기','배경음악','⚙️ 효과음','🐹 햄스터 이름']],['sch','📅 일정 · 기념일',['📅 일정 · 기념일']],['shp','📖 도움말',['📖 사용법','🏠 홈 화면에 추가하기']]];
+function setGroup(){const el=$('s-set');if(!el)return;const vi=el.querySelector('.vinfo');if(vi)el.appendChild(vi);
+  const D=[],cards=[...el.querySelectorAll(':scope>.card')],tl=c=>{const h=c.querySelector('h2');return h?h.textContent.trim():'';};
+  SET_G.forEach(([k,t,names])=>{const m=cards.filter(c=>names.some(n=>tl(c)===n.replace(/\uFE0F/g,'')||tl(c)===n));if(!m.length)return;
+    const w=document.createElement('div');w.innerHTML=grp(k,t,' ');const d=w.firstElementChild,inn=d.querySelector('.grpin');inn.innerHTML='';m[0].before(d);m.forEach(c=>inn.appendChild(c));D.push(d);});
+  D.forEach(d=>el.appendChild(d));if(vi)el.appendChild(vi);}
 function chkBackup(d){
   const isO=x=>x&&typeof x==='object'&&!Array.isArray(x);
   if(!isO(d)||!Array.isArray(d.coupons))return null;
@@ -1970,11 +1990,11 @@ function wkKey(){const d=kst();return new Date(Date.UTC(d.getUTCFullYear(),d.get
 function wkChk(){if(S.wp.w!==wkKey())S.wp={w:wkKey(),c:{},d:{},done:[]};return S.wp;}
 function qList(){const t=todayStr();if(!S.qpick||S.qpick.d!==t){const a=S.qp.map(x=>x.id);for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}S.qpick={d:t,ids:a.slice(0,Math.max(0,+S.qn||0))};save();}return S.quests.concat(S.qp.filter(x=>S.qpick.ids.includes(x.id)));}
 function qDone(id){const ids=qToday(),q=qList().find(x=>x.id===id);if(!q||ids.includes(id))return;ids.push(id);
-  const Q=S.qdone,all=qList().length>1&&qList().every(x=>ids.includes(x.id)),base=Math.max(0,Math.min(+q.r||1,ECO.qCap-(Q.p||0))),bonus=all&&!Q.clr?ECO.clear:0;Q.p=(Q.p||0)+base;if(bonus)Q.clr=1;let g=base+bonus;if(g>0&&(S.boost||0)>0){S.boost--;g++;}S.acorns+=g;if(g)lucky();save();sfx('coin');toast(g?'🌰 +'+g+(bonus?' 올클리어 보너스!':' 퀘스트 완료!'):'퀘스트 완료! 오늘 퀘스트 도토리는 다 받았어요');rPet();}
+  const Q=S.qdone,all=qList().length>1&&qList().every(x=>ids.includes(x.id)),base=Math.max(0,Math.min(+q.r||1,ECO.qCap-(Q.p||0))),bonus=all&&!Q.clr?ECO.clear:0;Q.p=(Q.p||0)+base;if(bonus)Q.clr=1;let g=base+bonus;if(g>0&&(S.boost||0)>0){S.boost--;g++;}S.acorns+=g;if(g)lucky();save();sfx('coin');toast(g?'🌰 +'+g+(bonus?' 올클리어 보너스!':' 퀘스트 완료!'):'퀘스트 완료! 오늘 퀘스트 도토리는 다 받았어요');render();}
 function wDone(id){const q=S.wq.find(x=>x.id===id),w=wkChk();if(!q||w.d[id]===todayStr()||w.done.includes(id))return;
   w.d[id]=todayStr();w.c[id]=(w.c[id]||0)+1;let m='이번 주 '+w.c[id]+'/'+q.g+' 진행!';
   if(w.c[id]>=q.g){w.done.push(id);const r=Math.max(0,Math.min(+q.r||1,ECO.wkCap-(w.p||0)));w.p=(w.p||0)+r;S.acorns+=r;m=r?'🌰 +'+r+' 주간 퀘스트 완료!':'주간 퀘스트 완료! 이번 주 도토리는 다 받았어요';sfx('fan');fx('star',14);}else sfx('coin');
-  save();toast(m);rPet();}
+  save();toast(m);render();}
 function qEdit(){modal(`<h3>퀘스트 편집</h3>${qTkMsg()}<div class="muted" style="margin-bottom:8px">이름에 "운동"이 들어간 퀘스트는 운동을 기록하면 자동으로 체크돼요.</div><div class="muted">매일 고정</div>${S.quests.map(q=>`<div class="q"><span>${esc(q.e)} ${esc(q.n)} <span class="muted">🌰${q.r}</span></span><button class="btn ghost sm" onclick="qDel('d','${q.id}')">✕</button></div>`).join('')}<div class="muted" style="margin-top:8px">주간 퀘스트</div>${S.wq.map(q=>`<div class="q"><span>${esc(q.e)} ${esc(q.n)} <span class="muted">주 ${q.g}회·🌰${q.r}</span></span><button class="btn ghost sm" onclick="qDel('w','${q.id}')">✕</button></div>`).join('')}
   <div class="muted" style="margin-top:8px">랜덤 후보 (오늘 하루 ${S.qn}개를 뽑아요)</div>${S.qp.map(q=>`<div class="q"><span>${esc(q.e)} ${esc(q.n)} <span class="muted">🌰${q.r}</span></span><button class="btn ghost sm" onclick="qDel('p','${q.id}')">✕</button></div>`).join('')}
   <label>하루에 뽑을 랜덤 퀘스트 개수</label><select onchange="S.qn=+this.value;S.qpick=null;window.qTkM='오늘 랜덤 퀘스트는 '+S.qn+'개로 다시 뽑는다코! 🎲';save();qEdit()">${[0,1,2,3,4].map(n=>`<option value="${n}" ${S.qn===n?'selected':''}>${n}개</option>`).join('')}</select>
@@ -2228,6 +2248,8 @@ function shFullHtml(){const a=shList(),c=coinOf(),on=v=>v?'wood':'ghost';if(SHV.
   (a.slice(SHV.pg*SH_PG,SHV.pg*SH_PG+SH_PG).map(m=>{const o=shOwn(m),ok=c>=m.p;return `<div class="q ${o||!ok?'dim':''}"><span>${m.e} ${esc(m.name)}<div class="muted">${m.t}${m.c==='사진'?'':' · '+esc(m.d)}</div></span>${o?'<span class="muted">보유 ✔</span>':`<button class="btn sm ${ok?'wood':'ghost'}" ${ok?'':'disabled'} onclick="shAsk(${m.n})">🪙 ${m.p}</button>`}</div>`;}).join('')||'<div class="empty">보여 줄 물건이 없어요</div>')+
   (a.length>SH_PG?`<div class="row sp" style="margin-top:10px"><button class="btn sm" onclick="shPg(-1)">◀ 이전</button><span class="muted">${SHV.pg+1} / ${Math.ceil(a.length/SH_PG)}</span><button class="btn sm" onclick="shPg(1)">다음 ▶</button></div>`:'');}
 function shDraw(){const e=$('shop');if(e)e.innerHTML=shopHtml();const o=$('shopov');if(o){const t=o.scrollTop;o.innerHTML=shFullHtml();o.scrollTop=t;}}
+/* v8.1 정리: 퀘스트는 홈으로 (오늘 + 주간 한 카드) */
+function questCard(){const ids=qToday(),w=wkChk();return `<div class="card"><div class="row sp"><h2>📜 오늘의 퀘스트</h2><button class="btn ghost sm" onclick="qEdit()">✏️ 편집</button></div>${qList().map(q=>{const d=ids.includes(q.id);return `<div class="q ${d?'dim':''}"><span>${esc(q.e)} ${esc(q.n)}</span><button class="btn sm" ${d?'disabled':''} onclick="qDone('${q.id}')">${d?'완료':'+🌰'+q.r}</button></div>`;}).join('')||'<div class="empty">퀘스트를 추가해 보세요.</div>'}<div class="muted" style="margin-top:6px">모두 클리어하면 보너스 🌰${ECO.clear}! 퀘스트 도토리는 하루 최대 ${ECO.qCap}개예요. 도감에 새 장소를 기록하면 하루 한 번 🌰${ECO.dex}를 얻어요.</div><h3 class="qh3">📅 주간 퀘스트</h3>${S.wq.map(q=>{const c=w.c[q.id]||0,dn=w.done.includes(q.id),td=w.d[q.id]===todayStr();return `<div class="q ${dn?'dim':''}"><span>${esc(q.e)} ${esc(q.n)}<div class="muted">${c}/${q.g}회 · 🌰${q.r}</div></span><button class="btn sm" ${dn||td?'disabled':''} onclick="wDone('${q.id}')">${dn?'완료':td?'오늘 함':'+1'}</button></div>`;}).join('')||'<div class="empty">✏️ 편집에서 주간 퀘스트를 추가해 보세요.</div>'}</div>`;}
 function rPet(){const f=S.fed,LI=lvInfo(f),lv=LI.lv,ids=qToday(),w=wkChk(),md=mood();
   $('s-pet').innerHTML=`<div class="card"><div class="row"><span class="pavw"><img id="pav" class="${md[1]==='sleep'?'night':''} ${avCls()}" src="${AVATAR}" alt="" style="width:72px;height:72px;border:3px solid var(--ol);image-rendering:pixelated">${accHtml()}</span><div style="flex:1"><h2 style="margin:0">${esc(hn())}</h2><div>Lv.${lv} ${lvName(lv)}</div>${titleLine()}<div class="muted">${LI.max?'EXP MAX · 최고 레벨!':'EXP '+LI.cur+'/'+LI.need}</div><div class="bar"><i style="width:${LI.max?100:Math.round(LI.cur/LI.need*100)}%"></i></div></div></div>
   <div class="muted" style="margin-top:8px">💬 ${esc(hn())}: ${md[0]}</div>${toriLine()}${stLine()}
@@ -2236,10 +2258,7 @@ function rPet(){const f=S.fed,LI=lvInfo(f),lv=LI.lv,ids=qToday(),w=wkChk(),md=mo
   <button class="btn ghost full" style="margin-top:8px" ${S.freeD===todayStr()?'disabled':''} onclick="freeFeed()">${S.freeD===todayStr()?'🍚 오늘 밥은 먹었어요':'🍚 밥 주기 (무료 · 하루 1번)'}</button>
   <div class="muted" style="margin-top:4px">밥은 배고픔만 채워 줘요. 도토리를 주면 레벨이 오르고 도토리 코인이 생겨요.</div>
   <div class="muted" style="margin-top:8px">🪙 쓸 수 있는 코인 ${coinOf()}개 · 아래 상점에서 쓸 수 있어요</div></div>
-  <div class="card"><div class="row sp"><h2>📜 오늘의 퀘스트</h2><button class="btn ghost sm" onclick="qEdit()">✏️ 편집</button></div>${qList().map(q=>{const d=ids.includes(q.id);return `<div class="q ${d?'dim':''}"><span>${esc(q.e)} ${esc(q.n)}</span><button class="btn sm" ${d?'disabled':''} onclick="qDone('${q.id}')">${d?'완료':'+🌰'+q.r}</button></div>`;}).join('')||'<div class="empty">퀘스트를 추가해 보세요.</div>'}<div class="muted" style="margin-top:6px">모두 클리어하면 보너스 🌰${ECO.clear}! 퀘스트 도토리는 하루 최대 ${ECO.qCap}개예요. 도감에 새 장소를 기록하면 하루 한 번 🌰${ECO.dex}를 얻어요.</div></div>
-  <div class="card"><h2>📅 주간 퀘스트</h2>${S.wq.map(q=>{const c=w.c[q.id]||0,dn=w.done.includes(q.id),td=w.d[q.id]===todayStr();return `<div class="q ${dn?'dim':''}"><span>${esc(q.e)} ${esc(q.n)}<div class="muted">${c}/${q.g}회 · 🌰${q.r}</div></span><button class="btn sm" ${dn||td?'disabled':''} onclick="wDone('${q.id}')">${dn?'완료':td?'오늘 함':'+1'}</button></div>`;}).join('')||'<div class="empty">✏️ 편집에서 주간 퀘스트를 추가해 보세요.</div>'}</div>
-  ${mgList()}${accCard()}${titleCard()}${decoCard()}
-  <div class="card"><h2>🪙 도토리 상점</h2><div id="shop">${shopHtml()}</div></div>${albumCard()}`;}
+  <div class="card"><h2>🪙 도토리 상점</h2><div id="shop">${shopHtml()}</div></div>${decoCard()}${accCard()}${titleCard()}${albumCard()}`;}
 /* ---------- 토리 앨범 (보물상자에서 얻은 사진) ---------- */
 let albPg=0;
 function albGo(p){albPg=p;const e=document.getElementById('albc');if(e)e.outerHTML=albumCard();}
