@@ -22,6 +22,45 @@ N['squi'] = [
  "........kkkkkk..",
  "................",
 ]
+# 🦉 부엉박사: 앞모습 전신 — 학사모(술 노랑) + 금테 안경, 귀깃, 가슴 깃 무늬, 주황 발 (사용자가 B안 고름 2026.10.07)
+N['owl'] = [
+ "....kkkkkkkk....",
+ "..kmmmmmmmmmmk..",
+ "..kDkmmmmmmkDy..",
+ "..kDDkkkkkkDDy..",
+ ".kDDDDDDDDDDDDk.",
+ ".kDdYYYDDYYYdDk.",
+ "kDdYshkYYkhsYdDk",
+ "kDdYskkYYkksYdDk",
+ "kDDdYYYyyYYYdDDk",
+ "kdDDDDsYYsDDDDdk",
+ "kdDtbtbttbtbtDdk",
+ "kdDbtbtbbtbtbDdk",
+ ".kdDtbttttbtDdk.",
+ ".kDDttttttttDDk.",
+ "..kkkkkkkkkkkk..",
+ ".....oo..oo....."
+]
+# 🐱 냐옹이: 앞모습 전신 치즈 고양이 — 분홍 귀, 초록 눈, 흰 입·가슴, 빨간 목걸이 금방울, 오른쪽 꼬리 (B안)
+N['cat'] = [
+ ".kk..........kk.",
+ ".kpk........kpk.",
+ ".kppkkkkkkkkppk.",
+ ".kOOOOoOOoOOOOk.",
+ "kOZOOOOOOOOOOZOk",
+ "kOZOgkOOOOkgOZOk",
+ "kOOOkkOOOOkkOOOk",
+ "kOOOOhhhhhhOOOOk",
+ ".kOOOhhpphhOOOOk",
+ "..kkOhkhhkhOkOk.",
+ "...krrrrrrrrkOk.",
+ "...kOOhyyhOOkOk.",
+ "..kOZOhhhhOZOk..",
+ "..kOOOhhhhOOOk..",
+ "..kOOkhkkhkOOk..",
+ "...kkkkkkkkkk..."
+]
+
 for k, v in N.items():
     assert len(v) == 16 and all(len(r) == 16 for r in v), (k, [len(r) for r in v])
 print(json.dumps({'q_' + k: v for k, v in N.items()}))

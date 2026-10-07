@@ -374,7 +374,7 @@ def gold():
     c.outline(); return c
 
 
-SUS = {'owl': owl, 'cat': cat}   # v8.1: 도치는 앱의 전신 이모지 q_dochi, 다람쥐 호두는 전신 이모지 q_squi(tools/icons/sp6.py)로 바꿈(사용자 요청). dochi()·squirrel() 그림은 남겨 둠
+SUS = {}   # v8.3: 부엉박사·냐옹이도 전신 이모지(q_owl·q_cat, tools/icons/sp6.py)로 바꿈. owl()·cat() 얼굴 그림은 남겨 둠   # v8.1: 도치는 앱의 전신 이모지 q_dochi, 다람쥐 호두는 전신 이모지 q_squi(tools/icons/sp6.py)로 바꿈(사용자 요청). dochi()·squirrel() 그림은 남겨 둠
 ITEMS = {'basket': basket, 'rod': rod, 'umb': umb, 'pail': pail, 'mag': mag, 'gold': gold}
 
 
