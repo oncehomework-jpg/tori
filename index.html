@@ -216,7 +216,7 @@ nav button{padding:15px 2px 15px;font-size:16px}
 @keyframes tkin{from{transform:translate(-50%,-170%)}to{transform:translate(-50%,0)}}
 #tako img{width:64px;height:64px;flex:none;image-rendering:pixelated;animation:bob 1.6s steps(2) infinite}
 #tako .tn{color:var(--gold);font-size:14px}
-#tako .tbr{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}#tako .tx{margin-left:auto;color:var(--mut);align-self:flex-start}
+#tako .tbr{display:flex;flex-wrap:nowrap;gap:6px;margin-top:8px}#tako .tbr .btn{flex:1 1 0;min-width:0;padding-left:2px;padding-right:2px;white-space:nowrap}#tako .tb{min-width:0}@media (max-width:370px){#tako .tbr{display:grid;grid-template-columns:1fr 1fr}}#tako .tx{margin-left:auto;color:var(--mut);align-self:flex-start}
 /* ===== 타코 팝업: 아래에서 폴짝 · 타코 + 말풍선만 ===== */
 #tako{top:auto;transform:translate(-50%,190%);z-index:120;align-items:flex-end;gap:8px;background:none;border:0;box-shadow:none;padding:0;pointer-events:none}
 #tako.on,#tako.off{opacity:1}
@@ -1777,7 +1777,7 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
 const APP_VER={v:'v8.1',d:'2026.10.07',log:['보드게임에 새 추리 게임 "사라진 도토리 사건"이 들어왔어요','장소를 조사하고 누가 · 무엇으로 · 어디서 황금 도토리를 가져갔는지 맞혀요 (어려움은 범인이 거짓말을 해요)','새 친구: 다람쥐 호두 · 부엉 박사 · 고양이 나비']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
- {v:'v8.1',d:'2026.10.07',log:['보드게임에 새 추리 게임 "사라진 도토리 사건"이 들어왔어요','장소 6곳(토리의 방 · 챗바퀴 놀이터 · 도토리 숲 · 바닷가 · 무대 · 부엌)을 조사하고 증거와 친구들 말로 누가 · 무엇으로 · 어디서 가져갔는지 맞혀요','어려움에서는 범인이 거짓말을 해요. 맞히면 🌰1, 적게 조사하고 맞히면 🌰2','새 친구: 다람쥐 호두 · 부엉 박사 · 고양이 나비']},
+ {v:'v8.1',d:'2026.10.07',log:['보드게임에 새 추리 게임 "사라진 도토리 사건"이 들어왔어요','장소 6곳(토리의 방 · 챗바퀴 놀이터 · 도토리 숲 · 바닷가 · 무대 · 부엌)을 조사하고 증거와 친구들 말로 누가 · 무엇으로 · 어디서 가져갔는지 맞혀요','어려움에서는 범인이 거짓말을 해요. 맞히면 🌰1, 적게 조사하고 맞히면 🌰2','새 친구: 다람쥐 호두 · 부엉 박사 · 고양이 나비','홈에서 장식을 눌렀을 때 타코 말풍선의 버튼 4개가 한 줄에 나란히 보여요']},
  {v:'v8.0',d:'2026.10.07',log:['도토리 상점에 새 사진 150장이 들어왔어요 (일반 20코인, 전설 16장은 40코인)','새 테마: 조선·신라·고려·한복, 고대 그리스·이집트, 헤이안·겐지모노가타리, 상어·펭귄·타조, 수영장·목욕, 우주·심해 등 — 앨범에서 모아 볼 수 있어요','이미 산 사진과 코인은 그대로예요']},
  {v:'v7.9',d:'2026.10.07',log:['보물상자가 도토리 상점으로 바뀌었어요: 토리에게 도토리를 주면 준 만큼 도토리 코인이 생기고, 코인으로 원하는 쿠폰·사진·타코 축복·꾸미기·편의 아이템을 골라 살 수 있어요 (한 번만 살 수 있어요)','이미 연 상자는 전부 보유로 남아 있고, 레벨과 준 도토리는 그대로예요','햄스터 탭에는 코인과 지금 살 만한 것 3개만 보이고, 상점 전체 보기에서 탭(쿠폰·사진·타코 축복·꾸미기·편의)과 살 수 있는 것만 보기로 싼 순으로 볼 수 있어요']},
  {v:'v7.8',d:'2026.10.06',log:['홈에 새 "🎳 보드게임" 칸: 스도쿠(쉬움·보통·어려움, 메모·힌트·되돌리기, 중간에 나가도 저장)와 티츄(진우·토리 팀 대 타코·도치 팀, 컴퓨터 3명, 200점 먼저 넘기면 승리)','보상: 스도쿠 다 풀면 🌰1(어려움 🌰2), 티츄 이기면 🌰2 — 미니게임과 합쳐 하루 2번','보드게임 아이콘과 티츄 특수 카드(참새·강아지·봉황·용)를 새로 그렸어요','보드게임 대사: 티츄에서 토리(찍찍!)·타코(~다코)·도치(허세 많은 "가시 대장")가 카드 낼 때·패스·티츄·폭탄·용·판 끝에 한마디, 스도쿠에선 토리가 옆에서 응원','햄스터·설정 탭 위에 바로 가기 칸, 많이 내려가면 "맨 위로" 버튼, 한글이 단어 중간에서 끊기지 않게','눈사람 타코 모자 아래·목도리 위에 검은 테두리','설정 백업 칸: "파일 저장"과 "파일에서 복원" 버튼을 한 줄에 나란히']},
