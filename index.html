@@ -14,9 +14,6 @@
 <title>JW Diary</title>
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@2.39.2/dist/galmuri.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neodgm/neodgm-webfont@1.530/neodgm/style.css">
 <style>
 :root{--bg:#efe2c6;--bg2:#e7d6b1;--win:#fbf3df;--win2:#dcc59b;--in:#b89a6a;--tx:#4a3423;--mut:#66502f;--gold:#a8641a;--grn:#5f8f3e;--pk:#e79aa8;--pink-l:#f6d9de;--grass-d:#5f8f3e;--ol:#5a3d24;--ol2:#3b2a1e;--cream:#fffaf0;box-sizing:border-box}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -88,7 +85,7 @@ nav button.on{color:var(--gold);background:var(--win)}
 #warn{display:none;background:#c0392b;color:#fffaf0;padding:8px 14px;font-size:13px;text-align:center}
 .dd{font-size:22px;color:var(--gold);min-width:74px;text-align:right}
 
-body{-webkit-font-smoothing:none;font-smooth:never;text-rendering:optimizeSpeed}
+body{-webkit-font-smoothing:auto;font-smooth:auto;text-rendering:optimizeSpeed}
 .card,.box{box-shadow:0 0 0 4px var(--ol2),0 8px 0 4px var(--ol2),inset 0 0 0 3px var(--win2)}
 .badge{color:#fffaf0}.g-전설{color:var(--ol2)}
 .btn.pink{color:#4a1f2a}.btn.ghost{background:transparent}
@@ -112,9 +109,9 @@ nav button b .pxi{width:32px;height:32px}
 
 /* ===== v3: pixel title / pixel font / cute pattern ===== */
 @font-face{font-family:'JWPixel';src:url(assets/jwpixel-5b68f342.otf) format('opentype');font-display:swap}
-:root{--cream:#fffaf0;--px:'NeoDunggeunmo','JWPixel','Galmuri11','Galmuri9',monospace}
+:root{--cream:#fffaf0;--px:'Galmuri11','JWPixel','Apple SD Gothic Neo',sans-serif}
 *,*::before,*::after{font-family:var(--px)!important;font-synthesis:none}
-body{font-size:calc(16px*var(--fs,1));line-height:1.45;background-image:none;-webkit-font-smoothing:none}
+body{font-size:calc(16px*var(--fs,1));line-height:1.45;background-image:none;-webkit-font-smoothing:auto}
 b,strong{font-weight:400;color:var(--gold)}
 b.qty{color:var(--grn)}
 body::before{content:'';position:fixed;inset:-144px;z-index:-1;pointer-events:none;background:var(--bgi-acorn) 0 0/144px 144px;image-rendering:pixelated;animation:drift 30s steps(48) infinite}
@@ -390,6 +387,22 @@ body{word-break:keep-all;overflow-wrap:break-word}
 input[type=range]{accent-color:var(--gold)}
 /* v7.8 백업 칸: 파일 저장 · 파일에서 복원을 한 줄에 반씩 */
 .bkpair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}.bkpair .btn{width:100%;display:block;text-align:center;white-space:normal;padding-left:4px;padding-right:4px;font-size:calc(15px*var(--fs,1))!important}
+
+/* v8.9: 글꼴을 앱과 함께 보관해서 오프라인·아이폰에서도 같은 글꼴을 써요. */
+@font-face{font-family:'Galmuri11';src:url('assets/font-galmuri11.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Galmuri11';src:url('assets/font-galmuri11-bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Galmuri14';src:url('assets/font-galmuri14.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+/* Local game and shop layout, no changes to saved records or rewards. */
+.shop-pages{position:static;display:flex;justify-content:center;align-items:center;gap:3px;flex-wrap:nowrap;margin-top:14px;padding:0;background:none;border:0;box-shadow:none;width:100%;z-index:auto}
+.shop-pages .btn{flex:0 1 42px;min-width:32px;min-height:44px;padding:6px 2px;font-size:14px}.shop-pages .btn[aria-current="page"]{outline:2px solid var(--gold);outline-offset:1px}
+.mg-entry{display:grid;grid-template-columns:48px minmax(0,1fr);align-items:start}.mg-entry-icon{grid-column:1;grid-row:1/3}.mg-entry-text{grid-column:2;min-width:0;line-height:1.65;word-break:keep-all;overflow-wrap:break-word}.mg-entry-text b{display:block;line-height:1.55;font-size:16px}.mg-entry-text .muted{margin-top:5px;line-height:1.7;font-size:14px}.mg-entry-start{grid-column:2;justify-self:start;margin-top:8px;min-width:80px;min-height:44px;white-space:nowrap}
+.playc .playin>.card{padding:12px 0;border:0;box-shadow:none;background:none}.playc .playin{min-width:0}#mg{padding:12px 10px calc(12px + env(safe-area-inset-bottom,0px));overflow-y:auto;touch-action:pan-y!important}#mg canvas{flex-shrink:0;width:320px!important;max-width:calc(100vw - 32px)!important;height:auto!important;max-height:none!important;box-sizing:content-box;image-rendering:auto}#mg .row{flex-shrink:0}#mgh{font-family:'Galmuri11','Apple SD Gothic Neo',sans-serif;line-height:1.6;font-size:16px;max-width:320px;word-break:keep-all}
+@media(max-height:620px){#mg{justify-content:flex-start!important}}
+.tc-team{background:var(--win);border:2px solid var(--in);border-radius:8px;padding:10px;margin:12px 0}.tc-team h3{margin:0 0 5px;font-size:16px}.tc-team .team-reply{line-height:1.7;font-size:14px;word-break:keep-all;overflow-wrap:break-word}.tc-team-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}.tc-team-options .btn{min-height:44px;white-space:normal;line-height:1.4;font-size:13px;padding:7px 5px}.tc-team small{display:block;font-size:12px;line-height:1.6;margin-top:6px;color:var(--mut)}
+
+
+/* Compact category tabs and square game selection. */
+.playtabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:8px 0 12px}.playtabs .playtab{min-height:36px;padding:6px 3px;background:#ead9bc;color:#5b402b;border-color:#baa07b;font-size:calc(12px*var(--fs,1))!important;line-height:1.3;white-space:nowrap}.playtabs .playtab.chosen{background:#b58a60;color:#fff8ec;border-color:#805738}.playtabs .playtab[aria-selected=true]{box-shadow:inset 0 -2px #805738}.mg-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.mg-square{aspect-ratio:1;border:2px solid #c7ab80;border-bottom:4px solid #af8c61;border-radius:9px;background:#f6ecdb;color:#573e2b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:9px;font:inherit;min-width:0;touch-action:manipulation}.mg-square b{font-size:13px;line-height:1.5;word-break:keep-all}.mg-square small{font-size:11px;color:#755e47}.mg-square-icon{font-size:36px;line-height:1}.gameintro{text-align:center;padding:18px 4px}.gameintro h3{font-size:16px;margin:0 0 8px}.gameintro p{font-size:12px;line-height:1.8}.playin #bgcard{margin:0;padding:0;border:0;box-shadow:none}.df-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}.df-image{width:100%;aspect-ratio:240/300;display:block;touch-action:manipulation;border:2px solid #987347;border-radius:5px;background:#f6ebd8}.df-caption{text-align:center;font-size:11px;margin:4px 0 7px}.df-controls{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}.df-controls .btn{flex:1;min-width:80px}.df-note{min-height:40px;font-size:12px;line-height:1.7;margin-top:10px}.df-score{font-size:14px;margin-bottom:12px}
 </style>
 </head>
 <body>
@@ -495,7 +508,7 @@ function bkLater(){const d=new Date(Date.parse(todayStr()+'T00:00:00Z')+BK_DAYS*
 /* v8.2 정리: 접는 묶음(열림 상태는 S.gOpen에 기억) · 놀이 카드(미니게임/보드게임 탭) */
 function grp(k,title,inner,cls){const o=S.gOpen&&S.gOpen[k];return inner?`<details class="card grp${cls?' '+cls:''}" ${o?'open':''} ontoggle="gTog('${k}',this.open)"><summary><h2>${title}</h2></summary><div class="grpin">${inner}</div></details>`:'';}
 function gTog(k,v){if(!S.gOpen||typeof S.gOpen!=='object')S.gOpen={};if(!!S.gOpen[k]===v)return;if(v)S.gOpen[k]=1;else delete S.gOpen[k];save();}
-function playCard(){const t=S.playT==='bg'?'bg':'mg';return `<div class="card playc"><h2>🎮 놀이</h2><div class="row"><button class="btn full ${t==='mg'?'wood':'ghost'}" onclick="playT('mg')">미니게임</button><button class="btn full ${t==='bg'?'wood':'ghost'}" onclick="playT('bg')">보드게임</button></div><div class="playin">${t==='mg'?mgList():(typeof bdgCard==='function'?bdgCard():'')}</div></div>`;}
+function playCard(){const t=['mg','bg','mj','diff'].includes(S.playT)?S.playT:'mg';return `<div class="card playc"><h2>🎮 놀이</h2><div class="playtabs" role="tablist" aria-label="놀이 종류">${[['mg','미니게임'],['bg','보드게임'],['mj','마작'],['diff','틀린 그림 찾기']].map(([k,n])=>`<button class="btn playtab ${t===k?'chosen':''}" role="tab" aria-selected="${t===k}" onclick="playT('${k}')">${n}</button>`).join('')}</div><div class="playin" role="tabpanel">${t==='mg'?mgList():t==='bg'?(typeof bdgCard==='function'?bdgCard():''):t==='mj'?`<div class="gameintro"><h3>토리네 마작방</h3><p>토리·타코·부엉박사와 동풍전!<br>냐옹이와 도치도 옆에서 함께해요.</p><button class="btn wood" onclick="mjRoomOpen()">마작방 들어가기</button></div>`:`<div class="gameintro"><h3>토리의 틀린 그림 찾기</h3><p>두 그림을 비교해 다른 곳 5개를 찾아요.<br>6가지 작은 풍경을 천천히 둘러봐요.</p><button class="btn wood" onclick="dfOpen()">그림 찾기 시작</button></div>`}</div></div>`;}
 function playT(t){S.playT=t;save();const c=document.querySelector('.playc');if(c)c.outerHTML=playCard();}
 function rHome(){
   const left=S.coupons.reduce((a,c)=>a+(+c.qty||0),0),y=+todayStr().slice(0,4),nb=nextBday();
@@ -688,7 +701,38 @@ async function icsDl(){const h=$('rh').value,t=todayStr().replace(/-/g,''),ics=[
 const MGS={a:["..kkkk..",".kddddk.","kddddddk",".kbbbbk.",".kbbbbk.","..kbbk..","...kk...","........"],g:["..kkkk..",".kYYYYk.","kYYYYYYk",".kyyyyk.",".kyyyyk.","..kyyk..","...kk...","........"],r:["........","..kkkk..",".kssssk.","kssttssk","kssssssk",".kkkkkk.","........","........"],h:[".k....k.","kpk..kpk","kbbbbbbk","kbkbbkbk","kbbppbbk",".kwwwwk.","..kkkk..","........"]};
 const MGP={k:'#4a3423',d:'#9a6b3c',b:'#d9b98a',Y:'#d99a2b',y:'#f4c542',s:'#b5b5b5',t:'#8a8a8a',p:'#f2a9b6',w:'#fffaf0'};
 function mgList(){const G=[['🌰','도토리 받기','떨어지는 도토리를 바구니로 받아요. 돌은 피하세요!','mgOpen()'],['🐙','타코 띄워 주기','화면을 꾹 눌러 타코를 띄워 주세요. 바위와 해파리는 피해 헤엄치고, 수면에 5초 붙어 있으면 지쳐요!','mg2Open()'],['🎸','기타리스트','음표가 노란 선에 닿을 때 그 줄을 탭해요. 토리와 타코가 응원해요!','mg3Open()'],['🐹','토리의 챗바퀴','박자에 맞춰 탭하면 토리가 빨리 달려요. 30초 동안 몇 바퀴 도는지 겨뤄요!','mg4Open()']].concat(halWeek()?[['👻','유령 잡기 · 할로윈 주간','호박 등불에서 튀어나오는 유령을 탭해서 잡아요! 보라 유령은 3점, 박쥐를 누르면 -2점. 10월 25~31일에만 열려요.','mg5Open()'],['🎃','토리의 사탕 미로 · 할로윈 주간','마녀 모자를 쓴 토리를 손가락으로 밀어 움직여 사탕을 모아요. 호박 등불을 먹으면 유령이 겁먹어서 잡을 수 있어요! 10월 25~31일에만 열려요.','mg6Open()']]:[]).concat(mjWeek()?[['🀄','마작패 짝 맞추기 · 11월 마지막 주','진짜 마작패 20장을 두 장씩 뒤집어 같은 패를 찾아요. 시도가 적을수록 별이 많아요. 11월 24~30일에만 열려요.','mg7Open()']]:[]).concat(xmWeek()?[['🎅','루돌프 썰매 배달 · 크리스마스 주간','탭하면 썰매에서 선물이 떨어져요. 굴뚝에 쏙 넣어 주세요! 루돌프 코가 반짝일 때 넣으면 2배. 12월 18~25일에만 열려요.','mg8Open()'],['🎄','도망가는 루돌프를 잡아라! · 크리스마스 주간','손가락을 끌면 산타 모자 토리가 그쪽으로 달려요. 도망가는 루돌프를 잡으면 선물이 떨어져요! 눈더미에선 느려지고 얼음판은 미끄러워요. 당근을 주우면 루돌프가 3초 느려져요. 45초 동안 3마리면 도토리 1개, 6마리면 2개. 12월 18~25일에만 열려요.','mg9Open()']]:[]);
-  return `<div class="card"><h2>🎮 미니게임</h2>${G.map((g,i)=>`<div class="row" style="gap:12px;padding:10px 0;${i?'border-top:2px dashed var(--in)':''}"><span style="font-size:40px;line-height:1;flex:none">${g[0]}</span><div style="flex:1;min-width:0"><b>${g[1]}</b><div class="muted">${g[2]}</div></div><button class="btn sm" onclick="${g[3]}">시작</button></div>`).join('')}</div>`;}
+  return `<div class="mg-grid">${G.map(g=>`<button class="mg-square" onclick="${g[3]}" aria-label="${g[1]}. ${g[2]}"><span class="mg-square-icon">${g[0]}</span><b>${g[1].split(' · ')[0]}</b><small>${g[1].includes(' · ')?g[1].split(' · ')[1]:'탭해서 시작'}</small></button>`).join('')}</div>`;}
+
+
+let mjLoadTimer=0,mjOverflow='';
+// Six original little scenes. Artwork and differences share the same coordinate system.
+const DF={stage:0,found:[],hint:-1};
+const DF_SCENES=[['토리의 간식방','#efe0c4','#bc9368'],['햇살 정원','#dde6c5','#95af72'],['타코의 바닷가','#d5e5df','#8fb7ac'],['노을 캠핑','#ebd8c7','#b9917b'],['토리의 책방','#e9dcc9','#ac9577'],['가을 피크닉','#eadfc0','#bca46b']];
+const DF_SPOTS=[{x:50,y:58,r:22,n:'창가 장식'},{x:183,y:62,r:23,n:'액자'},{x:41,y:177,r:24,n:'화분'},{x:195,y:186,r:24,n:'간식 접시'},{x:121,y:252,r:27,n:'바닥 무늬'}];
+function dfOpen(){bgStop();DF.stage=0;dfShow();}
+function dfShow(){DF.found=[];DF.hint=-1;const body=bgShell('틀린 그림 찾기',()=>bgStart());body.innerHTML=`<div class="df-score" id="df-score"></div><div class="df-pair">${[0,1].map(i=>`<div><div class="df-caption">${i?'비교 그림':'기준 그림'}</div><canvas width="480" height="600" class="df-image" id="df-c${i}" role="img" aria-label="${i?'다른 곳을 찾을 비교':'기준'} 그림"></canvas></div>`).join('')}</div><p class="df-note" id="df-note" aria-live="polite">두 그림에서 다른 곳을 눌러요. 어느 쪽 그림을 눌러도 돼요!</p><div class="df-controls"><button class="btn ghost" onclick="dfHint()">힌트</button><button class="btn wood" id="df-next" onclick="dfNext()" disabled>다 찾으면 다음 그림</button></div><p class="muted">시간제한 없이 천천히 즐겨요. 그림 위의 표시도 함께 움직여요.</p>`;[0,1].forEach(i=>{$('df-c'+i).addEventListener('pointerup',e=>{const r=e.currentTarget.getBoundingClientRect();dfTap((e.clientX-r.left)/r.width*240,(e.clientY-r.top)/r.height*300);});});dfPaint();}
+function dfPaint(){const [name,wall,wood]=DF_SCENES[DF.stage];$('df-score').textContent=(DF.stage+1)+' / '+DF_SCENES.length+' · '+name+' · '+DF.found.length+' / 5';[0,1].forEach(side=>{const c=$('df-c'+side),x=c.getContext('2d');x.setTransform(2,0,0,2,0,0);x.clearRect(0,0,240,300);x.fillStyle=wall;x.fillRect(0,0,240,300);x.fillStyle=wood;x.fillRect(0,219,240,81);x.fillStyle='#f6eddb';x.fillRect(14,14,212,203);x.strokeStyle='#98724e';x.lineWidth=3;x.strokeRect(14,14,212,203);for(let y=234;y<300;y+=20){x.strokeStyle='#ffffff25';x.beginPath();x.moveTo(0,y);x.lineTo(240,y);x.stroke();}
+ // Window, portrait, plant, snack and rug: all five changes are deliberate and visible.
+ x.fillStyle='#98724e';x.fillRect(24,29,53,57);x.fillStyle='#bbd8dc';x.fillRect(28,33,45,49);x.strokeStyle='#98724e';x.beginPath();x.moveTo(50,33);x.lineTo(50,82);x.moveTo(28,58);x.lineTo(73,58);x.stroke();x.fillStyle=side?'#bc7284':'#e8b753';x.beginPath();x.arc(DF.stage%2?37:61,44,side?8:6,0,Math.PI*2);x.fill();
+ x.fillStyle='#b58d61';x.fillRect(156,35,54,54);x.fillStyle='#fbf2df';x.fillRect(160,39,46,46);x.fillStyle=side?'#628b85':'#ae764e';x.beginPath();if(side){x.moveTo(183,47);x.lineTo(199,72);x.lineTo(167,72);}else{x.rect(172,49,22,22);}x.fill();
+ x.fillStyle='#ae744e';x.fillRect(25,184,32,25);x.fillStyle=side?'#718c55':'#8ca75f';x.beginPath();x.ellipse(36,172,10,21,-.35,0,Math.PI*2);x.fill();if(!side){x.beginPath();x.ellipse(48,167,9,18,.45,0,Math.PI*2);x.fill();}x.fillStyle='#d99a97';x.beginPath();x.arc(37,151,6,0,Math.PI*2);x.fill();
+ x.fillStyle='#dbc7a5';x.beginPath();x.ellipse(195,197,27,10,0,0,Math.PI*2);x.fill();for(let n=0;n<(side?2:3);n++){x.fillStyle=n%2?'#af784a':'#bd8b54';x.beginPath();x.arc(177+n*15,187,8,0,Math.PI*2);x.fill();x.fillStyle='#694d34';x.fillRect(175+n*15,184,3,3);}
+ x.fillStyle='#f3dcc0';x.beginPath();x.ellipse(121,256,49,20,0,0,Math.PI*2);x.fill();x.strokeStyle=side?'#83a19a':'#c2936a';x.lineWidth=4;x.beginPath();if(side){x.moveTo(100,256);x.lineTo(142,256);}else{x.moveTo(110,247);x.lineTo(121,263);x.lineTo(132,247);}x.stroke();
+ // Tori and Tako are drawn in the app's existing small pixel style.
+ const sp=window.PXA;if(sp){function sprite(key,px,py,scale){const grid=sp.SP[key];if(!grid)return;for(let j=0;j<grid.length;j++)for(let k=0;k<grid[j].length;k++){const col=sp.PAL[grid[j][k]];if(col){x.fillStyle=col;x.fillRect(px+k*scale,py+j*scale,scale,scale);}}}sprite('q_hamster',90,119,3);sprite('q_octopus',139,136,2);}
+ // A friendly hamster always appears, even when icon keys are unavailable.
+ x.fillStyle='#d7b489';x.beginPath();x.ellipse(119,170,31,36,0,0,Math.PI*2);x.fill();x.fillStyle='#d7b489';[99,139].forEach(cx=>{x.beginPath();x.arc(cx,139,12,0,Math.PI*2);x.fill();});x.fillStyle='#f7e5c6';x.beginPath();x.ellipse(119,183,24,21,0,0,Math.PI*2);x.fill();x.fillStyle='#48372b';[108,130].forEach(cx=>x.fillRect(cx,161,4,5));x.fillRect(117,173,4,3);x.fillStyle='#e6a79b';x.fillRect(101,171,8,4);x.fillRect(130,171,8,4);
+ for(const i of DF.found){const p=DF_SPOTS[i];x.strokeStyle='#3c7656';x.lineWidth=3;x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.stroke();}if(DF.hint>=0){const p=DF_SPOTS[DF.hint];x.strokeStyle='#c09037';x.lineWidth=3;x.setLineDash([5,4]);x.strokeRect(p.x-p.r,p.y-p.r,p.r*2,p.r*2);x.setLineDash([]);}
+ });}
+function dfTap(x,y){const i=DF_SPOTS.findIndex(p=>Math.hypot(x-p.x,y-p.y)<=p.r);if(i<0){$('df-note').textContent='그곳은 같아요. 창가와 작은 소품도 살펴봐요.';return;}if(DF.found.includes(i)){$('df-note').textContent='이미 찾은 곳이에요! 다른 곳도 찾아볼까요?';return;}DF.found.push(i);if(DF.hint===i)DF.hint=-1;dfPaint();$('df-note').textContent=DF.found.length===5?'다 찾았어요! 토리도 고개를 끄덕여요.':'찾았다! '+DF_SPOTS[i].n+'이 달라요.';if(DF.found.length===5){$('df-next').disabled=false;$('df-next').textContent=DF.stage===5?'처음부터 다시':'다음 그림';}}
+function dfHint(){DF.hint=DF_SPOTS.findIndex((p,i)=>!DF.found.includes(i));if(DF.hint<0)return;$('df-note').textContent='점선 안을 비교해 봐요: '+DF_SPOTS[DF.hint].n;dfPaint();}
+function dfNext(){if(DF.found.length!==5)return;DF.stage=(DF.stage+1)%DF_SCENES.length;dfShow();}
+
+function mjRoomOpen(){if($('mjroom'))return;bgStop();mjOverflow=document.body.style.overflow;const o=document.createElement('div');o.id='mjroom';o.style.cssText='position:fixed;inset:0;z-index:75;background:#f3ead7;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)';o.innerHTML='<div style="padding:6px 10px;flex:none"><button class="btn ghost sm" onclick="mjRoomClose()">◀ 마작방 나가기</button></div><div id="mjload" style="padding:12px;text-align:center">마작방을 열고 있어요…</div><iframe title="토리네 마작방" style="width:100%;flex:1;border:0;min-height:0" allow="autoplay"></iframe>';document.body.appendChild(o);document.body.style.overflow='hidden';mjRoomLoad();}
+function mjRoomLoad(){clearTimeout(mjLoadTimer);const o=$('mjroom');if(!o)return;const f=o.querySelector('iframe'),q=new URLSearchParams({sound:S.snd?'1':'0',music:S.bgmOn?'1':'0',sv:String((S.sv??50)/100),mv:String((S.vol??35)/100)});$('mjload').hidden=false;$('mjload').textContent='마작방을 열고 있어요…';f.src='assets/tori-mahjong-game.html#'+q.toString();mjLoadTimer=setTimeout(()=>{if($('mjroom')===o){$('mjload').innerHTML='마작방을 열지 못했어요. 연결을 확인한 뒤 다시 눌러 주세요.<br><button class="btn sm" onclick="mjRoomLoad()">다시 열기</button>';}},12000);}
+window.addEventListener('message',e=>{const f=$('mjroom')?.querySelector('iframe');if(f&&e.source===f.contentWindow&&e.data?.type==='tori-mahjong-ready'){clearTimeout(mjLoadTimer);$('mjload').hidden=true;}});
+function mjRoomClose(){clearTimeout(mjLoadTimer);const o=$('mjroom');if(o){o.querySelector('iframe').src='about:blank';o.remove();}document.body.style.overflow=mjOverflow;bgStart();}
+
 function mgOpen(){if($('mg'))return;const o=document.createElement('div');o.id='mg';o.style.cssText='position:fixed;inset:0;z-index:70;background:#3a2a1e;display:flex;flex-direction:column;align-items:center;justify-content:center;touch-action:none;color:#fffaf0';
   o.innerHTML='<div id="mgh" style="margin-bottom:8px;text-align:center"></div><canvas id="mgc" width="320" height="440" style="max-width:100%;max-height:74vh;image-rendering:pixelated;border:4px solid #fffaf0;background:#f6e7c1;touch-action:none"></canvas><div class="row" style="margin-top:10px;width:min(320px,90%)"><button class="btn ghost full" onclick="mgClose()">닫기</button><button class="btn full" id="mgr" style="display:none" onclick="mgStart()">한 번 더</button></div>';
   document.body.appendChild(o);const c=$('mgc');const mv=e=>{const r=c.getBoundingClientRect();MG.x=Math.max(24,Math.min(296,(e.clientX-r.left)/r.width*320));};c.addEventListener('pointermove',mv);c.addEventListener('pointerdown',mv);mgStart();}
@@ -851,7 +895,7 @@ const MX={p:[],t:[],sh:0,fl:0,fc:'#fff',st:'play',cd:0,ct:0,raf:0,first:0,info:n
  ring(x,y,col,r){this.p.push({x,y,vx:0,vy:0,l:.35,L:.35,c:col,ring:r||24});},
  pop(x,y,s,col,big,life,v){this.t.push({x,y,s,c:col||'#fffaf0',b:big||1,l:life||.7,L:life||.7,v});},
  shake(a){this.sh=Math.max(this.sh,a);},flash(c,a){this.fc=c;this.fl=Math.max(this.fl,a||.4);},
- tx(g,s,x,y,sz,col,al,plain){g.save();g.font=sz+'px NeoDunggeunmo,Galmuri11,monospace';g.textAlign=al||'center';g.textBaseline='middle';x=Math.round(x);y=Math.round(y);
+ tx(g,s,x,y,sz,col,al,plain){g.save();g.font='700 '+sz+'px Galmuri11,monospace';g.textAlign=al||'center';g.textBaseline='middle';x=Math.round(x);y=Math.round(y);
   if(!plain){const o=sz>=32?3:2;g.fillStyle='#3a2a20';for(const [a,b] of [[-o,0],[o,0],[0,-o],[0,o],[-o,-o],[o,-o],[-o,o],[o,o]])g.fillText(s,x+a,y+b);}
   g.fillStyle=col;g.fillText(s,x,y);g.restore();},
  icon(g,k,x,y,z){z=z||1;MGS[k].forEach((row,j)=>[...row].forEach((ch,i)=>{if(ch!=='.'){g.fillStyle=MGP[ch];g.fillRect(Math.round(x+i*z),Math.round(y+j*z),z,z);}}));},
@@ -1166,7 +1210,7 @@ let GHB=null;function ghBack(){if(GHB)return GHB;const[c,g]=fxCv(320,440),P=(x,y
 /* 도트식 둥근 빛 (2px 칸, 3단 밝기) */
 function fxGlow(col,r){const k='glow'+col+r;if(fxC[k])return fxC[k];const[c,g]=fxCv(r*2,r*2);g.fillStyle=col;for(let y=0;y<r*2;y+=2)for(let x=0;x<r*2;x+=2){const d=Math.hypot(x+1-r,y+1-r)/r;if(d>1)continue;g.globalAlpha=d<.45?.38:d<.75?.22:.1;g.fillRect(x,y,2,2);}return fxC[k]=c;}
 /* 도트 글꼴은 원래 크기에서만 또렷해요: 작은 글씨는 갈무리14(14px), 큰 글씨는 둥근모(16px). 그림자는 1칸만 (v6.7) */
-const fxF=sz=>(sz||16)<=15?"14px Galmuri14,Galmuri11,NeoDunggeunmo,monospace":"16px NeoDunggeunmo,Galmuri11,monospace";
+const fxF=sz=>(sz||16)<=15?"14px Galmuri14,Galmuri11,monospace":"16px Galmuri11,monospace";
 function fxTx(g,t,x,y,sz,col,al){g.font=fxF(sz);g.textAlign=al||'center';g.textBaseline='middle';g.fillStyle='rgba(20,12,30,.7)';g.fillText(t,Math.round(x)+1,Math.round(y)+1);g.fillStyle=col||'#fffaf0';g.fillText(t,Math.round(x),Math.round(y));}
 function mgShell(bg,again){if($('mg'))return null;const o=document.createElement('div');o.id='mg';o.style.cssText='position:fixed;inset:0;z-index:70;background:'+bg+';display:flex;flex-direction:column;align-items:center;justify-content:center;touch-action:none;color:#fffaf0';
   o.innerHTML='<div id="mgh" style="margin-bottom:8px;text-align:center"></div><canvas id="mgc" width="320" height="440" style="max-width:100%;max-height:74vh;image-rendering:pixelated;border:4px solid #fffaf0;background:'+bg+';touch-action:none"></canvas><div class="row" style="margin-top:10px;width:min(320px,90%)"><button class="btn ghost full" onclick="mgClose()">닫기</button><button class="btn full" id="mgr" style="display:none" onclick="'+again+'">한 번 더</button></div>';
@@ -1785,9 +1829,11 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v8.4',d:'2026.10.07',log:['조금 흐릿하던 이모지 7개(머리 손질 · 공주 · 귀뚜라미 · 히나 인형 · 휴대폰 · 집 · 목도리)를 손으로 다시 그렸어요']};
+const APP_VER={v:'v9.0',d:'2026.10.09',log:["사진 상점은 한 페이지에 7개씩, 페이지 번호 5개 묶음으로 둘러봐요", "도토리·밥을 줄 때 토리 사진이 1.5초 동안 나와요", "사라진 도토리 사건에서 범인만 맞히면 부분 정답으로 안내해요", "글꼴을 앱에 넣고 미니게임 화면과 목록의 가독성을 다듬었어요", "티츄에서 진우가 팀 작전을 고르면 토리가 답하고 작전에 맞춰 플레이해요", "타코의 시작 인사는 하루 첫 실행에만 나와요", "토리네 마작방이 별도 탭으로 들어왔어요: 리치·론·깡·역·점수를 지원해요", "마작패 그림과 뒷면, 색 대비, 손패와 선언 버튼, 결과 화면을 다듬었어요", "마작방 전용 음악과 패·선언 효과음을 만들었어요", "냐옹이와 도치가 상황별 훈수와 네 친구에 대한 평, 둘만의 만담을 나눠요", "냐옹이 이름 위에 여백을 넣고 수다 버튼과 선언 연습 화면은 정리했어요", "놀이 탭을 작은 연갈색 버튼으로, 미니게임 목록을 정사각형 카드로 바꿨어요", "마작과 틀린 그림 찾기는 가로 한 줄의 별도 탭이에요", "마작은 동4국까지 점수를 이어 가고 친 화료·텐파이 유국이면 연장해요", "마작 결과에서 다음 국으로 넘어가고 동풍전 최종 순위를 확인해요", "마작패를 작게 줄여 네 사람의 패와 버림패를 함께 살펴봐요", "마작방 재입장·오프라인 연결을 다듬고 다시 열기 안내를 넣었어요", "틀린 그림 찾기 6개 풍경과 힌트·정답 표시가 들어왔어요"]};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v9.0',d:'2026.10.09',log:["사진 상점은 한 페이지에 7개씩, 페이지 번호 5개 묶음으로 둘러봐요", "도토리·밥을 줄 때 토리 사진이 1.5초 동안 나와요", "사라진 도토리 사건에서 범인만 맞히면 부분 정답으로 안내해요", "글꼴을 앱에 넣고 미니게임 화면과 목록의 가독성을 다듬었어요", "티츄에서 진우가 팀 작전을 고르면 토리가 답하고 작전에 맞춰 플레이해요", "타코의 시작 인사는 하루 첫 실행에만 나와요", "토리네 마작방이 별도 탭으로 들어왔어요: 리치·론·깡·역·점수를 지원해요", "마작패 그림과 뒷면, 색 대비, 손패와 선언 버튼, 결과 화면을 다듬었어요", "마작방 전용 음악과 패·선언 효과음을 만들었어요", "냐옹이와 도치가 상황별 훈수와 네 친구에 대한 평, 둘만의 만담을 나눠요", "냐옹이 이름 위에 여백을 넣고 수다 버튼과 선언 연습 화면은 정리했어요", "놀이 탭을 작은 연갈색 버튼으로, 미니게임 목록을 정사각형 카드로 바꿨어요", "마작과 틀린 그림 찾기는 가로 한 줄의 별도 탭이에요", "마작은 동4국까지 점수를 이어 가고 친 화료·텐파이 유국이면 연장해요", "마작 결과에서 다음 국으로 넘어가고 동풍전 최종 순위를 확인해요", "마작패를 작게 줄여 네 사람의 패와 버림패를 함께 살펴봐요", "마작방 재입장·오프라인 연결을 다듬고 다시 열기 안내를 넣었어요", "틀린 그림 찾기 6개 풍경과 힌트·정답 표시가 들어왔어요"]},
+ {v:'v8.9',d:'2026.10.09',log:["사진 상점은 한 페이지에 7개씩, 페이지 번호 5개 묶음으로 둘러봐요", "도토리·밥을 줄 때 토리 사진이 1.5초 동안 나와요", "사라진 도토리 사건에서 범인만 맞히면 부분 정답으로 안내해요", "글꼴을 앱에 넣고 미니게임 화면과 목록의 가독성을 다듬었어요", "티츄에서 진우가 팀 작전을 고르면 토리가 답하고 작전에 맞춰 플레이해요", "타코의 시작 인사는 하루 첫 실행에만 나와요", "미니게임에 토리네 마작방이 들어왔어요: 리치·론·깡·역·점수를 지원해요", "마작패 그림과 뒷면, 색 대비, 손패와 선언 버튼, 결과 화면을 다듬었어요", "마작방 전용 음악과 패·선언 효과음을 만들었어요", "냐옹이와 도치가 상황별 훈수와 네 친구에 대한 평, 둘만의 만담을 나눠요", "냐옹이 이름 위에 여백을 넣고 수다 버튼과 선언 연습 화면은 정리했어요"]},
  {v:'v8.4',d:'2026.10.07',log:['조금 흐릿하던 이모지 7개(머리 손질 · 공주 · 귀뚜라미 · 히나 인형 · 휴대폰 · 집 · 목도리)를 손으로 또렷하게 다시 그렸어요']},
  {v:'v8.3',d:'2026.10.07',log:['사라진 도토리 사건: 부엉박사(학사모 · 안경)와 냐옹이(치즈 고양이)가 도치 · 호두처럼 전신 도트 그림으로 바뀌었어요']},
  {v:'v8.2',d:'2026.10.07',log:['홈이 짧아졌어요: 토리 사진 → 오늘의 퀘스트(주간 퀘스트 포함) → 도토리 속 편지 → 빠른 기록 · 일기 → 현재 상태 → D-day · 기념일 → 놀이','활동 · 출석 · 일기 모아 보기 · 리포트 같은 카드는 홈 맨 아래 "더 보기"를 누르면 펼쳐져요','미니게임과 보드게임이 홈의 "놀이" 카드 하나에 모였어요 (위 버튼으로 바꿔 봐요)','햄스터 탭은 밥 주기 · 도토리 상점 · 장식 · 꾸미기 · 칭호 · 앨범 순서예요','설정은 백업 · 알림 · 화면과 소리 · 일정과 기념일 · 도움말 다섯 묶음으로 접고 펼쳐요']},
@@ -2054,13 +2100,13 @@ setInterval(fxSweep,1500);document.addEventListener('visibilitychange',()=>{if(!
 function eat(n){const a=$('pav');if(a){a.classList.remove('eat');void a.offsetWidth;a.classList.add('eat');}fx('acorn',Math.min(n,5));}
 function feed(n){if(S.acorns<n){toast('도토리가 부족해요. 퀘스트로 모아 보세요');sfx('no');return;}
   const l0=lvOf(S.fed);S.acorns-=n;S.fed+=n;S.lastFeed=Date.now();save();const lu=lvOf(S.fed)>l0,nac=ACC.filter(a=>a[0]>l0&&a[0]<=lvOf(S.fed)).pop();
-  toast('🪙 코인 +'+n+' · 🐹 '+hn()+': '+SAY[Math.floor(Math.random()*SAY.length)]);rPet();eat(n);rx('acorn');sfx(lu?'fan':'eat');
+  toast('🪙 코인 +'+n+' · 🐹 '+hn()+': '+SAY[Math.floor(Math.random()*SAY.length)]);rPet();eat(n);rx('acorn',1500);sfx(lu?'fan':'eat');
   if(lu){fx('star',18);setTimeout(()=>modal(`<img class="rxm" src="${TORI_IMG.joy}" alt=""><h3 style="text-align:center">LEVEL UP!</h3><div class="card" style="text-align:center">${esc(hn())}: Lv.${lvOf(S.fed)} 달성! 🎉${lvName(lvOf(S.fed))!==lvName(l0)?`<div style="margin-top:6px">새 칭호: <b>${lvName(lvOf(S.fed))}</b></div>`:''}${lvInfo(S.fed).max?'<div class="muted" style="margin-top:6px">최고 레벨이에요! 👑</div>':''}${nac?`<div class="muted" style="margin-top:6px">${nac[1]} ${nac[2]}을(를) 얻었어요! 토리가 착용했어요</div>`:''}</div><button class="btn full" onclick="closeM()">야호!</button>`),800);}}
 function lvNotice(){if(S.lvNote||hold||loadErr||fresh)return;S.lvNote=1;save();const f=+S.fed||0,o=1+Math.floor(f/5),n=lvOf(f);if(o===n)return;
   modal(`<h3 style="text-align:center">레벨 기준이 바뀌었어요</h3><div class="card" style="text-align:center">앞으로는 레벨이 오를수록 조금씩 더 많은 도토리가 필요해요. 최고 레벨은 Lv.100이에요.<br><b>Lv.${o} → Lv.${n}</b><div class="muted" style="margin-top:6px">먹인 도토리 ${f}개와 보물상자는 그대로예요. 칭호도 10단계로 늘었어요.</div></div><button class="btn full" onclick="closeM()">알겠어요</button>`);}
 function freeFeed(){const td=todayStr();if(S.freeD===td){toast('오늘 밥은 이미 줬어요');sfx('no');return;}
   if(mood()[1]==='sleep'){toast(hn()+'는 쿨쿨 자는 중이에요. 아침에 밥 주세요');sfx('no');return;}
-  S.freeD=td;S.lastFeed=Date.now();save();notiSync();toast('🐹 '+hn()+': 밥 냠냠! 든든해요');rPet();eat(1);rx('acorn');sfx('eat');}
+  S.freeD=td;S.lastFeed=Date.now();save();notiSync();toast('🐹 '+hn()+': 밥 냠냠! 든든해요');rPet();eat(1);rx('acorn',1500);sfx('eat');}
 function shAsk(n){const m=MS.find(x=>x.n===n);if(!m||S.claimed.includes(n))return;if(coinOf()<m.p){toast('코인이 부족해요');sfx('no');return;}
   modal(`<div class="big" style="text-align:center">${m.e}</div><h3 style="text-align:center">${esc(m.name)}</h3><div class="card" style="text-align:center"><div class="muted">${m.c} · ${m.t}</div><div style="margin:6px 0">${esc(m.d)}</div>🪙 <b>${m.p}</b>코인을 써요 (남는 코인 <b>${coinOf()-m.p}</b>개)<div class="muted" style="margin-top:4px">한 번 사면 다시 살 수 없어요</div></div><div class="row"><button class="btn ghost full" onclick="closeM()">그만두기</button><button class="btn full" onclick="shBuy(${n})">살래요!</button></div>`);}
 function shBuy(n){const m=MS.find(x=>x.n===n);if(!m||S.claimed.includes(n)||coinOf()<m.p)return;S.claimed.push(n);S.coinSpent=(+S.coinSpent||0)+m.p;
@@ -2228,10 +2274,14 @@ function importFile(f){if(!f)return;const r=new FileReader();r.onload=()=>{let d
   askOk('현재 기록이 파일 내용으로 덮어써져요. (직전 상태는 설정에서 되돌릴 수 있어요) 복원할까요?',()=>{snapSave();S=d;S.mig4=1;fix();save();toast('복원했어요');go('home');});};r.readAsText(f);}
 const SH_TABS=['쿠폰','사진','타코 축복','꾸미기','편의'],SH_TIP={'쿠폰':'진우에게 쓰는 소원 쿠폰이에요. 사면 보상 탭에 들어가요.','사진':'사면 토리 앨범에 바로 들어가요.','타코 축복':'타코가 특별한 힘으로 진우를 도와줘요.','꾸미기':'칭호, 배경 무늬, 토리의 방 장식이에요.','편의':'앱을 쓰기 편하게 해 주는 아이템이에요: 퀘스트 패스권, 출석 휴식권, 미니게임 한 번 더, 무료 뽑기권 등.'};
 const SHV={tab:'쿠폰',can:0,pg:0},SH_PG=5;
+const shPageSize=()=>SHV.tab==='사진'?7:SH_PG;
+function shGo(p){const n=Math.max(1,Math.ceil(shList().length/shPageSize()));SHV.pg=Math.max(0,Math.min(n-1,p));shDraw();const o=$('shopov');if(o)o.scrollTop=0;}
+function shGroup(d){shGo(Math.floor(SHV.pg/5)*5+d*5);}
+function shNav(n){if(n<2)return '';const start=Math.floor(SHV.pg/5)*5,end=Math.min(n,start+5);return `<nav class="shop-pages" aria-label="상점 페이지"><button class="btn sm ghost" aria-label="이전 5페이지" onclick="shGroup(-1)" ${start===0?'disabled':''}>◀</button>${Array.from({length:end-start},(_,i)=>{const p=start+i;return `<button class="btn sm ${p===SHV.pg?'wood':'ghost'}" aria-label="${p+1}페이지" ${p===SHV.pg?'aria-current="page"':''} onclick="shGo(${p})">${p+1}</button>`;}).join('')}<button class="btn sm ghost" aria-label="다음 5페이지" onclick="shGroup(1)" ${end===n?'disabled':''}>▶</button></nav>`;}
 const shOwn=m=>S.claimed.includes(m.n);
 function shSet(k,v){SHV[k]=v;if(k!=='pg')SHV.pg=0;shDraw();}
 /* v8.1: 5개씩 페이지, 첫↔마지막 이어짐 */
-function shPg(d){const n=Math.max(1,Math.ceil(shList().length/SH_PG));SHV.pg=((SHV.pg+d)%n+n)%n;shDraw();const o=$('shopov');if(o)o.scrollTop=0;}
+function shPg(d){const n=Math.max(1,Math.ceil(shList().length/shPageSize()));SHV.pg=((SHV.pg+d)%n+n)%n;shDraw();const o=$('shopov');if(o)o.scrollTop=0;}
 /* 햄스터 탭 카드: 코인 + 지금 살 만한 것 3개 + 전체 보기 버튼 */
 function shopHtml(){const c=coinOf(),left=MS.filter(m=>!shOwn(m)).sort((a,b)=>a.p-b.p||a.n-b.n),ok=left.filter(m=>m.p<=c),pick=(ok.length?ok:left).slice(0,3);
   return `<div>쓸 수 있는 코인 <b class="qty">🪙 ${c}개</b></div><div class="muted">도토리를 주면 준 만큼 코인이 생겨요. 한 번만 살 수 있어요.</div>`+
@@ -2241,13 +2291,13 @@ function shopHtml(){const c=coinOf(),left=MS.filter(m=>!shOwn(m)).sort((a,b)=>a.
 function shFull(){if($('shopov'))return;const o=document.createElement('div');o.id='shopov';o.style.cssText='position:fixed;inset:0;z-index:15;background:var(--bg,#fff7e6);overflow:auto;padding:12px 14px calc(24px + env(safe-area-inset-bottom,0px))';document.body.appendChild(o);document.body.style.overflow='hidden';shDraw();}
 function shClose(){const o=$('shopov');if(o)o.remove();document.body.style.overflow='';}
 function shList(){const c=coinOf();let a=MS.filter(m=>m.c===SHV.tab);if(SHV.can)a=a.filter(m=>!shOwn(m)&&m.p<=c);return a.sort((x,y)=>shOwn(x)-shOwn(y)||x.p-y.p||x.n-y.n);}
-function shFullHtml(){const a=shList(),c=coinOf(),on=v=>v?'wood':'ghost';if(SHV.pg*SH_PG>=a.length)SHV.pg=0;
+function shFullHtml(){const a=shList(),c=coinOf(),per=shPageSize(),on=v=>v?'wood':'ghost';if(SHV.pg*per>=a.length)SHV.pg=0;
   return `<div class="row sp"><button class="btn sm ghost" onclick="shClose()">◀ 닫기</button><b class="qty">🪙 ${c}개</b></div><h2 style="margin:10px 0 6px">🪙 도토리 상점</h2>
   <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px">${SH_TABS.map(t=>`<button class="btn sm ${on(SHV.tab===t)}" style="padding:6px 0;font-size:12px;white-space:nowrap;min-width:0" onclick="shSet('tab','${t}')">${t==='타코 축복'?'축복':t}</button>`).join('')}</div>
   <div class="muted" style="margin:6px 0">ℹ️ ${SH_TIP[SHV.tab]}</div>
   <button class="btn sm ${on(SHV.can)}" style="margin-bottom:6px" onclick="shSet('can',${SHV.can?0:1})">${SHV.can?'✔ ':''}살 수 있는 것만 보기</button>`+
-  (a.slice(SHV.pg*SH_PG,SHV.pg*SH_PG+SH_PG).map(m=>{const o=shOwn(m),ok=c>=m.p;return `<div class="q ${o||!ok?'dim':''}"><span>${m.e} ${esc(m.name)}<div class="muted">${m.t}${m.c==='사진'?'':' · '+esc(m.d)}</div></span>${o?'<span class="muted">보유 ✔</span>':`<button class="btn sm ${ok?'wood':'ghost'}" ${ok?'':'disabled'} onclick="shAsk(${m.n})">🪙 ${m.p}</button>`}</div>`;}).join('')||'<div class="empty">보여 줄 물건이 없어요</div>')+
-  (a.length>SH_PG?`<div class="row sp" style="margin-top:10px"><button class="btn sm" onclick="shPg(-1)">◀ 이전</button><span class="muted">${SHV.pg+1} / ${Math.ceil(a.length/SH_PG)}</span><button class="btn sm" onclick="shPg(1)">다음 ▶</button></div>`:'');}
+  (a.slice(SHV.pg*per,SHV.pg*per+per).map(m=>{const o=shOwn(m),ok=c>=m.p;return `<div class="q ${o||!ok?'dim':''}"><span>${m.e} ${esc(m.name)}<div class="muted">${m.t}${m.c==='사진'?'':' · '+esc(m.d)}</div></span>${o?'<span class="muted">보유 ✔</span>':`<button class="btn sm ${ok?'wood':'ghost'}" ${ok?'':'disabled'} onclick="shAsk(${m.n})">🪙 ${m.p}</button>`}</div>`;}).join('')||'<div class="empty">보여 줄 물건이 없어요</div>')+
+  shNav(Math.ceil(a.length/per));}
 function shDraw(){const e=$('shop');if(e)e.innerHTML=shopHtml();const o=$('shopov');if(o){const t=o.scrollTop;o.innerHTML=shFullHtml();o.scrollTop=t;}}
 /* v8.1 정리: 퀘스트는 홈으로 (오늘 + 주간 한 카드) */
 function questCard(){const ids=qToday(),w=wkChk();return `<div class="card"><div class="row sp"><h2>📜 오늘의 퀘스트</h2><button class="btn ghost sm" onclick="qEdit()">✏️ 편집</button></div>${qList().map(q=>{const d=ids.includes(q.id);return `<div class="q ${d?'dim':''}"><span>${esc(q.e)} ${esc(q.n)}</span><button class="btn sm" ${d?'disabled':''} onclick="qDone('${q.id}')">${d?'완료':'+🌰'+q.r}</button></div>`;}).join('')||'<div class="empty">퀘스트를 추가해 보세요.</div>'}<div class="muted" style="margin-top:6px">모두 클리어하면 보너스 🌰${ECO.clear}! 퀘스트 도토리는 하루 최대 ${ECO.qCap}개예요. 도감에 새 장소를 기록하면 하루 한 번 🌰${ECO.dex}를 얻어요.</div><h3 class="qh3">📅 주간 퀘스트</h3>${S.wq.map(q=>{const c=w.c[q.id]||0,dn=w.done.includes(q.id),td=w.d[q.id]===todayStr();return `<div class="q ${dn?'dim':''}"><span>${esc(q.e)} ${esc(q.n)}<div class="muted">${c}/${q.g}회 · 🌰${q.r}</div></span><button class="btn sm" ${dn||td?'disabled':''} onclick="wDone('${q.id}')">${dn?'완료':td?'오늘 함':'+1'}</button></div>`;}).join('')||'<div class="empty">✏️ 편집에서 주간 퀘스트를 추가해 보세요.</div>'}</div>`;}
@@ -2503,7 +2553,7 @@ function bgSched(){while(bgNext<AC.currentTime+.3){if(bgStep%32===0)bgTr=BGM[bgI
   if(m>-90)bgTone(T.r+m,bgNext,e*.9,T.w,.5);
   if(i%2===0)bgTone(T.r+T.ch[bar]+12+((i/2)%2?7:0),bgNext,e*1.8,'triangle',.9);
   bgNext+=e;bgStep++;}}
-function bgStart(){if(!S.bgmOn||bgRun||$('mg'))return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();}catch(e){return;}
+function bgStart(){if(!S.bgmOn||bgRun||$('mg')||$('mjroom'))return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();}catch(e){return;}
   if(!bgG){bgG=AC.createGain();bgG.connect(AC.destination);}bgVol();bgRun=1;bgStep=0;bgNext=AC.currentTime+.1;bgTimer=setInterval(bgSched,100);if(!bgQ)toast('BGM: '+BGM[bgIdx()].n);}
 function bgStop(){bgRun=0;clearInterval(bgTimer);}
 function bgSwitch(){if(bgRun)bgStep=0;}
@@ -2692,8 +2742,8 @@ function liveTick(){if(document.hidden||tab!=='home'||reduceMo())return;const c=
   if(now>=liveNx.b){liveNx.b=now+3000+Math.random()*3500;if(liveLids(t)){const blink=()=>{t.classList.add('shut');setTimeout(()=>t.classList.remove('shut'),130);};blink();if(Math.random()<.25)setTimeout(blink,300);}}
   if(now>=liveNx.h){liveNx.h=now+10000+Math.random()*8000;c.classList.remove('hop');void c.offsetWidth;c.classList.add('hop');setTimeout(()=>c.classList.remove('hop'),800);}}
 setInterval(liveTick,250);addEventListener('resize',()=>{document.querySelectorAll('.tlive .lid').forEach(l=>l.remove());document.querySelectorAll('.hero.live').forEach(liveAp);});
-function rxPop(k){const o=document.getElementById('rxp');if(o)o.remove();const i=document.createElement('img');i.id='rxp';i.src=toriSrc(k);document.body.appendChild(i);setTimeout(()=>i.remove(),3000);}
-function rx(k){if(mood()[1]==='sleep')return;if(k==='acorn')setTimeout(heroSync,60500);RX={k,t:Date.now()+3000};clearTimeout(RXT);RXT=setTimeout(()=>{RX=null;heroSync();},3000);if(tab==='home')heroSync();else rxPop(k);}
+function rxPop(k,ms){const o=document.getElementById('rxp');if(o)o.remove();const i=document.createElement('img');i.id='rxp';i.src=toriSrc(k);document.body.appendChild(i);setTimeout(()=>i.remove(),ms||3000);}
+function rx(k,ms){ms=ms||3000;if(mood()[1]==='sleep')return;if(k==='acorn')setTimeout(heroSync,60500);RX={k,t:Date.now()+ms};clearTimeout(RXT);RXT=setTimeout(()=>{RX=null;heroSync();},ms);if(tab==='home')heroSync();else rxPop(k,ms);}
 function starChk(k,d){if(k==='band'&&d===todayStr()&&S.act.band.length%5===0)S.bandStar=d;}
 const avCls=()=>tState().st==='down'?'st-down':'';
 function stHtml(){const s=tState().st;if(s==='ok'||TORI_IMG[s])return '';
@@ -2860,7 +2910,7 @@ Object.assign(TK,{
  be:['오늘 저녁도 편안하게 보내라코! 기다린다코 🌆'],
  bn:['푹 자라코 진우! 좋은 꿈 꾼다코 🌙']});
 const tkSlot=()=>{const h=kst().getUTCHours();return h>=5&&h<11?'m':h>=11&&h<14?'l':h>=14&&h<18?'a':h>=18&&h<22?'e':'n';};
-const takoHello=()=>tako('h'+tkSlot());
+function takoHello(){const td=todayStr();if(S.takoHelloDay===td)return false;S.takoHelloDay=td;save();tako('h'+tkSlot());return true;}
 {const _d=dySave;dySave=function(){const v=$('dyi')&&$('dyi').value.trim();_d.apply(this,arguments);if(v)setTimeout(()=>tako('b'+tkSlot()),1200);};}
 document.addEventListener('visibilitychange',()=>{if(document.hidden){window._hid=Date.now();}else if(window._hid&&Date.now()-window._hid>=5*60*1000&&S.tutDone&&!$('splash')&&!$('tut')){window._hid=0;takoHello();setTimeout(nightAsk,1200);}});
 /* ===== 타코의 사용법 (처음 한 번 자동으로, 설정 탭에서 다시 볼 수 있어요) ===== */
@@ -3390,7 +3440,7 @@ function tcWishOpts(T,p){if(!T.wish)return[];return tcGen(T.h[p],T.cur?T.cur.c:n
 function tcOpen(){const b=bgS();if(!b.tc||b.tc.ph==='over'){b.tc={sc:[0,0],rn:0};tcRound();}tcShow();}
 function tcRound(){const T=bgS().tc,d=suShuf([...Array(56).keys()]);T.rn=(T.rn||0)+1;
   T.h=[0,1,2,3].map(p=>tcSort(d.slice(p*8,p*8+8)));T.rest=[0,1,2,3].map(p=>d.slice(32+p*6,38+p*6));
-  T.calls=[0,0,0,0];T.won=[[],[],[],[]];T.out=[];T.cur=null;T.tr=[];T.wish=0;T.last=['','','',''];T.passed=[];T.played=[0,0,0,0];T.recv=null;T.ph='gt';T.turn=0;T.log=[];T.rd=null;T.q=null;T.qs=null;T.na=0;
+  T.calls=[0,0,0,0];T.won=[[],[],[],[]];T.out=[];T.cur=null;T.tr=[];T.wish=0;T.last=['','','',''];T.passed=[];T.played=[0,0,0,0];T.recv=null;T.ph='gt';T.turn=0;T.log=[];T.rd=null;T.q=null;T.qs=null;T.na=0;T.teamPlan='auto';T.teamReply='찍찍! 이번 판도 같이해요. 진우가 원하는 작전을 알려 주세요!';
   for(let p=1;p<4;p++)if(tcStr(T.h[p])>=10)T.calls[p]=2;{const g=[1,2,3].find(p=>T.calls[p]===2);if(g)tcQ('grand',g);}TC.sel=[];TC.pk=[null,null,null];save();}
 /* 손패 힘(컴퓨터가 티츄를 부를지 정할 때) */
 function tcStr(h){let s=0;const by={};h.forEach(id=>{const r=tcR(id);by[r]=(by[r]||0)+1;});
@@ -3444,19 +3494,19 @@ function tcQ(ev,p,low,pr){const T=bgS().tc;T.na=(T.na||0)+1;if(low&&(Math.random
 /* --- 차례 진행 --- */
 function tcNext(){clearTimeout(TC.to);const T=bgS().tc;if(!T||T.ph!=='play'||!$('bgo'))return;if(T.turn!==0)TC.to=setTimeout(tcAITurn,820);}
 function tcAITurn(){const T=bgS().tc;if(!T||T.ph!=='play'||T.turn===0)return;const p=T.turn;let o=tcAI(T,p);if(!o&&!T.cur){const k=[tcSort(T.h[p].slice()).find(id=>id!==53)??T.h[p][0]];o={k};}
-  if(o){let w=0;if(o.k.includes(52))w=tcAIWish(T,p);tcPlay(p,o.k,w);}else tcPass(p);}
+  if(p===2)tcTeamExplain(T,o);if(o){let w=0;if(o.k.includes(52))w=tcAIWish(T,p);tcPlay(p,o.k,w);}else tcPass(p);}
 function tcAIWish(T,p){const mine=new Set(T.h[p].map(tcR));const c=[14,13,12,11,10].filter(r=>!mine.has(r));return c.length?c[Math.random()*c.length|0]:0;}
 function tcAI(T,p){const h=T.h[p],cur=T.cur?T.cur.c:null,mate=(p+2)%4;let opts=tcGen(h,cur);
   const wo=tcWishOpts(T,p);if(wo.length)opts=wo;if(!opts.length)return null;
-  const fin=opts.find(o=>o.k.length===h.length);if(fin)return fin;
+  const fin=opts.find(o=>o.k.length===h.length);const team=p===2,plan=team?tcPlanOf(T):'auto',support=team&&(plan==='lead'||plan==='feed');if(fin&&!(support&&T.h[0].length&&!wo.length&&T.cur))return fin;
   const by={};h.forEach(id=>{if(id<52){const r=tcR(id);(by[r]=by[r]||[]).push(id);}});const bomb=new Set();Object.values(by).forEach(a=>{if(a.length===4)a.forEach(id=>bomb.add(id));});
   const cost=o=>{let x=o.c.r;if(o.c.bomb)x+=40;if(o.k.includes(54))x+=12;if(o.k.includes(55))x+=10;if(!o.c.bomb&&o.k.some(id=>bomb.has(id)))x+=20;if(o.c.t==='s'&&o.k[0]<52&&(by[tcR(o.k[0])]||[]).length>1)x+=4;return x;};
   if(!cur){if(wo.length)return wo.sort((a,b)=>cost(a)-cost(b))[0];
-    if(h.includes(53)&&T.h[mate].length&&(T.calls[mate]||T.h[mate].length<h.length-2))return{k:[53],c:{t:'dog',r:0,n:1}};
+    if(h.includes(53)&&T.h[mate].length&&(T.calls[mate]||T.h[mate].length<h.length-2||support))return{k:[53],c:{t:'dog',r:0,n:1}};
     const L=opts.filter(o=>!o.c.bomb&&o.c.t!=='dog');if(!L.length)return opts[0];
-    return L.map(o=>[o,o.k.length*2.4-cost(o)*.9]).sort((a,b)=>b[1]-a[1])[0][0];}
+    const feed=team&&support&&T.h[0].length;const pref=feed?T.h[0].length<=2?'s':null:null;return L.map(o=>[o,o.k.length*(plan==='mate'?4:2.4)-cost(o)*.9+(pref&&o.c.t===pref?20:0)]).sort((a,b)=>b[1]-a[1])[0][0];}
   const hold=T.cur.by;if(hold===mate&&!wo.length)return null;
-  const tp=tcSum(T.tr),urg=T.calls[hold]||T.h[hold].length<=3||tp>=20||T.calls[(hold+2)%4]&&T.h[(hold+2)%4].length<=4;
+  const tp=tcSum(T.tr),urg=team&&plan==='block'&&hold%2===1||T.calls[hold]||T.h[hold].length<=3||tp>=20||T.calls[(hold+2)%4]&&T.h[(hold+2)%4].length<=4;
   let cand=opts.filter(o=>!o.c.bomb&&!(o.k.includes(54)&&!urg)&&!(o.k.includes(55)&&!urg&&h.length>4));
   if(!cand.length&&(urg||wo.length))cand=opts;if(!cand.length)return null;
   cand.sort((a,b)=>cost(a)-cost(b));const o=cand[0];
@@ -3552,7 +3602,7 @@ function tcDraw(){const T=bgS().tc,el=$('bgb');if(!T||!el)return;const my=T.h[0]
   const n=my.length,ov=n>1?Math.min(0,Math.floor((Math.min(innerWidth-28,456)-48)/(n-1))-48):0;
   const hand=`<div class="tchand" style="--ov:${ov}px">${my.map(id=>tcCard(id,(TC.sel.includes(id)?'on':'')+(TC.pk.includes(id)&&T.ph==='pass'?' gone':''),T.ph==='pass'||T.ph==='play'?`tcTap(${id})`:'')).join('')}</div>`;
   const recv=T.recv&&!T.played[0]&&T.ph==='play'?`<div class="muted" style="text-align:center">받은 카드: ${T.recv.map(([f,id])=>TC_NM[f]+'→'+(TC_SP[id]?TC_SP[id][2]:tcRN(tcR(id)))).join(' · ')}</div>`:'';
-  el.innerHTML=head+seats+qb+`<div id="tcwish"></div>`+hand+recv+ctl+`<div class="tclog">${T.log.slice(0,3).map(x=>`<div>${esc(x)}</div>`).join('')}</div><div style="text-align:center;margin-top:8px"><button class="btn ghost sm" onclick="tcRules()">규칙 보기</button></div>`;}
+  el.innerHTML=head+seats+qb+tcTeamHtml(T)+`<div id="tcwish"></div>`+hand+recv+ctl+`<div class="tclog">${T.log.slice(0,3).map(x=>`<div>${esc(x)}</div>`).join('')}</div><div style="text-align:center;margin-top:8px"><button class="btn ghost sm" onclick="tcRules()">규칙 보기</button></div>`;}
 function tcRules(){modal(`<h3>🎴 티츄 규칙 (짧게)</h3><div class="bghelp">· 진우·토리가 한 팀, 타코·도치가 한 팀. 손에 든 카드를 먼저 다 내는 게 목표예요.<br>
 · 앞사람보다 <b>같은 모양으로 더 센</b> 카드를 내요: 한 장, 페어, 트리플, 풀하우스(3+2), 스트레이트(5장 이상 이어진 숫자), 연속 페어(이어진 페어 2쌍 이상). 못 내거나 안 내면 패스.<br>
 · 모두 패스하면 마지막에 낸 사람이 카드를 가져가고 새로 시작해요.<br>
@@ -3563,6 +3613,7 @@ function tcRules(){modal(`<h3>🎴 티츄 규칙 (짧게)</h3><div class="bghelp
 · <b>용</b>: 가장 센 한 장. 용으로 이긴 카드는 상대 한 명에게 줘야 해요.<br>
 · <b>폭탄</b>(같은 숫자 4장, 같은 무늬 스트레이트): 무엇이든 이겨요. 이 앱에선 자기 차례에만 낼 수 있어요.<br>
 · <b>티츄!</b> 첫 카드를 내기 전에 부르면 1등일 때 +100, 아니면 -100. 8장만 보고 부르는 <b>그랜드 티츄</b>는 ±200.<br>
+· <b>팀 작전</b>: 이 앱의 협력 기능이에요. 진우가 작전을 고르면 토리가 가능한 카드 안에서 실제 플레이에 반영해요. 참새 소원은 반드시 따르고, 낼 수 있는 카드가 없으면 요청을 실행할 수 없어요. 손패 내용은 보여 주지 않아요.<br>
 · 같은 팀이 1·2등으로 다 내면 <b>원투</b>! 카드 점수 대신 +200.<br>
 · 꼴찌의 남은 카드 점수는 상대 팀에게, 꼴찌가 가져간 카드는 1등에게 가요. ${TC_GOAL}점을 먼저 넘긴 팀이 이겨요.</div><button class="btn full" onclick="closeM()">알겠어요</button>`);}
 
@@ -3689,14 +3740,26 @@ function myJudge(){const b=bgS(),z=b.my,a=MY.acc;if(!z||z.res||!a.every(x=>x>=0)
   const win=a.join()===z.sol.join(),vn=z.v.length;let m='',nb=false;
   if(win){b.mc=(b.mc||0)+1;[m,nb]=mgRw(vn<=z.m+1?2:1,'사건 해결!','bm',vn,true);sfx('fan');}else{b.mx=(b.mx||0)+1;sfx('no');}
   z.res={a:a.slice(),win,m,nb};z.cur=-1;save();myDraw();window.scrollTo(0,0);const o=$('bgo');if(o)o.scrollTop=0;}
-function myResHtml(z){const r=z.res,[s,i,p]=z.sol,lie=z.lv?z.pl.map(x=>x.t).find(t=>t.b===s):null;
-  return `<div class="card ${r.win?'legend':''} bgdone"><h2>${r.win?'🎉 사건 해결!':'범인이 도망갔어요…'}</h2>
+function myResHtml(z){const r=z.res,[s,i,p]=z.sol,caught=r.a[0]===s,lie=z.lv?z.pl.map(x=>x.t).find(t=>t.b===s):null;
+  return `<div class="card ${r.win?'legend':''} bgdone"><h2>${r.win?'🎉 사건 해결!':caught?'범인은 찾았어요!':'범인을 놓쳤어요…'}</h2>
   <div class="mysay"><div class="myav">${myAv(s,1)}</div><div><b>${esc(MY_S[s].n)}</b><br>${esc(MY_CF[s])}</div></div>
   <div class="myans"><b>정답</b> ${myJo(MY_S[s].n,'이','가')} <b>${esc(myJo(MY_I[i].n,'로'))}</b> <b>${esc(MY_P[p].n)}</b>에서 가져갔어요.<span class="myimgs">${myIco(1,i,32)}${myIco(2,p,44)}</span></div>
   ${r.win?'':`<div class="muted">진우가 고른 답: ${esc(MY_S[r.a[0]].n)} · ${esc(MY_I[r.a[1]].n)} · ${esc(MY_P[r.a[2]].n)}</div>`}
   ${lie?`<div class="muted">거짓말: ${esc(MY_S[s].n)}의 "${esc(mySay(lie))}"</div>`:''}
-  <div style="margin:6px 0">${r.win?`${z.v.length}곳 조사 · 가장 적게는 ${z.m}곳이면 풀 수 있었어요${r.nb?' · 🏆 최고 기록!':''}<br>${r.m}`:`가장 적게는 ${z.m}곳만 조사해도 풀 수 있었어요. 다음엔 꼭 잡아요!`}</div>
-  <div class="mysay"><div class="myav">${bgIco('q_tori_f',64)}</div><div><b>토리</b><br>${r.win?'찍찍찍~ ♪ 황금 도토리를 찾았어요! 진우 명탐정이에요!':'찍찍… 괜찮아요. 다음 사건에서 꼭 잡아요!'}</div></div></div>`;}
+  <div style="margin:6px 0">${r.win?`${z.v.length}곳 조사 · 가장 적게는 ${z.m}곳이면 풀 수 있었어요${r.nb?' · 🏆 최고 기록!':''}<br>${r.m}`:`${caught?'범인은 맞혔지만 '+[r.a[1]!==i?'물건':'',r.a[2]!==p?'장소':''].filter(Boolean).join('·')+' 추리가 달랐어요. 완전 해결 보상은 세 가지를 모두 맞혀야 받아요.':'범인이 달랐어요. 다음 사건에서 단서를 다시 연결해 봐요.'} 가장 적게는 ${z.m}곳이면 풀 수 있었어요.`}</div>
+  <div class="mysay"><div class="myav">${bgIco('q_tori_f',64)}</div><div><b>토리</b><br>${r.win?'찍찍찍~ ♪ 황금 도토리를 찾았어요! 진우 명탐정이에요!':caught?'찍찍! 범인은 찾았어요! 다음엔 물건과 장소까지 이어서 밝혀 봐요.':'찍찍… 괜찮아요. 다음 사건에서 단서를 다시 살펴봐요!'}</div></div></div>`;}
+/* Team coordination is a local house feature: no hidden cards are exposed. */
+const TC_PLANS={auto:'상황 보고 같이',lead:'내가 먼저 나갈게',mate:'토리 먼저 나가',feed:'나한테 차례 줘',block:'상대부터 막아 줘'};
+function tcPlanOf(T){if(!T.h[0].length)return 'mate';if(!T.h[2].length)return 'auto';if(T.calls[0]&&!T.out.includes(0))return 'lead';if(T.calls[2]&&!T.out.includes(2))return 'mate';return T.teamPlan||'auto';}
+function tcTeamSet(plan){const T=bgS().tc;if(!T||T.ph!=='play'||!TC_PLANS[plan]||!T.h[2].length)return;T.teamPlan=plan;const effective=tcPlanOf(T),override=effective!==plan&&effective!=='auto';const reply={auto:'찍찍! 차례와 남은 카드 수를 보면서 같이 움직일게요.',lead:'찍찍! 진우가 먼저 나가요. 진우가 이기고 있으면 패스하고, 개가 있으면 차례를 넘길게요.',mate:'찍찍! 토리가 먼저 줄여 볼게요. 진우도 토리가 이기고 있으면 무리해서 덮지 않아도 돼요.',feed:'찍찍! 시작할 차례에 개가 있으면 진우에게 넘길게요. 없으면 낮은 수로 길을 열어 볼게요.',block:'찍찍! 상대가 이기고 있으면 강한 카드도 아끼지 않고 막아 볼게요. 낼 수 있는 수가 없으면 패스해야 해요.'};T.teamReply=override?(effective==='lead'?'찍찍! 진우가 티츄를 불렀으니 진우의 1등을 먼저 도울게요!':'찍찍! 토리가 티츄를 불렀으니 토리의 1등을 먼저 노릴게요!'):reply[effective];T.log.unshift('팀 작전: '+TC_PLANS[effective]);T.log=T.log.slice(0,40);save();tcDraw();}
+function tcTeamExplain(T,o){const plan=tcPlanOf(T),own=T.cur&&T.cur.by===0,hasWish=tcWishOpts(T,2).length>0;T.teamReply=hasWish?'찍찍! 작전보다 참새의 소원이 먼저라서, 소원 숫자를 포함한 수를 낼게요.':!o?own?'찍찍! 진우가 지금 이기고 있으니 토리는 덮지 않고 패스할게요.':'찍찍… 지금 이길 수 있는 수가 없거나 강한 카드를 아낄 때라 패스할게요.':o.k.includes(53)?'찍찍! 개로 진우에게 시작 차례를 넘겨요. 준비한 조합을 내 봐요!':o.k.length===T.h[2].length?'찍찍! 이 수로 토리 손패를 전부 낼 수 있어요. 먼저 나갈게요!':plan==='block'&&T.cur&&T.cur.by%2===1?'찍찍! 부탁한 대로 상대의 수를 넘어가 볼게요. 이후에 진우 차례를 열어 봐요.':plan==='lead'||plan==='feed'?'찍찍! 진우가 먼저 나갈 수 있도록 차례를 이어 볼게요. 진우가 이기면 토리는 패스해요.':'찍찍! 낼 수 있는 조합으로 토리 카드를 줄일게요. 우리 팀 차례를 같이 지켜요.';}
+function tcTeamHtml(T){if(T.ph!=='play'&&T.ph!=='dragon')return '';const plan=tcPlanOf(T);return `<section class="tc-team"><h3>토리와 팀 작전</h3><div class="team-reply" aria-live="polite">${esc(T.teamReply||'찍찍! 진우, 원하는 작전을 알려 주세요.')}</div><div class="tc-team-options">${Object.entries(TC_PLANS).map(([key,label])=>`<button class="btn ${plan===key?'wood':'ghost'}" aria-pressed="${plan===key}" onclick="tcTeamSet('${key}')" ${T.ph!=='play'||!T.h[2].length?'disabled':''}>${esc(label)}</button>`).join('')}</div><small>${T.calls[0]||T.calls[2]?'티츄를 부른 팀원의 1등을 우선해요.':'팀원 차례를 돕는 작전이에요.'} 카드와 참새 소원에 따라 요청을 실행하지 못할 수도 있어요.</small></section>`;}
+/* Paint canvas text only after the bundled fonts are ready. */
+let mgFontReady=false,mgOpenPending=false;
+const mgFontsLoaded=(document.fonts?Promise.all([document.fonts.load('400 16px Galmuri11','토리 타코 시작 점수'),document.fonts.load('700 16px Galmuri11','토리 타코 시작 점수'),document.fonts.load('400 14px Galmuri14','시간 점수')]):Promise.resolve()).then(()=>{mgFontReady=true;}).catch(()=>{mgFontReady=true;});
+function mgReadyOpen(fn){return function(){const args=arguments;if(mgFontReady)return fn.apply(this,args);if(mgOpenPending)return;mgOpenPending=true;toast('게임 글꼴을 준비하고 있어요');mgFontsLoaded.then(()=>{mgOpenPending=false;fn.apply(this,args);});};}
+mgOpen=mgReadyOpen(mgOpen);mg2Open=mgReadyOpen(mg2Open);mg3Open=mgReadyOpen(mg3Open);mg4Open=mgReadyOpen(mg4Open);mg5Open=mgReadyOpen(mg5Open);mg6Open=mgReadyOpen(mg6Open);mg7Open=mgReadyOpen(mg7Open);mg8Open=mgReadyOpen(mg8Open);mg9Open=mgReadyOpen(mg9Open);
+
 </script>
 <script>
 /* 토리 그림은 별도 파일이라, 켠 뒤에 조용히 하나씩 미리 불러 둬요 (반응 그림이 늦게 뜨지 않게) */
