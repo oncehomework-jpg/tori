@@ -1,17 +1,28 @@
-"""검사: python3 tools/check.py
-- assets 참조 파일이 다 있는지 / 안 쓰는 파일이 있는지
-- 버전(APP_VER)과 sw.js CACHE 이름이 같은지
-- (node가 있으면) <script> 문법 검사"""
-import re, os, json, subprocess, shutil, sys
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))); os.chdir(ROOT)
-s = open('index.html', encoding='utf-8').read(); w = open('sw.js', encoding='utf-8').read()
-refs = set(re.findall(r'assets/([A-Za-z0-9_.-]+)', s + w)); files = set(os.listdir('assets'))
-print('없는 파일:', sorted(refs - files) or '없음'); print('안 쓰는 파일:', sorted(files - refs) or '없음')
-v = re.search(r"APP_VER=\{v:'(v[0-9.]+)'", s).group(1); c = re.search(r"jw-diary-(v[0-9.]+)", w).group(1)
-print('버전', v, '/ sw CACHE', c, '→', '같음' if v == c else '다름! sw.js CACHE를 고치세요')
-if shutil.which('node'):
-    sc = re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', s, re.S)
-    js = "const sc=JSON.parse(require('fs').readFileSync(0,'utf8'));sc.forEach((c,i)=>{try{new Function(c);console.log(i+': 문법 OK')}catch(e){console.log(i+': 오류 '+e.message);process.exitCode=1}})"
-    r = subprocess.run(['node', '-e', js], input=json.dumps(sc), text=True, capture_output=True); print(r.stdout.strip() or r.stderr)
-else:
-    print('node가 없어 문법 검사는 건너뜀 (브라우저에서 new Function으로 검사)')
+"""로컬 검사: python3 tools/check.py (참조 파일·버전·JavaScript 문법).
+사용하지 않는 사진은 앨범의 동적 참조일 수 있으므로 삭제하지 않습니다.
+"""
+import re, json, subprocess, shutil, sys
+from pathlib import Path
+ROOT = Path(__file__).resolve().parent.parent
+index = (ROOT/'index.html').read_text()
+worker = (ROOT/'sw.js').read_text()
+game = (ROOT/'assets/tori-mahjong-game.html').read_text()
+refs = set(re.findall(r'assets/([A-Za-z0-9_.-]+)', index+worker))
+refs.update(re.findall(r'(?:src=\"|url\([\"\']?)([A-Za-z0-9_.-]+\.(?:js|woff2))', game))
+missing = sorted(n for n in refs if not (ROOT/'assets'/n).is_file())
+print('없는 파일:', missing or '없음')
+version = re.search(r"APP_VER=\{v:'(v[0-9.]+)'", index).group(1)
+cache = re.search(r"jw-diary-(v[0-9.]+)", worker).group(1)
+print('앱 / 캐시 버전:', version, cache)
+failed = bool(missing) or version != cache
+if not shutil.which('node'):
+    print('node가 없어 JavaScript 문법 검사를 완료하지 못했습니다.'); sys.exit(1)
+blocks=[]
+for name, html in [('index.html',index),('assets/tori-mahjong-game.html',game)]:
+    for i, code in enumerate(re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', html,re.S)):
+        if code.strip(): blocks.append([f'{name} script {i}',code])
+blocks += [(str(p.relative_to(ROOT)),p.read_text()) for p in [ROOT/'sw.js',ROOT/'assets/tori-mahjong-content.js']]
+js="const fs=require('fs');for(const [name,code] of JSON.parse(fs.readFileSync(0,'utf8'))){try{new Function(code);console.log(name+': OK')}catch(e){console.error(name+': '+e.message);process.exitCode=1}}"
+r=subprocess.run(['node','-e',js],input=json.dumps(blocks),text=True,capture_output=True)
+print(r.stdout.strip()); print(r.stderr.strip()) if r.stderr else None
+sys.exit(1 if failed or r.returncode else 0)

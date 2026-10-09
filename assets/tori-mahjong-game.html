@@ -93,7 +93,9 @@ DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
  */
-@font-face{font-family:ToriRoomGalmuri;src:url(font-galmuri11.woff2) format("woff2");font-display:swap}
+/* Same regular/bold Galmuri11 files used by the parent app. */
+@font-face{font-family:ToriRoomGalmuri;src:url(font-galmuri11.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:ToriRoomGalmuri;src:url(font-galmuri11-bold.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap}
 
 #tori-mahjong-lounge{--paper:#f3ead7;--ink:#443728;--soft:#76664f;--line:#c9b68e;--ivory:#fff9ec;--wood:#725038;--felt:#245744;--gold:#e7be6c;background:var(--paper);color:var(--ink);font:14px/1.5 ToriRoomGalmuri,system-ui,-apple-system,sans-serif;padding:20px 16px 24px;max-width:760px;margin:auto;border-radius:18px}
 #tori-mahjong-lounge *{box-sizing:border-box}#tori-mahjong-lounge button{font:inherit;touch-action:manipulation}#tori-mahjong-lounge button:disabled{opacity:.4}#tori-mahjong-lounge button:focus-visible,#tori-mahjong-lounge summary:focus-visible{outline:3px solid #c98c32;outline-offset:3px}#tori-mahjong-lounge [hidden]{display:none!important}
@@ -141,21 +143,38 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 #tori-mahjong-lounge .game-btn.gold{background:#dbab49;color:#2e2418}
 @media(max-width:430px){#tori-mahjong-lounge header{gap:5px;flex-wrap:wrap}#tori-mahjong-lounge .tools{margin-left:auto}}
 
-/* All four rivers and the compact hand fit together on a phone. */
-#tori-mahjong-lounge{padding:10px 8px 16px}#tori-mahjong-lounge header{margin-bottom:8px;gap:5px}#tori-mahjong-lounge h1{font-size:18px}#tori-mahjong-lounge .eyebrow{display:none}#tori-mahjong-lounge .tools{gap:4px}#tori-mahjong-lounge .tools button{padding:4px 6px;min-height:36px;font-size:11px}#tori-mahjong-lounge .board-shell{padding:6px;border-width:4px;border-bottom-width:6px;border-radius:10px}#tori-mahjong-lounge .board-meta{padding:2px 2px 5px;font-size:11px}#tori-mahjong-lounge .table{grid-template-columns:1fr 1fr;grid-template-areas:'top left' 'mine right';gap:5px;padding:5px 0}#tori-mahjong-lounge #seat2,#tori-mahjong-lounge .my-river{width:100%;justify-self:stretch}#tori-mahjong-lounge .my-river{border:1px solid #ffffff18;border-radius:7px;padding:4px;margin:0}#tori-mahjong-lounge .table-heart{display:none}#tori-mahjong-lounge .opponent{padding:4px;border-color:#ffffff18}#tori-mahjong-lounge .player-head,#tori-mahjong-lounge #seat2 .player-head{flex-direction:row;gap:5px;justify-content:center}#tori-mahjong-lounge .cast{width:28px;height:28px}#tori-mahjong-lounge .player-name{font-size:11px}#tori-mahjong-lounge .seatcount{font-size:10px}#tori-mahjong-lounge .seatline{font-size:10px;min-height:0;line-height:1.3}#tori-mahjong-lounge .tilebacks{margin:3px 0;gap:1px}#tori-mahjong-lounge .tilebacks i{height:16px;flex:0 1 10px}#tori-mahjong-lounge .river,#tori-mahjong-lounge #seat1 .river,#tori-mahjong-lounge #seat3 .river{grid-template-columns:repeat(6,minmax(0,1fr));max-width:120px;gap:1px;margin:4px auto 0;min-height:0}#tori-mahjong-lounge .riverpiece img{max-height:26px;object-fit:contain}#tori-mahjong-lounge .riverpiece small{font-size:8px;position:absolute;bottom:0;background:#245744dd;left:0;right:0}#tori-mahjong-lounge .doras{padding:5px 2px 0;gap:3px}#tori-mahjong-lounge .doras img{width:19px}#tori-mahjong-lounge .doras small{font-size:10px}#tori-mahjong-lounge .handbox{margin-top:9px;padding:8px 6px}#tori-mahjong-lounge .handhead{margin-bottom:8px;gap:4px}#tori-mahjong-lounge .handhead b{font-size:12px}#tori-mahjong-lounge #count{font-size:11px}#tori-mahjong-lounge .handtools .quiet{min-height:36px;padding:4px;font-size:10px}#tori-mahjong-lounge .hand{grid-template-columns:repeat(14,minmax(0,1fr));gap:1px;padding:4px 0}#tori-mahjong-lounge .tile{min-height:44px;display:flex;align-items:center}#tori-mahjong-lounge .tile.fresh{padding-left:1px;border-left-width:1px}#tori-mahjong-lounge .tile .new{font-size:8px;left:0;right:0;bottom:0}#tori-mahjong-lounge .tile.sel{transform:translateY(-4px);outline-width:2px}#tori-mahjong-lounge .selector{min-height:40px;padding:4px 0;margin-top:4px;gap:6px}#tori-mahjong-lounge .selector>img{height:32px}#tori-mahjong-lounge .selector h2{font-size:12px}#tori-mahjong-lounge .selector p{font-size:10px}#tori-mahjong-lounge .game-btn{min-height:44px;padding:6px;font-size:12px}#tori-mahjong-lounge .actions{margin-top:4px;gap:5px}#tori-mahjong-lounge .meldrow{margin-top:3px;gap:3px}#tori-mahjong-lounge .meld img{width:19px}#tori-mahjong-lounge .opponent .meld img{width:12px}#tori-mahjong-lounge .sideline{margin-top:10px}#tori-mahjong-lounge .spectator{padding:6px 8px}#tori-mahjong-lounge .portrait img{width:32px;height:32px}#tori-mahjong-lounge .portrait{min-width:36px;min-height:0}#tori-mahjong-lounge .speech{font-size:11px}#tori-mahjong-lounge #round-next{display:block;width:100%;margin-top:12px}#tori-mahjong-lounge .mylabel{display:block;min-height:28px}#tori-mahjong-lounge .reveal>img{width:22px}
-@media(min-width:640px){#tori-mahjong-lounge .hand{gap:3px;max-width:560px;margin:auto}#tori-mahjong-lounge .tile img{max-height:52px;object-fit:contain}#tori-mahjong-lounge .river,#tori-mahjong-lounge #seat1 .river,#tori-mahjong-lounge #seat3 .river{max-width:150px}}
+/* Mobile table: concealed backs 95%; exposed faces 110% of v9.0.
+   Keep the player hand and its 44px touch targets unchanged. */
+#tori-mahjong-lounge{padding:10px 8px 16px}#tori-mahjong-lounge header{margin-bottom:8px;gap:5px}#tori-mahjong-lounge h1{font-size:18px}#tori-mahjong-lounge .eyebrow{display:none}#tori-mahjong-lounge .tools{gap:4px}#tori-mahjong-lounge .tools button{padding:4px 6px;min-height:36px;font-size:11px}#tori-mahjong-lounge .board-shell{padding:6px;border-width:4px;border-bottom-width:6px;border-radius:10px}#tori-mahjong-lounge .board-meta{padding:2px 2px 5px;font-size:11px}#tori-mahjong-lounge .table{grid-template-columns:1fr 1fr;grid-template-areas:'top left' 'mine right';gap:5px;padding:5px 0}#tori-mahjong-lounge #seat2,#tori-mahjong-lounge .my-river{width:100%;justify-self:stretch}#tori-mahjong-lounge .my-river{border:1px solid #ffffff18;border-radius:7px;padding:4px;margin:0}#tori-mahjong-lounge .table-heart{display:none}#tori-mahjong-lounge .opponent{padding:4px;border-color:#ffffff18}#tori-mahjong-lounge .player-head,#tori-mahjong-lounge #seat2 .player-head{flex-direction:row;gap:5px;justify-content:center}#tori-mahjong-lounge .cast{width:28px;height:28px}#tori-mahjong-lounge .player-name{font-size:11px}#tori-mahjong-lounge .seatcount{font-size:10px}#tori-mahjong-lounge .seatline{font-size:10px;min-height:0;line-height:1.3}#tori-mahjong-lounge .tilebacks{margin:3px 0;gap:1px}#tori-mahjong-lounge .tilebacks i{height:15.2px;flex:0 1 9.5px}#tori-mahjong-lounge .river,#tori-mahjong-lounge #seat1 .river,#tori-mahjong-lounge #seat3 .river{grid-template-columns:repeat(6,minmax(0,1fr));max-width:132px;gap:1px;margin:4px auto 0;min-height:0}#tori-mahjong-lounge .riverpiece img{max-height:28.6px;object-fit:contain}#tori-mahjong-lounge .riverpiece small{font-size:8px;position:absolute;bottom:0;background:#245744dd;left:0;right:0}#tori-mahjong-lounge .doras{padding:5px 2px 0;gap:3px}#tori-mahjong-lounge .doras img{width:20.9px}#tori-mahjong-lounge .doras small{font-size:10px}#tori-mahjong-lounge .handbox{margin-top:9px;padding:8px 6px}#tori-mahjong-lounge .handhead{margin-bottom:8px;gap:4px}#tori-mahjong-lounge .handhead b{font-size:12px}#tori-mahjong-lounge #count{font-size:11px}#tori-mahjong-lounge .handtools .quiet{min-height:36px;padding:4px;font-size:10px}#tori-mahjong-lounge .hand{grid-template-columns:repeat(14,minmax(0,1fr));gap:1px;padding:4px 0}#tori-mahjong-lounge .tile{min-height:44px;display:flex;align-items:center}#tori-mahjong-lounge .tile.fresh{padding-left:1px;border-left-width:1px}#tori-mahjong-lounge .tile .new{font-size:8px;left:0;right:0;bottom:0}#tori-mahjong-lounge .tile.sel{transform:translateY(-4px);outline-width:2px}#tori-mahjong-lounge .selector{min-height:40px;padding:4px 0;margin-top:4px;gap:6px}#tori-mahjong-lounge .selector>img{height:32px}#tori-mahjong-lounge .selector h2{font-size:12px}#tori-mahjong-lounge .selector p{font-size:10px}#tori-mahjong-lounge .game-btn{min-height:44px;padding:6px;font-size:12px}#tori-mahjong-lounge .actions{margin-top:4px;gap:5px}#tori-mahjong-lounge .meldrow{margin-top:3px;gap:3px}#tori-mahjong-lounge .meld img{width:19px}#tori-mahjong-lounge .opponent .meld img{width:13.2px}#tori-mahjong-lounge .sideline{margin-top:10px}#tori-mahjong-lounge .spectator{padding:6px 8px}#tori-mahjong-lounge .portrait img{width:32px;height:32px}#tori-mahjong-lounge .portrait{min-width:36px;min-height:0}#tori-mahjong-lounge .speech{font-size:11px}#tori-mahjong-lounge #round-next{display:block;width:100%;margin-top:12px}#tori-mahjong-lounge .mylabel{display:block;min-height:28px}#tori-mahjong-lounge .reveal>img{width:22px}
+@media(min-width:640px){#tori-mahjong-lounge .hand{gap:3px;max-width:560px;margin:auto}#tori-mahjong-lounge .tile img{max-height:52px;object-fit:contain}#tori-mahjong-lounge .river,#tori-mahjong-lounge #seat1 .river,#tori-mahjong-lounge #seat3 .river{max-width:165px}}
+
+/* v9.1: fixed tile aspect ratio, unobstructed river badges, grouped winning hand. */
+#tori-mahjong-lounge .table{grid-template-areas:'left top' 'mine right'}
+#tori-mahjong-lounge .riverpiece{position:relative;overflow:visible}
+#tori-mahjong-lounge .riverpiece img{height:auto;aspect-ratio:3/4;object-fit:contain}
+#tori-mahjong-lounge .riverpiece.taken img{opacity:.5}
+#tori-mahjong-lounge .riverpiece .river-badge{position:absolute;top:-3px;right:-2px;border-radius:3px;background:#fff4ce;color:#48321d;font-size:9px;line-height:12px;padding:0 2px;box-shadow:0 0 0 1px #5a3d24}
+#tori-mahjong-lounge .riverpiece.match{outline:2px solid #f4c75e;border-radius:3px;box-shadow:0 0 0 1px #593e20}
+#tori-mahjong-lounge .river-check{color:#f5d88b;font-size:11px;line-height:1.5;margin:5px 0 0}
+#tori-mahjong-lounge .river-legend{font-size:10px;color:#dfebd7;margin:5px 0 0}
+#tori-mahjong-lounge .reveal{align-items:flex-start}
+#tori-mahjong-lounge .reveal img{height:auto;aspect-ratio:3/4;object-fit:contain;align-self:flex-start}
+#tori-mahjong-lounge .win-group{background:#eee0bd;border-radius:5px;padding:5px;flex:none}
+#tori-mahjong-lounge .win-group span{display:block;font-size:11px;color:#604b31;margin-bottom:3px}
+#tori-mahjong-lounge .win-group div{display:flex;align-items:flex-start;gap:2px}
+#tori-mahjong-lounge .win-group img{width:22px;display:block;flex:none}
 </style>
 <div id="tori-mahjong-lounge">
 <header><div><div class="eyebrow">TORI'S LITTLE GAME ROOM</div><h1>토리네 마작방</h1></div><div class="tools"><button type="button" id="room-sound" aria-pressed="true">소리 켬</button><button type="button" id="help" class="cursor-interaction">규칙</button><button type="button" id="reset" class="cursor-interaction">새 동풍전</button></div></header>
 <section class="board-shell" aria-label="네 방향 마작탁">
 <div class="board-meta"><b id="round-title">동 1국</b><span id="status"></span></div>
-<div class="table">
+<div id="river-check" class="river-check" aria-live="polite" hidden></div><div class="table">
 <div id="seat2" class="opponent"><div class="player-head"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABIElEQVR4nI2Tr0/DQBzFP22mJ8EsQZwimUBc+COq+QdoMBumAo1AV0yM1JBhEdg1iMkFASVBNMFQQTKxoUgFAnOYXdcf3xZecsnl+967e9+7fB228LQydh8nmYOAVo2nlfm+eyhWWfiXplcWfb6+sXd02LitTQNQxPC0MvcX15yE58wmI8mLH0RYjW2hkiAfpK1mgNlkRE5aqbn29i6jdJBt0ZVi+kEkxpfqjQMA5s/v/6oBOF3x94/PANg83Yi8H0S7BP3VkP5q2DDX93Wd2ELZ0FWD0jfmg7Qh/Li8BeDg6rTgNlTbceMkc6TXBRgvpowXU5Hzg4g4yZyeyG4xf3zpoqvwtDKeVma9DI35+RLXehkaq7O+xti2DZFFfdR/AT6omzAX7mYbAAAAAElFTkSuQmCC" alt="토리" class="cast" id="cast2"><div><b class="player-name">토리</b><span id="seatcount2" class="seatcount"></span><span id="seatline2" class="seatline"></span></div></div><div class="tilebacks" id="backs2" aria-hidden="true"></div><div id="seatmeld2"></div><div id="river2" class="river" aria-label="토리의 버린 패"></div></div>
 <div id="seat3" class="opponent"><div class="player-head"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABeklEQVR4nI2Tv0sCYRjHP3dEBIbEDRcU2IEOQouDYkNDEDjk0n/Q5hAuDVENTUElDZFIUFtbNLV0QxC2Zga3BA4JBjoockRkREPXYL6+d11HX3h5eb7P831+vA+vggdLyajj5WSY1boi28JYSkYdzVgM0grYjRuRSJUdkfcyduMmUBh5L3NxNCO4EW9QQlex/kiS0NVfnDJo388ZBKvzhVmtK64O4oZGOvEm7LPLTwBWlkcFd2eNU2vYwxEG1QdiPVNiYmaBbCrGYW4MgLXTD67un3h5viVNHtAAG5JRx7fvbCr2Lw5Akef3jjA9OwlA67HtO4LV+epvIW5o1Br2z+kHrh+f0rrOA6BnShys5n5S2KKY1em617i1v03vtUMorNNrPjA1twFAr/ng8u1t7gwfUU4gxNIN+HIDqGa1rpxXusQNjeLuicsZCuuEwrqLK+6eEDc0zitdzGpdEVuQd+sVeTk51vWZfqkC4P2VLrQL8067MO/8Zcv4Bgr7mqA5oAocAAAAAElFTkSuQmCC" alt="부엉박사" class="cast" id="cast3"><div><b class="player-name">부엉박사</b><span id="seatcount3" class="seatcount"></span><span id="seatline3" class="seatline"></span></div></div><div class="tilebacks" id="backs3" aria-hidden="true"></div><div id="seatmeld3"></div><div id="river3" class="river" aria-label="부엉박사의 버린 패"></div></div>
 <div class="table-heart"><div class="seal" aria-hidden="true">동</div><span>친구들과 한 판</span><span id="turn-label" aria-live="polite"></span></div>
 <div id="seat1" class="opponent"><div class="player-head"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA0UlEQVR4nGNkwAK8TJT/YxPfduYuIzZxDM3/f33AirEZzIiuWSFnJ14LHkxxR3EJnOFlovy/X1mdoAsZGBgYCu/ehBvChKxZzMSQoGYxE0OGfmV1eDgxEWUlHsCCzHl15jxD4d2bDAwMDAzo3oGLoxmA1QVbT98hSgzDANnAPIZ+ZXWGWxHecFthNt+K8GboV1ZnkA3MQzGAurEAk8SnkYGBASUWWNA1Q03GcA26HFT+PxMWBXjBtjN3GZFdyQIzFZtmXFGKTw8cIGccXLmTKgAARIaGddLa9okAAAAASUVORK5CYII=" alt="타코" class="cast" id="cast1"><div><b class="player-name">타코</b><span id="seatcount1" class="seatcount"></span><span id="seatline1" class="seatline"></span></div></div><div class="tilebacks" id="backs1" aria-hidden="true"></div><div id="seatmeld1"></div><div id="river1" class="river" aria-label="타코의 버린 패"></div></div>
 <div class="my-river"><b class="mylabel">나 · 버린 패</b><div id="river0" class="river" aria-label="내가 버린 패"></div></div>
-</div><div id="doras" class="doras"></div></section>
+</div><p class="river-legend">↗ 울어서 가져간 패 · ● 리치 선언패</p><div id="doras" class="doras"></div></section>
 <section id="hand-section" class="handbox" aria-label="내 손패와 조작">
 <div class="handhead"><div><b>내 손패</b><span id="count"></span><span id="humanmood" class="humanmood"></span></div><div class="handtools"><button type="button" id="hint" class="quiet cursor-interaction">추천 패</button><button type="button" id="sort" class="quiet cursor-interaction">정렬</button></div></div>
 <div id="hand" class="hand" aria-label="패 선택"></div><div id="melds"></div>
@@ -168,6 +187,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 <dialog id="helpbox"><h2>리치마작 · 동풍전</h2><p>동1국부터 동4국까지 점수를 이어가요. 친이 화료하거나 텐파이 유국이면 친이 연장하고 본장이 늘어요. 결과 아래 다음 국 버튼을 누르세요. 남입은 없고 점수가 0점 아래로 내려가면 동풍전이 끝나요.</p><p>패 뽑기는 자동이에요. 내 차례에 패를 선택하고 버리세요. 가능한 쯔모·론·치·퐁·깡만 표시돼요. 론이 울기보다 우선이고, 더블 론을 지원해요.</p><p>리치는 멘젠·텐파이에서 1,000점을 걸어요. 리치 버튼 → 버릴 패 선택 → 선언. 이후 뽑은 패만 버릴 수 있어요. 대기가 바뀌지 않는 안깡은 가능해요.</p><p>안깡·대명깡·가깡 뒤 영상패와 새 도라 표시패를 열어요. 가깡에는 창깡이 가능해요. 후리텐과 론을 넘긴 일시 후리텐도 적용돼요.</p><p>역이 있어야 화료해요. 도라는 보너스라 도라만으로는 화료할 수 없어요. 판·부·만관 이상·역만과 친/자 지불, 공탁·유국 텐파이 벌점을 계산해요. 리치 화료는 우라도라도 확인해요.</p><p style="font-size:11px">규칙 엔진: @kobalab/majiang-core 1.4.1 · MIT · © 2021 Satoshi Kobayashi</p><button class="cursor-interaction game-btn" id="closehelp" style="width:100%">알겠어</button></dialog>
 </div>
 
+<script src="tori-mahjong-content.js"></script>
 <script>
 
 
@@ -1411,6 +1431,7 @@ module.exports = class Game {
                 damanguan:  hule.damanguan,
                 defen:      hule.defen,
                 hupai:      hule.hupai,
+                mianzi:     hule.mianzi,
                 fenpei:     hule.fenpei
             }
         };
@@ -3106,6 +3127,7 @@ function hule(shoupai, rongpai, param) {
                              param.rule);
         let hupai = get_hupai(mianzi, hudi, pre_hupai, post_hupai, param.rule);
         let rv    = get_defen(hudi.fu, hupai, rongpai, param);
+        rv.mianzi = mianzi.slice(); // Display the same decomposition that was scored.
 
         if (! max || rv.defen > max.defen
             || rv.defen == max.defen
@@ -3242,142 +3264,7 @@ function tiles(sp){const out=[];for(const s of ['m','p','s','z'])for(let n=1;n<(
 function say(s){$('message').textContent=s;}
 // 냐옹이: 느긋하고 눈치 빠른 장난꾸러기. 도치: 허세와 까칠함 뒤에 승부욕과 정.
 // 한 묶음 안에서는 전부 소진하기 전 같은 대화가 나오지 않고, 바로 전 대화도 피한다.
-const talkBank={
-start:[
-['오늘 내 직업은 해설자. 월급은 간식, 근무는 누워서다냥.','난 전략 고문이다. 해설이랑 급이 다르지. 의자는 왜 네 것만 푹신해?'],
-['도치, 오늘은 결과 나온 뒤에 “예상했어” 금지다냥.','그럼 결과 나오기 전에 말하지. 내가 다 예상했다.'],
-['패 섞는 소리 좋다. 비 오는 날 과자 봉지 여는 소리 같아.','비유가 죄다 먹을 거냐? …과자 있으면 나도 줘.'],
-['우리 오늘 싸우지 말고 사이좋게 해설하자냥.','난 원래 안 싸워. 네가 내 수준을 못 따라오는 것뿐이지.'],
-['토리네 마작방 개장! 관객은 둘인데 평론가는 셋인 느낌이다냥.','내 안의 천재가 따로 앉아 있어서 그래.'],
-['시작 전에 예언 하나. 누군가는 반드시 패를 버린다냥.','그 정도 예언이면 나도 눈 감고 한다! …눈 뜨고 할게.']
-],
-private:[
-['너 가시 손질은 얼마나 걸려? 내 털은 잠만 자도 완성이다냥.','타고난 헤어스타일이다. 손질 아니고 무기 점검이야.'],
-['우리 카페 차리면 넌 무슨 일 할래?','총괄 책임자. 음료 맛보기랑 의자 편한지 확인하는 아주 중요한 자리.'],
-['도치, 냉장고에 “절대 먹지 마”라고 써 둔 푸딩 있지?','…이미 먹었냐? 왜 과거형으로 물어봐?'],
-['그 푸딩 아직 안 먹었어. 너 의심하는 표정 보려고 물어봤다냥.','지금부터 감시한다. 잠들어도 한쪽 눈은 뜨고 있을 거야.'],
-['난 햇볕 있는 자리만 보면 미래가 보인다냥.','거기서 잘 미래겠지. 너 예언은 항상 수면 쪽으로 정확해.'],
-['너 오늘 향수 뿌렸어? 좋은 냄새 나는데.','숲의 기품이다. …토리 샴푸 빌렸다. 그 얘긴 하지 마.'],
-['도치가 쓴 일기 읽으면 제목부터 “위대한 하루”일 것 같아.','당연하지. 어제는 “매우 위대한 하루”였다.'],
-['우리 둘 중 누가 더 귀엽냐고 물으면 뭐라고 할 거야?','질문 자체가 실례다. 난 멋있는 쪽이거든. 귀여움은 네가 해.'],
-['너 좋아하는 사람 앞에서도 그렇게 까칠해?','아니. 좀 더 까칠해. …생각해 보니 그게 문제인가?'],
-['난 의자가 두 개면 하나엔 몸, 하나엔 영혼을 앉힌다냥.','그 두 번째 의자 내가 앉았잖아. 네 영혼 좀 치워.'],
-['부엉박사한테 숙제 대신 해달라 하면 해줄까?','네가 졸고 있어도 원리부터 설명하실걸. 그게 더 무섭다.'],
-['내 꿈은 아무 일도 없는 날을 아주 잘 보내는 거다냥.','난 역사에 이름을 남길 거야. …아무 일 없는 날도 일단 괜찮고.'],
-['너 가시 때문에 풍선 파티는 못 가겠다냥.','내가 가면 파티의 마지막 장면이 빨라질 뿐이야.'],
-['어제 밤에 네가 “하!” 하고 혼자 웃더라.','천재의 생각이 떠올랐다. 뭔지는 잠들어서 까먹었지만.'],
-['너 산책할 때 맨 앞에 서는 건 길을 알아서야?','아니면 왜겠어. …가끔 길이 나를 시험하긴 하지.'],
-['도치, 꼬리로 잡아당기지 말라고 했지.','난 안 당겼어. 네 꼬리가 내 자리로 침범했어. 국경 문제다.'],
-['오늘 저녁 메뉴 정하는 데 네 자신감 좀 빌려줘.','알겠다. 내가 정한다. …너 뭐 먹고 싶은데?'],
-['나는 생선보다 생선 얘기할 때 네 표정이 더 재밌다냥.','내 접시 쳐다보면서 말하니까 그렇지. 시선부터 치워.'],
-['비 오면 네 가시에도 빗방울 맺혀?','응. 멋있지. 털처럼 축 처지진 않거든. …수건은 있냐?'],
-['너 사실 칭찬 좋아하지? 귀 빨개진다냥.','관찰 그만해. 난 칭찬을 받는 게 아니라 사실 확인을 하는 거야.'],
-['마작 끝나면 네가 설거지, 내가 응원. 완벽한 분업이다냥.','수정한다. 네가 설거지, 내가 감독. 더 완벽해졌다.'],
-['네 옆은 은근 편하다냥. 대신 기대면 따갑긴 하겠네.','편하다고 자진 마. …담요는 저쪽에 있다.'],
-['내가 졸면 깨워줘. 중요한 장면만. 간식 등장 포함.','네 인생에 중요한 장면이 너무 많네. 간식마다 깨우게 생겼어.'],
-['너 나 없으면 좀 조용하겠지?','아주 평화롭겠지. …그래도 내 말 받아칠 애는 있어야 하니까 옆에 있어.']
-],
-review:[
-['{actor}, {tile}을 보냈다냥. 버린 패에도 그 친구 성격이 묻어나는 것 같아.','패 한 장에 성격까지 읽냐? 난 큰 그림을 본다. 아직 그림이 좀 흐릴 뿐.'],
-['{actor} 차례는 끝! 도치 해설도 잠깐 숨 쉬어도 된다냥.','난 원래 필요한 말만 해. 내가 필요한 말이 많아서 그렇지.'],
-['{tile}, 이제 테이블 한가운데서 새 인생 시작이다냥.','낭만 붙이지 마. 버림패다. …그래도 표현은 좀 괜찮았어.'],
-['다들 버린 패가 쌓였네. 말보다 기록이 많아지는 중이다냥.','좋아. 내 예측이 맞았는지도 기록해야지. 틀린 건 참고 자료다.'],
-['나는 {actor} 손패는 모르지만 표정 구경은 자신 있다냥.','맞아. 속은 함부로 단정하면 안 돼. 물론 난 대부분 맞히지만.'],
-['네 명이 패 고를 때 우리 둘은 저녁 고르는 중. 서로 치열하다냥.','저녁은 내가 이길 거야. 매운 건 빼고. 그건 전략적 제외다.'],
-['{tile}을 보냈다고 바로 안전한 패라는 뜻은 아니지냥.','그렇지. 내 가시처럼 겉만 보고 만지면 안 되는 거다.'],
-['이번엔 {actor}를 응원한다냥. 다음 차례엔 또 바뀔 수도 있어.','난 처음부터 끝까지 실력 있는 쪽이다. 어느 쪽인지는 끝나면 말할게.']
-],
-human:[
-['네가 {tile}을 골랐네. 도치, “나도 그 패” 준비됐냐옹?','나도 그 패! …준비가 아니라 실시간 분석이야.'],
-['패는 네가 버리고, 도치는 자신감만 계속 뽑는다냥.','자신감은 패산에 제한이 없어서 그래. 좋은 자원이지.'],
-['너 고민할 때 여기까지 진지해진다냥. 우리도 잠깐 조용히 보자.','…응. 고를 시간은 줘야지. 내 훈수도 대기시켜 둔다.'],
-['{tile} 보냈어. 결정했으면 어깨 힘 빼라냥.','맞아. 다음 차례가 있잖아. 방금 패로 인생까지 평가하지 말고.'],
-['너한테 훈수는 많이 둬도 패는 대신 안 잡는다냥.','그건 네 승부니까. 이기면…내 공로도 아주 조금은 있고.'],
-['지금 네 편이다냥. 응원비는 승패랑 상관없이 한 번 쓰다듬기.','난 필요 없어. …이기면 하이파이브 정도는 받아 주지.']
-],
-tori:[
-['토리의 {tile} 퇴장! 햄스터도 결단할 땐 단호하다냥.','작다고 만만하게 보면 안 돼. 나처럼. 난 작아도 압도적이니까.'],
-['토리는 손패 정리하는 모습도 방 정리하는 느낌이다냥.','내 책상은 더 정교해. 남들이 정리법을 모를 뿐이지.'],
-['토리가 {tile}을 내려놨어. 조용한 친구라고 승부욕도 조용한 건 아니네.','그게 진짜 무서운 타입이지. 나도 목소리만 큰 건 아니고.'],
-['토리 앞에 간식 두면 집중력 올라갈까, 내려갈까?','일단 나한테 두고 실험해. 비교 대상은 있어야지.'],
-['토리 차례엔 방 분위기가 조금 포근해진다냥.','승부는 포근해도 점수는 정확해야 해. 난 봐주는 거 싫어.'],
-['토리의 {tile}, 받았다냥. 너 토리 응원하는 거 티 나.','난 객관적이다. …귀여운 건 객관적으로 귀엽고.']
-],
-tako:[
-['타코가 {tile}을 보냈네. 팔이 많아도 차례는 한 번이다냥.','그래야 공평하지. 난 가시 많다고 여덟 번 생각하진 않아.'],
-['타코는 긴장하면 모든 팔이 동시에 바쁠 것 같아.','난 그 와중에도 침착하지. 아직 내 차례가 아니라서 그래.'],
-['타코의 {tile} 퇴장. 다른 팔로 다시 주우면 반칙이다냥.','맞아. 나도 떨어진 간식은 주워도 버린 패는 안 주워.'],
-['타코가 손패 정리하면 한 번에 끝날까? 부럽다냥.','난 조력자가 없어도 된다. …설거지할 땐 타코 도움이 유용하겠네.'],
-['타코 쪽도 버림패가 꽤 쌓였네. 우리 수다가 더 많긴 해.','수다는 너 담당이다. 난 지식 전달 중이야.'],
-['타코는 같이 놀면 테이블이 좁아도 마음이 넓어지는 친구다냥.','좋은 평이네. …내 자리 침범하는 팔 하나만 좀 치워 주면 완벽해.']
-],
-owl:[
-['부엉박사의 {tile}. 도치, 해설 대결 신청할 거야?','오늘은 양보한다. 박사님도 자신감을 지킬 기회가 필요하니까.'],
-['부엉박사는 패 하나 버려도 논문 제목이 나올 것 같다냥.','난 제목 없이 결론부터 낸다. 설명하라고 하면…시간이 좀 필요하고.'],
-['박사님 차례엔 괜히 우리도 허리 펴게 된다냥.','난 원래 자세 좋다. 지금은 전략적으로 기대고 있는 거야.'],
-['부엉박사가 {tile}을 내려놨어. 안경 반짝이면 다 정답 같아 보이네.','그런 연출에 흔들리지 마. 내 가시도 햇빛 받으면 반짝인다.'],
-['박사님한테 왜 그 패냐고 물으면 게임 끝날 때까지 설명할까?','듣긴 듣자. 필요한 지식은 배워야지. 졸면 네가 깨워.'],
-['부엉박사 앞에서 모르는 건 모른다고 해도 된다냥.','알아. 나도…이번 수는 검토 중이라고 하잖아.']
-],
-riichi:[
-['{actor} 리치! 천 점 맡겨 놓고 테이블 분위기까지 바꿨다냥.','좋아, 이제 승부다. 나 방금 앉은 자세 바뀐 거 긴장해서 아니다.'],
-['리치 나왔다냥. 도치가 수다 줄이는 드문 장면 관측 중.','중요한 순간엔 침묵도 전략이야. …다음 패 뭐 나올까?'],
-['{actor}, 이제 패를 바꾸는 데 제약이 생겼어. 선언은 무게가 있다냥.','그래서 멋있지. 되돌아갈 길 끊고 앞으로! 나는 옆에서 본다.'],
-['리치봉에 천 점, 도치 표정엔 만 점짜리 긴장이다냥.','그거 자신감이다. 표정 번역이 틀렸어.'],
-['{actor}의 리치. 다른 셋도 평소처럼만 버리긴 어렵겠다냥.','침착하면 된다. 난 아주 침착하다. 왜 내 목소리가 작아졌지?'],
-['리치 선언이다냥. 네가 하든 친구가 하든 일단 구경 맛은 난다.','난 구경이 아니라 분석! 그래도 꽤 재밌네.'],
-['천 점은 테이블에 맡겼고, 우리는 잠깐 집중력 좀 맡기자냥.','동의. 이번만큼은 간식 봉지도 조용히 열어.'],
-['{actor}가 승부 걸었어. 네가 “예상했다” 말할 타이밍이다냥.','예상했다. 리치가 나올 가능성이 존재한다는 걸.']
-],
-kan:[
-['{actor} 깡! 네 장이 모이면 목소리도 커지는 것 같다냥.','깡! …난 선언 연습한 거야. 대신 한 거 아니다.'],
-['깡 뒤엔 영상패랑 새 도라. 바뀐 표시패도 봐야 한다냥.','알고 있었어. 네가 말하니까 내가 복습할 기회를 준 거지.'],
-['깡 소리에 네 가시도 곧추섰다냥.','원래 이 각도야. …멋있으니까 한 번 더 봐도 되고.'],
-['{actor}가 네 장 묶었다냥. 패에도 동창회가 있나 봐.','그럼 네 장끼리 회비도 내나? 아, 도라가 회비인가?'],
-['도라가 늘었어. 기뻐하기 전에 내 패랑 관계있는지 봐야지냥.','정확해. 난 방금부터 그걸 보고 있었다. 네 옆에서 같이.'],
-['{actor}의 깡. 평범하던 테이블에 드럼 소리 한 번 난 느낌이다냥.','내 해설이 드럼보다 크다고? 아직 그렇게 말하지도 않았는데?']
-],
-call:[
-['{actor}가 {move}! 차례가 그쪽으로 넘어갔다냥.','이런 순간이 재밌지. 순서만 외우면 놓치는 거야. 난 당연히 안 놓쳤고.'],
-['{move}로 공개 묶음이 생겼네. 이제 보이는 정보가 조금 더 있다냥.','그렇지. 안 보이는 손패까지 안다고 허세 부리면 안 돼. …난 추론이야.'],
-['{actor}의 {move}. 도치 훈수보다 행동이 빠르다냥.','내 훈수는 미래를 말하니까 현재랑 속도 비교하면 안 되지.'],
-['패를 가져왔네. 울면 멘젠 전용 역은 달라질 수 있다냥.','그래서 역을 생각해야지. 소리만 크게 내면 되는 줄 알면 안 돼.'],
-['{actor}, {move} 선언. 가만히 구경하던 우리도 깜짝 놀랐다냥.','난 안 놀랐어. 자세를 급히 바로잡은 것뿐이다.'],
-['판이 조금 더 드러났네. 수다하면서도 공개된 패는 챙겨 보자냥.','응. 네가 먹던 과자에선 눈 떼고 이쪽도 좀 봐.']
-],
-ron:[
-['{actor} 론! 테이블에 놓은 패가 결승선이 됐다냥.','오! …내가 놀란 건 너무 정확하게 예상해서다.'],
-['{actor}, 잡았다냥. 도치의 마지막 한마디를 기다려 보자.','내가 뭐랬어. …아무 말 안 했어도 대충 맞는 표정은 했지.'],
-['론이면 패를 버린 쪽이 지불해. 표정만으로 정산은 안 된다냥.','그렇지. 내가 진지하게 쳐다봐도 천 점이 생기진 않더라.'],
-['화료가 나왔어. 패 한 장에도 이야기 결말이 붙네냥.','좋은 마무리다. 지불하는 친구는 다음 판에 복수하면 되고.'],
-['{actor}의 론. 이제 추측 말고 역이랑 점수를 보자냥.','찬성. 내 예측 정확도 표는 다음에 작성하고.'],
-['방금 론 소리 좋았다냥. 짧은데 방 전체가 멈췄어.','나도 저 정도 카리스마는 있어. “간식!” 하면 너 멈추잖아.']
-],
-win:[
-['{actor} 화료! 역이 하나하나 붙으니까 완성된 느낌이다냥.','좋아. 잘한 건 잘했다 해야지. 내 칭찬은 꽤 귀한 거다.'],
-['{actor}, 점수 가져갔다냥. 도치는 응원석 공로금 노리는 중?','노리는 거 아니야. 정당한 전략 자문료를 검토하는 거지.'],
-['점수 계산 끝나면 누가 얼마나 받았는지 같이 보자냥.','분위기만 보고 만관이라고 외치면 안 되지. 숫자는 숫자니까.'],
-['이긴 친구 축하하고, 진 친구는 간식부터 먹자냥.','괜찮아. 한 판이 전부는 아니니까. 다음엔 더 잘하면 되는 거지.'],
-['{actor} 화료. 네가 잠깐 조용해진 거 멋있어서야?','…응. 잘했잖아. 감탄할 땐 말을 줄이기도 해.'],
-['완성! 내가 옆에 있었다는 사실은 점수에 안 들어가더라냥.','나도. 아쉽지만 그게 맞긴 해. 직접 패 고른 친구 실력이지.'],
-['{actor}의 한 판 완성. 끝나면 어깨 좀 풀자냥.','맞아. 계속 굳어 있으면 다음 판도 뻣뻣해. 난 유연한 천재거든.'],
-['결과가 나왔네. 우리 해설보다 실제 플레이가 훨씬 설득력 있다냥.','오늘만 인정한다. …다음에도 잘하면 또 인정하고.']
-],
-draw:[
-['이번 국은 유국. 끝까지 기다리는 것도 승부다냥.','그래. 화료가 안 나왔다고 아무 일도 없던 건 아니지.'],
-['패산이 끝났네. 우리 얘기는 아직 남았는데냥.','다음 판에 이어. 네가 말 안 하면 좀 허전하긴 하다.'],
-['유국 점수도 확인하자냥. 텐파이와 노텐은 다르게 정산될 수 있어.','맞아. 마지막까지 손패 상태가 중요하지. 내 표정도 끝까지 당당하고.'],
-['서로 쉽게 못 이겼다냥. 네 명 다 다음 기회는 있다.','좋은 승부였어. 나였으면…그 얘긴 다음에 하지.']
-],
-hint:[
-['패 연결을 보는 추천이다냥. 상대의 숨은 패까지 읽는 예언은 아니야.','참고는 해도 결정은 네가. 내가 옆에서 시끄러운 것도 참고 사항이다.'],
-['울기 전에 만들 역을 생각해 보라냥. 도라만으로는 못 나.','역패 묶음이나 탕야오 같은 목표가 있으면 덜 헤매지. 내 허세도 목표가 있어.'],
-['내 조언은 하나. 방금 패 하나로 네 실력 전부를 판단하지 말기.','맞아. 다 틀리면서 배우는 거야. 난…복습하면서 배우고.'],
-['천천히 골라도 된다냥. 친구들은 기다릴 줄 알아.','나도 기다린다. 참을성도 내 재능 중 하나니까.'],
-['“무조건 이긴다”는 조언은 안 할 거다냥. 운도 섞여 있으니까.','대신 “제대로 해 보자”는 말은 하지. 그게 훨씬 멋있지.'],
-['버린 패와 공개 묶음을 살펴보자냥. 눈앞의 정보부터.','그리고 내 옆의 고양이가 과자 몇 개 먹었는지도. 그건 내가 기록 중이다.']
-]
-};
+const talkBank=window.ToriMahjongContent.talkBank;
 const talkBags={},lastTalk={};let commentaryTicks=0,talkSerial=0,lastTalkAt=0,talkTimer=null,queuedTalk=null;
 function takeTalk(key){if(!talkBank[key])key='review';if(!talkBags[key]?.length){const a=talkBank[key].map((_,i)=>i);for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}if(a.length>1&&a.at(-1)===lastTalk[key])[a[0],a[a.length-1]]=[a.at(-1),a[0]];talkBags[key]=a;}const ix=talkBags[key].pop();lastTalk[key]=ix;return talkBank[key][ix];}
 function chat(kind,ctx={}){const urgent=['start','riichi','kan','call','ron','win','draw','hint'].includes(kind);if(!urgent&&!ctx.manual&&Date.now()-lastTalkAt<6500){queuedTalk={kind,ctx};if(!talkTimer){const token=generation;talkTimer=setTimeout(()=>{talkTimer=null;if(token!==generation||!queuedTalk)return;const next=queuedTalk;queuedTalk=null;chat(next.kind,{...next.ctx,manual:true});},6500-(Date.now()-lastTalkAt));}return;}if(talkTimer){clearTimeout(talkTimer);talkTimer=null;}queuedTalk=null;lastTalkAt=Date.now();const pair=takeTalk(kind),replace=s=>s.replace(/\{(actor|tile|move)\}/g,(_,k)=>ctx[k]||({actor:'친구',tile:'그 패',move:'울기'}[k]));$('cat-speech').textContent=replace(pair[0]);$('dochi-speech').textContent=replace(pair[1]);talkSerial++;const excited=['riichi','kan','ron','win'].includes(kind);$('cat-box').className='spectator'+(excited?' excited':'');$('dochi-box').className='spectator'+(excited?' excited':'');}
@@ -3421,10 +3308,33 @@ class Table extends Majiang.Game{
  qipai(shan){ended=false;results=[];moods.fill(null);selectedIndex=null;clearPrompt();$('endhands').hidden=true;$('round-next').hidden=true;const wall=shan||this.demoShan;this.demoShan=null;if(!wall)practiceMode=null;super.qipai(wall);}
 
 }
+// River selection is a visual aid only; never changes legal moves or scoring.
+function riverHTML(p){
+ const taken=/[+=-]/.test(p),reach=p.includes('*'),match=selected&&p.slice(0,2)===selected.slice(0,2);
+ const desc=label(p)+(taken?' · 울어서 가져간 패':'')+(reach?' · 리치 선언패':'');
+ return '<span class="riverpiece '+(taken?'taken ':'')+(reach?'reach ':'')+(match?'match':'')+'" title="'+desc+'" aria-label="'+desc+'">'+pic(p)+
+  (taken||reach?'<span class="river-badge" aria-hidden="true">'+(taken?'↗':'●')+'</span>':'')+'</span>';
+}
+function winningGroupsHTML(h){
+ const sp=Majiang.Shoupai.fromString(h.shoupai),groups=h.mianzi||Majiang.Util.hule_mianzi(sp)[0];
+ if(!groups)return tiles(sp).map(p=>pic(p)).join('')+meldHTML(sp);
+ const seven=groups.length===7,orphans=groups.length===13;
+ const signature=m=>m[0]+[...m.slice(1)].filter(c=>/\d/.test(c)).join('');
+ return groups.map(m=>{
+  const digits=[...m.slice(1)].filter(c=>/\d/.test(c));
+  const open=sp._fulou.find(f=>signature(f)===signature(m));
+  const tag=seven?'머리 · 칠대자':orphans?(digits.length===2?'머리':'단독패 · 국사무쌍'):
+    groups.length===1?'특수형 · 구련보등':digits.length===2?'머리':
+    '몸통 · '+(open?meldLabel(open):digits.length===4?'암깡':new Set(digits).size===1?'각자':'순자');
+  return '<div class="win-group"><span>'+tag+'</span><div>'+digits.map(c=>pic(m[0]+c)).join('')+'</div></div>';
+ }).join('');
+}
 function render(){if(!game||!game.model.shan)return;const model=game.model,human=model.player_id.indexOf(0),sp=model.shoupai[human],legal=waiting&&waiting.kind==='discard'?game.get_dapai():[];
  $('round-title').textContent=['동','남','서','북'][model.zhuangfeng]+' '+(model.jushu+1)+'국 · '+model.changbang+'본장 · '+(human===0?'내가 친':'나는 '+['동','남','서','북'][human]);$('status').textContent='패산 '+model.shan.paishu+'장 · 공탁 '+model.lizhibang+'개';
  $('doras').innerHTML='<span>도라 표시패</span> '+model.shan.baopai.map(p=>pic(p)).join('')+' <small>→ '+model.shan.baopai.map(p=>label(Majiang.Shan.zhenbaopai(p))).join(' · ')+'</small>';
- for(let id=0;id<4;id++){const l=model.player_id.indexOf(id),h=model.shoupai[l];$('river'+id).innerHTML=model.he[l]._pai.map(p=>'<span class="riverpiece '+(p.includes('*')?'reach':'')+'">'+pic(p)+(p.includes('*')?'<small>리치</small>':'')+(p.match(/[+=-]/)?'<small>가져감</small>':'')+'</span>').join('')||'<div class="empty">버린 패 없음</div>';if(id){$('seat'+id).className='opponent'+(model.lunban===l&&!ended?' playing':'');$('seatcount'+id).textContent=model.defen[id].toLocaleString()+'점 · '+['동','남','서','북'][l];const mood=moods[id]&&moods[id].until>=reactionClock?moods[id]:null;$('seatline'+id).textContent=mood?.text||(h.lizhi?'리치 · 집중 중':'');$('cast'+id).className='cast '+(mood?.style||'');$('backs'+id).innerHTML=Array.from({length:tiles(h).length},()=>'<i></i>').join('');$('seatmeld'+id).innerHTML='<div class="meldrow">'+meldHTML(h)+'</div>';}}
+ for(let id=0;id<4;id++){const l=model.player_id.indexOf(id),h=model.shoupai[l];$('river'+id).innerHTML=model.he[l]._pai.map(riverHTML).join('')||'<div class="empty">버린 패 없음</div>';if(id){$('seat'+id).style.gridArea=['mine','right','top','left'][(l-human+4)%4];$('seat'+id).className='opponent'+(model.lunban===l&&!ended?' playing':'');$('seatcount'+id).textContent=model.defen[id].toLocaleString()+'점 · '+['동','남','서','북'][l];const mood=moods[id]&&moods[id].until>=reactionClock?moods[id]:null;$('seatline'+id).textContent=mood?.text||(h.lizhi?'리치 · 집중 중':'');$('cast'+id).className='cast '+(mood?.style||'');$('backs'+id).innerHTML=Array.from({length:tiles(h).length},()=>'<i></i>').join('');$('seatmeld'+id).innerHTML='<div class="meldrow">'+meldHTML(h)+'</div>';}}
+ const same=selected?model.he.flatMap(h=>h._pai).filter(p=>p.slice(0,2)===selected.slice(0,2)):[];
+ $('river-check').hidden=!selected;$('river-check').textContent=selected?label(selected)+' · 같은 버림패 '+same.filter(p=>!/[+=-]/.test(p)).length+'장'+(same.some(p=>/[+=-]/.test(p))?' · 가져간 패 '+same.filter(p=>/[+=-]/.test(p)).length+'장':''):'';
  $('hand-section').hidden=ended;$('turn-label').textContent=ended?'이번 국 종료':waiting?.kind==='call'?'선언 기회':model.lunban===human?'내 차례':model.lunban<0?'국 전환 중':names[model.player_id[model.lunban]]+' 차례';$('humanmood').textContent=moods[0]?.text||'';
  $('count').textContent=tiles(sp).length+'장 · '+model.defen[0].toLocaleString()+'점'+(sp.lizhi?' · 리치':'');
  $('hand').replaceChildren();tiles(sp).forEach((p,i)=>{const b=document.createElement('button'),code=sp._zimo===p&&i===tiles(sp).length-1?p+'_':p,valid=legal.includes(code)&&(!riichiMode||game.allow_lizhi(code));b.type='button';b.className='tile cursor-interaction'+(selected===code&&(selectedIndex===null||selectedIndex===i)?' sel':'')+(code.endsWith('_')?' fresh':'')+(!valid&&waiting?.kind==='discard'?' forbidden':'');b.disabled=ended||waiting?.kind!=='discard'||!valid;b.setAttribute('aria-label',label(p)+(code.endsWith('_')?' 새 패':''));b.setAttribute('aria-pressed',selected===code?'true':'false');b.innerHTML=pic(p)+(code.endsWith('_')?'<span class="new">새 패</span>':'');b.onclick=()=>{roomSfx('tile');selected=code;selectedIndex=i;render();};$('hand').appendChild(b);});
@@ -3434,24 +3344,28 @@ function render(){if(!game||!game.model.shan)return;const model=game.model,human
  if(results.length){$('endhands').hidden=false;$('endhands').innerHTML=results.map(r=>r.hule?scoreHTML(r.hule):'<h3>유국 · '+({'九種九牌':'구종구패','四風連打':'사풍연타','四家立直':'사가리치','四開槓':'사깡산료','三家和':'삼가화'}[r.pingju.name]||'패산 소진')+'</h3>'+diffHTML(r.pingju.fenpei)).join('')+(ended?'<details><summary class="cursor-interaction">친구들 마지막 손패</summary>'+model.player_id.map((id,l)=>'<b>'+names[id]+'</b><div class="reveal">'+tiles(model.shoupai[l]).map(p=>pic(p)).join('')+'</div>').join('')+'</details>':'');}
 }
 function diffHTML(a){return '<div class="payments">'+a.map((n,l)=>'<span class="'+(n>0?'gain':n<0?'loss':'')+'">'+names[game.model.player_id[l]]+'<b>'+(n>0?'+':'')+n.toLocaleString()+'</b></span>').join('')+'</div>';}
-function scoreHTML(h){const winner=names[game.model.player_id[h.l]],tier=h.damanguan?h.damanguan+'배 역만':h.fanshu>=13?'헤아림 역만':h.fanshu>=11?'삼배만':h.fanshu>=8?'배만':h.fanshu>=6?'하네만':h.fanshu>=5||h.defen>=(h.l===0?12000:8000)?'만관':'';const sp=Majiang.Shoupai.fromString(h.shoupai);return '<div class="result-hero"><div><small>이번 국의 결과</small><h3>'+winner+' · '+(h.baojia==null?'쯔모':'론')+'!</h3></div><small>'+((h.l===0)?'친 화료':'자 화료')+'</small></div><span class="result-handlabel">화료한 패</span><div class="reveal">'+tiles(sp).map(p=>pic(p)).join('')+meldHTML(sp)+'</div><div class="yaku-list">'+h.hupai.map(v=>'<span>'+yname(v.name)+' <b>'+(typeof v.fanshu==='number'?v.fanshu+'판':v.fanshu.length+'배 역만')+'</b></span>').join('')+'</div><div class="result-score"><b>'+(h.damanguan?tier:h.fanshu+'판 '+h.fu+'부'+(tier?' · '+tier:''))+'</b><strong>'+h.defen.toLocaleString()+'<span> 점</span></strong></div>'+diffHTML(h.fenpei)+(h.fubaopai?'<p class="ura">우라도라 표시패 '+h.fubaopai.map(p=>pic(p)).join('')+'</p>':'');}
+function scoreHTML(h){const winner=names[game.model.player_id[h.l]],tier=h.damanguan?h.damanguan+'배 역만':h.fanshu>=13?'헤아림 역만':h.fanshu>=11?'삼배만':h.fanshu>=8?'배만':h.fanshu>=6?'하네만':h.fanshu>=5||h.defen>=(h.l===0?12000:8000)?'만관':'';const sp=Majiang.Shoupai.fromString(h.shoupai);return '<div class="result-hero"><div><small>이번 국의 결과</small><h3>'+winner+' · '+(h.baojia==null?'쯔모':'론')+'!</h3></div><small>'+((h.l===0)?'친 화료':'자 화료')+'</small></div><span class="result-handlabel">화료한 패</span><div class="reveal">'+winningGroupsHTML(h)+'</div><div class="yaku-list">'+h.hupai.map(v=>'<span>'+yname(v.name)+' <b>'+(typeof v.fanshu==='number'?v.fanshu+'판':v.fanshu.length+'배 역만')+'</b></span>').join('')+'</div><div class="result-score"><b>'+(h.damanguan?tier:h.fanshu+'판 '+h.fu+'부'+(tier?' · '+tier:''))+'</b><strong>'+h.defen.toLocaleString()+'<span> 점</span></strong></div>'+diffHTML(h.fenpei)+(h.fubaopai?'<p class="ura">우라도라 표시패 '+h.fubaopai.map(p=>pic(p)).join('')+'</p>':'');}
 
 function fixture(mode,qijia){const human=['m1','m2','m3','p4','p5','p6','s2','s3','s4','z1','z1','z1','s6'];let first=mode==='kan'?['m1','m1','m1','p2','p3','p4','s4','s5','s6','z5','z5','z1','z2']:human;
  if(mode==='pon')first=['z5','z5','z5','m1','m2','p2','p3','p4','s4','s5','s6','z7','z7'];if(mode==='chi')first=['p1','p2','m1','m2','m3','s4','s5','s6','z5','z5','s7','s8','s9'];
  const forceTile=mode==='ron'?'s6':mode==='pon'?'z5':mode==='chi'?'p3':null,draw=mode==='kan'?'m1':mode==='riichi'?'z2':forceTile;
  let bag=['m','p','s','z'].flatMap(s=>Array.from({length:s==='z'?7:9},(_,i)=>Array(4).fill(s+(i+1))).flat());const remove=p=>{const i=bag.indexOf(p);if(i<0)throw Error('fixture exceeds tiles '+p);bag.splice(i,1);};first.forEach(remove);remove(draw);const arrays=[];for(let l=0;l<4;l++)if((qijia+l)%4===0)arrays[l]=first;else{arrays[l]=[];for(let i=0;i<13;i++)arrays[l].push(bag.splice(Math.floor(Math.random()*bag.length),1)[0]);}for(let i=bag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[bag[i],bag[j]]=[bag[j],bag[i]];}
  const shan=new Majiang.Shan(rule),draws=[...arrays.flat(),draw,...bag.slice(14)];shan._pai=[...bag.slice(0,14),...draws.reverse()];shan._baopai=[shan._pai[4]];shan._fubaopai=[shan._pai[9]];practiceMode={force:forceTile?qijia:null,tile:forceTile};return shan;}
-function start(mode){generation++;if(game)game.stop();clearPrompt();ended=false;matchEnded=false;results=[];practiceMode=null;reactionClock=0;commentaryTicks=0;moods.fill(null);selectedIndex=null;$('endhands').hidden=true;players=[0,1,2,3].map(id=>new Seat(id,generation));game=new Table(players,null,rule,'토리 마작');game.model.player=names;game.speed=1;const token=generation;game.view={kaiju(){},summary(paipu){if(token!==generation)return;matchEnded=true;ended=true;clearPrompt();$('hand-section').hidden=true;$('round-next').hidden=true;$('endhands').hidden=false;$('endhands').innerHTML='<h3>동풍전 최종 결과</h3>'+[0,1,2,3].sort((a,b)=>paipu.rank[a]-paipu.rank[b]).map(id=>'<p>'+paipu.rank[id]+'위 · '+names[id]+' · <b>'+paipu.defen[id].toLocaleString()+'점</b></p>').join('')+'<button class="game-btn gold" id="match-new">새 동풍전 시작</button>';$('match-new').onclick=()=>start();$('round-title').textContent='동풍전 종료';say('동풍전이 끝났어요. 모두 수고했어요!');},redraw(){if(token===generation)render();},say(kind,l){if(token!==generation)return;const k={lizhi:'riichi',gang:'kan',rong:'ron',zimo:'win'}[kind];if(k){roomSfx(k);const actor=game.model.player_id[l];reactCast(k,actor);if(k==='ron')chat(k,{actor:actor===0?'너':names[actor]});}},update(ev){if(token!==generation)return;if(ev?.hule){results.push(ev);roomSfx('win');const id=game.model.player_id[ev.hule.l];reactCast('win',id,ev.hule.baojia==null?null:game.model.player_id[ev.hule.baojia]);chat('win',{actor:id===0?'너':names[id]});}tableTalk(ev);if(ev?.dapai)reactionClock++;if(ev?.pingju){results.push(ev);chat('draw');}render();}};const dealer=mode==='ron'||mode==='pon'?1:mode==='chi'?3:0;if(mode)game.demoShan=fixture(mode,dealer);chat('start');say('동 1국을 시작해요. 각자 25,000점!');game.kaiju(dealer);}
+function start(mode){generation++;if(game)game.stop();clearPrompt();ended=false;matchEnded=false;results=[];practiceMode=null;reactionClock=0;commentaryTicks=0;moods.fill(null);selectedIndex=null;$('endhands').hidden=true;players=[0,1,2,3].map(id=>new Seat(id,generation));game=new Table(players,null,rule,'토리 마작');game.model.player=names;game.speed=1;const token=generation;game.view={kaiju(){},summary(paipu){if(token!==generation)return;matchEnded=true;ended=true;clearPrompt();$('hand-section').hidden=true;$('round-next').hidden=true;$('endhands').hidden=false;$('endhands').innerHTML='<h3>동풍전 최종 결과</h3>'+[0,1,2,3].sort((a,b)=>paipu.rank[a]-paipu.rank[b]).map(id=>'<p>'+paipu.rank[id]+'위 · '+names[id]+' · <b>'+paipu.defen[id].toLocaleString()+'점</b></p>').join('')+'<button class="game-btn gold" id="match-new">새 동풍전 시작</button>';$('match-new').onclick=()=>start();$('round-title').textContent='동풍전 종료';say('동풍전이 끝났어요. 모두 수고했어요!');},redraw(){if(token===generation)render();},say(kind,l){if(token!==generation)return;const k={lizhi:'riichi',gang:'kan',rong:'ron',zimo:'win'}[kind];if(k){roomSfx(k);const actor=game.model.player_id[l];reactCast(k,actor);if(k==='ron')chat(k,{actor:actor===0?'너':names[actor]});}},update(ev){if(token!==generation)return;if(ev?.hule){results.push(ev);roomSfx('win');const id=game.model.player_id[ev.hule.l];reactCast('win',id,ev.hule.baojia==null?null:game.model.player_id[ev.hule.baojia]);chat('win',{actor:id===0?'너':names[id]});}if(ev?.fulou)roomSfx('call');tableTalk(ev);if(ev?.dapai)reactionClock++;if(ev?.pingju){results.push(ev);roomSfx('draw');chat('draw');}render();}};const dealer=mode==='ron'||mode==='pon'?1:mode==='chi'?3:0;if(mode)game.demoShan=fixture(mode,dealer);chat('start');say('동 1국을 시작해요. 각자 25,000점!');game.kaiju(dealer);}
 $('discard').onclick=()=>{if(!selected)return;roomSfx('discard');const p=selected+(riichiMode?'*':'');respond({dapai:p});};$('riichi').onclick=()=>{if(waiting?.kind!=='discard')return;riichiMode=!riichiMode;selected=null;render();};$('passcall').onclick=()=>respond({});$('round-next').onclick=()=>game.continueRound();$('reset').onclick=()=>{if(ended||confirm('점수를 초기화하고 새 동풍전을 시작할까요?'))start();};$('hint').onclick=()=>{if(waiting?.kind!=='discard')return;selected=candidateDiscard(players[0].shoupai,riichiMode?game.allow_lizhi():game.get_dapai());const ht=tiles(players[0].shoupai);selectedIndex=selected?.endsWith('_')?ht.length-1:ht.indexOf(selected);chat('hint');render();};$('sort').onclick=()=>render();$('help').onclick=()=>$('helpbox').showModal();$('closehelp').onclick=()=>$('helpbox').close();function reactCast(kind,actor,loser=null){const expire=reactionClock+5;if(kind==='riichi'){const tense=['친구가 리치… 신중하게!','팔도 잠깐 멈춤…','어… 간식은 나중에!','흠. 위험도를 살펴보지요.'];for(let id=0;id<4;id++)moods[id]={text:id===actor?['리치! 이제 기다린다!','리치! 팔은 얌전히.','리치… 두근두근!','리치. 승부를 보지요.'][id]:tense[id],style:id===actor?'focused':'tense',until:expire};}else if(kind==='kan'){moods[actor]={text:['깡! 새 도라도 확인!','깡! 네 장 모았다!','깡! 딱 맞게 모았어.','깡. 영상패를 확인하지요.'][actor],style:'proud',until:expire};}else if(kind==='ron'){moods[actor]={text:['론! 잡았다!','론! 타이밍 완벽!','론! …말해 버렸다!','론. 화료입니다.'][actor],style:'proud',until:expire};}else if(kind==='win'){moods[actor]={text:['화료! 해냈다!','이겼다! 팔 모두 만세!','와… 내가 이겼어!','좋은 승부였습니다.'][actor],style:'proud',until:Infinity};if(loser!==null)moods[loser]={text:['앗… 내 패에 론이라니!','으악! 방금 그 패?!','앗… 내 점수…!','허허… 그 패였군요.'][loser],style:'shocked',until:Infinity};}}
 
-// Original composition: 초록 탁자, 8 bars at 76 BPM. No external audio or samples.
+// Original composition: 고요한 패산. D pentatonic, 68 BPM; synthesized plucked strings, no samples.
 const audioParams=new URLSearchParams(location.search||location.hash.slice(1));let effectsOn=audioParams.get('sound')!=='0',musicOn=audioParams.get('music')!=='0',soundVolume=Math.min(1,Math.max(0,+(audioParams.get('sv')??.35))),musicVolume=Math.min(1,Math.max(0,+(audioParams.get('mv')??.25))),soundOn=effectsOn||musicOn,roomAC=null,musicTimer=null,musicNext=0,musicStep=0;
-function roomNote(freq,t,len,amp,type='sine'){if(!roomAC)return;const o=roomAC.createOscillator(),v=roomAC.createGain();o.type=type;o.frequency.value=freq;v.gain.setValueAtTime(0,t);v.gain.linearRampToValueAtTime(amp,t+.008);v.gain.exponentialRampToValueAtTime(.0001,t+len);o.connect(v);v.connect(roomAC.destination);o.start(t);o.stop(t+len+.02)}
-const roomMelody=[76,0,79,81,79,0,76,74,72,0,74,76,74,0,72,0,69,0,72,76,74,0,72,69,67,0,69,72,69,0,67,0,76,0,79,84,81,0,79,76,74,0,76,79,76,0,74,72,69,0,72,74,72,0,69,67,72,0,76,74,72,0,0,0],roomBass=[48,45,41,43,48,45,41,43];const hz=n=>440*Math.pow(2,(n-69)/12);
-function roomSchedule(){if(!roomAC||roomAC.state!=='running'||document.hidden||!soundOn||!musicOn)return;while(musicNext<roomAC.currentTime+.18){const i=musicStep%64,n=roomMelody[i],bar=i>>3;if(n)roomNote(hz(n),musicNext,.42,musicVolume*.085,'triangle');if(i%4===0){roomNote(hz(roomBass[bar]+(i%8===4?7:0)),musicNext,.65,musicVolume*.11);if(i%8===0){roomNote(hz(roomBass[bar]+12),musicNext,.9,musicVolume*.025);roomNote(hz(roomBass[bar]+19),musicNext,.9,musicVolume*.02)}}musicNext+=60/76/2;musicStep++}}
+const {tempo:roomTempo,melody:roomMelody,bass:roomBass}=window.ToriMahjongContent.music;const hz=n=>440*Math.pow(2,(n-69)/12);
+function roomNote(freq,t,len,amp,type='sine'){if(!roomAC||amp<=0)return;const o=roomAC.createOscillator(),v=roomAC.createGain();o.type=type;o.frequency.value=freq;v.gain.setValueAtTime(0,t);v.gain.linearRampToValueAtTime(amp,t+.012);v.gain.exponentialRampToValueAtTime(.0001,t+len);o.connect(v);v.connect(roomAC.destination);o.start(t);o.stop(t+len+.02)}
+function roomPluck(note,t,amp,len=1.6){if(!roomAC||amp<=0)return;const freq=hz(note);for(const [harm,ratio,decay] of [[1,1,1],[2,.28,.45],[3,.12,.28],[4,.05,.18]]){const o=roomAC.createOscillator(),v=roomAC.createGain();o.type='sine';o.frequency.setValueAtTime(freq*harm*1.003,t);o.frequency.exponentialRampToValueAtTime(freq*harm,t+.04);v.gain.setValueAtTime(.0001,t);v.gain.exponentialRampToValueAtTime(Math.max(.00011,amp*ratio),t+.005);v.gain.exponentialRampToValueAtTime(.0001,t+len*decay);o.connect(v);v.connect(roomAC.destination);o.start(t);o.stop(t+len*decay+.025)}}
+function roomTile(t,amp,weight=1){if(!roomAC||amp<=0)return;const count=Math.ceil(roomAC.sampleRate*.06),buf=roomAC.createBuffer(1,count,roomAC.sampleRate),data=buf.getChannelData(0);let seed=217;for(let i=0;i<count;i++){seed=(seed*16807)%2147483647;data[i]=(seed/1073741823.5-1)*Math.exp(-i/(roomAC.sampleRate*.009));}const src=roomAC.createBufferSource(),filter=roomAC.createBiquadFilter(),v=roomAC.createGain();src.buffer=buf;filter.type='bandpass';filter.frequency.value=1800/weight;filter.Q.value=.8;v.gain.value=amp*.5;src.connect(filter);filter.connect(v);v.connect(roomAC.destination);src.start(t);roomNote(610/weight,t,.045,amp*.34,'triangle');roomNote(1240/weight,t+.004,.027,amp*.13);}
+function roomBeat(i,t){const n=roomMelody[i%64],bar=(i%64)>>3;if(n)roomPluck(n,t,musicVolume*.095);if(i%8===0)roomPluck(roomBass[bar],t,musicVolume*.07,2.8);if(i%8===4)roomPluck(roomBass[bar]+12,t,musicVolume*.022,1.9);}
+function roomSchedule(){if(!roomAC||roomAC.state!=='running'||document.hidden||!soundOn||!musicOn)return;while(musicNext<roomAC.currentTime+.18){roomBeat(musicStep,musicNext);musicNext+=60/roomTempo/2;musicStep++}}
 function roomAudioStart(){if(roomAC?.state==='running'&&musicTimer)return;try{roomAC=roomAC||new(window.AudioContext||window.webkitAudioContext)();roomAC.resume().then(()=>{musicNext=roomAC.currentTime+.05;if(!musicTimer)musicTimer=setInterval(roomSchedule,100);roomSchedule()}).catch(()=>{})}catch(e){}}
-function roomSfx(k){if(!soundOn||!effectsOn||!roomAC||roomAC.state!=='running'||document.hidden)return;const t=roomAC.currentTime,a=soundVolume*.18;if(k==='tile'||k==='discard'){roomNote(k==='tile'?720:390,t,.06,a,'triangle');roomNote(k==='tile'?1100:180,t+.022,.07,a*.4)}else{const seq={riichi:[72,76,79,84],kan:[55,62,67],ron:[79,74,84],win:[72,76,79,84,79,88],draw:[67,64],call:[67,72]}[k];if(seq)seq.forEach((n,i)=>roomNote(hz(n),t+i*.09,.25,a*.7,'triangle'))}}
+function roomSfx(k){if(!soundOn||!effectsOn||!roomAC||roomAC.state!=='running'||document.hidden)return;const t=roomAC.currentTime,a=soundVolume*.2;if(k==='tile'){roomTile(t,a,.8);return;}if(k==='discard'){roomTile(t,a,1.1);roomTile(t+.022,a*.3,1.4);return;}if(k==='kan'){[0,.075,.15,.225].forEach(d=>roomTile(t+d,a*.8,1));roomPluck(69,t+.25,a*.3,.6);return;}if(k==='call'){roomTile(t,a,1);roomPluck(62,t+.04,a*.22,.5);return;}if(k==='ron'){roomTile(t,a*1.2,.9);[74,78].forEach((n,i)=>roomPluck(n,t+.045+i*.08,a*.45,.9));return;}if(k==='win'){[62,66,69,74].forEach((n,i)=>roomPluck(n,t+i*.14,a*.45,1.6));return;}if(k==='riichi'){roomTile(t,a*.65,1.35);[69,74].forEach((n,i)=>roomPluck(n,t+.06+i*.15,a*.4,1));return;}if(k==='draw'){[66,62].forEach((n,i)=>roomPluck(n,t+i*.22,a*.28,1.2));}}
 document.addEventListener('pointerdown',()=>{if(soundOn)roomAudioStart()},{capture:true});document.addEventListener('visibilitychange',()=>{if(!roomAC)return;if(document.hidden)roomAC.suspend();else if(soundOn)roomAudioStart()});$('room-sound').onclick=()=>{soundOn=!soundOn;$('room-sound').textContent=soundOn?'소리 켬':'소리 끔';$('room-sound').setAttribute('aria-pressed',String(soundOn));if(soundOn)roomAudioStart();else if(roomAC)roomAC.suspend()};$('room-sound').textContent=soundOn?'소리 켬':'소리 끔';$('room-sound').setAttribute('aria-pressed',String(soundOn));
+
 setInterval(()=>{if(!document.hidden&&Date.now()-lastTalkAt>22000)chat('private')},7000);
 
 start();

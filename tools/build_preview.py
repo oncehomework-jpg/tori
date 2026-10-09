@@ -11,7 +11,8 @@ h = open(src, encoding='utf-8').read()
 mt = {'.webp': 'image/webp', '.png': 'image/png', '.svg': 'image/svg+xml', '.otf': 'font/otf', '.woff2': 'font/woff2'}
 names = sorted(set(re.findall(r'assets/([A-Za-z0-9_.-]+\.(?:webp|png|svg|otf|woff2))', h)))
 game = open(A+'tori-mahjong-game.html',encoding='utf-8').read()
-for fn in ['font-galmuri11.woff2']:
+game=game.replace('<script src="tori-mahjong-content.js"></script>', '<script>'+open(A+'tori-mahjong-content.js',encoding='utf-8').read()+'</script>')
+for fn in ['font-galmuri11.woff2','font-galmuri11-bold.woff2']:
     game=game.replace(fn,'data:font/woff2;base64,'+base64.b64encode(open(A+fn,'rb').read()).decode())
 game_uri='data:text/html;base64,'+base64.b64encode(game.encode()).decode()
 h=h.replace('assets/tori-mahjong-game.html#',game_uri+'#')
