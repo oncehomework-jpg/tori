@@ -27,9 +27,15 @@ for n in names:
     b = open(A + f, 'rb').read()
     out = out.replace('assets/' + n, 'data:%s;base64,%s' % (mt[os.path.splitext(n)[1]], base64.b64encode(b).decode()))
 out = re.sub(r"<script>if\('serviceWorker' in navigator.*?</script>", "", out, flags=re.S)
+# A file preview does not install a PWA or write to the app's IndexedDB.
+out = re.sub(r'<link\b[^>]*rel="manifest"[^>]*>', '', out)
+for fn in ['icon-192.png', 'apple-touch-icon.png']:
+    uri = 'data:image/png;base64,' + base64.b64encode(open(os.path.join(ROOT, fn), 'rb').read()).decode()
+    out = out.replace('href="'+fn+'"', 'href="'+uri+'"')
 seed = json.load(open(os.path.join(ROOT, 'tools', 'preview_seed.json'), encoding='utf-8'))
+seed.update({'lvNote':1,'shopNote':1,'snd':False,'bgmOn':False})
 shim = """<script>(function(){const m={};const st={getItem:k=>k in m?m[k]:null,setItem:(k,v)=>{m[k]=String(v)},removeItem:k=>{delete m[k]},clear:()=>{for(const k in m)delete m[k]},key:i=>Object.keys(m)[i]||null,get length(){return Object.keys(m).length}};
-try{Object.defineProperty(window,'localStorage',{value:st,configurable:true});}catch(e){}
+try{Object.defineProperty(window,'localStorage',{value:st,configurable:true});Object.defineProperty(window,'indexedDB',{value:null,configurable:true});}catch(e){}
 const p=new URLSearchParams(location.hash.slice(1)).get('date');
 if(p){const off=Date.parse(p+'+09:00')-Date.now(),R=Date;window.Date=class extends R{constructor(...a){a.length?super(...a):super(R.now()+off)}static now(){return R.now()+off}};}
 st.setItem('jw_diary_v1',%s);})();</script>""" % json.dumps(json.dumps(seed, ensure_ascii=False), ensure_ascii=False)
