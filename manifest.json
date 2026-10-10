@@ -10,7 +10,7 @@
   "display_override": [
     "standalone"
   ],
-  "orientation": "portrait",
+  "orientation": "any",
   "background_color": "#efe2c6",
   "theme_color": "#dcc59b",
   "icons": [
