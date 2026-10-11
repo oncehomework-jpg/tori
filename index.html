@@ -412,7 +412,39 @@ input[type=range]{accent-color:var(--gold)}
 .place-pages{display:flex;justify-content:center;align-items:center;gap:6px;margin:12px 0}.place-pages .btn{min-width:32px;min-height:38px;padding:5px}.place-pages [aria-current=page]{background:#b58a60;color:#fff8ec}
 @media (max-height:450px){#bgo.df-playing .bgtop{min-height:30px;margin-bottom:2px}#bgo.df-playing .bgtop h3{font-size:12px}.df-play{gap:3px}.df-play .df-score{font-size:10px}.df-play .df-note{height:28px;line-height:14px;font-size:10px}.df-play .df-controls .btn{min-height:32px;font-size:10px!important}}
 
-#bgo.onsen-playing{position:fixed;inset:0;padding:0;overflow:hidden;height:100vh;height:100dvh;background:#162d2e}#bgo.onsen-playing .bgin{width:100%;height:100%;max-width:none;margin:0;padding:0}#bgo.onsen-playing .bgtop{display:none}#bgo.onsen-playing #bgb{height:100%;padding:0;margin:0}.os-scene{position:relative;width:100%;height:100%;overflow:hidden;isolation:isolate;touch-action:manipulation}.os-scene picture{display:block;width:100%;height:100%}.os-background{display:block;width:100%;height:100%;object-fit:cover;image-rendering:pixelated}.os-friends{position:absolute;inset:0;pointer-events:none}.os-friend{position:absolute;display:block;background:none;border:0;padding:0;cursor:pointer;pointer-events:auto;width:calc(clamp(80px,17vh,160px)*var(--size));transform:translate(-50%,-50%);animation:osFloat 6s steps(8,end) infinite;animation-delay:calc(var(--i)*-1.4s);box-shadow:none}.os-friend img{display:block;width:100%;height:auto;image-rendering:pixelated;pointer-events:none}.os-friend:focus-visible{outline:3px solid #fffaf0;outline-offset:6px;border-radius:25%}.os-two .os-friend:nth-child(1){left:41%;top:64%}.os-two .os-friend:nth-child(2){left:62%;top:67%}.os-four .os-friend:nth-child(1){left:31%;top:64%}.os-four .os-friend:nth-child(2){left:44%;top:69%}.os-four .os-friend:nth-child(3){left:58%;top:64%}.os-four .os-friend:nth-child(4){left:72%;top:69%}.os-steam{position:absolute;width:30px;height:42px;background:rgba(255,250,230,.3);clip-path:polygon(35% 100%,0 70%,40% 45%,20% 20%,55% 0,100% 20%,75% 50%,100% 75%);pointer-events:none;animation:osSteam 7s steps(10,end) infinite}.s1{left:24%;top:48%}.s2{left:51%;top:44%;animation-delay:-2s}.s3{left:74%;top:49%;animation-delay:-4s}.os-exit{position:absolute;top:calc(10px + env(safe-area-inset-top));left:calc(10px + env(safe-area-inset-left));z-index:3;background:#f6ebd8dd!important;min-height:36px}.os-hud{position:absolute;left:50%;bottom:calc(10px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(94%,580px);text-align:center;color:#4a3423;background:#fff4dfed;border:2px solid #987347;border-radius:8px;padding:8px 10px;z-index:2}.os-title{font-weight:bold;font-size:13px}.os-talk{font-size:11px;line-height:1.6;margin:4px 0 7px;min-height:18px}.os-times,.os-actions{display:flex;justify-content:center;gap:5px;flex-wrap:wrap}.os-times{margin-bottom:6px}.os-hud .btn{font-size:11px;min-height:32px;padding:5px 8px}.os-active{background:#d6bf8d!important}.os-ui-off .os-hud{visibility:hidden}.os-ui-off .os-exit{opacity:.3}.os-ui-off .os-exit:hover,.os-ui-off .os-exit:focus{opacity:1}@keyframes osFloat{0%,100%{transform:translate(-50%,-50%)}25%{transform:translate(calc(-50% + 4px),calc(-50% - 5px))}50%{transform:translate(calc(-50% + 7px),calc(-50% + 1px))}75%{transform:translate(calc(-50% - 3px),calc(-50% + 4px))}}@keyframes osSteam{0%{opacity:0;transform:translateY(8px)}30%{opacity:.4}100%{opacity:0;transform:translateY(-30px)}}@media(orientation:portrait){.os-friend{width:calc(clamp(90px,27vw,154px)*var(--size))}.os-two .os-friend:nth-child(1){left:37%;top:61%}.os-two .os-friend:nth-child(2){left:64%;top:73%}.os-four .os-friend:nth-child(1){left:35%;top:59%}.os-four .os-friend:nth-child(2){left:67%;top:65%}.os-four .os-friend:nth-child(3){left:31%;top:74%}.os-four .os-friend:nth-child(4){left:65%;top:77%}.os-steam{top:54%}.os-hud{padding:10px}.os-talk{min-height:34px}}@media(orientation:landscape) and (max-height:480px){.os-title{display:none}.os-hud{padding:5px 8px;width:min(92%,660px)}.os-talk{margin:0 0 4px;min-height:0}.os-times,.os-actions{display:inline-flex;margin:0 3px}.os-hud .btn{min-height:30px;padding:4px 6px;font-size:10px}}@media(prefers-reduced-motion:reduce){.os-friend,.os-steam{animation:none}}
+#bgo.onsen-playing{position:fixed;inset:0;padding:0;overflow:hidden;height:100vh;height:100dvh;background:#162d2e}
+#bgo.onsen-playing .bgin{width:100%;height:100%;max-width:none;margin:0;padding:0}
+#bgo.onsen-playing .bgtop{display:none}
+#bgo.onsen-playing #bgb{height:100%;padding:0;margin:0}
+.os-scene{position:relative;width:100%;height:100%;overflow:hidden;isolation:isolate;touch-action:manipulation}
+.os-scene picture{display:block;width:100%;height:100%}
+.os-background{display:block;width:100%;height:100%;object-fit:cover;object-position:100% center;image-rendering:pixelated}
+.os-slot-1 .os-background{filter:brightness(1.08) saturate(.95)}
+.os-slot-2 .os-background{filter:sepia(.27) saturate(.9) hue-rotate(335deg) brightness(.8)}
+.os-slot-3 .os-background{filter:grayscale(.7) sepia(.35) hue-rotate(150deg) saturate(1.2) brightness(.34)}
+.os-weather,.os-friends{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;image-rendering:pixelated}
+.os-friend{position:absolute;background:none;border:0;padding:0;pointer-events:auto;width:calc(clamp(80px,17vh,160px)*var(--size));transform:translate(-50%,-50%);animation:osFloat 6s steps(6,end) infinite;animation-delay:calc(var(--i)*-1.4s);box-shadow:none}
+.os-friend img{display:block;width:100%;height:auto;image-rendering:pixelated;pointer-events:none}
+.os-friend:focus-visible{outline:3px solid #fffaf0;outline-offset:6px}
+.os-two .os-friend:nth-child(1){left:41%;top:64%}.os-two .os-friend:nth-child(2){left:62%;top:67%}
+.os-four .os-friend:nth-child(1){left:31%;top:64%}.os-four .os-friend:nth-child(2){left:44%;top:69%}.os-four .os-friend:nth-child(3){left:58%;top:64%}.os-four .os-friend:nth-child(4){left:72%;top:69%}
+.os-steam{position:absolute;width:30px;height:42px;background:#fffbe54d;clip-path:polygon(35% 100%,0 70%,40% 45%,20% 20%,55% 0,100% 20%,75% 50%,100% 75%);pointer-events:none;animation:osSteam 7s steps(7,end) infinite}
+.s1{left:24%;top:48%}.s2{left:51%;top:44%;animation-delay:-2s}.s3{left:74%;top:49%;animation-delay:-4s}
+.os-icon{display:grid;place-items:center;width:44px;height:44px;border:0;background:#f6ebd8dd;color:#513e2b;border-radius:5px;padding:12px;font-size:21px;box-shadow:none}
+.os-icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:miter}
+.os-exit{position:absolute;top:calc(8px + env(safe-area-inset-top));left:calc(8px + env(safe-area-inset-left));z-index:4}
+.os-volume{position:absolute;right:calc(8px + env(safe-area-inset-right));top:calc(8px + env(safe-area-inset-top));z-index:4}
+.os-volume-panel{position:absolute;right:0;top:50px;width:170px;background:#fff4df;border:2px solid #987347;padding:10px;color:#4a3423}
+.os-volume-panel[hidden]{display:none}.os-volume-panel label{display:flex;justify-content:space-between;font-size:12px}.os-volume-panel input{width:100%;padding:0;accent-color:#7b8951}
+.os-hud{position:absolute;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(90%,560px);text-align:center;color:#4a3423;background:#fff4dfed;border:2px solid #987347;border-radius:6px;padding:9px 12px;z-index:2;pointer-events:none}
+.os-title{font-weight:bold;font-size:12px}.os-talk{font-size:12px;line-height:1.65;margin:4px 0 0;min-height:20px}.os-ui-off .os-hud{visibility:hidden}
+@keyframes osFloat{0%,100%{transform:translate(-50%,-50%)}25%{transform:translate(calc(-50% + 3px),calc(-50% - 4px))}50%{transform:translate(calc(-50% + 6px),calc(-50% + 1px))}75%{transform:translate(calc(-50% - 3px),calc(-50% + 3px))}}
+@keyframes osSteam{0%{opacity:0;transform:translateY(8px)}30%{opacity:.4}100%{opacity:0;transform:translateY(-30px)}}
+@media(orientation:portrait){.os-background{object-position:65% center}.os-friend{width:calc(clamp(90px,26vw,150px)*var(--size))}.os-two .os-friend:nth-child(1){left:35%;top:62%}.os-two .os-friend:nth-child(2){left:65%;top:73%}.os-four .os-friend:nth-child(1){left:30%;top:61%}.os-four .os-friend:nth-child(2){left:65%;top:66%}.os-four .os-friend:nth-child(3){left:30%;top:76%}.os-four .os-friend:nth-child(4){left:65%;top:78%}.os-hud{padding:8px 10px}.os-steam{top:54%}}
+@media(orientation:landscape) and (max-height:480px){.os-title{display:none}.os-hud{padding:6px 10px;bottom:calc(8px + env(safe-area-inset-bottom))}.os-talk{margin:0;font-size:11px}}
+.os-bamboo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:100% center;pointer-events:none;image-rendering:pixelated}.os-slot-1 .os-bamboo{filter:brightness(1.08) saturate(.95)}.os-slot-2 .os-bamboo{filter:sepia(.27) saturate(.9) hue-rotate(335deg) brightness(.8)}.os-slot-3 .os-bamboo{filter:grayscale(.7) sepia(.35) hue-rotate(150deg) saturate(1.2) brightness(.34)}@media(orientation:portrait){.os-bamboo{object-position:100% center}.os-background{object-position:100% center}}
+@media(prefers-reduced-motion:reduce){.os-friend,.os-steam{animation:none}}
+
 
 /* Keep the picture and its start button in separate rows at every viewport. */
 #bgo.df-selecting{height:100vh;height:100dvh;overflow:hidden;padding:calc(6px + env(safe-area-inset-top)) 8px calc(6px + env(safe-area-inset-bottom))}
@@ -1875,9 +1907,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v10.2',d:'2026.10.11',log:["토리네 온천에서 화면 방향에 맞는 배경과 새 목욕 도트 친구들을 만나요", "시간대별 온천과 느긋한 전용 도트게임 음악을 추가했어요", "토리에게 도토리를 주고 사진이 바뀔 때 부드럽게 사라져요", "그림 선택 시작 버튼과 페이지 버튼을 겹치지 않게 정리했어요", "틀린그림찾기 힌트를 타코에게 물어보기로 통일했어요", "새 그림 화질과 한 화면 비교·크게보기를 개선했어요", "미니게임 버튼·드래그 조작·도감 페이지·도치 말투·명랑한 편지를 개선했어요", "앱을 열 때 배경음악 팝업을 표시하지 않아요", "도토리 찾기 장소 여섯 곳을 따뜻한 도트 그림으로 바꿨어요"]};
+const APP_VER={v:'v10.7',d:'2026.10.11',log:["온천에 들어가면 음악과 물소리가 바로 시작돼요. 오른쪽 위에서 소리 크기를 조절해요", "온천은 실제 시간에 맞춰 바뀌고 작은 화살표로 나가요", "대나무에 물이 차고 기울어지는 도트 동작과 톡 소리를 추가했어요", "구름·빛·물결이 도트처럼 움직이고 가끔 새가 지나가요", "온천 친구들의 대사 48개와 일주일 간격의 토리·타코 수다 12편을 추가했어요"]};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v10.7',d:'2026.10.11',log:["온천에 들어가면 음악과 물소리가 바로 시작돼요. 오른쪽 위에서 소리 크기를 조절해요", "온천은 실제 시간에 맞춰 바뀌고 작은 화살표로 나가요", "대나무에 물이 차고 기울어지는 도트 동작과 톡 소리를 추가했어요", "구름·빛·물결이 도트처럼 움직이고 가끔 새가 지나가요", "온천 친구들의 대사 48개와 일주일 간격의 토리·타코 수다 12편을 추가했어요"]},
  {v:'v10.2',d:'2026.10.11',log:["토리네 온천에서 화면 방향에 맞는 배경과 새 목욕 도트 친구들을 만나요", "시간대별 온천과 느긋한 전용 도트게임 음악을 추가했어요", "토리에게 도토리를 주고 사진이 바뀔 때 부드럽게 사라져요", "그림 선택 시작 버튼과 페이지 버튼을 겹치지 않게 정리했어요", "틀린그림찾기 힌트를 타코에게 물어보기로 통일했어요", "새 그림 화질과 한 화면 비교·크게보기를 개선했어요", "미니게임 버튼·드래그 조작·도감 페이지·도치 말투·명랑한 편지를 개선했어요", "앱을 열 때 배경음악 팝업을 표시하지 않아요", "도토리 찾기 장소 여섯 곳을 따뜻한 도트 그림으로 바꿨어요"]},
  {v:'v9.7',d:'2026.10.10',log:["틀린 그림 찾기에서 그림을 한 장씩 넘겨 보고 골라 시작해요", "완료한 그림은 뒤로 이동하고 완료 기록은 앱을 다시 열어도 남아요", "기존 두 장을 유지하고 별빛 도서관과 유리 온실 정원 그림을 추가했어요", "화면에 맞춰 두 그림 전체를 스크롤 없이 함께 보여줘요", "모르겠을 때 타코에게 물어보면 못 찾은 곳을 잠깐 알려줘요", "새 그림을 가로 비율 그대로 최적화하고 다섯 정답 밖은 원본과 같게 맞췄어요"]},
  {v:'v9.2',d:'2026.10.10',log:["틀린 그림 찾기를 딸기 티파티와 도토리 쿠키 공방 그림으로 교체했어요", "두 그림을 같은 세로 규격으로 맞추고 각각 다른 곳 다섯 개를 찾아요", "그림 크게 보기와 이미지 다시 불러오기를 넣었어요", "마작방 입구에 친구들이 함께하는 새 사진을 넣었어요", "새 그림 용량을 줄이고 오프라인에서도 볼 수 있게 했어요", "그림 정답·터치·화면 비율과 게임·기록 보존을 점검하고 코드를 정리했어요"]},
@@ -2588,7 +2621,32 @@ let mdL=null,mdI=0;
 function mandam(k){if($('ov').classList.contains('on'))return;const a=MD[k];if(!a)return;mdL=pk(a);mdI=0;mdShow();}
 function mdShow(){const L=mdL.slice(0,mdI+1),last=mdI>=mdL.length-1;modal(`<h3>🐹🐙 토리와 타코의 수다</h3>${L.map(x=>`<div class="chb ${x[0]==='타'?'tk':''}">${x[0]==='토'?'🐹 '+esc(hn()):'🐙 타코'}: ${esc(x[1])}</div>`).join('')}<button class="btn ${last?'ghost':'wood'} full" style="margin-top:8px" onclick="${last?'closeM()':'mdI++;mdShow()'}">${last?'닫기':'다음 ▶'}</button>`);}
 function mdAct(k){if(Math.random()>=.5)return;const t=todayStr();if(!S.mdA||S.mdA.d!==t)S.mdA={d:t};if(S.mdA[k])return;S.mdA[k]=1;save();setTimeout(()=>mandam(k),3400);}
-function mdDayChk(){if(!S.tutDone||tab!=='home'||S.mdDay===todayStr())return;const g=dayTag();if(!g)return;setTimeout(()=>{if($('ov').classList.contains('on')||S.mdDay===todayStr())return;S.mdDay=todayStr();save();mandam(g.startsWith('hol:')?'hol':g);},1600);}
+const MD_WEEKLY=[
+ [['토','찍찍! 타코는 손이 많아서 온천 수건도 많이 필요한가요?'],['타','머리에 하나면 된다코.'],['토','찍찍! 그럼 나머지 손들은 휴가네요!'],['타','맞다코. 오늘은 여덟 손 모두 쉬는 날이다코.']],
+ [['타','오늘은 아무 일도 안 하기로 했다코.'],['토','찍찍! 저는 쉬는 일을 하고 있어요!'],['타','그건 일을 안 하는 거다코.'],['토','찍찍! 그럼 아주 잘하고 있네요!'],['타','…반박할 수 없다코.']],
+ [['토','찍찍! 구름이 도토리처럼 생겼어요.'],['타','토리는 모든 걸 도토리로 보는 거냐코?'],['토','찍찍! 저 구름은 타코처럼 생겼어요.'],['타','이제야 제대로 본다코.'],['토','찍찍! 도토리 안고 있는 타코요!']],
+ [['타','이번 주에 제일 잘한 일이 뭐냐코?'],['토','찍찍! 밥 먹고, 자고, 또 일어난 거요.'],['타','생각보다 중요한 일이다코.'],['토','찍찍! 내일도 잘할 수 있어요!'],['타','타코도 같이 하겠다코.']],
+ [['토','찍찍! 물에 비친 제 얼굴은 볼이 더 커요.'],['타','물결 때문에 그런 거다코.'],['토','찍찍! 그럼 물결 안에 도토리가 있나 봐요.'],['타','…물은 먹는 걸 비추기만 한다코.']],
+ [['타','토리, 조용히 별을 세어 보자코.'],['토','찍찍! 하나, 둘, 도토리…'],['타','세 번째는 셋이다코.'],['토','찍찍! 가장 반짝이는 건 도토리 같았어요.'],['타','오늘은 이름을 붙여도 좋겠다코.']],
+ [['토','찍찍! 타코는 양말을 몇 켤레 신어요?'],['타','타코는 양말을 안 신는다코.'],['토','찍찍! 빨래가 적어서 좋겠어요.'],['타','대신 수건은 토리보다 오래 말린다코.']],
+ [['타','책을 펴 놨는데 한 줄도 못 읽었다코.'],['토','찍찍! 저는 책 옆에서 아주 잘 잤어요.'],['타','그럼 이 책은 베개였냐코?'],['토','찍찍! 좋은 책이었어요.'],['타','평가 기준이 독특하다코.']],
+ [['토','찍찍! 바람이 문을 톡톡 두드려요.'],['타','손님인 척하는 바람이다코.'],['토','찍찍! 간식도 줘야 하나요?'],['타','바람은 냄새만 맡고 간다코.']],
+ [['타','오늘은 천천히 걸어 보자코.'],['토','찍찍! 저는 이미 천천히 걷고 있어요.'],['타','왜 멈췄냐코?'],['토','찍찍! 여기 햇빛이 따뜻해서요.'],['타','그건 멈출 만한 이유다코.']],
+ [['토','찍찍! 이번 주가 벌써 지나갔어요.'],['타','재밌는 건 조금 모아 뒀냐코?'],['토','찍찍! 타코랑 얘기한 것도 모았어요.'],['타','타코도 그걸 모았다코.']],
+ [['타','대나무 소리가 들리면 잠깐 쉬어라코.'],['토','찍찍! 톡! 이제 쉬어도 돼요?'],['타','그건 토리가 낸 소리다코.'],['토','찍찍! 쉬는 시간은 제가 만들었어요!'],['타','좋은 발명이다코.']]
+];
+MD.weekly=MD_WEEKLY;
+let mdPending=null;
+function mdDayChk(){
+ if(!S.tutDone||tab!=='home'||S.mdDay===todayStr()||mdPending!==null)return;
+ const d=todayStr(),g=dayTag(),last=S.mdWeeklyDay,elapsed=last?Math.floor((Date.parse(d+'T12:00:00Z')-Date.parse(last+'T12:00:00Z'))/86400000):7;
+ if(!g&&elapsed<7)return;
+ mdPending=setTimeout(()=>{mdPending=null;if(tab!=='home'||$('ov').classList.contains('on')||$('bgo')||$('splash')||$('tut')||S.mdDay!==undefined&&S.mdDay===todayStr())return;
+ const now=todayStr();if(now!==d)return;
+ S.mdDay=now;if(!g){const count=Number.isInteger(S.mdWeeklyCount)?S.mdWeeklyCount:0;mdL=MD_WEEKLY[count%MD_WEEKLY.length];mdI=0;S.mdWeeklyDay=now;S.mdWeeklyCount=count+1;save();mdShow();}else{save();mandam(g.startsWith('hol:')?'hol':g);}
+ },1600);
+}
+
 function hnSave(){const v=$('hn').value.trim();if(!v){toast('이름을 넣어 주세요');return;}S.hname=v.slice(0,8);save();toast('이름을 저장했어요');}
 
 const BGM=[
@@ -3815,29 +3873,70 @@ addEventListener('load',()=>{try{const u=[];Object.values(TORI_IMG).forEach(v=>(
 </script>
 <script>if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){addEventListener('load',()=>{navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).catch(()=>{});});}</script>
 <script>
-// Relaxing onsen: no changes to rewards or saved game progress.
-const OS={slot:null,audio:null,clockTimer:null,observer:null,on:false,ui:true};
-const OS_LANDSCAPES=["assets/onsen-morning-v102.webp", "assets/onsen-day-v102.webp", "assets/onsen-evening-v102.webp", "assets/onsen-night-v102.webp"];
-const OS_PORTRAITS=["assets/onsen-portrait-morning-v102.webp", "assets/onsen-portrait-day-v102.webp", "assets/onsen-portrait-evening-v102.webp", "assets/onsen-portrait-night-v102.webp"];
-const OS_ANIMALS={"토리": "assets/onsen-tori-v102.png", "호두": "assets/onsen-hodu-v102.png", "도치": "assets/onsen-dochi-v102.png", "부엉박사": "assets/onsen-owl-v102.png"};
-const OS_MUSIC="assets/onsen-pixel-bgm-v102.wav";
-const OS_SLOTS=[{name:'아침',friends:['토리','호두'],line:'오늘은 천천히 시작해도 좋아요.'},{name:'낮',friends:['토리','도치'],line:'따끈한 물에 둥둥 떠 있다치.'},{name:'저녁',friends:['토리','부엉박사'],line:'해가 지는 동안 잠깐 쉬어 가세요.'},{name:'밤',friends:['토리','호두','도치','부엉박사'],line:'별빛 아래 함께 쉬어요.'}];
+// Onsen preview: real local time, frame-stepped scenery and locally synthesized ambience.
+const OS={audio:null,clockTimer:null,frameTimer:null,observer:null,active:false,ui:true,volume:35,ctx:null,gain:null,water:null,frame:0,cycle:-1,lastTalk:{},retry:null};
+const OS_LANDSCAPES=['assets/onsen-plate-v107.webp','assets/onsen-plate-v107.webp','assets/onsen-plate-v107.webp','assets/onsen-plate-v107.webp'];
+const OS_PORTRAITS=OS_LANDSCAPES;
+const OS_ANIMALS={'토리':'assets/onsen-tori-v102.png','호두':'assets/onsen-hodu-v102.png','도치':'assets/onsen-dochi-v102.png','부엉박사':'assets/onsen-owl-v102.png'};
+const OS_MUSIC='assets/onsen-pixel-bgm-v102.wav';
+const OS_SLOTS=[{name:'아침',friends:['토리','호두'],line:'따뜻한 물부터 만나고, 오늘은 천천히 시작해요.'},{name:'낮',friends:['토리','도치'],line:'햇살이 물 위에서 쉬고 있어요. 우리도 같이 쉴까요?'},{name:'저녁',friends:['토리','부엉박사'],line:'오늘 들고 온 생각들을 물가에 잠깐 내려놓아요.'},{name:'밤',friends:['토리','호두','도치','부엉박사'],line:'작은 물소리와 함께, 오늘도 여기까지 잘 왔어요.'}];
+const OS_LINES={
+ '토리':['찍찍… 따끈한 물에 들어오니까 볼주머니까지 풀리는 기분이에요.','저 구름, 도토리를 닮지 않았어요? 아, 제가 조금 배고픈가 봐요.','오늘은 아무것도 안 해도 괜찮아요. 토리랑 둥둥 떠 있어요.','수건이 자꾸 한쪽으로 기울어요. 제 귀가 베개가 됐나 봐요.','대나무가 톡 하고 인사했어요. 토리도 작게 찍찍!','물 위에 햇빛 조각이 떠 있어요. 주워서 집에 가져가고 싶어요.','급한 마음은 바깥에 두고 왔어요. 나갈 때도 꼭 챙길 필요는 없겠죠?','저는 수영보다 온천욕이 좋아요. 발을 안 바쁘게 움직여도 되거든요.','옆에 같이 있어 주니까 물이 조금 더 따뜻한 것 같아요.','지금 이 시간이 오늘의 제일 폭신한 순간이에요.','물결이 제 발끝을 간질였어요. 저 웃는 거 아니에요, 찍찍…','온천 끝나면 시원한 물 한 모금 마셔요. 토리도 같이 마실게요.'],
+ '호두':['꼬리는 물 밖에! 오늘은 도토리 걱정도 물 밖에!','저 바위 뒤에 도토리를 숨겨 뒀는데… 아니, 오늘은 생각 안 할래.','나무 위에서 보는 구름이랑 물속에서 보는 구름은 기분이 달라.','톡, 하고 들렸지? 대나무가 우리 쉬는 시간 재는 것 같아.','꼬리 말리는 데 오래 걸려도 괜찮아. 오늘은 서두를 일 없으니까.','온천에 도토리를 띄우면 배가 될까? …알았어, 안 띄울게.','나 아까부터 가만히 있었어. 이 정도면 꽤 대단한 거야.','여기서는 바람도 살금살금 부네. 꼬리가 조금만 흔들려.','따뜻한 돌에 앉아서 쉬는 것도 좋더라. 나중에 같이 가 보자.','구름 하나 지나갈 때까지는 더 쉬자. 큰 구름이면 더 오래!','뭔가 떠오르려다가 잊어버렸어. 오늘은 그것도 괜찮겠지?','내일 할 일은 내일의 호두에게 맡겼어. 지금의 호두는 온천 담당!'],
+ '도치':['물 온도가 딱 좋다치. 오늘은 가시도 힘을 뺐다치.','물에 비친 구름이 나보다 빨리 움직인다치. 난 여기 있을 거다치.','수건을 작게 접었는데 아직도 내 머리보다 크다치.','톡 소리 들을 때마다 마음속 생각이 하나씩 떨어진다치.','쉬는 것도 잘하는 일이란다치. 오늘은 다 같이 잘하고 있다치.','이 바위는 따뜻하고 저 바위는 더 따뜻하다치. 연구는 여기까지다치.','첨벙 뛰어들지는 않는다치. 작은 물결부터 친구가 된다치.','난 조용히 있어도 즐겁다치. 옆에 있는 건 잘 알고 있다치.','방금 새가 왔다 갔다치. 온천 구경만 하고 갔다치.','온천물에 별이 떠 있다치. 건드리면 도망가니까 보기만 한다치.','가시 끝에 물방울이 반짝인다치. 오늘의 장식이다치.','잠깐 눈 감아도 된다치. 내가 물소리 듣고 있겠다치.'],
+ '부엉박사':['오늘의 연구 주제는 아무것도 하지 않는 즐거움입니다. 자료는 충분하군요.','대나무에 물이 차면 균형이 바뀝니다. 쉬는 시간도 마음의 균형을 찾아 주지요.','저는 물결의 수를 세다가 그만두었습니다. 그냥 바라보는 편이 좋더군요.','안경에 김이 서려도 괜찮습니다. 지금은 또렷이 볼 일이 많지 않으니까요.','한숨을 길게 내쉬어 보세요. 물소리가 그 뒤를 조용히 채워 줄 겁니다.','저 구름은 조금 전과 다른 모양이군요. 천천히 변하는 것도 변화랍니다.','해가 지는 속도를 재려 했는데, 감상하는 쪽으로 연구 계획을 바꿨습니다.','오늘 풀리지 않은 문제는 잠시 접어 두지요. 젖으면 글씨가 번질 테니까요.','별빛과 물빛은 다른 빛인데도 여기서는 사이좋게 어울리는군요.','대나무의 톡 소리가 아주 좋은 쉼표입니다. 문장을 끝내지 않아도 쉴 수 있지요.','따뜻한 물, 작은 바람, 곁에 있는 친구들. 오늘의 결론은 꽤 간단하군요.','쉬는 시간에는 정답을 찾지 않아도 됩니다. 함께 있다는 사실이면 충분하지요.']};
 function osClock(){const h=new Date().getHours();return h>=6&&h<11?0:h>=11&&h<17?1:h>=17&&h<21?2:3;}
-function osRender(){const index=OS.slot===null?osClock():OS.slot,t=OS_SLOTS[index],body=$('bgb');if(!body||!$('bgo').classList.contains('onsen-playing'))return;
- body.innerHTML=`<div class="os-scene ${OS.ui?'':'os-ui-off'}" onclick="if(event.target===this||event.target.classList.contains('os-background'))osToggleUI()"><picture><source media="(orientation: portrait)" srcset="${OS_PORTRAITS[index]}"><img class="os-background" src="${OS_LANDSCAPES[index]}" alt="${t.name}의 노천탕 · 화면을 누르면 메뉴를 보이거나 숨겨요"></picture><div class="os-friends ${t.friends.length===4?'os-four':'os-two'}">${t.friends.map((n,i)=>`<button class="os-friend" style="--i:${i};--size:${n==='토리'?1:n==='부엉박사'?.96:n==='호두'?.92:.89}" onclick="osTalk('${n}')" aria-label="${n}와 온천욕"><img src="${OS_ANIMALS[n]}" alt="${n}가 수건을 얹고 온천에서 쉬는 모습"></button>`).join('')}</div><i class="os-steam s1"></i><i class="os-steam s2"></i><i class="os-steam s3"></i><button class="btn ghost sm os-exit" onclick="osExit()" aria-label="온천 나가기">◀ 나가기</button><div class="os-hud"><div class="os-title">토리네 온천 · ${t.name}</div><p id="os-talk" class="os-talk" aria-live="polite">${t.line}</p><div class="os-times" aria-label="온천 시간대"><button class="btn ghost sm ${OS.slot===null?'os-active':''}" onclick="osTime(null)">현재 시간</button>${OS_SLOTS.map((v,i)=>`<button class="btn ghost sm ${OS.slot===i?'os-active':''}" onclick="osTime(${i})">${v.name}</button>`).join('')}</div><div class="os-actions"><button class="btn wood sm" id="os-music" onclick="osMusic()">${OS.on?'BGM 끄기':'BGM 듣기'}</button><button class="btn ghost sm" onclick="osToggleUI()">메뉴 숨기기</button></div></div></div>`;
+function osIsOpen(){return OS.active&&!!$('bgo')&&$('bgo').classList.contains('onsen-playing');}
+function osRender(){if(!osIsOpen())return;const index=osClock(),t=OS_SLOTS[index];
+ $('bgb').innerHTML=`<div class="os-scene os-slot-${index} ${OS.ui?'':'os-ui-off'}"><picture><img class="os-background" src="${OS_LANDSCAPES[index]}" alt="${t.name}의 토리네 온천"></picture><canvas class="os-bamboo" id="os-bamboo" width="1672" height="941" aria-hidden="true"></canvas><canvas class="os-weather" id="os-weather" aria-hidden="true"></canvas><div class="os-friends ${t.friends.length===4?'os-four':'os-two'}">${t.friends.map((n,i)=>`<button class="os-friend" style="--i:${i};--size:${n==='토리'?1:n==='부엉박사'?.96:n==='호두'?.92:.89}" onclick="osTalk('${n}')" aria-label="${n}와 이야기"><img src="${OS_ANIMALS[n]}" alt="${n}"></button>`).join('')}</div><i class="os-steam s1"></i><i class="os-steam s2"></i><i class="os-steam s3"></i><button class="os-icon os-exit" onclick="osExit()" aria-label="온천 나가기">←</button><div class="os-volume"><button class="os-icon" id="os-volume-button" onclick="osVolumeToggle()" aria-label="온천 소리 조절" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h4l5-4v14l-5-4H3zM16 8q5 4 0 8M19 5q8 7 0 14"/></svg></button><div class="os-volume-panel" id="os-volume-panel" hidden><label for="os-volume">소리 <output id="os-volume-value">${OS.volume}%</output></label><input id="os-volume" type="range" min="0" max="100" value="${OS.volume}" oninput="osSetVolume(this.value)" aria-label="배경음악과 온천 효과음 볼륨"></div></div><div class="os-hud"><div class="os-title">토리네 온천 · ${t.name}</div><p id="os-talk" class="os-talk" aria-live="polite">${t.line}</p></div></div>`;
+ document.querySelector('.os-scene').addEventListener('click',e=>{if(e.target.classList.contains('os-background')||e.target.classList.contains('os-scene'))osToggleUI();});osDraw();osDrawBamboo();
 }
-function osTime(i){OS.slot=i;osRender();}
-function osToggleUI(){OS.ui=!OS.ui;document.querySelector('.os-scene').classList.toggle('os-ui-off',!OS.ui);}
-function osTalk(n){const lines={'토리':'따끈따끈… 여기서 조금 더 쉬고 갈까요?','호두':'꼬리는 물 밖에! 오늘은 도토리도 잠깐 내려둘래.','도치':'물 온도가 딱 좋다치. 같이 쉬어라치.','부엉박사':'오늘의 연구 주제는 아무것도 하지 않는 즐거움입니다.'};OS.ui=true;document.querySelector('.os-scene').classList.remove('os-ui-off');$('os-talk').textContent=lines[n];}
-async function osMusic(){if(OS.on){osSilence();osRender();return;}try{if(!OS.audio){OS.audio=new Audio(OS_MUSIC);OS.audio.loop=true;OS.audio.volume=Math.max(0,Math.min(1,(S.vol??30)/100));}const playing=OS.audio;await playing.play();if(OS.audio!==playing||!$('bgo')||!$('bgo').classList.contains('onsen-playing')){playing.pause();return;}OS.on=true;osRender();}catch(e){OS.on=false;if($('os-talk'))$('os-talk').textContent='BGM 듣기를 누르면 음악이 시작돼요.';}}
-function osSilence(){OS.on=false;if(OS.audio){OS.audio.pause();OS.audio.currentTime=0;}}
-function osCleanup(){osSilence();if(OS.audio){OS.audio.removeAttribute('src');OS.audio.load();OS.audio=null;}clearInterval(OS.clockTimer);OS.clockTimer=null;if(OS.observer){OS.observer.disconnect();OS.observer=null;}}
+function osVolumeToggle(){const p=$('os-volume-panel');p.hidden=!p.hidden;$('os-volume-button').setAttribute('aria-expanded',String(!p.hidden));if(!p.hidden)osAudioStart();}
+function osSetVolume(v){OS.volume=Math.max(0,Math.min(100,Number(v)||0));S.osVolume=OS.volume;save();if(OS.audio)OS.audio.volume=OS.volume/100*.65;if(OS.gain)OS.gain.gain.setTargetAtTime(OS.volume/100,OS.ctx.currentTime,.05);if($('os-volume-value'))$('os-volume-value').textContent=OS.volume+'%';if(OS.volume>0)osAudioStart();}
+function osToggleUI(){OS.ui=!OS.ui;const el=document.querySelector('.os-scene');if(el)el.classList.toggle('os-ui-off',!OS.ui);}
+function osTalk(n){const a=OS_LINES[n];if(!a)return;let i=Math.floor(Math.random()*a.length);if(i===OS.lastTalk[n])i=(i+1)%a.length;OS.lastTalk[n]=i;OS.ui=true;document.querySelector('.os-scene').classList.remove('os-ui-off');$('os-talk').textContent=n+': '+a[i];}
+function osAudioStart(){if(!osIsOpen()||document.hidden)return;
+ if(!OS.audio){OS.audio=new Audio(OS_MUSIC);OS.audio.loop=true;OS.audio.volume=OS.volume/100*.65;}
+ if(OS.audio.paused)OS.audio.play().catch(()=>{});
+ try{if(!OS.ctx){const C=window.AudioContext||window.webkitAudioContext;if(!C)return;OS.ctx=new C();OS.gain=OS.ctx.createGain();OS.gain.gain.value=OS.volume/100;OS.gain.connect(OS.ctx.destination);
+  const b=OS.ctx.createBuffer(1,OS.ctx.sampleRate*6,OS.ctx.sampleRate),a=b.getChannelData(0);let brown=0;for(let i=0;i<a.length;i++){const white=Math.random()*2-1;brown=(brown+.025*white)/1.025;a[i]=brown*2.5;}
+  const src=OS.ctx.createBufferSource();src.buffer=b;src.loop=true;const filter=OS.ctx.createBiquadFilter();filter.type='lowpass';filter.frequency.value=1900;const g=OS.ctx.createGain();g.gain.value=.18;src.connect(filter);filter.connect(g);g.connect(OS.gain);src.start();OS.water=src;
+ }if(OS.ctx.state==='suspended')OS.ctx.resume().catch(()=>{});}catch(e){}
+}
+function osTone(freq,duration,volume,type='sine',end){if(!OS.ctx||OS.ctx.state!=='running'||!osIsOpen()||document.hidden||OS.volume===0)return;const c=OS.ctx,t=c.currentTime,o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);if(end)o.frequency.exponentialRampToValueAtTime(end,t+duration);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(volume,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+duration);o.connect(g);g.connect(OS.gain);o.start(t);o.stop(t+duration+.02);o.onended=()=>{o.disconnect();g.disconnect();};}
+function osKnock(){osTone(680,.18,.12,'triangle',260);osTone(1350,.065,.035,'sine',1050);}
+function osDrip(){osTone(980,.09,.035,'sine',1700);}
+function osDraw(){const c=$('os-weather');if(!c)return;const portrait=c.clientHeight>c.clientWidth,W=portrait?240:384,H=Math.round(W*c.clientHeight/c.clientWidth);if(c.width!==W||c.height!==H){c.width=W;c.height=H;}const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.clearRect(0,0,W,H);const f=OS.frame,s=osClock(),p=(x,y,w,h,col)=>{g.fillStyle=col;g.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h));};
+ // Integer pixel positions; 8 frames per second, without interpolated motion.
+ if(s!==3){const alpha=[.10,.12,.14,.12][Math.floor(f/8)%4];g.fillStyle=`rgba(255,233,160,${alpha})`;g.fillRect(W*.35,H*.12,W*.12,H*.63);g.fillRect(W*.54,H*.1,W*.08,H*.52);}
+ for(let i=0;i<3;i++){const x=(i*W*.36+Math.floor(f/18))%(W+90)-55,y=H*(.07+i*.035);p(x,y,38,4,s===3?'#b2bdce38':'#fff4df70');p(x+9,y-4,17,4,s===3?'#b2bdce38':'#fff4df70');}
+ if(s===3)for(let i=0;i<22;i++){const x=(i*43)%W,y=H*.04+(i*17)%(H*.19);p(x,y,1+(i%3===0),1+(i%3===0),((f>>3)+i)%5===0?'#fff3b8':'#cfdfef99');}
+ for(let i=0;i<32;i++){const x=W*(.15+((i*37)%69)/100),y=H*(.53+((i*19)%30)/100);p(x+((f+i)%6)-3,y,3+i%8,1,s===3?'#d5e8f549':'#f2f5d87a');}
+ // One brief bird visit roughly every 45 seconds; 2-frame wings.
+ const bird=f%360;if(bird>=210&&bird<258){const x=W-(bird-210)*Math.ceil(W/46),y=H*.19+((bird>>2)%3);p(x,y,3,2,'#695846');p(x-4,y-((f%2)*2),4,1,'#695846');p(x+3,y-((f%2)*2),4,1,'#695846');}
+}
+function osDrawBamboo(){const c=$('os-bamboo');if(!c||!OS.art||!OS.art.complete||!OS.art.naturalWidth)return;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.clearRect(0,0,1672,941);const phase=OS.frame%112;
+ // Draw the approved artwork itself, with discrete pivot poses rather than a replacement illustration.
+ let angle=0;if(phase>=80&&phase<88)angle=-(phase-80)*.04;else if(phase>=88&&phase<98)angle=-.28;else if(phase>=98&&phase<104)angle=-.28+(phase-98)*.047;
+ const points=[[1328,313],[1339,295],[1360,284],[1380,295],[1480,332],[1480,360],[1530,365],[1627,398],[1642,411],[1631,434],[1610,438],[1365,348],[1340,346],[1328,330]];
+ g.save();g.translate(1508,376);g.rotate(angle);g.translate(-1508,-376);g.beginPath();points.forEach(([x,y],i)=>i?g.lineTo(x,y):g.moveTo(x,y));g.closePath();g.clip();g.drawImage(OS.art,0,0,1672,941);g.restore();
+ // The original front support and knock stone sit in front of the moving tube.
+ g.drawImage(OS.art,1480,332,54,175,1480,332,54,175);g.drawImage(OS.art,1470,487,112,74,1470,487,112,74);
+ const dot=(x,y,w,h)=>{g.fillStyle='#d8ffff';g.fillRect(Math.round(x/3)*3,Math.round(y/3)*3,w,h);};
+ for(let i=0;i<12;i++)dot(1394+(i%3),210+((OS.frame*7+i*13)%108),4,9);
+ if(phase>=85&&phase<102){const x=1508+Math.cos(angle)*(1340-1508)-Math.sin(angle)*(326-376),y=376+Math.sin(angle)*(1340-1508)+Math.cos(angle)*(326-376);for(let i=0;i<18;i++)dot(x+i%3,y+((OS.frame*11+i*17)%Math.max(20,580-y)),4,12);for(let i=0;i<10;i++)dot(x-28+i*6,578+(i+OS.frame)%3*4,11,3);}
+}
+function osTick(){if(!osIsOpen()||document.hidden)return;OS.frame++;const phase=OS.frame%112;if(phase===104)osKnock();if(phase%24===0&&phase<80)osDrip();osDraw();osDrawBamboo();}
+function osCleanup(){OS.active=false;clearInterval(OS.frameTimer);clearInterval(OS.clockTimer);OS.frameTimer=OS.clockTimer=null;if(OS.retry){document.removeEventListener('pointerdown',OS.retry,true);document.removeEventListener('keydown',OS.retry,true);OS.retry=null;}if(OS.observer){OS.observer.disconnect();OS.observer=null;}if(OS.audio){OS.audio.pause();OS.audio.removeAttribute('src');OS.audio.load();OS.audio=null;}if(OS.ctx){const c=OS.ctx;OS.ctx=null;OS.gain=null;OS.water=null;c.close().catch(()=>{});}}
 function osExit(){osCleanup();bgClose(1);bgStart();}
-function osOpen(){osCleanup();bgStop();if(bgG)bgG.gain.value=0;bgShell('토리네 온천',osExit);$('bgo').classList.add('onsen-playing');OS.slot=null;OS.ui=true;osRender();if(S.bgmOn)osMusic();let last=osClock();OS.clockTimer=setInterval(()=>{const now=osClock();if(OS.slot===null&&now!==last)osRender();last=now;},60000);OS.observer=new MutationObserver(()=>{if(!$('bgo')||!$('bgo').classList.contains('onsen-playing')){osCleanup();if(!document.hidden)bgStart();}});OS.observer.observe(document.body,{childList:true});}
-document.addEventListener('visibilitychange',()=>{if(OS.audio){if(document.hidden)OS.audio.pause();else if(OS.on)OS.audio.play().catch(()=>{OS.on=false;osRender();});}});
+function osOpen(){osCleanup();bgStop();if(typeof bgG!=='undefined'&&bgG)bgG.gain.value=0;bgShell('토리네 온천',osExit);$('bgo').classList.add('onsen-playing');OS.active=true;if(!OS.art){OS.art=new Image();OS.art.onload=()=>{if(osIsOpen())osDrawBamboo();};OS.art.src='assets/onsen-bamboo-v107.webp';}OS.ui=true;OS.frame=0;OS.volume=Number.isFinite(S.osVolume)?S.osVolume:35;osRender();osAudioStart();OS.retry=()=>osAudioStart();document.addEventListener('pointerdown',OS.retry,true);document.addEventListener('keydown',OS.retry,true);OS.frameTimer=setInterval(osTick,125);let last=osClock();OS.clockTimer=setInterval(()=>{const slot=osClock();if(slot!==last){last=slot;osRender();}},30000);OS.observer=new MutationObserver(()=>{if(!osIsOpen()){osCleanup();if(!document.hidden)bgStart();}});OS.observer.observe(document.body,{childList:true});}
+document.addEventListener('visibilitychange',()=>{if(!osIsOpen())return;if(document.hidden){if(OS.audio)OS.audio.pause();if(OS.ctx)OS.ctx.suspend().catch(()=>{});}else{osRender();osAudioStart();}});
 window.addEventListener('pagehide',osCleanup);
+window.addEventListener('pageshow',e=>{if(e.persisted&&$('bgo')&&$('bgo').classList.contains('onsen-playing'))osOpen();});
+
 
 </script>
 </body>
 </html>
+
 
