@@ -156,7 +156,7 @@ nav button b .pxi{width:32px;height:32px}
 #mg canvas{-webkit-user-drag:none;touch-action:none}
 *{-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
 body{-webkit-user-select:none;user-select:none}
-input,textarea,select,[contenteditable]{-webkit-user-select:text;user-select:text}
+input,textarea,select,[contenteditable]{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 input[type=date],input[type=time]{-webkit-appearance:none;appearance:none;display:block;min-height:44px}   /* 일정 입력칸이 화면 오른쪽 끝까지 삐져나가던 것 (v6.7) */
 img,canvas,svg{-webkit-user-drag:none;user-drag:none}
 .dc.sel{animation:bl .6s steps(2) infinite;outline:3px dashed var(--gold);outline-offset:2px}
@@ -421,28 +421,32 @@ input[type=range]{accent-color:var(--gold)}
 .os-background{display:block;width:100%;height:100%;object-fit:cover;object-position:100% center;image-rendering:pixelated}
 .os-slot-1 .os-background{filter:brightness(1.08) saturate(.95)}
 .os-slot-2 .os-background{filter:sepia(.27) saturate(.9) hue-rotate(335deg) brightness(.8)}
-.os-slot-3 .os-background{filter:grayscale(.7) sepia(.35) hue-rotate(150deg) saturate(1.2) brightness(.34)}
+.os-slot-3 .os-background{filter:brightness(.78) saturate(1.15)}
 .os-weather,.os-friends{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;image-rendering:pixelated}
-.os-friend{position:absolute;background:none;border:0;padding:0;pointer-events:auto;width:calc(clamp(80px,17vh,160px)*var(--size));transform:translate(-50%,-50%);animation:osFloat 6s steps(6,end) infinite;animation-delay:calc(var(--i)*-1.4s);box-shadow:none}
+.os-friend{position:absolute;background:none;border:0;padding:0;pointer-events:auto;width:calc(clamp(80px,17vh,160px)*var(--size));transform:translate(-50%,-50%);animation:none;box-shadow:none}
 .os-friend img{display:block;width:100%;height:auto;image-rendering:pixelated;pointer-events:none}
 .os-friend:focus-visible{outline:3px solid #fffaf0;outline-offset:6px}
 .os-two .os-friend:nth-child(1){left:41%;top:64%}.os-two .os-friend:nth-child(2){left:62%;top:67%}
 .os-four .os-friend:nth-child(1){left:31%;top:64%}.os-four .os-friend:nth-child(2){left:44%;top:69%}.os-four .os-friend:nth-child(3){left:58%;top:64%}.os-four .os-friend:nth-child(4){left:72%;top:69%}
 .os-steam{position:absolute;width:30px;height:42px;background:#fffbe54d;clip-path:polygon(35% 100%,0 70%,40% 45%,20% 20%,55% 0,100% 20%,75% 50%,100% 75%);pointer-events:none;animation:osSteam 7s steps(7,end) infinite}
 .s1{left:24%;top:48%}.s2{left:51%;top:44%;animation-delay:-2s}.s3{left:74%;top:49%;animation-delay:-4s}
-.os-icon{display:grid;place-items:center;width:44px;height:44px;border:0;background:#f6ebd8dd;color:#513e2b;border-radius:5px;padding:12px;font-size:21px;box-shadow:none}
+.os-icon{display:grid;place-items:center;width:44px;height:44px;border:0;background:var(--os-button,#e8efd6b8);color:var(--os-button-ink,#405638);border-radius:5px;padding:0;min-width:44px;min-height:44px;box-sizing:border-box;aspect-ratio:1;font-size:21px;box-shadow:none}
+.os-slot-0{--os-button:#e8efd6b8;--os-button-ink:#405638}
+.os-slot-1{--os-button:#d2ebdeb8;--os-button-ink:#295849}
+.os-slot-2{--os-button:#6b4653b8;--os-button-ink:#fff0dc}
+.os-slot-3{--os-button:#183d4bb8;--os-button-ink:#d6f0dc}
 .os-icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:miter}
 .os-exit{position:absolute;top:calc(8px + env(safe-area-inset-top));left:calc(8px + env(safe-area-inset-left));z-index:4}
 .os-volume{position:absolute;right:calc(8px + env(safe-area-inset-right));top:calc(8px + env(safe-area-inset-top));z-index:4}
 .os-volume-panel{position:absolute;right:0;top:50px;width:170px;background:#fff4df;border:2px solid #987347;padding:10px;color:#4a3423}
 .os-volume-panel[hidden]{display:none}.os-volume-panel label{display:flex;justify-content:space-between;font-size:12px}.os-volume-panel input{width:100%;padding:0;accent-color:#7b8951}
 .os-hud{position:absolute;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(90%,560px);text-align:center;color:#4a3423;background:#fff4dfed;border:2px solid #987347;border-radius:6px;padding:9px 12px;z-index:2;pointer-events:none}
-.os-title{font-weight:bold;font-size:12px}.os-talk{font-size:12px;line-height:1.65;margin:4px 0 0;min-height:20px}.os-ui-off .os-hud{visibility:hidden}
-@keyframes osFloat{0%,100%{transform:translate(-50%,-50%)}25%{transform:translate(calc(-50% + 3px),calc(-50% - 4px))}50%{transform:translate(calc(-50% + 6px),calc(-50% + 1px))}75%{transform:translate(calc(-50% - 3px),calc(-50% + 3px))}}
+.os-talk{font-size:12px;line-height:1.65;margin:0;min-height:20px}.os-ui-off .os-hud{visibility:hidden}
 @keyframes osSteam{0%{opacity:0;transform:translateY(8px)}30%{opacity:.4}100%{opacity:0;transform:translateY(-30px)}}
 @media(orientation:portrait){.os-background{object-position:65% center}.os-friend{width:calc(clamp(90px,26vw,150px)*var(--size))}.os-two .os-friend:nth-child(1){left:35%;top:62%}.os-two .os-friend:nth-child(2){left:65%;top:73%}.os-four .os-friend:nth-child(1){left:30%;top:61%}.os-four .os-friend:nth-child(2){left:65%;top:66%}.os-four .os-friend:nth-child(3){left:30%;top:76%}.os-four .os-friend:nth-child(4){left:65%;top:78%}.os-hud{padding:8px 10px}.os-steam{top:54%}}
-@media(orientation:landscape) and (max-height:480px){.os-title{display:none}.os-hud{padding:6px 10px;bottom:calc(8px + env(safe-area-inset-bottom))}.os-talk{margin:0;font-size:11px}}
-.os-bamboo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:100% center;pointer-events:none;image-rendering:pixelated}.os-slot-1 .os-bamboo{filter:brightness(1.08) saturate(.95)}.os-slot-2 .os-bamboo{filter:sepia(.27) saturate(.9) hue-rotate(335deg) brightness(.8)}.os-slot-3 .os-bamboo{filter:grayscale(.7) sepia(.35) hue-rotate(150deg) saturate(1.2) brightness(.34)}@media(orientation:portrait){.os-bamboo{object-position:100% center}.os-background{object-position:100% center}}
+@media(orientation:landscape) and (max-height:480px){.os-hud{padding:6px 10px;bottom:calc(8px + env(safe-area-inset-bottom))}.os-talk{font-size:11px}}
+.os-bamboo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:100% center;pointer-events:none;image-rendering:pixelated}.os-slot-1 .os-bamboo{filter:brightness(1.08) saturate(.95)}.os-slot-2 .os-bamboo{filter:sepia(.27) saturate(.9) hue-rotate(335deg) brightness(.8)}.os-slot-3 .os-bamboo{filter:brightness(.78) saturate(1.15)}@media(orientation:portrait){.os-bamboo{object-position:100% center}.os-background{object-position:100% center}}
+@media(orientation:portrait){.os-scene .os-background{filter:none}.os-slot-1 .os-bamboo{filter:brightness(1.08) saturate(.95)}.os-slot-2 .os-bamboo{filter:sepia(.35) saturate(.9) hue-rotate(335deg) brightness(.8)}.os-slot-3 .os-bamboo{filter:brightness(.78) saturate(1.15)}}
 @media(prefers-reduced-motion:reduce){.os-friend,.os-steam{animation:none}}
 
 
@@ -454,6 +458,25 @@ input[type=range]{accent-color:var(--gold)}
 #rxp{animation:rxEnter .24s ease-out both;transition:opacity .24s ease-in,transform .24s ease-in}#rxp.rx-leaving{animation:none;opacity:0;transform:translate(-50%,-46%)}@keyframes rxEnter{from{opacity:0;transform:translate(-50%,-46%)}to{opacity:1;transform:translate(-50%,-50%)}}
 @media(prefers-reduced-motion:reduce){.hero .hero-out{animation:none;opacity:0}#rxp{animation:none;transition:none}}
 
+
+/* Native portrait artwork stays full width; each picture scrolls without cropping. */
+.df-play .df-pair{display:grid;overflow:auto;touch-action:pan-x pan-y;align-content:start;overscroll-behavior:contain;scrollbar-width:thin}
+.df-play .df-pair>div{display:block;min-width:0}.df-play .df-image{max-width:none;touch-action:pan-x pan-y}
+.df-playing.df-focus .df-pair,.df-playing.df-focus .df-image{touch-action:none}
+.df-return{position:fixed;top:calc(8px + env(safe-area-inset-top));right:calc(8px + env(safe-area-inset-right));z-index:90;width:44px;height:44px;border:0;border-radius:5px;background:#fff4dfed;color:#513e2b;font:22px sans-serif;padding:0}.df-return[hidden]{display:none}
+.mj-room-exit{transform:scale(.7);transform-origin:left center}
+
+.os-weather{object-fit:cover;object-position:100% center}.os-night-background{position:absolute;inset:0;display:none}.os-steam{display:none}
+.os-slot-3 .os-background{filter:none}
+@media(orientation:portrait){.os-night-background{display:block}}
+
+.diary-tori{display:inline-block;width:22px;height:22px;vertical-align:middle;object-fit:contain;image-rendering:pixelated}
+.os-icon{flex:none;transition:none}
+.os-slot-1 .os-weather{filter:brightness(1.08) saturate(.95)}
+.os-slot-2 .os-weather{filter:sepia(.27) saturate(.9) hue-rotate(335deg) brightness(.8)}
+@media(orientation:portrait){.os-slot-1 .os-weather,.os-slot-2 .os-weather{filter:none}}
+
+input,textarea,[contenteditable]{font-size:max(16px,1em)!important}
 </style>
 </head>
 <body>
@@ -758,7 +781,7 @@ function mgList(){const G=[['🌰','도토리 받기','떨어지는 도토리를
 
 let mjLoadTimer=0,mjOverflow='';
 // Each scene preserves its aspect ratio and owns five localized comparison patches.
-const DF={stage:0,page:0,found:[],hint:-1,zoom:false,observer:null,takoTimer:null,zoomTap:null};
+const DF={stage:0,page:0,found:[],hint:-1,zoom:false,observer:null,takoTimer:null,scale:1};
 const DF_SCENES=[
  {id:'strawberry-teaparty',name:'냐옹이와 도치의 딸기 티파티',original:'assets/df-teaparty-v92.webp',edited:'assets/df-teaparty-changes-v92.webp',spots:[
   {x:129,y:146,r:23,n:'바구니 리본',box:[111,123,35,47]},
@@ -782,26 +805,34 @@ function dfSpots(){return DF_SCENES[DF.stage].spots;}
 function dfArtLoad(){const scene=DF_SCENES[DF.stage],id=scene.id;if(DF_ART.has(id))return DF_ART.get(id);const art={ready:false,error:false};DF_ART.set(id,art);Promise.all([scene.original,scene.edited].map(src=>new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=src;}))).then(imgs=>{art.imgs=imgs;art.ready=true;if(DF_ART.get(id)===art&&$('df-c0')&&DF_SCENES[DF.stage].id===id)dfPaint();}).catch(()=>{art.error=true;if(DF_ART.get(id)===art&&$('df-note')&&DF_SCENES[DF.stage].id===id){$('df-note').textContent='그림을 불러오지 못했어요. 아래 다시 불러오기를 눌러 주세요.';$('df-retry').hidden=false;}});return art;}
 function dfRetry(){DF_ART.delete(DF_SCENES[DF.stage].id);$('df-retry').hidden=true;$('df-note').textContent='그림을 다시 불러오는 중…';dfPaint();}
 // Keep full images and native-resolution backing pixels; CSS size never sets game coordinates.
-function dfOrientationNote(){return dfRatio()<1?'타코: 세로 그림은 폰을 가로로 돌려보자다코!':'타코: 가로 그림은 폰을 세워서 찾아보자다코!';}
-function dfFit(){const pair=document.querySelector('#bgo .df-pair');if(!pair)return;const r=pair.getBoundingClientRect(),gap=DF.zoom?0:6,ratio=dfRatio(),vertical=ratio>=1;const width=Math.max(1,vertical?Math.min(r.width,(r.height-gap)/2*ratio):Math.min((r.width-gap)/2,r.height*ratio));pair.style.gridTemplateColumns=vertical?'1fr':width+'px '+width+'px';pair.style.gridTemplateRows=vertical?width/ratio+'px '+width/ratio+'px':'1fr';pair.style.alignContent='center';pair.style.justifyContent='center';[0,1].forEach(i=>{const c=$('df-c'+i);c.style.width=width+'px';c.style.height=(width/ratio)+'px';const scale=Math.max(1,globalThis.devicePixelRatio||1),scene=DF_SCENES[DF.stage],nw=Math.max(scene.width||1122,Math.ceil(width*scale)),nh=Math.round(nw/ratio);if(c.width!==nw||c.height!==nh){c.width=nw;c.height=nh;dfPaint();}});}
-function dfZoom(){if(!DF.zoom&&!dfArtLoad().ready){$('df-note').textContent='그림을 다 불러오면 크게볼 수 있어요.';return;}DF.zoom=!DF.zoom;DF.zoomTap=null;if(DF.zoom){dfTakoClear();DF.hint=-1;}$('bgo').classList.toggle('df-focus',DF.zoom);$('df-zoom').textContent='크게보기';dfPaint();dfFit();}
+function dfOrientationNote(){return dfRatio()<1?'타코: 위아래로 내려 보면서 찾아보자코!':'타코: 작은 소품도 함께 살펴보자코!';}
+function dfFit(){const pair=document.querySelector('#bgo .df-pair');if(!pair)return;const r=pair.getBoundingClientRect(),ratio=dfRatio(),width=Math.max(1,r.width*(DF.zoom?DF.scale:1));pair.style.gridTemplateColumns='1fr';pair.style.gridTemplateRows=width/ratio+'px '+width/ratio+'px';pair.style.alignContent='start';pair.style.justifyContent='start';[0,1].forEach(i=>{const c=$('df-c'+i);c.style.width=width+'px';c.style.height=(width/ratio)+'px';const scene=DF_SCENES[DF.stage],nw=scene.width||1122,nh=scene.height||1402;if(c.width!==nw||c.height!==nh){c.width=nw;c.height=nh;dfPaint();}});}
+function dfZoom(){if(!DF.zoom&&!dfArtLoad().ready){$('df-note').textContent='그림을 다 불러오면 크게볼 수 있어요.';return;}DF.zoom=!DF.zoom;DF.scale=1;if(DF.zoom){dfTakoClear();DF.hint=-1;}$('bgo').classList.toggle('df-focus',DF.zoom);$('df-return').hidden=!DF.zoom;dfPaint();dfFit();}
+// Pinch and drag change only the view; taps still use the original picture coordinates.
+function dfBindGestures(pair){const points=new Map();let pinch=null,drag=null,moved=false;
+ const distance=()=>{const a=Array.from(points.values());return Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);};
+ pair.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;points.set(e.pointerId,{x:e.clientX,y:e.clientY});if(points.size===1){moved=false;drag={x:e.clientX,y:e.clientY,left:pair.scrollLeft||0,top:pair.scrollTop||0,target:e.target};}if(DF.zoom){pair.setPointerCapture(e.pointerId);if(points.size===2){const a=Array.from(points.values()),r=pair.getBoundingClientRect(),x=(a[0].x+a[1].x)/2-r.left,y=(a[0].y+a[1].y)/2-r.top;pinch={distance:distance(),scale:DF.scale,x:(pair.scrollLeft+x)/DF.scale,y:(pair.scrollTop+y)/DF.scale};moved=true;}}});
+ pair.addEventListener('pointermove',e=>{if(!points.has(e.pointerId))return;points.set(e.pointerId,{x:e.clientX,y:e.clientY});if(drag&&Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>6)moved=true;if(!DF.zoom)return;e.preventDefault();if(pinch&&points.size>=2){const a=Array.from(points.values()),r=pair.getBoundingClientRect();DF.scale=Math.max(1,Math.min(4,pinch.scale*distance()/Math.max(1,pinch.distance)));dfFit();pair.scrollLeft=pinch.x*DF.scale-((a[0].x+a[1].x)/2-r.left);pair.scrollTop=pinch.y*DF.scale-((a[0].y+a[1].y)/2-r.top);}else if(drag&&points.size===1){pair.scrollLeft=drag.left+drag.x-e.clientX;pair.scrollTop=drag.top+drag.y-e.clientY;}});
+ const end=e=>{const target=drag&&drag.target;if(e.type==='pointerup'&&!moved&&points.size===1&&target&&target.classList.contains('df-image')){const r=target.getBoundingClientRect();dfTap((e.clientX-r.left)/r.width*240,(e.clientY-r.top)/r.height*dfHeight());}points.delete(e.pointerId);pinch=null;if(!points.size){drag=null;moved=false;}else{const a=Array.from(points.values())[0];drag={x:a.x,y:a.y,left:pair.scrollLeft,top:pair.scrollTop,target:null};moved=true;}};
+ pair.addEventListener('pointerup',end);pair.addEventListener('pointercancel',end);
+}
 // Only completion lives in S: no reward or other game fields are changed.
 function dfDone(id){return !!(S.dfCompleted&&S.dfCompleted[id]===true);}
 function dfOrder(){return DF_SCENES.map((scene,stage)=>({scene,stage})).filter(v=>!dfDone(v.scene.id)).concat(DF_SCENES.map((scene,stage)=>({scene,stage})).filter(v=>dfDone(v.scene.id)));}
 function dfOpen(){bgStop();DF.page=0;DF.zoom=false;dfSelect();}
 function dfPickerFit(){const slot=document.querySelector('.df-cover-slot'),cover=document.querySelector('.df-cover');if(!slot||!cover)return;const scene=dfOrder()[DF.page].scene,r=slot.getBoundingClientRect(),ratio=(scene.width||1122)/(scene.height||1402);cover.style.width=Math.max(0,Math.min(r.width,Math.max(0,r.height-4)*ratio+4))+'px';}
-function dfSelect(id){dfTakoClear();if(DF.observer){DF.observer.disconnect();DF.observer=null;}const order=dfOrder();if(id){const page=order.findIndex(v=>v.scene.id===id);if(page>=0)DF.page=page;}DF.page=Math.max(0,Math.min(DF.page,order.length-1));const {scene,stage}=order[DF.page],done=dfDone(scene.id),body=bgShell('그림 선택',()=>bgStart());$('bgo').classList.add('df-selecting');body.innerHTML=`<section class="df-picker" aria-label="그림 선택"><h4>${scene.name}</h4><p class="df-status ${done?'done':''}" aria-live="polite">${done?'완료 · 다섯 곳을 모두 찾았어요':'미완료 · 다른 곳 다섯 개를 찾아봐요'}</p><nav class="df-pages" aria-label="그림 페이지"><button class="btn ghost sm" onclick="dfPage(-1)" aria-label="이전 그림">◀</button><span class="df-page-numbers">${order.map((v,i)=>`<button class="btn ghost sm ${i===DF.page?'df-current':''}" onclick="dfPageTo(${i})" ${i===DF.page?'aria-current="page"':''} aria-label="${i+1}페이지 · ${v.scene.name}">${i+1}</button>`).join('')}</span><button class="btn ghost sm" onclick="dfPage(1)" aria-label="다음 그림">▶</button></nav><div class="df-cover-slot"><button class="df-cover" onclick="dfStart(${stage})" aria-label="${scene.name} ${done?'다시 플레이':'시작'}"><img id="df-cover" src="${scene.original}" width="${scene.width||1122}" height="${scene.height||1402}" alt="${scene.name}" decoding="async"></button></div><p id="df-select-note" class="df-select-note" aria-live="polite">그림을 누르거나 아래 시작 버튼을 눌러요.</p><button id="df-cover-retry" class="btn ghost sm" onclick="dfSelect()" hidden>그림 다시 불러오기</button><p class="muted">${DF.page+1} / ${order.length} · 완료한 그림은 뒤에서 다시 즐길 수 있어요.</p><button class="btn wood full df-start" onclick="dfStart(${stage})">${done?'이 그림 다시 하기':'이 그림 시작'}</button></section>`;const img=$('df-cover');dfPickerFit();img.onload=dfPickerFit;if(typeof ResizeObserver!=='undefined'){DF.observer=new ResizeObserver(dfPickerFit);DF.observer.observe(document.querySelector('.df-cover-slot'));}img.onerror=()=>{if($('df-cover')!==img)return;$('df-select-note').textContent='그림을 불러오지 못했어요. 다시 불러오기를 눌러 주세요.';$('df-cover-retry').hidden=false;};}
+function dfSelect(id){dfTakoClear();if(DF.observer){DF.observer.disconnect();DF.observer=null;}const order=dfOrder();if(id){const page=order.findIndex(v=>v.scene.id===id);if(page>=0)DF.page=page;}DF.page=Math.max(0,Math.min(DF.page,order.length-1));const {scene,stage}=order[DF.page],done=dfDone(scene.id),body=bgShell('그림 선택',()=>bgStart());$('bgo').classList.add('df-selecting');body.innerHTML=`<section class="df-picker" aria-label="그림 선택"><h4>${scene.name}</h4><p class="df-status ${done?'done':''}" aria-live="polite">${done?'완료 · 다섯 곳을 모두 찾았어요':'미완료 · 다른 곳 다섯 개를 찾아봐요'}</p><p id="df-select-note" class="df-select-note" aria-live="polite">그림을 누르거나 아래 시작 버튼을 눌러요.</p><p class="muted">${DF.page+1} / ${order.length} · 완료한 그림은 뒤에서 다시 즐길 수 있어요.</p><div class="df-cover-slot"><button class="df-cover" onclick="dfStart(${stage})" aria-label="${scene.name} ${done?'다시 플레이':'시작'}"><img id="df-cover" src="${scene.original}" width="${scene.width||1122}" height="${scene.height||1402}" alt="${scene.name}" decoding="async"></button></div><nav class="df-pages" aria-label="그림 페이지"><button class="btn ghost sm" onclick="dfPage(-1)" aria-label="이전 그림">◀</button><span class="df-page-numbers">${order.map((v,i)=>`<button class="btn ghost sm ${i===DF.page?'df-current':''}" onclick="dfPageTo(${i})" ${i===DF.page?'aria-current="page"':''} aria-label="${i+1}페이지 · ${v.scene.name}">${i+1}</button>`).join('')}</span><button class="btn ghost sm" onclick="dfPage(1)" aria-label="다음 그림">▶</button></nav><button id="df-cover-retry" class="btn ghost sm" onclick="dfSelect()" hidden>그림 다시 불러오기</button><button class="btn wood full df-start" onclick="dfStart(${stage})">${done?'이 그림 다시 하기':'이 그림 시작'}</button></section>`;const img=$('df-cover');dfPickerFit();img.onload=dfPickerFit;if(typeof ResizeObserver!=='undefined'){DF.observer=new ResizeObserver(dfPickerFit);DF.observer.observe(document.querySelector('.df-cover-slot'));}img.onerror=()=>{if($('df-cover')!==img)return;$('df-select-note').textContent='그림을 불러오지 못했어요. 다시 불러오기를 눌러 주세요.';$('df-cover-retry').hidden=false;};}
 function dfPage(delta){DF.page=(DF.page+delta+DF_SCENES.length)%DF_SCENES.length;dfSelect();}
 function dfPageTo(page){DF.page=page;dfSelect();}
 function dfStart(stage){if(!DF_SCENES[stage])return;DF.stage=stage;DF.zoom=false;dfShow();}
-function dfShow(){dfTakoClear();if(DF.observer){DF.observer.disconnect();DF.observer=null;}DF.found=[];DF.hint=-1;const body=bgShell('틀린 그림 찾기',()=>bgStart());$('bgx').textContent='◀ 그림 선택';$('bgx').onclick=()=>dfSelect(DF_SCENES[DF.stage].id);$('bgo').classList.add('df-playing');body.innerHTML=`<div class="df-play"><div class="df-score" id="df-score"></div><div class="df-pair" style="grid-template-columns:1fr 1fr">${[0,1].map(i=>`<div><canvas width="${DF_SCENES[DF.stage].width||1122}" height="${DF_SCENES[DF.stage].height||1402}" style="aspect-ratio:${dfRatio()};image-rendering:auto" class="df-image" id="df-c${i}" role="img" aria-label="${i?'다른 곳을 찾을 비교':'기준'} 그림"></canvas></div>`).join('')}</div><p class="df-note" id="df-note" aria-live="polite">두 그림에서 다른 곳을 눌러요. 어느 쪽 그림을 눌러도 돼요!</p><button class="btn ghost sm" id="df-retry" onclick="dfRetry()" hidden>다시 불러오기</button><div class="df-controls"><button class="btn ghost" id="df-zoom" onclick="dfZoom()">크게보기</button><button class="btn ghost" id="df-tako" onclick="dfTako()">타코에게<br>물어보기</button><button class="btn wood" id="df-next" onclick="dfNext()">그림 선택</button></div></div>`;[0,1].forEach(i=>{$('df-c'+i).addEventListener('pointerup',e=>{if(DF.zoom){const prev=DF.zoomTap;DF.zoomTap={time:e.timeStamp,x:e.clientX,y:e.clientY};if(prev&&e.timeStamp-prev.time<320&&Math.hypot(e.clientX-prev.x,e.clientY-prev.y)<24){dfZoom();return;}}const r=e.currentTarget.getBoundingClientRect();dfTap((e.clientX-r.left)/r.width*240,(e.clientY-r.top)/r.height*dfHeight());});$('df-c'+i).addEventListener('dblclick',()=>{if(DF.zoom)dfZoom();});});$('df-note').textContent=dfOrientationNote()+' 크게보기는 두 번 탭하면 돌아온다코.';dfPaint();dfFit();if(typeof ResizeObserver!=='undefined'){DF.observer=new ResizeObserver(dfFit);DF.observer.observe(document.querySelector('#bgo .df-pair'));}}
+function dfShow(){dfTakoClear();if(DF.observer){DF.observer.disconnect();DF.observer=null;}DF.found=[];DF.hint=-1;const body=bgShell('틀린 그림 찾기',()=>bgStart());$('bgx').textContent='◀ 그림 선택';$('bgx').onclick=()=>dfSelect(DF_SCENES[DF.stage].id);$('bgo').classList.add('df-playing');body.innerHTML=`<div class="df-play"><button id="df-return" class="df-return" onclick="dfZoom()" aria-label="게임으로 돌아가기" hidden>↩</button><div class="df-score" id="df-score"></div><div class="df-pair" style="grid-template-columns:1fr 1fr">${[0,1].map(i=>`<div><canvas width="${DF_SCENES[DF.stage].width||1122}" height="${DF_SCENES[DF.stage].height||1402}" style="aspect-ratio:${dfRatio()};image-rendering:auto" class="df-image" id="df-c${i}" role="img" aria-label="${i?'다른 곳을 찾을 비교':'기준'} 그림"></canvas></div>`).join('')}</div><p class="df-note" id="df-note" aria-live="polite">두 그림에서 다른 곳을 눌러요. 어느 쪽 그림을 눌러도 돼요!</p><button class="btn ghost sm" id="df-retry" onclick="dfRetry()" hidden>다시 불러오기</button><div class="df-controls"><button class="btn ghost" id="df-zoom" onclick="dfZoom()">크게보기</button><button class="btn ghost" id="df-tako" onclick="dfTako()">타코에게<br>물어보기</button><button class="btn wood" id="df-next" onclick="dfNext()">그림 선택</button></div></div>`;dfBindGestures(document.querySelector('#bgo .df-pair'));$('df-note').textContent=dfOrientationNote()+' 크게보기에서 두 손가락으로 확대할 수 있어요.';dfPaint();dfFit();if(typeof ResizeObserver!=='undefined'){DF.observer=new ResizeObserver(dfFit);DF.observer.observe(document.querySelector('#bgo .df-pair'));}}
 function dfPaint(){const scene=DF_SCENES[DF.stage],art=dfArtLoad();$('df-score').textContent=scene.name+' · '+DF.found.length+' / '+scene.spots.length;if(art.error){$('df-retry').hidden=false;$('df-note').textContent='그림을 불러오지 못했어요. 아래 다시 불러오기를 눌러 주세요.';}[0,1].forEach(side=>{const c=$('df-c'+side),x=c.getContext('2d'),h=dfHeight();x.setTransform(c.width/240,0,0,c.height/h,0,0);x.clearRect(0,0,240,h);x.fillStyle='#faeedb';x.fillRect(0,0,240,h);if(!art.ready){x.fillStyle='#654733';x.font='12px Galmuri11';x.textAlign='center';x.fillText(art.error?'다시 불러오기를 눌러 주세요':'그림을 불러오는 중…',120,h/2);return;}x.drawImage(art.imgs[0],0,0,240,h);if(side){for(const {box:[bx,by,bw,bh]} of scene.spots){x.save();x.beginPath();x.rect(bx,by,bw,bh);x.clip();x.drawImage(art.imgs[1],0,0,240,h);x.restore();}}for(const i of DF.found){const p=scene.spots[i];x.strokeStyle='#3c7656';x.lineWidth=2;x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.stroke();}if(DF.hint>=0){const p=scene.spots[DF.hint];x.strokeStyle='#a76a18';x.lineWidth=2;x.setLineDash([4,3]);x.strokeRect(p.x-p.r,p.y-p.r,p.r*2,p.r*2);x.setLineDash([]);}});}
 function dfTap(x,y){if(!dfArtLoad().ready)return;const i=dfSpots().findIndex(p=>Math.hypot(x-p.x,y-p.y)<=p.r);if(i<0){$('df-note').textContent='그곳은 같아요. 작은 소품도 살펴봐요.';return;}if(DF.found.includes(i)){$('df-note').textContent='이미 찾은 곳이에요! 다른 곳도 찾아볼까요?';return;}DF.found.push(i);if(DF.hint===i)DF.hint=-1;dfPaint();$('df-note').textContent=DF.found.length===5?'다 찾았어요! 친구들도 함께 기뻐해요.':'찾았다! '+dfSpots()[i].n+'이 달라요.';if(DF.found.length===dfSpots().length){S.dfCompleted=S.dfCompleted&&typeof S.dfCompleted==='object'&&!Array.isArray(S.dfCompleted)?S.dfCompleted:{};S.dfCompleted[DF_SCENES[DF.stage].id]=true;const saved=save();$('df-next').disabled=false;$('df-next').textContent='다른 그림 고르기';if(!saved)$('df-note').textContent='다 찾았어요! 완료 기록을 저장하지 못했어요. 설정의 저장 공간 안내를 확인해 주세요.';}}
 function dfTakoClear(){if(DF.takoTimer!==null){clearTimeout(DF.takoTimer);DF.takoTimer=null;}}
-function dfTako(){if(DF.zoom)dfZoom();if(!dfArtLoad().ready){$('df-note').textContent='타코: 그림을 불러오면 같이 찾아보자타코!';return;}const i=dfSpots().findIndex((p,j)=>!DF.found.includes(j));if(i<0){$('df-note').textContent='타코: 이미 다 찾았네! 다른 그림도 함께 해보자타코!';return;}dfTakoClear();DF.hint=i;const p=dfSpots()[i],vertical=p.y<dfHeight()/3?'위쪽':p.y<dfHeight()*2/3?'가운데':'아래쪽',horizontal=p.x<80?'왼쪽':p.x<160?'중앙':'오른쪽';$('df-note').textContent='타코: '+vertical+' '+horizontal+'의 '+p.n+'! 점선 안을 눌러보자타코!';dfPaint();DF.takoTimer=setTimeout(()=>{DF.takoTimer=null;if(DF.hint===i){DF.hint=-1;if($('df-c0'))dfPaint();}},6000);}
+function dfTako(){if(DF.zoom)dfZoom();if(!dfArtLoad().ready){$('df-note').textContent='타코: 그림을 불러오면 같이 찾아보자코!';return;}const i=dfSpots().findIndex((p,j)=>!DF.found.includes(j));if(i<0){$('df-note').textContent='타코: 이미 다 찾았네! 다른 그림도 함께 해보자코!';return;}dfTakoClear();DF.hint=i;const p=dfSpots()[i],vertical=p.y<dfHeight()/3?'위쪽':p.y<dfHeight()*2/3?'가운데':'아래쪽',horizontal=p.x<80?'왼쪽':p.x<160?'중앙':'오른쪽';$('df-note').textContent='타코: '+vertical+' '+horizontal+'의 '+p.n+'! 점선 안을 눌러보자코!';dfPaint();DF.takoTimer=setTimeout(()=>{DF.takoTimer=null;if(DF.hint===i){DF.hint=-1;if($('df-c0'))dfPaint();}},6000);}
 function dfNext(){if(DF.found.length===dfSpots().length){DF.page=0;dfSelect();}else dfSelect(DF_SCENES[DF.stage].id);}
 
-function mjRoomOpen(){if($('mjroom'))return;bgStop();mjOverflow=document.body.style.overflow;const o=document.createElement('div');o.id='mjroom';o.style.cssText='position:fixed;inset:0;z-index:75;background:#f3ead7;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)';o.innerHTML='<div style="padding:6px 10px;flex:none"><button class="btn ghost sm" onclick="mjRoomClose()">◀ 마작방 나가기</button></div><div id="mjload" style="padding:12px;text-align:center">마작방을 열고 있어요…</div><iframe title="토리네 마작방" style="width:100%;flex:1;border:0;min-height:0" allow="autoplay"></iframe>';document.body.appendChild(o);document.body.style.overflow='hidden';mjRoomLoad();}
+function mjRoomOpen(){if($('mjroom'))return;bgStop();mjOverflow=document.body.style.overflow;const o=document.createElement('div');o.id='mjroom';o.style.cssText='position:fixed;inset:0;z-index:75;background:#f3ead7;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px)';o.innerHTML='<div style="padding:6px 10px;flex:none"><button class="btn ghost sm mj-room-exit" onclick="mjRoomClose()">◀ 마작방 나가기</button></div><div id="mjload" style="padding:12px;text-align:center">마작방을 열고 있어요…</div><iframe title="토리네 마작방" style="width:100%;flex:1;border:0;min-height:0" allow="autoplay"></iframe>';document.body.appendChild(o);document.body.style.overflow='hidden';mjRoomLoad();}
 function mjRoomLoad(){clearTimeout(mjLoadTimer);const o=$('mjroom');if(!o)return;const f=o.querySelector('iframe'),q=new URLSearchParams({sound:S.snd?'1':'0',music:S.bgmOn?'1':'0',sv:String((S.sv??50)/100),mv:String((S.vol??35)/100)});$('mjload').hidden=false;$('mjload').textContent='마작방을 열고 있어요…';f.src='assets/tori-mahjong-game.html#'+q.toString();mjLoadTimer=setTimeout(()=>{if($('mjroom')===o){$('mjload').innerHTML='마작방을 열지 못했어요. 연결을 확인한 뒤 다시 눌러 주세요.<br><button class="btn sm" onclick="mjRoomLoad()">다시 열기</button>';}},12000);}
 window.addEventListener('message',e=>{const f=$('mjroom')?.querySelector('iframe');if(f&&e.source===f.contentWindow&&e.data?.type==='tori-mahjong-ready'){clearTimeout(mjLoadTimer);$('mjload').hidden=true;}});
 function mjRoomClose(){clearTimeout(mjLoadTimer);const o=$('mjroom');if(o){o.querySelector('iframe').src='about:blank';o.remove();}document.body.style.overflow=mjOverflow;bgStart();}
@@ -1094,7 +1125,7 @@ function mg2Start(){if(MG.raf)cancelAnimationFrame(MG.raf);MG={e:0,l:0,raf:0,y:2
     if(!MG.ab)MG.ab=Array.from({length:7},(_,i)=>({x:20+i*44,y:120+Math.random()*280,v:18+Math.random()*16}));g.fillStyle='rgba(230,247,255,.6)';MG.ab.forEach(b=>{b.y-=b.v*dt;b.x-=v*.35*dt;if(b.y<56||b.x<-6){b.y=380+Math.random()*30;b.x=40+Math.random()*290;}const z=b.v>26?4:2;g.fillRect(Math.round(b.x),Math.round(b.y),z,z);});}
     if(MG.d>10000){g.fillStyle='rgba(15,40,100,'+Math.min(.4,(MG.d-10000)/60000).toFixed(2)+')';g.fillRect(0,44,320,396);}
     g.fillStyle='#e6f7ff';MG.bb.forEach(b=>g.fillRect(Math.round(b.x),Math.round(b.y),4,4));
-    MG.ob.forEach(o=>{if(o.k==='r')H.dr('r',o.x,410-6*o.z,o.z);else if(o.k==='c'){H.dr(o.s,o.x,o.y,o.z);if(o.x>318&&Math.floor(MG.e*6)%2){const wy=Math.round((o.y+o.h/2-10)/2)*2;g.fillStyle='#4a1a1a';g.fillRect(306,wy-2,8,24);g.fillStyle='#ff5a4d';g.fillRect(308,wy,4,12);g.fillRect(308,wy+16,4,4);}}else H.dr('j',o.x,o.y,6);});
+    MG.ob.forEach(o=>{if(o.k==='r')H.dr('r',o.x,410-6*o.z,o.z);else if(o.k==='c'){H.dr(o.s,o.x,o.y,o.z);}else H.dr('j',o.x,o.y,6);});
     if(MG.iv<=0||Math.floor(MG.e*12)%2)H.tk(TX,MG.y);
     if(MG.top>1){g.fillStyle='#4a3423';g.fillRect(TX-18,MG.y+24,36,6);g.fillStyle=MG.top>3.5?'#e0524d':'#f4c542';g.fillRect(TX-16,MG.y+26,Math.round(32*Math.min(1,MG.top/5)),2);}
     if(MG.mt>0)H.tx(MG.ms,TX+30,MG.y-46);
@@ -1906,54 +1937,56 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   modal(`<h3>🎲 오늘 뭐 먹지?</h3><div class="big" id="rl" style="font-size:26px;min-height:70px"></div><button class="btn full" onclick="closeM()">닫기</button>`);
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
-/* 버전 정보: 작은 수정은 +0.1, 큰 변화는 +0.5. sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v10.7',d:'2026.10.11',log:["온천에 들어가면 음악과 물소리가 바로 시작돼요. 오른쪽 위에서 소리 크기를 조절해요", "온천은 실제 시간에 맞춰 바뀌고 작은 화살표로 나가요", "대나무에 물이 차고 기울어지는 도트 동작과 톡 소리를 추가했어요", "구름·빛·물결이 도트처럼 움직이고 가끔 새가 지나가요", "온천 친구들의 대사 48개와 일주일 간격의 토리·타코 수다 12편을 추가했어요"]};
+/* 버전 정보: 세 자리 표기: 작은 수정 +1, 큰 변화 +5 (마지막 자리 올림 포함). sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
+const APP_VER={v:'v1.1.3',d:'2026.10.12',log:["온천 버튼을 시간대에 맞는 반투명 색으로 바꾸고 아래 제목을 지웠어요", "계절별 온천 대사 48개와 새 주간 만담 12편을 추가했어요", "온천 물결·달·별·조명과 대나무 물줄기를 자연스럽게 다듬었어요", "시간대가 바뀌면 온천 풍경과 버튼 색이 조용히 바뀌어요", "도감의 일기를 페이지로 넘기고 일기 고치기에 토리 아이콘을 사용해요", "길게 누르기·복사·브라우저 확대와 타코 게임의 빨간 알림을 막았어요", "버전 표기를 세 자리로 바꾸고 온천에서 쓰는 그림과 캐시를 정리했어요"]};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
- {v:'v10.7',d:'2026.10.11',log:["온천에 들어가면 음악과 물소리가 바로 시작돼요. 오른쪽 위에서 소리 크기를 조절해요", "온천은 실제 시간에 맞춰 바뀌고 작은 화살표로 나가요", "대나무에 물이 차고 기울어지는 도트 동작과 톡 소리를 추가했어요", "구름·빛·물결이 도트처럼 움직이고 가끔 새가 지나가요", "온천 친구들의 대사 48개와 일주일 간격의 토리·타코 수다 12편을 추가했어요"]},
- {v:'v10.2',d:'2026.10.11',log:["토리네 온천에서 화면 방향에 맞는 배경과 새 목욕 도트 친구들을 만나요", "시간대별 온천과 느긋한 전용 도트게임 음악을 추가했어요", "토리에게 도토리를 주고 사진이 바뀔 때 부드럽게 사라져요", "그림 선택 시작 버튼과 페이지 버튼을 겹치지 않게 정리했어요", "틀린그림찾기 힌트를 타코에게 물어보기로 통일했어요", "새 그림 화질과 한 화면 비교·크게보기를 개선했어요", "미니게임 버튼·드래그 조작·도감 페이지·도치 말투·명랑한 편지를 개선했어요", "앱을 열 때 배경음악 팝업을 표시하지 않아요", "도토리 찾기 장소 여섯 곳을 따뜻한 도트 그림으로 바꿨어요"]},
- {v:'v9.7',d:'2026.10.10',log:["틀린 그림 찾기에서 그림을 한 장씩 넘겨 보고 골라 시작해요", "완료한 그림은 뒤로 이동하고 완료 기록은 앱을 다시 열어도 남아요", "기존 두 장을 유지하고 별빛 도서관과 유리 온실 정원 그림을 추가했어요", "화면에 맞춰 두 그림 전체를 스크롤 없이 함께 보여줘요", "모르겠을 때 타코에게 물어보면 못 찾은 곳을 잠깐 알려줘요", "새 그림을 가로 비율 그대로 최적화하고 다섯 정답 밖은 원본과 같게 맞췄어요"]},
- {v:'v9.2',d:'2026.10.10',log:["틀린 그림 찾기를 딸기 티파티와 도토리 쿠키 공방 그림으로 교체했어요", "두 그림을 같은 세로 규격으로 맞추고 각각 다른 곳 다섯 개를 찾아요", "그림 크게 보기와 이미지 다시 불러오기를 넣었어요", "마작방 입구에 친구들이 함께하는 새 사진을 넣었어요", "새 그림 용량을 줄이고 오프라인에서도 볼 수 있게 했어요", "그림 정답·터치·화면 비율과 게임·기록 보존을 점검하고 코드를 정리했어요"]},
- {v:'v9.1',d:'2026.10.10',log:["보드게임 목록을 간결하게 정리하고 하던 판 정보는 바로 볼 수 있게 했어요", "D-day 숫자를 이전 크기의 70%로 줄였어요", "마작방 음악을 잔잔한 현악 음색과 패 소리로 바꾸고 소리 시작 동작을 다듬었어요", "마작방 글꼴을 앱과 통일하고 뒷면 패는 5% 작게, 앞면 패는 10% 크게 조정했어요", "마작 좌석을 내 자리 기준 반시계 방향 동·남·서·북으로 배치했어요", "화료한 패를 머리·몸통·치·퐁·깡으로 나누고 패가 세로로 늘어나는 문제를 고쳤어요", "손패를 선택하면 같은 버림패와 장수를 확인할 수 있어요", "울어서 가져간 버림패는 작은 화살표로 표시해요", "마작 대화와 음악 데이터를 분리하고 재입장·오프라인·기록 보존을 검사했어요"]},
- {v:'v9.0',d:'2026.10.09',log:["사진 상점은 한 페이지에 7개씩, 페이지 번호 5개 묶음으로 둘러봐요", "도토리·밥을 줄 때 토리 사진이 1.5초 동안 나와요", "사라진 도토리 사건에서 범인만 맞히면 부분 정답으로 안내해요", "글꼴을 앱에 넣고 미니게임 화면과 목록의 가독성을 다듬었어요", "티츄에서 진우가 팀 작전을 고르면 토리가 답하고 작전에 맞춰 플레이해요", "타코의 시작 인사는 하루 첫 실행에만 나와요", "토리네 마작방이 별도 탭으로 들어왔어요: 리치·론·깡·역·점수를 지원해요", "마작패 그림과 뒷면, 색 대비, 손패와 선언 버튼, 결과 화면을 다듬었어요", "마작방 전용 음악과 패·선언 효과음을 만들었어요", "냐옹이와 도치가 상황별 훈수와 네 친구에 대한 평, 둘만의 만담을 나눠요", "냐옹이 이름 위에 여백을 넣고 수다 버튼과 선언 연습 화면은 정리했어요", "놀이 탭을 작은 연갈색 버튼으로, 미니게임 목록을 정사각형 카드로 바꿨어요", "마작과 틀린 그림 찾기는 가로 한 줄의 별도 탭이에요", "마작은 동4국까지 점수를 이어 가고 친 화료·텐파이 유국이면 연장해요", "마작 결과에서 다음 국으로 넘어가고 동풍전 최종 순위를 확인해요", "마작패를 작게 줄여 네 사람의 패와 버림패를 함께 살펴봐요", "마작방 재입장·오프라인 연결을 다듬고 다시 열기 안내를 넣었어요", "틀린 그림 찾기 6개 풍경과 힌트·정답 표시가 들어왔어요"]},
- {v:'v8.9',d:'2026.10.09',log:["사진 상점은 한 페이지에 7개씩, 페이지 번호 5개 묶음으로 둘러봐요", "도토리·밥을 줄 때 토리 사진이 1.5초 동안 나와요", "사라진 도토리 사건에서 범인만 맞히면 부분 정답으로 안내해요", "글꼴을 앱에 넣고 미니게임 화면과 목록의 가독성을 다듬었어요", "티츄에서 진우가 팀 작전을 고르면 토리가 답하고 작전에 맞춰 플레이해요", "타코의 시작 인사는 하루 첫 실행에만 나와요", "미니게임에 토리네 마작방이 들어왔어요: 리치·론·깡·역·점수를 지원해요", "마작패 그림과 뒷면, 색 대비, 손패와 선언 버튼, 결과 화면을 다듬었어요", "마작방 전용 음악과 패·선언 효과음을 만들었어요", "냐옹이와 도치가 상황별 훈수와 네 친구에 대한 평, 둘만의 만담을 나눠요", "냐옹이 이름 위에 여백을 넣고 수다 버튼과 선언 연습 화면은 정리했어요"]},
- {v:'v8.4',d:'2026.10.07',log:['조금 흐릿하던 이모지 7개(머리 손질 · 공주 · 귀뚜라미 · 히나 인형 · 휴대폰 · 집 · 목도리)를 손으로 또렷하게 다시 그렸어요']},
- {v:'v8.3',d:'2026.10.07',log:['사라진 도토리 사건: 부엉박사(학사모 · 안경)와 냐옹이(치즈 고양이)가 도치 · 호두처럼 전신 도트 그림으로 바뀌었어요']},
- {v:'v8.2',d:'2026.10.07',log:['홈이 짧아졌어요: 토리 사진 → 오늘의 퀘스트(주간 퀘스트 포함) → 도토리 속 편지 → 빠른 기록 · 일기 → 현재 상태 → D-day · 기념일 → 놀이','활동 · 출석 · 일기 모아 보기 · 리포트 같은 카드는 홈 맨 아래 "더 보기"를 누르면 펼쳐져요','미니게임과 보드게임이 홈의 "놀이" 카드 하나에 모였어요 (위 버튼으로 바꿔 봐요)','햄스터 탭은 밥 주기 · 도토리 상점 · 장식 · 꾸미기 · 칭호 · 앨범 순서예요','설정은 백업 · 알림 · 화면과 소리 · 일정과 기념일 · 도움말 다섯 묶음으로 접고 펼쳐요']},
- {v:'v8.1',d:'2026.10.07',log:['보드게임에 새 추리 게임 "사라진 도토리 사건"이 들어왔어요','장소 6곳(토리의 방 · 챗바퀴 놀이터 · 도토리 숲 · 바닷가 · 무대 · 부엌)을 조사하고 증거와 친구들 말로 누가 · 무엇으로 · 어디서 가져갔는지 맞혀요','어려움에서는 범인이 거짓말을 해요. 맞히면 🌰1, 적게 조사하고 맞히면 🌰2','새 친구: 다람쥐 호두 · 부엉박사 · 고양이 냐옹이','홈이 아래 탭 가운데로 오고, 홈을 열면 토리 사진이 맨 위에 바로 보여요','백업 알림: 15일 동안 백업을 안 하면 타코가 알려 줘요. "나중에 할게"를 누르면 15일 뒤에 다시 알려 줘요','도토리 상점이 한 페이지에 5개씩 나오고, 첫 페이지와 마지막 페이지가 이어져요','내 기념일은 연도 없이 월 · 일만 골라요','새 사진들의 이모지도 도트 그림으로 바꿨어요','장식을 눌렀을 때 타코 말풍선이 짧아지고 버튼 4개가 한 줄로 나와요']},
- {v:'v8.0',d:'2026.10.07',log:['도토리 상점에 새 사진 150장이 들어왔어요 (일반 20코인, 전설 16장은 40코인)','새 테마: 조선·신라·고려·한복, 고대 그리스·이집트, 헤이안·겐지모노가타리, 상어·펭귄·타조, 수영장·목욕, 우주·심해 등 — 앨범에서 모아 볼 수 있어요','이미 산 사진과 코인은 그대로예요']},
- {v:'v7.9',d:'2026.10.07',log:['보물상자가 도토리 상점으로 바뀌었어요: 토리에게 도토리를 주면 준 만큼 도토리 코인이 생기고, 코인으로 원하는 쿠폰·사진·타코 축복·꾸미기·편의 아이템을 골라 살 수 있어요 (한 번만 살 수 있어요)','이미 연 상자는 전부 보유로 남아 있고, 레벨과 준 도토리는 그대로예요','햄스터 탭에는 코인과 지금 살 만한 것 3개만 보이고, 상점 전체 보기에서 탭(쿠폰·사진·타코 축복·꾸미기·편의)과 살 수 있는 것만 보기로 싼 순으로 볼 수 있어요']},
- {v:'v7.8',d:'2026.10.06',log:['홈에 새 "🎳 보드게임" 칸: 스도쿠(쉬움·보통·어려움, 메모·힌트·되돌리기, 중간에 나가도 저장)와 티츄(진우·토리 팀 대 타코·도치 팀, 컴퓨터 3명, 200점 먼저 넘기면 승리)','보상: 스도쿠 다 풀면 🌰1(어려움 🌰2), 티츄 이기면 🌰2 — 미니게임과 합쳐 하루 2번','보드게임 아이콘과 티츄 특수 카드(참새·강아지·봉황·용)를 새로 그렸어요','보드게임 대사: 티츄에서 토리(찍찍!)·타코(~다코)·도치(허세 많은 "가시 대장")가 카드 낼 때·패스·티츄·폭탄·용·판 끝에 한마디, 스도쿠에선 토리가 옆에서 응원','햄스터·설정 탭 위에 바로 가기 칸, 많이 내려가면 "맨 위로" 버튼, 한글이 단어 중간에서 끊기지 않게','눈사람 타코 모자 아래·목도리 위에 검은 테두리','설정 백업 칸: "파일 저장"과 "파일에서 복원" 버튼을 한 줄에 나란히']},
- {v:'v7.5',d:'2026.10.06',log:['12월 23일에 이름이 생겼어요: 크리스마스 이브의 이브 (기념일 카드·달력·토리 말풍선)','유령 잡기를 새로 그렸어요: 보름달 밤하늘·유령의 집·묘지 울타리·불 켜지는 호박·박쥐, 점수판도 나무 창으로 (규칙·보상은 그대로)','사탕 미로의 보라 유령이 겁먹었을 때도 반투명하게 보여요']},
- {v:'v7.4',d:'2026.10.06',log:['레벨 올리는 데 필요한 도토리가 점점 늘어나요: Lv.2~10은 5개, 11~30은 10개, 31~60은 25개, 61~100은 50개씩이고 Lv.100이 최고예요','칭호가 10단계로 늘었어요 (견습 햄스터 · 견습 모험가 · 모험가 · 기사 · 마법사 · 대마법사 · 도토리 귀족 · 도토리 왕 · 도토리 황제 · 전설의 용사)','레벨 기준이 바뀌었다는 안내창을 한 번 보여 줘요. 먹인 도토리와 보물상자는 그대로예요']},
- {v:'v7.3',d:'2026.10.06',log:['루돌프 잡기: 눈사람 타코의 산타 모자를 작고 깜찍하게 줄였어요','루돌프가 펄쩍 뛸 때 목 방울이 짤랑, 당근을 주우면 종소리가 울려요']},
- {v:'v7.2',d:'2026.10.06',log:['크리스마스 주간(12/18~25) 새 미니게임 "도망가는 루돌프를 잡아라!": 손가락을 끌면 빨간 산타 모자를 쓴 토리가 달려가요. 루돌프를 잡을 때마다 선물이 떨어지고, 잡을수록 루돌프가 빨라져요','눈더미에선 느려지고 얼음판은 미끄러워요. 나무 뒤에 숨은 루돌프는 코만 반짝! 당근을 주우면 3초 동안 루돌프가 느려지고, 산타 모자를 쓰고 목도리를 두른 채 눈덩이 위에 앉은 눈사람 타코가 힌트를 알려 줘요','45초 동안 3마리면 도토리 1개, 6마리면 2개 (보상 횟수는 다른 미니게임과 합산). 루돌프 썰매 배달도 그대로 있어요','"백업 보내기" 버튼: 공유 창에서 카톡 나에게 보내기·드라이브·메일로 백업 파일을 보내요 (설정 · 홈 백업 카드)','백업한 지 7일이 지나면 홈 백업 카드가 콩콩 뛰고 토리와 타코가 말로 알려 줘요']},
- {v:'v6.9',d:'2026.10.06',log:['도감·가고 싶은 곳에서 장소 종류(식당·카페·놀거리·기타) 글씨가 흰색이라 안 보이던 것을 진한 갈색으로 고쳤어요']},
- {v:'v6.8',d:'2026.10.06',log:['아이폰(사파리)에서 홈 화면에 추가할 때 쓰는 토리 아이콘을 넣었어요','토리가 기지개를 켤 때 머리 위 물병과 겹쳐 보이던 것을 줄였어요']},
- {v:'v6.7',d:'2026.10.05',log:['토리를 쓰다듬을 때 사진만 출렁이고 얼굴은 가만히 있던 것을 고쳤어요 (슬퍼할 때 · 밤에도)','토리가 숨 쉴 때 도토리 쥔 손이 늘어나 보이던 것을 고쳤어요','미니게임 글자를 얇고 또렷하게 바꿨어요','타코 띄워 주기에서 바다 생물이 나오기 전 흰 상자 대신 작은 빨간 느낌표가 깜빡여요','도감 장소 종류 글씨가 안 보이던 것 · 일정 입력칸이 화면 밖으로 나가던 것 · 내 기념일 버튼 간격을 고쳤어요','보상 탭의 "새 보상 넣기"를 뺐어요 (이미 있는 보상은 그대로예요)']},
- {v:'v6.6',d:'2026.10.03',log:['마작패 짝 맞추기: 다 맞췄을 때 "쾅—" 하고 크게 울리는 진짜 징 소리로 바꿨어요']},
- {v:'v6.5',d:'2026.10.03',log:['유령 잡기 · 토리의 사탕 미로 · 마작패 짝 맞추기 · 루돌프 썰매 배달에 게임마다 전용 배경음악과 효과음을 넣었어요','사탕 미로에서 유령이 겁먹으면 음악이 빨라져요','루돌프 썰매 배달: 시작·배달·끝에 맑은 종소리가 울리고, 배경음악에도 종이 울려요']},
- {v:'v6.4',d:'2026.10.03',log:['할로윈 주간(10/25~31) 새 미니게임 "토리의 사탕 미로": 마녀 모자 토리를 밀어서 움직여 사탕을 모아요. 호박 등불을 먹으면 유령을 잡을 수 있어요','11월 마지막 주(11/24~30) 새 미니게임 "마작패 짝 맞추기": 진짜 마작패 20장으로 하는 짝 맞추기','크리스마스 주간(12/18~25) 새 미니게임 "루돌프 썰매 배달": 굴뚝에 선물을 쏙! 루돌프 코가 반짝일 때 2배']},
- {v:'v5.9',d:'2026.10.03',log:['유령 잡기의 3점짜리 금빛 유령을 보라 유령으로 바꿨어요']},
- {v:'v5.8',d:'2026.10.03',log:['할로윈(10월 31일)을 기념일에 넣었어요. 홈 기념일 카드에 D-day가 나오고, 그날엔 토리가 할로윈 인사를 해요','할로윈 날엔 홈 토리의 방에 박쥐가 날아다니고 유령이 둥실 떠 있어요','할로윈 주간(10월 25~31일)에만 열리는 미니게임 "유령 잡기"가 생겼어요. 호박 등불에서 튀어나오는 유령을 탭! 금빛 유령은 3점, 박쥐는 -2점']},
- {v:'v5.7',d:'2026.10.03',log:['홈 "다가오는 일정 · 기념일" 이름을 "기념일"로 바꾸고, 맨 아래 설명 두 줄을 뺐어요','도토리 속 편지 끝 "from. 토리" 옆 햄스터 그림을 뺐어요','홈 "현재 상태"를 도토리 · 보상 두 칸으로 깔끔하게 정리했어요','토리 집 꾸미기의 "자리 초기화" 버튼을 오른쪽으로 옮겼어요','토리의 챗바퀴를 처음 화면으로 되돌렸어요']},
- {v:'v5.6',d:'2026.10.02',log:['11월 도토리 받기: 잘 그린 도트 나무처럼 다시 그렸어요 (동그란 잎 덩어리 · 빛과 그림자 · 가지 · 뿌리 · 땅 그늘)','11월 타코 띄워 주기: 예전 바다 화면으로 돌아가고, 햇살 빛줄기가 천천히 일렁여요']},
- {v:'v5.5',d:'2026.10.02',log:['11월부터 나오는 도토리 받기 · 타코 띄워 주기 그림을 더 촘촘하고 따뜻하게 다시 그렸어요 (숲 · 나무 · 풀꽃 · 바구니 / 바닷속 · 해초 · 산호 · 바위 · 해파리)']},
- {v:'v5.4',d:'2026.10.02',log:['도토리 받기 · 타코 띄워 주기 · 기타리스트는 10월 동안 처음의 단순한 화면으로 즐겨요. 11월 1일부터 숲 · 바다 · 무대 화면으로 저절로 바뀌어요']},
- {v:'v5.3',d:'2026.10.02',log:['토리의 챗바퀴: 시작 화면 · 3·2·1 · 화면 안 시간/바퀴 표시 · 하트 박자 · 속도계 · 별점 결과 카드','타코 띄워 주기에서 새우가 반짝반짝 깜빡이던 것을 고쳤어요 (눈 칸에 색이 빠져 있었어요)']},
- {v:'v5.2',d:'2026.10.02',log:['설정의 알림 칸을 하나로 합쳤어요 (토리 알림 + 캘린더 매일 알림)','타코 띄워 주기 배경을 꾸몄어요: 햇살 비치는 바다, 흔들리는 해초와 산호, 조개가 있는 모래 바닥, 떠오르는 물방울']},
- {v:'v5.1',d:'2026.10.02',log:['좁은 화면이나 큰 글씨에서 "내역" · "자리 초기화" 같은 버튼 글자가 세로로 꺾이던 걸 고쳤어요','미니게임 효과음을 조금 작게 했어요 (예전의 70%)','홈 "내역 · 퀘스트 하러 가기" 버튼이 늘 한 줄로 나란히 보여요','토리의 챗바퀴: 달리는 토리, 바퀴, 물병 · 밥그릇 · 톱밥 바닥을 새로 그렸어요','도토리 받기: 숲 배경 · 바구니 든 토리 · 새 도토리와 금도토리 · 돌','기타리스트: 무대 조명과 기타 지판, 동그란 보석 음표','토리 알림: 설정에서 켜면 밥을 안 줬거나 오래 안 들어올 때 토리가 알림을 보내요 (안드로이드 홈 화면 앱)','월 보상의 "해주는" 항목 7개를 진우가 스스로 누리는 보상으로 바꿨어요']},
- {v:'v5.0',d:'2026.10.02',log:['아이콘 10개를 더 알아보기 쉽게 다시 그렸어요 (젓가락 · 폭죽 · 박 · 원숭이 · 기도 · 퍼즐 · 귀 · 화남 · 온천 · 집기)']},
- {v:'v4.9',d:'2026.10.02',log:['장식 · 보물상자 · 보상 · 앨범 페이지도 끝에서 넘기면 처음으로, 처음에서 뒤로 넘기면 끝으로 이어져요']},
- {v:'v4.8',d:'2026.10.02',log:['◀ ▶ 화살표를 앱과 어울리는 픽셀 그림으로 바꿨어요','버전 기록이 끝에서 더 넘기면 처음으로, 처음에서 뒤로 넘기면 끝으로 이어져요']},
- {v:'v4.7',d:'2026.10.02',log:['일정을 넣고 고치고 지울 수 있어요 (홈 · 설정 · 달력)','내 기념일(매년)을 추가 · 삭제할 수 있어요','버전 기록을 한 장씩 넘겨 지난 업데이트를 모두 볼 수 있어요']},
- {v:'v4.6',d:'2026.10.02',log:['토리가 기록을 기억해요: 어제 마작·합주·운동·다녀온 곳·일기를 보고 먼저 말을 걸어요','토리가 움직일 때 볼이 어색해 보이던 것을 원인부터 고쳤어요','안 쓰는 코드와 옛 아이콘을 정리했어요']},
- {v:'v4.5',d:'2026.10.02',log:['토리의 방 꾸미기: 벽 장식·바닥 장식 구분, 크기 3단계, 토리 앞/뒤에 놓기','장식 세트 7가지: 다 모으면 도토리와 칭호를 받아요','토리가 움직일 때 볼 쪽 테두리가 두 줄로 보이던 것 고침']},
- {v:'v4.4',d:'2026.10.02',log:['아이콘 10개를 더 또렷하게 다시 그렸어요 (일렉기타·발자국·수영·안아 줘·쉿·빙글 별 등)']},
- {v:'v4.3',d:'2026.10.02',log:['살아 있는 토리가 도트 게임처럼 한 칸씩 툭툭 움직여요','토리가 움직일 때 주변 배경이 일렁이지 않아요(토리만 오려서 움직여요)']},
- {v:'v4.2',d:'2026.10.02',log:['토리가 살아 있어요: 숨 쉬고, 눈을 깜빡이고, 가끔 기지개를 켜요','토리가 다른 자세인 그림(누움·잠·운동 등)과 움직임 줄이기 설정에서는 가만히 있어요']},
- {v:'v3.7',d:'',log:['앱에 쓰인 이모지를 모두 16×16 픽셀 아이콘으로 통일했어요']},
- {v:'v3.2',d:'',log:['장식 · 아래 탭 · 도토리를 16×16 픽셀 아이콘으로 바꿨어요']},
+ {v:'v1.1.3',d:'2026.10.12',log:["온천 버튼을 시간대에 맞는 반투명 색으로 바꾸고 아래 제목을 지웠어요", "계절별 온천 대사 48개와 새 주간 만담 12편을 추가했어요", "온천 물결·달·별·조명과 대나무 물줄기를 자연스럽게 다듬었어요", "시간대가 바뀌면 온천 풍경과 버튼 색이 조용히 바뀌어요", "도감의 일기를 페이지로 넘기고 일기 고치기에 토리 아이콘을 사용해요", "길게 누르기·복사·브라우저 확대와 타코 게임의 빨간 알림을 막았어요", "버전 표기를 세 자리로 바꾸고 온천에서 쓰는 그림과 캐시를 정리했어요"]},
+ {v:'v1.0.8',d:'2026.10.11',log:['온천의 밤을 청록빛으로 바꾸고 친구 위치와 물 흐름을 다듬었어요','틀린그림찾기에 세로 스크롤·두 손가락 확대·돌아가기 버튼을 추가했어요','그림 선택 페이지 위치와 타코 말투, 마작방 나가기 크기를 다듬었어요']},
+ {v:'v1.0.7',d:'2026.10.11',log:["온천에 들어가면 음악과 물소리가 바로 시작돼요. 오른쪽 위에서 소리 크기를 조절해요", "온천은 실제 시간에 맞춰 바뀌고 작은 화살표로 나가요", "대나무에 물이 차고 기울어지는 도트 동작과 톡 소리를 추가했어요", "구름·빛·물결이 도트처럼 움직이고 가끔 새가 지나가요", "온천 친구들의 대사 48개와 일주일 간격의 토리·타코 수다 12편을 추가했어요"]},
+ {v:'v1.0.2',d:'2026.10.11',log:["토리네 온천에서 화면 방향에 맞는 배경과 새 목욕 도트 친구들을 만나요", "시간대별 온천과 느긋한 전용 도트게임 음악을 추가했어요", "토리에게 도토리를 주고 사진이 바뀔 때 부드럽게 사라져요", "그림 선택 시작 버튼과 페이지 버튼을 겹치지 않게 정리했어요", "틀린그림찾기 힌트를 타코에게 물어보기로 통일했어요", "새 그림 화질과 한 화면 비교·크게보기를 개선했어요", "미니게임 버튼·드래그 조작·도감 페이지·도치 말투·명랑한 편지를 개선했어요", "앱을 열 때 배경음악 팝업을 표시하지 않아요", "도토리 찾기 장소 여섯 곳을 따뜻한 도트 그림으로 바꿨어요"]},
+ {v:'v0.9.7',d:'2026.10.10',log:["틀린 그림 찾기에서 그림을 한 장씩 넘겨 보고 골라 시작해요", "완료한 그림은 뒤로 이동하고 완료 기록은 앱을 다시 열어도 남아요", "기존 두 장을 유지하고 별빛 도서관과 유리 온실 정원 그림을 추가했어요", "화면에 맞춰 두 그림 전체를 스크롤 없이 함께 보여줘요", "모르겠을 때 타코에게 물어보면 못 찾은 곳을 잠깐 알려줘요", "새 그림을 가로 비율 그대로 최적화하고 다섯 정답 밖은 원본과 같게 맞췄어요"]},
+ {v:'v0.9.2',d:'2026.10.10',log:["틀린 그림 찾기를 딸기 티파티와 도토리 쿠키 공방 그림으로 교체했어요", "두 그림을 같은 세로 규격으로 맞추고 각각 다른 곳 다섯 개를 찾아요", "그림 크게 보기와 이미지 다시 불러오기를 넣었어요", "마작방 입구에 친구들이 함께하는 새 사진을 넣었어요", "새 그림 용량을 줄이고 오프라인에서도 볼 수 있게 했어요", "그림 정답·터치·화면 비율과 게임·기록 보존을 점검하고 코드를 정리했어요"]},
+ {v:'v0.9.1',d:'2026.10.10',log:["보드게임 목록을 간결하게 정리하고 하던 판 정보는 바로 볼 수 있게 했어요", "D-day 숫자를 이전 크기의 70%로 줄였어요", "마작방 음악을 잔잔한 현악 음색과 패 소리로 바꾸고 소리 시작 동작을 다듬었어요", "마작방 글꼴을 앱과 통일하고 뒷면 패는 5% 작게, 앞면 패는 10% 크게 조정했어요", "마작 좌석을 내 자리 기준 반시계 방향 동·남·서·북으로 배치했어요", "화료한 패를 머리·몸통·치·퐁·깡으로 나누고 패가 세로로 늘어나는 문제를 고쳤어요", "손패를 선택하면 같은 버림패와 장수를 확인할 수 있어요", "울어서 가져간 버림패는 작은 화살표로 표시해요", "마작 대화와 음악 데이터를 분리하고 재입장·오프라인·기록 보존을 검사했어요"]},
+ {v:'v0.9.0',d:'2026.10.09',log:["사진 상점은 한 페이지에 7개씩, 페이지 번호 5개 묶음으로 둘러봐요", "도토리·밥을 줄 때 토리 사진이 1.5초 동안 나와요", "사라진 도토리 사건에서 범인만 맞히면 부분 정답으로 안내해요", "글꼴을 앱에 넣고 미니게임 화면과 목록의 가독성을 다듬었어요", "티츄에서 진우가 팀 작전을 고르면 토리가 답하고 작전에 맞춰 플레이해요", "타코의 시작 인사는 하루 첫 실행에만 나와요", "토리네 마작방이 별도 탭으로 들어왔어요: 리치·론·깡·역·점수를 지원해요", "마작패 그림과 뒷면, 색 대비, 손패와 선언 버튼, 결과 화면을 다듬었어요", "마작방 전용 음악과 패·선언 효과음을 만들었어요", "냐옹이와 도치가 상황별 훈수와 네 친구에 대한 평, 둘만의 만담을 나눠요", "냐옹이 이름 위에 여백을 넣고 수다 버튼과 선언 연습 화면은 정리했어요", "놀이 탭을 작은 연갈색 버튼으로, 미니게임 목록을 정사각형 카드로 바꿨어요", "마작과 틀린 그림 찾기는 가로 한 줄의 별도 탭이에요", "마작은 동4국까지 점수를 이어 가고 친 화료·텐파이 유국이면 연장해요", "마작 결과에서 다음 국으로 넘어가고 동풍전 최종 순위를 확인해요", "마작패를 작게 줄여 네 사람의 패와 버림패를 함께 살펴봐요", "마작방 재입장·오프라인 연결을 다듬고 다시 열기 안내를 넣었어요", "틀린 그림 찾기 6개 풍경과 힌트·정답 표시가 들어왔어요"]},
+ {v:'v0.8.9',d:'2026.10.09',log:["사진 상점은 한 페이지에 7개씩, 페이지 번호 5개 묶음으로 둘러봐요", "도토리·밥을 줄 때 토리 사진이 1.5초 동안 나와요", "사라진 도토리 사건에서 범인만 맞히면 부분 정답으로 안내해요", "글꼴을 앱에 넣고 미니게임 화면과 목록의 가독성을 다듬었어요", "티츄에서 진우가 팀 작전을 고르면 토리가 답하고 작전에 맞춰 플레이해요", "타코의 시작 인사는 하루 첫 실행에만 나와요", "미니게임에 토리네 마작방이 들어왔어요: 리치·론·깡·역·점수를 지원해요", "마작패 그림과 뒷면, 색 대비, 손패와 선언 버튼, 결과 화면을 다듬었어요", "마작방 전용 음악과 패·선언 효과음을 만들었어요", "냐옹이와 도치가 상황별 훈수와 네 친구에 대한 평, 둘만의 만담을 나눠요", "냐옹이 이름 위에 여백을 넣고 수다 버튼과 선언 연습 화면은 정리했어요"]},
+ {v:'v0.8.4',d:'2026.10.07',log:['조금 흐릿하던 이모지 7개(머리 손질 · 공주 · 귀뚜라미 · 히나 인형 · 휴대폰 · 집 · 목도리)를 손으로 또렷하게 다시 그렸어요']},
+ {v:'v0.8.3',d:'2026.10.07',log:['사라진 도토리 사건: 부엉박사(학사모 · 안경)와 냐옹이(치즈 고양이)가 도치 · 호두처럼 전신 도트 그림으로 바뀌었어요']},
+ {v:'v0.8.2',d:'2026.10.07',log:['홈이 짧아졌어요: 토리 사진 → 오늘의 퀘스트(주간 퀘스트 포함) → 도토리 속 편지 → 빠른 기록 · 일기 → 현재 상태 → D-day · 기념일 → 놀이','활동 · 출석 · 일기 모아 보기 · 리포트 같은 카드는 홈 맨 아래 "더 보기"를 누르면 펼쳐져요','미니게임과 보드게임이 홈의 "놀이" 카드 하나에 모였어요 (위 버튼으로 바꿔 봐요)','햄스터 탭은 밥 주기 · 도토리 상점 · 장식 · 꾸미기 · 칭호 · 앨범 순서예요','설정은 백업 · 알림 · 화면과 소리 · 일정과 기념일 · 도움말 다섯 묶음으로 접고 펼쳐요']},
+ {v:'v0.8.1',d:'2026.10.07',log:['보드게임에 새 추리 게임 "사라진 도토리 사건"이 들어왔어요','장소 6곳(토리의 방 · 챗바퀴 놀이터 · 도토리 숲 · 바닷가 · 무대 · 부엌)을 조사하고 증거와 친구들 말로 누가 · 무엇으로 · 어디서 가져갔는지 맞혀요','어려움에서는 범인이 거짓말을 해요. 맞히면 🌰1, 적게 조사하고 맞히면 🌰2','새 친구: 다람쥐 호두 · 부엉박사 · 고양이 냐옹이','홈이 아래 탭 가운데로 오고, 홈을 열면 토리 사진이 맨 위에 바로 보여요','백업 알림: 15일 동안 백업을 안 하면 타코가 알려 줘요. "나중에 할게"를 누르면 15일 뒤에 다시 알려 줘요','도토리 상점이 한 페이지에 5개씩 나오고, 첫 페이지와 마지막 페이지가 이어져요','내 기념일은 연도 없이 월 · 일만 골라요','새 사진들의 이모지도 도트 그림으로 바꿨어요','장식을 눌렀을 때 타코 말풍선이 짧아지고 버튼 4개가 한 줄로 나와요']},
+ {v:'v0.8.0',d:'2026.10.07',log:['도토리 상점에 새 사진 150장이 들어왔어요 (일반 20코인, 전설 16장은 40코인)','새 테마: 조선·신라·고려·한복, 고대 그리스·이집트, 헤이안·겐지모노가타리, 상어·펭귄·타조, 수영장·목욕, 우주·심해 등 — 앨범에서 모아 볼 수 있어요','이미 산 사진과 코인은 그대로예요']},
+ {v:'v0.7.9',d:'2026.10.07',log:['보물상자가 도토리 상점으로 바뀌었어요: 토리에게 도토리를 주면 준 만큼 도토리 코인이 생기고, 코인으로 원하는 쿠폰·사진·타코 축복·꾸미기·편의 아이템을 골라 살 수 있어요 (한 번만 살 수 있어요)','이미 연 상자는 전부 보유로 남아 있고, 레벨과 준 도토리는 그대로예요','햄스터 탭에는 코인과 지금 살 만한 것 3개만 보이고, 상점 전체 보기에서 탭(쿠폰·사진·타코 축복·꾸미기·편의)과 살 수 있는 것만 보기로 싼 순으로 볼 수 있어요']},
+ {v:'v0.7.8',d:'2026.10.06',log:['홈에 새 "🎳 보드게임" 칸: 스도쿠(쉬움·보통·어려움, 메모·힌트·되돌리기, 중간에 나가도 저장)와 티츄(진우·토리 팀 대 타코·도치 팀, 컴퓨터 3명, 200점 먼저 넘기면 승리)','보상: 스도쿠 다 풀면 🌰1(어려움 🌰2), 티츄 이기면 🌰2 — 미니게임과 합쳐 하루 2번','보드게임 아이콘과 티츄 특수 카드(참새·강아지·봉황·용)를 새로 그렸어요','보드게임 대사: 티츄에서 토리(찍찍!)·타코(~다코)·도치(허세 많은 "가시 대장")가 카드 낼 때·패스·티츄·폭탄·용·판 끝에 한마디, 스도쿠에선 토리가 옆에서 응원','햄스터·설정 탭 위에 바로 가기 칸, 많이 내려가면 "맨 위로" 버튼, 한글이 단어 중간에서 끊기지 않게','눈사람 타코 모자 아래·목도리 위에 검은 테두리','설정 백업 칸: "파일 저장"과 "파일에서 복원" 버튼을 한 줄에 나란히']},
+ {v:'v0.7.5',d:'2026.10.06',log:['12월 23일에 이름이 생겼어요: 크리스마스 이브의 이브 (기념일 카드·달력·토리 말풍선)','유령 잡기를 새로 그렸어요: 보름달 밤하늘·유령의 집·묘지 울타리·불 켜지는 호박·박쥐, 점수판도 나무 창으로 (규칙·보상은 그대로)','사탕 미로의 보라 유령이 겁먹었을 때도 반투명하게 보여요']},
+ {v:'v0.7.4',d:'2026.10.06',log:['레벨 올리는 데 필요한 도토리가 점점 늘어나요: Lv.2~10은 5개, 11~30은 10개, 31~60은 25개, 61~100은 50개씩이고 Lv.100이 최고예요','칭호가 10단계로 늘었어요 (견습 햄스터 · 견습 모험가 · 모험가 · 기사 · 마법사 · 대마법사 · 도토리 귀족 · 도토리 왕 · 도토리 황제 · 전설의 용사)','레벨 기준이 바뀌었다는 안내창을 한 번 보여 줘요. 먹인 도토리와 보물상자는 그대로예요']},
+ {v:'v0.7.3',d:'2026.10.06',log:['루돌프 잡기: 눈사람 타코의 산타 모자를 작고 깜찍하게 줄였어요','루돌프가 펄쩍 뛸 때 목 방울이 짤랑, 당근을 주우면 종소리가 울려요']},
+ {v:'v0.7.2',d:'2026.10.06',log:['크리스마스 주간(12/18~25) 새 미니게임 "도망가는 루돌프를 잡아라!": 손가락을 끌면 빨간 산타 모자를 쓴 토리가 달려가요. 루돌프를 잡을 때마다 선물이 떨어지고, 잡을수록 루돌프가 빨라져요','눈더미에선 느려지고 얼음판은 미끄러워요. 나무 뒤에 숨은 루돌프는 코만 반짝! 당근을 주우면 3초 동안 루돌프가 느려지고, 산타 모자를 쓰고 목도리를 두른 채 눈덩이 위에 앉은 눈사람 타코가 힌트를 알려 줘요','45초 동안 3마리면 도토리 1개, 6마리면 2개 (보상 횟수는 다른 미니게임과 합산). 루돌프 썰매 배달도 그대로 있어요','"백업 보내기" 버튼: 공유 창에서 카톡 나에게 보내기·드라이브·메일로 백업 파일을 보내요 (설정 · 홈 백업 카드)','백업한 지 7일이 지나면 홈 백업 카드가 콩콩 뛰고 토리와 타코가 말로 알려 줘요']},
+ {v:'v0.6.9',d:'2026.10.06',log:['도감·가고 싶은 곳에서 장소 종류(식당·카페·놀거리·기타) 글씨가 흰색이라 안 보이던 것을 진한 갈색으로 고쳤어요']},
+ {v:'v0.6.8',d:'2026.10.06',log:['아이폰(사파리)에서 홈 화면에 추가할 때 쓰는 토리 아이콘을 넣었어요','토리가 기지개를 켤 때 머리 위 물병과 겹쳐 보이던 것을 줄였어요']},
+ {v:'v0.6.7',d:'2026.10.05',log:['토리를 쓰다듬을 때 사진만 출렁이고 얼굴은 가만히 있던 것을 고쳤어요 (슬퍼할 때 · 밤에도)','토리가 숨 쉴 때 도토리 쥔 손이 늘어나 보이던 것을 고쳤어요','미니게임 글자를 얇고 또렷하게 바꿨어요','타코 띄워 주기에서 바다 생물이 나오기 전 흰 상자 대신 작은 빨간 느낌표가 깜빡여요','도감 장소 종류 글씨가 안 보이던 것 · 일정 입력칸이 화면 밖으로 나가던 것 · 내 기념일 버튼 간격을 고쳤어요','보상 탭의 "새 보상 넣기"를 뺐어요 (이미 있는 보상은 그대로예요)']},
+ {v:'v0.6.6',d:'2026.10.03',log:['마작패 짝 맞추기: 다 맞췄을 때 "쾅—" 하고 크게 울리는 진짜 징 소리로 바꿨어요']},
+ {v:'v0.6.5',d:'2026.10.03',log:['유령 잡기 · 토리의 사탕 미로 · 마작패 짝 맞추기 · 루돌프 썰매 배달에 게임마다 전용 배경음악과 효과음을 넣었어요','사탕 미로에서 유령이 겁먹으면 음악이 빨라져요','루돌프 썰매 배달: 시작·배달·끝에 맑은 종소리가 울리고, 배경음악에도 종이 울려요']},
+ {v:'v0.6.4',d:'2026.10.03',log:['할로윈 주간(10/25~31) 새 미니게임 "토리의 사탕 미로": 마녀 모자 토리를 밀어서 움직여 사탕을 모아요. 호박 등불을 먹으면 유령을 잡을 수 있어요','11월 마지막 주(11/24~30) 새 미니게임 "마작패 짝 맞추기": 진짜 마작패 20장으로 하는 짝 맞추기','크리스마스 주간(12/18~25) 새 미니게임 "루돌프 썰매 배달": 굴뚝에 선물을 쏙! 루돌프 코가 반짝일 때 2배']},
+ {v:'v0.5.9',d:'2026.10.03',log:['유령 잡기의 3점짜리 금빛 유령을 보라 유령으로 바꿨어요']},
+ {v:'v0.5.8',d:'2026.10.03',log:['할로윈(10월 31일)을 기념일에 넣었어요. 홈 기념일 카드에 D-day가 나오고, 그날엔 토리가 할로윈 인사를 해요','할로윈 날엔 홈 토리의 방에 박쥐가 날아다니고 유령이 둥실 떠 있어요','할로윈 주간(10월 25~31일)에만 열리는 미니게임 "유령 잡기"가 생겼어요. 호박 등불에서 튀어나오는 유령을 탭! 금빛 유령은 3점, 박쥐는 -2점']},
+ {v:'v0.5.7',d:'2026.10.03',log:['홈 "다가오는 일정 · 기념일" 이름을 "기념일"로 바꾸고, 맨 아래 설명 두 줄을 뺐어요','도토리 속 편지 끝 "from. 토리" 옆 햄스터 그림을 뺐어요','홈 "현재 상태"를 도토리 · 보상 두 칸으로 깔끔하게 정리했어요','토리 집 꾸미기의 "자리 초기화" 버튼을 오른쪽으로 옮겼어요','토리의 챗바퀴를 처음 화면으로 되돌렸어요']},
+ {v:'v0.5.6',d:'2026.10.02',log:['11월 도토리 받기: 잘 그린 도트 나무처럼 다시 그렸어요 (동그란 잎 덩어리 · 빛과 그림자 · 가지 · 뿌리 · 땅 그늘)','11월 타코 띄워 주기: 예전 바다 화면으로 돌아가고, 햇살 빛줄기가 천천히 일렁여요']},
+ {v:'v0.5.5',d:'2026.10.02',log:['11월부터 나오는 도토리 받기 · 타코 띄워 주기 그림을 더 촘촘하고 따뜻하게 다시 그렸어요 (숲 · 나무 · 풀꽃 · 바구니 / 바닷속 · 해초 · 산호 · 바위 · 해파리)']},
+ {v:'v0.5.4',d:'2026.10.02',log:['도토리 받기 · 타코 띄워 주기 · 기타리스트는 10월 동안 처음의 단순한 화면으로 즐겨요. 11월 1일부터 숲 · 바다 · 무대 화면으로 저절로 바뀌어요']},
+ {v:'v0.5.3',d:'2026.10.02',log:['토리의 챗바퀴: 시작 화면 · 3·2·1 · 화면 안 시간/바퀴 표시 · 하트 박자 · 속도계 · 별점 결과 카드','타코 띄워 주기에서 새우가 반짝반짝 깜빡이던 것을 고쳤어요 (눈 칸에 색이 빠져 있었어요)']},
+ {v:'v0.5.2',d:'2026.10.02',log:['설정의 알림 칸을 하나로 합쳤어요 (토리 알림 + 캘린더 매일 알림)','타코 띄워 주기 배경을 꾸몄어요: 햇살 비치는 바다, 흔들리는 해초와 산호, 조개가 있는 모래 바닥, 떠오르는 물방울']},
+ {v:'v0.5.1',d:'2026.10.02',log:['좁은 화면이나 큰 글씨에서 "내역" · "자리 초기화" 같은 버튼 글자가 세로로 꺾이던 걸 고쳤어요','미니게임 효과음을 조금 작게 했어요 (예전의 70%)','홈 "내역 · 퀘스트 하러 가기" 버튼이 늘 한 줄로 나란히 보여요','토리의 챗바퀴: 달리는 토리, 바퀴, 물병 · 밥그릇 · 톱밥 바닥을 새로 그렸어요','도토리 받기: 숲 배경 · 바구니 든 토리 · 새 도토리와 금도토리 · 돌','기타리스트: 무대 조명과 기타 지판, 동그란 보석 음표','토리 알림: 설정에서 켜면 밥을 안 줬거나 오래 안 들어올 때 토리가 알림을 보내요 (안드로이드 홈 화면 앱)','월 보상의 "해주는" 항목 7개를 진우가 스스로 누리는 보상으로 바꿨어요']},
+ {v:'v0.5.0',d:'2026.10.02',log:['아이콘 10개를 더 알아보기 쉽게 다시 그렸어요 (젓가락 · 폭죽 · 박 · 원숭이 · 기도 · 퍼즐 · 귀 · 화남 · 온천 · 집기)']},
+ {v:'v0.4.9',d:'2026.10.02',log:['장식 · 보물상자 · 보상 · 앨범 페이지도 끝에서 넘기면 처음으로, 처음에서 뒤로 넘기면 끝으로 이어져요']},
+ {v:'v0.4.8',d:'2026.10.02',log:['◀ ▶ 화살표를 앱과 어울리는 픽셀 그림으로 바꿨어요','버전 기록이 끝에서 더 넘기면 처음으로, 처음에서 뒤로 넘기면 끝으로 이어져요']},
+ {v:'v0.4.7',d:'2026.10.02',log:['일정을 넣고 고치고 지울 수 있어요 (홈 · 설정 · 달력)','내 기념일(매년)을 추가 · 삭제할 수 있어요','버전 기록을 한 장씩 넘겨 지난 업데이트를 모두 볼 수 있어요']},
+ {v:'v0.4.6',d:'2026.10.02',log:['토리가 기록을 기억해요: 어제 마작·합주·운동·다녀온 곳·일기를 보고 먼저 말을 걸어요','토리가 움직일 때 볼이 어색해 보이던 것을 원인부터 고쳤어요','안 쓰는 코드와 옛 아이콘을 정리했어요']},
+ {v:'v0.4.5',d:'2026.10.02',log:['토리의 방 꾸미기: 벽 장식·바닥 장식 구분, 크기 3단계, 토리 앞/뒤에 놓기','장식 세트 7가지: 다 모으면 도토리와 칭호를 받아요','토리가 움직일 때 볼 쪽 테두리가 두 줄로 보이던 것 고침']},
+ {v:'v0.4.4',d:'2026.10.02',log:['아이콘 10개를 더 또렷하게 다시 그렸어요 (일렉기타·발자국·수영·안아 줘·쉿·빙글 별 등)']},
+ {v:'v0.4.3',d:'2026.10.02',log:['살아 있는 토리가 도트 게임처럼 한 칸씩 툭툭 움직여요','토리가 움직일 때 주변 배경이 일렁이지 않아요(토리만 오려서 움직여요)']},
+ {v:'v0.4.2',d:'2026.10.02',log:['토리가 살아 있어요: 숨 쉬고, 눈을 깜빡이고, 가끔 기지개를 켜요','토리가 다른 자세인 그림(누움·잠·운동 등)과 움직임 줄이기 설정에서는 가만히 있어요']},
+ {v:'v0.3.7',d:'',log:['앱에 쓰인 이모지를 모두 16×16 픽셀 아이콘으로 통일했어요']},
+ {v:'v0.3.2',d:'',log:['장식 · 아래 탭 · 도토리를 16×16 픽셀 아이콘으로 바꿨어요']},
  {v:'v3',d:'',log:['픽셀 제목 · 픽셀 글꼴 · 귀여운 배경 무늬가 생겼어요']}];
 let verI=0;
 function verOpen(i){const n=VER_HIST.length;verI=(((i||0)%n)+n)%n;const V=VER_HIST[verI];
@@ -2139,7 +2172,7 @@ const RTK={hi:['새 보상 만들기다코! 입력칸을 누르면 타코가 설
  hiEdit:['보상을 고치는 중이다코! 입력칸을 누르면 타코가 알려 준다코 ✏️'],
  emo:'보상의 얼굴이 될 이모지다코! 하나만 골라 보라코 😊',
  name:'진우가 받으면 기분 좋을 이름을 적어 보라코! 예: 치킨 먹기 🍗 (이름에 "운동 하루 쉬기"가 들어가면 쓴 날은 취미 횟수에서 빠져서 토리가 쓰러지지 않는다코 😴)',
- desc:'언제 어떻게 쓸 수 있는지 적어 두면 좋다코! 최대 120자다코 📝',
+ desc:'언제 어떻게 쓸 수 있는지 적어 두면 좋다코! 최대 120자코 📝',
  grade:'등급은 일반·희귀·전설이다코. 전설은 반짝이는 금빛 카드가 된다코 ✨',
  qty:'수량은 0~99장이다코. 사용할 때마다 1장씩 줄어든다코 🎟️',
  exp:'유효기간을 넣으면 그 날이 지나면 만료된다코. 비워 두면 언제까지나 쓸 수 있다코 ⏳',
@@ -2433,7 +2466,7 @@ function chPick(){const c=chCtx();if(c.tag){const g=c.tag;return g.startsWith('h
   if(c.tm==='ng')return CH_NG;{const m=memPick();if(m&&Math.random()<.6)return memChat(m);}if(c.hun&&Math.random()<.7)return CH_HUN;if(c.st>=7&&c.st%7===0&&Math.random()<.6)return CH_ST(c.st);
   const r=Math.random();if(c.tm==='ev'&&r<.4)return c.ex?CH_EXY:CH_EXN;if(c.tm==='am'&&r<.35)return CH_AM;if(r<.25&&c.st>=3)return CH_ST(c.st);return pk(CH_GEN);}
 let chQ=null;
-function chatOpen(q){chQ=q||chPick();modal(`<h3>🐹 ${esc(hn())}와 대화</h3><div class="chb">${esc(chQ[0])}</div><div id="cho">${chQ[1].map((o,i)=>`<button class="btn full" style="margin-top:6px" onclick="chatPick(${i})">${esc(o[0])}</button>`).join('')}</div><div class="row" style="margin-top:10px;gap:6px"><input id="chi" maxlength="60" placeholder="토리에게 한마디" style="flex:1;min-width:0" onkeydown="if(event.key==='Enter')chatSay()"><button class="btn wood" onclick="chatSay()">보내기</button></div><div class="row" style="margin-top:10px;align-items:stretch"><button class="btn ghost full" onclick="tqOpen()">${S.tq&&S.tq.d===todayStr()?'📝 오늘의 질문 (완료)':'📝 오늘의 질문 (🌰+1)'}</button><button class="btn ghost full" onclick="closeM()">닫기</button></div>`);}
+function chatOpen(q){chQ=q||chPick();modal(`<h3>${toriDiaryIcon()} ${esc(hn())}와 대화</h3><div class="chb">${esc(chQ[0])}</div><div id="cho">${chQ[1].map((o,i)=>`<button class="btn full" style="margin-top:6px" onclick="chatPick(${i})">${esc(o[0])}</button>`).join('')}</div><div class="row" style="margin-top:10px;gap:6px"><input id="chi" maxlength="60" placeholder="토리에게 한마디" style="flex:1;min-width:0" onkeydown="if(event.key==='Enter')chatSay()"><button class="btn wood" onclick="chatSay()">보내기</button></div><div class="row" style="margin-top:10px;align-items:stretch"><button class="btn ghost full" onclick="tqOpen()">${S.tq&&S.tq.d===todayStr()?'📝 오늘의 질문 (완료)':'📝 오늘의 질문 (🌰+1)'}</button><button class="btn ghost full" onclick="closeM()">닫기</button></div>`);}
 /* ---------- 키워드 반응 (직접 입력한 말에 토리·타코가 상황에 맞게 답해요) ---------- */
 const KW_TAG=[['no',/안 ?(했|해|갔|가|마|먹|하|쳤|칠|나|나가|할래)|못 ?(했|해|갔|가|마|먹|하|쳤)|싫|귀찮|끊(었|으려|을래|기로)|그만|쉬었|쉬는|건너뛰|빼먹|패스|취소/],
  ['neg',/힘들|피곤|지쳤|지친|우울|슬프|속상|짜증|외로|아프|아파|망했|망쳤|최악|괴로|토할|죽겠|스트레스|화나|열받|빡|지겹|답답|불안|졌|패배|깨졌|끊어졌|끊겼|싸웠|싸움|다퉜|서운|헤어|숙취|머리 ?아/],
@@ -2633,7 +2666,19 @@ const MD_WEEKLY=[
  [['토','찍찍! 바람이 문을 톡톡 두드려요.'],['타','손님인 척하는 바람이다코.'],['토','찍찍! 간식도 줘야 하나요?'],['타','바람은 냄새만 맡고 간다코.']],
  [['타','오늘은 천천히 걸어 보자코.'],['토','찍찍! 저는 이미 천천히 걷고 있어요.'],['타','왜 멈췄냐코?'],['토','찍찍! 여기 햇빛이 따뜻해서요.'],['타','그건 멈출 만한 이유다코.']],
  [['토','찍찍! 이번 주가 벌써 지나갔어요.'],['타','재밌는 건 조금 모아 뒀냐코?'],['토','찍찍! 타코랑 얘기한 것도 모았어요.'],['타','타코도 그걸 모았다코.']],
- [['타','대나무 소리가 들리면 잠깐 쉬어라코.'],['토','찍찍! 톡! 이제 쉬어도 돼요?'],['타','그건 토리가 낸 소리다코.'],['토','찍찍! 쉬는 시간은 제가 만들었어요!'],['타','좋은 발명이다코.']]
+ [['타','대나무 소리가 들리면 잠깐 쉬어라코.'],['토','찍찍! 톡! 이제 쉬어도 돼요?'],['타','그건 토리가 낸 소리다코.'],['토','찍찍! 쉬는 시간은 제가 만들었어요!'],['타','좋은 발명이다코.']],
+ [['토','찍찍! 온천 수건을 접었는데 도토리만큼 작아졌어요.'],['타','그건 너무 많이 접었다코.'],['토','찍찍! 주머니에 쏙 들어가요!'],['타','머리에 올리려고 접은 거 아니냐코?'],['토','찍찍… 머리까지 가는 길에 보관 중이에요.']],
+ [['타','도치가 제일 따뜻한 돌을 찾았다코.'],['토','찍찍! 어떻게 찾았대요?'],['타','돌마다 잠깐 앉아 봤다코.'],['토','찍찍! 저도 연구할래요!'],['타','방금 연구원이 한 명 더 잠들었다코.']],
+ [['토','찍찍! 호두가 나중에 먹을 도토리를 숨겨 뒀대요.'],['타','어디냐코?'],['토','찍찍! 잊어버리려고 온천에 왔대요.'],['타','위치를 잊으면 곤란하다코.'],['토','찍찍! 걱정만 잊고 위치는 기억한대요.']],
+ [['타','부엉박사가 물결을 세고 있다코.'],['토','찍찍! 몇 개래요?'],['타','하나 세면 다음 물결이 와서 처음부터 다시라코.'],['토','찍찍! 끝이 없는 숙제네요!'],['타','그래서 숙제가 아니라 구경으로 바꿨다코.']],
+ [['토','찍찍! 대나무가 물을 마시고 고개를 숙여요.'],['타','물을 다 모으면 기울어지는 거다코.'],['토','찍찍! 고맙다고 인사하는 줄 알았어요.'],['타','그렇게 봐도 좋다코.'],['토','찍찍! 저도 물 마시고 인사할게요.']],
+ [['타','이번 주에 산책은 했냐코?'],['토','찍찍! 따뜻한 자리에서 그늘까지 갔어요.'],['타','거리가 얼마나 되냐코?'],['토','찍찍! 꼬리 하나 반이요.'],['타','작아도 출발은 출발이다코.']],
+ [['토','찍찍! 오늘은 별이 물에서도 반짝여요.'],['타','같은 별이 비친 거다코.'],['토','찍찍! 그럼 별은 온천을 두 번 보는 거예요?'],['타','하늘에서 한 번, 물에서 한 번이다코.'],['토','찍찍! 좋은 자리를 두 개나 잡았네요.']],
+ [['타','수건이 왜 젖었냐코?'],['토','찍찍! 물결이랑 인사하다가요.'],['타','수건은 물 밖에서 쉬게 해 줘라코.'],['토','찍찍! 수건도 휴가가 필요하군요.'],['타','말리는 동안은 일 안 시킬 거다코.']],
+ [['토','찍찍! 책갈피 대신 나뭇잎을 넣었어요.'],['타','책을 어디까지 읽었냐코?'],['토','찍찍! 나뭇잎 모양이 예쁜 데까지요.'],['타','그건 페이지가 아니라 잎을 읽은 거다코.'],['토','찍찍! 오늘은 숲 이야기를 읽었어요.']],
+ [['타','쉬고 나면 뭘 할 거냐코?'],['토','찍찍! 시원한 물을 마실 거예요.'],['타','그다음은 뭐냐코?'],['토','찍찍! 수건을 말릴 거예요.'],['타','작은 순서가 있으니 든든하다코.']],
+ [['토','찍찍! 구름이 아주 천천히 가요.'],['타','오늘은 바람이 조용하다코.'],['토','찍찍! 구름도 지각해도 괜찮나요?'],['타','구름한테는 출근 시간이 없다코.'],['토','찍찍! 구름이랑 같이 천천히 갈래요.']],
+ [['타','이번 주 이야기도 하나 남겨 두자코.'],['토','찍찍! 대단한 일이 없어도 되나요?'],['타','같이 쉬었던 것도 이야기다코.'],['토','찍찍! 그럼 오늘은 따뜻한 물 이야기예요.'],['타','다음 주에도 이어서 듣겠다코.']]
 ];
 MD.weekly=MD_WEEKLY;
 let mdPending=null;
@@ -2670,12 +2715,13 @@ function bgToggle(){S.bgmOn=S.bgmOn?0:1;save();if(S.bgmOn)bgStart();else bgStop(
 ['mgOpen','mg2Open','mg3Open','mg4Open','mg5Open','mg6Open','mg7Open','mg8Open','mg9Open'].forEach(n=>{const f=window[n];if(typeof f!=='function')return;window[n]=function(){const r=f.apply(this,arguments);if($('mg')){bgStop();if(bgG)bgG.gain.value=0;try{getSelection().removeAllRanges();}catch(e){}}return r;};});
 /* 모든 화면: 길게 눌러도 이미지 저장·공유·복사 메뉴가 뜨지 않게 (입력칸은 예외) */
 const _ed=t=>{const el=t&&(t.nodeType===1?t:t.parentElement);return !!(el&&el.closest&&el.closest('input,textarea,select,[contenteditable]'));};
-document.addEventListener('contextmenu',e=>{if(!_ed(e.target))e.preventDefault();});
+document.addEventListener('contextmenu',e=>e.preventDefault());
 document.addEventListener('dragstart',e=>{if(!_ed(e.target))e.preventDefault();});
-document.addEventListener('selectstart',e=>{if(!_ed(e.target))e.preventDefault();});
+document.addEventListener('selectstart',e=>e.preventDefault());
+document.addEventListener('copy',e=>e.preventDefault());
 ['gesturestart','gesturechange','gestureend'].forEach(n=>document.addEventListener(n,e=>e.preventDefault()));
 document.addEventListener('touchmove',e=>{if(e.touches&&e.touches.length>1)e.preventDefault();},{passive:false});
-document.addEventListener('dblclick',e=>{if(!_ed(e.target))e.preventDefault();});
+document.addEventListener('dblclick',e=>e.preventDefault());
 document.addEventListener('wheel',e=>{if(e.ctrlKey)e.preventDefault();},{passive:false});
 (function(){const f=window.mgClose;if(typeof f!=='function')return;window.mgClose=function(){const r=f.apply(this,arguments);bgStart();return r;};})();
 document.addEventListener('click',bgStart);
@@ -2889,14 +2935,14 @@ function rAch(){const bs=buffStreak(),done=ACH.filter(a=>S.ach[a[0]]).length;
 function yearCard(){const y=todayStr().slice(0,4),c=k=>S.act[k].filter(e=>e.date.slice(0,4)===y),ex=c('ex'),mn=ex.reduce((a,e)=>a+(+e.min||0),0),pl=S.places.filter(x=>(x.date||'').slice(0,4)===y),cnt={};
   pl.forEach(x=>cnt[x.name]=(cnt[x.name]||0)+1);const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0],R=(a,b)=>`<div class="row sp"><span>${a}</span><span class="qty">${b}</span></div>`;
   return `<div class="card legend"><h2>🎊 ${y}년 진우의 한 해</h2>${R('💪 운동',new Set(ex.map(e=>e.date)).size+'일 · '+Math.floor(mn/60)+'시간')}${HOB.map(k=>R(ACT[k][1]+' '+ACT[k][0],c(k).length+'회')).join('')}${R('🎸 완성한 곡',S.songs.filter(x=>x.st===2).length+'곡')}${R('📍 새 장소',pl.length+'곳')}${top&&top[1]>1?R('가장 자주 간 곳',esc(top[0])+' '+top[1]+'번'):''}${R('🎟 쓴 보상',S.used.filter(u=>u.date.slice(0,4)===y).length+'장')}<div style="margin-top:6px">${esc(hn())}: 올해도 곁에 있어 줘서 든든했어! 🌰</div></div>`;}
-let cMon='',dyQ='';
-function calMv(d){const [y,m]=cMon.split('-').map(Number);cMon=new Date(Date.UTC(y,m-1+d,1)).toISOString().slice(0,7);rPlace();}
+let cMon='',dyQ='',dyPage=0;const DY_PAGE_SIZE=5;
+function calMv(d){dyPage=0;const [y,m]=cMon.split('-').map(Number);cMon=new Date(Date.UTC(y,m-1+d,1)).toISOString().slice(0,7);rPlace();}
 function rCal(){const t=todayStr();if(!cMon)cMon=t.slice(0,7);const [y,m]=cMon.split('-').map(Number),f=new Date(Date.UTC(y,m-1,1)).getUTCDay(),n=new Date(Date.UTC(y,m,0)).getUTCDate(),ex=dset(['ex'],'0000','9999'),hb=dset(HOB,'0000','9999'),di=new Set((S.diary||[]).map(x=>x.d)),sd=new Set((S.sched||[]).map(x=>x.date));
   let g=[...WD].map(w=>`<b class="cw">${w}</b>`).join('')+'<span></span>'.repeat(f),ec=0,hc=0,dc=0;
   for(let d=1;d<=n;d++){const ds=cMon+'-'+p2(d),e=ex.has(ds),h=hb.has(ds),dy=di.has(ds);ec+=e?1:0;hc+=h?1:0;dc+=dy?1:0;g+=`<button class="cd ${ds===t?'today':''}" onclick="calDay('${ds}')">${d}<span>${e?'<u class="g"></u>':''}${h?'<u class="o"></u>':''}${dy?'<u class="d"></u>':''}${sd.has(ds)?'<u class="s"></u>':''}</span></button>`;}
   $('dbody').innerHTML=`<div class="card"><div class="row sp"><button class="btn sm" onclick="calMv(-1)">◀</button><h2 style="margin:0">${y}년 ${m}월</h2><button class="btn sm" onclick="calMv(1)">▶</button></div><div class="muted" style="margin:6px 0">초록 운동 ${ec}일 · 주황 취미 ${hc}일 · 분홍 일기 ${dc}일 · 보라 일정 · 날짜를 누르면 기록이 나와요</div><div class="cal">${g}</div></div>`;}
 function calDay(ds){const l=['ex',...HOB].flatMap(k=>S.act[k].filter(e=>e.date===ds).map(e=>`<div class="q"><span>${ACT[k][1]} ${esc(e.what)}${actTag(k,e)}</span></div>`)),pl=S.places.filter(x=>x.date===ds).map(x=>`<div class="q"><span>📍 ${esc(x.name)}</span></div>`).concat((S.sched||[]).filter(x=>x.date===ds).map(x=>`<div class="q" onclick="schForm('${x.id}')" style="cursor:pointer"><span>🗓 ${esc(x.name)}<div class="muted">${esc(x.time||'')}${x.memo?' · '+esc(x.memo):''}</div></span></div>`));
-  const dv=(S.diary||[]).find(x=>x.d===ds),dh=dv?`<div class="q"><span>🌙 ${esc(dv.t)}<div class="muted">🐹 ${esc(hn())}: ${esc(dv.r||'')}</div></span></div>`:'';
+  const dv=(S.diary||[]).find(x=>x.d===ds),dh=dv?`<div class="q"><span>🌙 ${esc(dv.t)}<div class="muted">${toriDiaryIcon()} ${esc(hn())}: ${esc(dv.r||'')}</div></span></div>`:'';
   modal(`<h3>${esc(ds)} (${wdOf(ds)})</h3>${dh+l.concat(pl).join('')||'<div class="empty">이날은 기록이 없어요.</div>'}${ds<=todayStr()?`<button class="btn wood full" style="margin-top:10px" onclick="dyForm('${esc(ds)}')">${dv?'📖 일기 고치기':'📖 이 날 일기 쓰기'}</button>`:''}<button class="btn ghost full" style="margin-top:8px" onclick="schForm();$('sd').value='${esc(ds)}'">🗓 이 날 일정 넣기</button><button class="btn full" style="margin-top:8px" onclick="closeM()">닫기</button>`);}
 async function cpShare(){const c=window.lastCp;if(!c)return;const t='🎟️ 보상 사용했어요!\n「'+c.name+'」 · '+c.date+'\n남은 '+c.left+'장 — JW Diary';
   try{if(navigator.share){await navigator.share({text:t});return;}}catch(e){if(e&&e.name==='AbortError')return;}
@@ -3038,6 +3084,7 @@ if(!S.mig3){S.mig3=1;S.streak.last=todayStr();S.streak.n=Math.max(1,S.streak.n||
 function acLog(){const a=S.acorns;if(typeof S.acL!=='number'){S.acL=a;return;}const d=a-S.acL;if(d){if(!Array.isArray(S.acLog))S.acLog=[];S.acLog.unshift({t:Date.now(),d,w:ACW||(d>0?'획득':'교환·사용')});S.acLog=S.acLog.slice(0,20);}S.acL=a;}
 function acHist(){const L=(S.acLog||[]).map(x=>`<div class="q"><span>${esc(x.w)}<div class="muted">${new Date(x.t+9*36e5).toISOString().slice(5,16).replace('T',' ')}</div></span><b class="qty" style="${x.d<0?'color:#c0392b':''}">${x.d>0?'+':''}${x.d}</b></div>`).join('');
   modal(`<h3>🌰 도토리 내역</h3><div class="muted" style="margin-bottom:6px">최근 20건이에요.</div>${L||'<div class="empty">아직 내역이 없어요.</div>'}<button class="btn full" style="margin-top:10px" onclick="closeM()">닫기</button>`);}
+function toriDiaryIcon(){return '<img class="diary-tori" src="assets/tori-icon-b.png" alt="토리">';}
 const DYR={sad:['오늘 힘들었구나… 토리가 볼로 꾹 안아 줄게. 무사히 돌아온 것만으로 충분해.','찍… 그런 날도 있는 거야. 도토리 하나 까먹고 푹 쉬자.','말해 줘서 고마워. 토리는 항상 진우 편이야.'],
  happy:['찍찍! 그런 날이었구나! 토리도 볼이 빵빵해질 만큼 기뻐!','와, 오늘 진우 정말 반짝반짝했네! 박수 짝짝짝!','좋은 하루였다니 토리도 행복해. 내일도 이렇게 웃자!'],
  ex:['운동한 진우, 멋져! 토리도 쳇바퀴 열 바퀴 뛰고 올게!','몸을 움직인 하루라니, 토리가 근육 자랑 같이 하고 싶어!'],
@@ -3047,7 +3094,7 @@ const DYR={sad:['오늘 힘들었구나… 토리가 볼로 꾹 안아 줄게. �
 function dyReact(t){const k=/힘들|피곤|지쳤|지친|우울|슬프|속상|짜증|외로|아프|졸려|귀찮/.test(t)?'sad':/좋았|행복|뿌듯|즐거|재밌|재미|신나|성공|해냈|맛있|기뻤|웃었/.test(t)?'happy':/운동|러닝|헬스|산책|걷/.test(t)?'ex':/기타|연습|합주|곡/.test(t)?'music':/마작|보드게임/.test(t)?'game':'def';const a=DYR[k];return a[Math.floor(Math.random()*a.length)];}
 function dyCard(){const t=todayStr(),e=(S.diary||[]).find(x=>x.d===t),ed=e&&window.dyEditing;
   if(kst().getUTCHours()<DY_FROM)return '';
-  return `<div class="card"><h2>🌙 하루 마무리 한 줄</h2>${e&&!ed?`<div>✏️ ${esc(e.t)}</div><div class="muted" style="margin-top:6px">🐹 ${esc(hn())}: ${esc(e.r)}</div><button class="btn ghost sm" style="margin-top:8px" onclick="window.dyEditing=1;rHome()">고치기</button>`:`<input id="dyi" maxlength="60" placeholder="오늘 하루, 한 줄로 남긴다면?" value="${esc(ed?e.t:'')}"><button class="btn wood full" onclick="dySave()">기록하고 ${esc(hn())}에게 보여주기</button>`}<button class="btn ghost sm" style="margin-top:8px" onclick="dSub='diary';go('place')">📖 지난 일기 보기</button></div>`;}
+  return `<div class="card"><h2>🌙 하루 마무리 한 줄</h2>${e&&!ed?`<div>✏️ ${esc(e.t)}</div><div class="muted" style="margin-top:6px">${toriDiaryIcon()} ${esc(hn())}: ${esc(e.r)}</div><button class="btn ghost sm" style="margin-top:8px" onclick="window.dyEditing=1;rHome()">고치기</button>`:`<input id="dyi" maxlength="60" placeholder="오늘 하루, 한 줄로 남긴다면?" value="${esc(ed?e.t:'')}"><button class="btn wood full" onclick="dySave()">기록하고 ${esc(hn())}에게 보여주기</button>`}<button class="btn ghost sm" style="margin-top:8px" onclick="dSub='diary';go('place')">📖 지난 일기 보기</button></div>`;}
 function dySave(){const v=$('dyi').value.trim();if(!v){toast('한 줄을 적어 주세요');return;}const t=todayStr();S.diary=(S.diary||[]).filter(x=>x.d!==t);S.diary.unshift({d:t,t:v,r:dyReact(v)});S.diary.sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:0);S.diary=S.diary.slice(0,1500);window.dyEditing=0;save();sfx('fan');rHome();toast('🐹 '+hn()+'가 한 줄을 읽었어요');}
 /* ---------- 지난 오늘의 일기 (홈 화면) ---------- */
 function dyAgoDate(n,u){const t=todayStr(),y=+t.slice(0,4),m=+t.slice(5,7),d=+t.slice(8,10);let yy=y,mm=m;
@@ -3058,18 +3105,21 @@ function dyMemCard(){const map=new Map((S.diary||[]).map(e=>[e.d,e])),L=[];
   add('지난달 오늘',dyAgoDate(1,'m'));
   for(let n=1;n<=10;n++)add(n===1?'작년 오늘':n+'년 전 오늘',dyAgoDate(n,'y'));
   if(!L.length)return '';
-  return `<div class="card"><h2>🕰️ 지난 오늘의 일기</h2>${L.slice(0,4).map(({lb,e})=>`<div class="q"><span>${lb} · ${esc(e.d)}<div>${esc(e.t)}</div><div class="muted">🐹 ${esc(hn())}: ${esc(e.r||'')}</div></span></div>`).join('')}</div>`;}
+  return `<div class="card"><h2>🕰️ 지난 오늘의 일기</h2>${L.slice(0,4).map(({lb,e})=>`<div class="q"><span>${lb} · ${esc(e.d)}<div>${esc(e.t)}</div><div class="muted">${toriDiaryIcon()} ${esc(hn())}: ${esc(e.r||'')}</div></span></div>`).join('')}</div>`;}
 /* ---------- 일기 다시 보기 (도감 > 일기) ---------- */
-const dyEnt=e=>`<div class="card"><div class="row sp"><b>${esc(e.d)} (${wdOf(e.d)})</b><button class="btn ghost sm" onclick="dyForm('${esc(e.d)}')">✏️</button></div><div>${esc(e.t)}</div><div class="muted" style="margin-top:4px">🐹 ${esc(hn())}: ${esc(e.r||'')}</div></div>`;
-function dyView(){const all=[...(S.diary||[])].sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:0),q=dyQ.trim().toLowerCase();let L,sum;
-  if(q){L=all.filter(e=>(e.t||'').toLowerCase().includes(q));sum='검색 결과 '+L.length+'개';}
-  else{L=all.filter(e=>e.d.slice(0,7)===cMon);sum='이 달 '+L.length+'일 · 전체 '+all.length+'일 기록';}
-  return {sum,html:L.map(dyEnt).join('')||`<div class="empty">${q?'찾는 일기가 없어요.':'이 달에는 일기가 없어요.'}</div>`};}
-function dyFind(v){dyQ=v;const r=dyView();$('dysum').textContent=r.sum;$('dylist').innerHTML=r.html;}
+const dyEnt=e=>`<div class="card"><div class="row sp"><b>${esc(e.d)} (${wdOf(e.d)})</b><button class="btn ghost sm" onclick="dyForm('${esc(e.d)}')">✏️</button></div><div>${esc(e.t)}</div><div class="muted" style="margin-top:4px">${toriDiaryIcon()} ${esc(hn())}: ${esc(e.r||'')}</div></div>`;
+function dyItems(){const all=[...(S.diary||[])].sort((a,b)=>b.d.localeCompare(a.d)),q=dyQ.trim().toLowerCase();return {all,q,L:all.filter(e=>q?(e.t||'').toLowerCase().includes(q):e.d.slice(0,7)===cMon)};}
+function dyView(){const {all,q,L}=dyItems(),pages=Math.max(1,Math.ceil(L.length/DY_PAGE_SIZE));dyPage=Math.max(0,Math.min(dyPage,pages-1));const group=Math.floor(dyPage/5)*5,sum=q?'검색 결과 '+L.length+'개':'이 달 '+L.length+'일 · 전체 '+all.length+'일 기록';
+ const nav=L.length?`<nav class="place-pages" aria-label="일기 페이지"><button class="btn ghost sm" onclick="dyPageMove(-1)" aria-label="이전 일기 페이지">◀</button>${Array.from({length:Math.min(5,pages-group)},(_,j)=>{const n=group+j;return `<button class="btn ghost sm" onclick="dyPageTo(${n})" ${n===dyPage?'aria-current="page"':''}>${n+1}</button>`;}).join('')}<button class="btn ghost sm" onclick="dyPageMove(1)" aria-label="다음 일기 페이지">▶</button></nav><p class="muted" style="text-align:center">${dyPage+1} / ${pages} 페이지 · ${L.length}일</p>`:'';
+ return {sum,html:(L.slice(dyPage*DY_PAGE_SIZE,(dyPage+1)*DY_PAGE_SIZE).map(dyEnt).join('')||`<div class="empty">${q?'찾는 일기가 없어요.':'이 달에는 일기가 없어요.'}</div>`)+nav};}
+function dyRefresh(){const r=dyView();$('dysum').textContent=r.sum;$('dylist').innerHTML=r.html;}
+function dyFind(v){dyQ=v;dyPage=0;dyRefresh();}
+function dyPageMove(d){const pages=Math.max(1,Math.ceil(dyItems().L.length/DY_PAGE_SIZE));dyPage=(dyPage+d+pages)%pages;dyRefresh();}
+function dyPageTo(p){dyPage=p;dyRefresh();}
 function rDiary(){const t=todayStr();if(!cMon)cMon=t.slice(0,7);const [y,m]=cMon.split('-').map(Number),r=dyView();
   $('dbody').innerHTML=`<div class="card"><div class="row sp"><button class="btn sm" onclick="calMv(-1)">◀</button><h2 style="margin:0">📖 ${y}년 ${m}월</h2><button class="btn sm" onclick="calMv(1)">▶</button></div><input id="dyq" placeholder="🔍 일기 검색 (전체 기간)" value="${esc(dyQ)}" oninput="dyFind(this.value)" style="margin-top:10px"><div class="muted" id="dysum">${r.sum}</div><button class="btn wood full" style="margin-top:8px" onclick="dyForm()">+ 일기 쓰기 · 지난 날 고치기</button></div><div id="dylist">${r.html}</div>`;}
 function dyForm(d){const t=todayStr(),ds=d||t,e=(S.diary||[]).find(x=>x.d===ds);
-  modal(`<h3>📖 일기 ${e?'고치기':'쓰기'}</h3><label>날짜</label><input id="dyd" type="date" max="${t}" value="${esc(ds)}" onchange="dyPick()"><label>한 줄</label><input id="dyt" maxlength="60" placeholder="그날 하루, 한 줄로" value="${esc(e?e.t:'')}"><div class="muted" id="dyn">${e?'이 날 일기가 있어요. 저장하면 바뀌어요.':''}</div><div class="row" style="margin-top:8px"><button class="btn ghost full" onclick="closeM()">취소</button><button class="btn full" onclick="dyEdSave()">저장</button></div><button id="dyx" class="btn pink full" style="margin-top:8px;${e?'':'display:none'}" onclick="dyDel()">이 날 일기 삭제</button>`);}
+  modal(`<h3>${toriDiaryIcon()} 일기 ${e?'고치기':'쓰기'}</h3><label>날짜</label><input id="dyd" type="date" max="${t}" value="${esc(ds)}" onchange="dyPick()"><label>한 줄</label><input id="dyt" maxlength="60" placeholder="그날 하루, 한 줄로" value="${esc(e?e.t:'')}"><div class="muted" id="dyn">${e?'이 날 일기가 있어요. 저장하면 바뀌어요.':''}</div><div class="row" style="margin-top:8px"><button class="btn ghost full" onclick="closeM()">취소</button><button class="btn full" onclick="dyEdSave()">저장</button></div><button id="dyx" class="btn pink full" style="margin-top:8px;${e?'':'display:none'}" onclick="dyDel()">이 날 일기 삭제</button>`);}
 function dyPick(){const ds=$('dyd').value,e=(S.diary||[]).find(x=>x.d===ds);if(e)$('dyt').value=e.t;$('dyn').textContent=e?'이 날 일기가 있어요. 저장하면 바뀌어요.':'';$('dyx').style.display=e?'':'none';}
 function dyEdSave(){const ds=$('dyd').value,v=$('dyt').value.trim(),t=todayStr();
   if(!/^\d{4}-\d{2}-\d{2}$/.test(ds)||ds>t){toast('오늘까지의 날짜를 골라 주세요');return;}
@@ -3386,7 +3436,7 @@ function bgIco(n,sz,cls){if(!BGI[n]){const{SP,PAL}=window.PXA,r=SP[n];if(!r)retu
   BGI[n]='url(&quot;data:image/svg+xml,'+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'>${s}</svg>`)+'&quot;)';}
   return `<i class="bgi${cls?' '+cls:''}" style="width:${sz}px;height:${sz}px;background-image:${BGI[n]}" aria-hidden="true"></i>`;}
 const bgT=s=>{s=Math.max(0,s|0);return (s/60|0)+':'+String(s%60).padStart(2,'0');};
-function osCard(){return `<div class="card"><div class="row sp"><h2 style="margin:0">♨ 토리네 온천</h2><button class="btn sm" onclick="osOpen()">쉬러 가기</button></div><p class="muted" style="margin-bottom:0">시간대마다 친구들과 느긋하게 온천욕해요.</p></div>`;}
+function osCard(){return `<div class="card"><div class="row sp"><h2 style="margin:0">♨ 토리네 온천</h2><button class="btn sm" onclick="osOpen()">쉬러 가기</button></div><p class="muted" style="margin-bottom:0">친구들과 느긋하게 온천욕해요.</p></div>`;}
 function bdgCard(){const b=bgS(),su=b.su&&!b.su.done?b.su:null,tc=b.tc&&b.tc.ph!=='over'?b.tc:null,my=b.my&&!b.my.res?b.my:null;
  const games=[{icon:'q_sudoku',name:'스도쿠',brief:'빈칸을 1~9로 채우는 숫자 퍼즐',open:'suOpen()',saved:su?'하던 판 · '+SU_LV[su.lv]+' · '+bgT(su.t):'',rules:'가로줄·세로줄·굵은 네모 칸마다 1~9를 한 번씩 넣어요. 다 풀면 🌰1, 어려움은 🌰2.'},{icon:'q_tichu',name:'티츄',brief:'진우·토리 팀으로 200점에 도전',open:'tcOpen()',saved:tc?'하던 판 · 우리 '+tc.sc[0]+' : '+tc.sc[1]+' 상대':'',rules:'진우·토리 팀 대 타코·'+TC_NM[3]+' 팀. 손에 든 카드를 먼저 다 내면 좋아요. 200점을 먼저 넘긴 팀이 이기고, 이기면 🌰2.'},{icon:'q_lens',name:'사라진 도토리 사건',brief:'단서를 모아 범인·장소·물건 찾기',open:'myOpen()',saved:my?'하던 사건 · #'+my.n+' · '+my.v.length+'곳 조사':'',rules:'토리의 황금 도토리가 사라졌어요. 장소를 조사하고 누가·무엇으로·어디서 가져갔는지 맞혀요. 모두 맞히면 🌰1, 적게 조사하고 맞히면 🌰2.'}];
  return `<div class="card" id="bgcard"><div class="bg-compact-list">${games.map(g=>`<section class="bg-compact"><div class="bg-compact-head">${bgIco(g.icon,32)}<b>${g.name}</b><button class="btn sm" onclick="${g.open}">${g.saved?'이어하기':'시작'}</button></div><p class="bg-short">${g.brief}</p>${g.saved?`<p class="bg-save">${g.saved}</p>`:''}<details class="bg-rule"><summary>규칙·보상</summary><div>${g.rules}</div></details></section>`).join('')}</div><p class="bg-reward-note">보상은 하루 ${ECO.mgPlays}번까지 · 이후에도 자유롭게 연습</p></div>`;}
@@ -3875,8 +3925,8 @@ addEventListener('load',()=>{try{const u=[];Object.values(TORI_IMG).forEach(v=>(
 <script>
 // Onsen preview: real local time, frame-stepped scenery and locally synthesized ambience.
 const OS={audio:null,clockTimer:null,frameTimer:null,observer:null,active:false,ui:true,volume:35,ctx:null,gain:null,water:null,frame:0,cycle:-1,lastTalk:{},retry:null};
-const OS_LANDSCAPES=['assets/onsen-plate-v107.webp','assets/onsen-plate-v107.webp','assets/onsen-plate-v107.webp','assets/onsen-plate-v107.webp'];
-const OS_PORTRAITS=OS_LANDSCAPES;
+const OS_LANDSCAPES=['assets/onsen-plate-v107.webp','assets/onsen-plate-v107.webp','assets/onsen-plate-v107.webp','assets/onsen-night-landscape-v108.webp'];
+const OS_PORTRAITS=["assets/onsen-portrait-morning-v108.webp", "assets/onsen-portrait-day-v108.webp", "assets/onsen-portrait-evening-v108.webp", "assets/onsen-night-selected-v113.webp"];
 const OS_ANIMALS={'토리':'assets/onsen-tori-v102.png','호두':'assets/onsen-hodu-v102.png','도치':'assets/onsen-dochi-v102.png','부엉박사':'assets/onsen-owl-v102.png'};
 const OS_MUSIC='assets/onsen-pixel-bgm-v102.wav';
 const OS_SLOTS=[{name:'아침',friends:['토리','호두'],line:'따뜻한 물부터 만나고, 오늘은 천천히 시작해요.'},{name:'낮',friends:['토리','도치'],line:'햇살이 물 위에서 쉬고 있어요. 우리도 같이 쉴까요?'},{name:'저녁',friends:['토리','부엉박사'],line:'오늘 들고 온 생각들을 물가에 잠깐 내려놓아요.'},{name:'밤',friends:['토리','호두','도치','부엉박사'],line:'작은 물소리와 함께, 오늘도 여기까지 잘 왔어요.'}];
@@ -3885,16 +3935,41 @@ const OS_LINES={
  '호두':['꼬리는 물 밖에! 오늘은 도토리 걱정도 물 밖에!','저 바위 뒤에 도토리를 숨겨 뒀는데… 아니, 오늘은 생각 안 할래.','나무 위에서 보는 구름이랑 물속에서 보는 구름은 기분이 달라.','톡, 하고 들렸지? 대나무가 우리 쉬는 시간 재는 것 같아.','꼬리 말리는 데 오래 걸려도 괜찮아. 오늘은 서두를 일 없으니까.','온천에 도토리를 띄우면 배가 될까? …알았어, 안 띄울게.','나 아까부터 가만히 있었어. 이 정도면 꽤 대단한 거야.','여기서는 바람도 살금살금 부네. 꼬리가 조금만 흔들려.','따뜻한 돌에 앉아서 쉬는 것도 좋더라. 나중에 같이 가 보자.','구름 하나 지나갈 때까지는 더 쉬자. 큰 구름이면 더 오래!','뭔가 떠오르려다가 잊어버렸어. 오늘은 그것도 괜찮겠지?','내일 할 일은 내일의 호두에게 맡겼어. 지금의 호두는 온천 담당!'],
  '도치':['물 온도가 딱 좋다치. 오늘은 가시도 힘을 뺐다치.','물에 비친 구름이 나보다 빨리 움직인다치. 난 여기 있을 거다치.','수건을 작게 접었는데 아직도 내 머리보다 크다치.','톡 소리 들을 때마다 마음속 생각이 하나씩 떨어진다치.','쉬는 것도 잘하는 일이란다치. 오늘은 다 같이 잘하고 있다치.','이 바위는 따뜻하고 저 바위는 더 따뜻하다치. 연구는 여기까지다치.','첨벙 뛰어들지는 않는다치. 작은 물결부터 친구가 된다치.','난 조용히 있어도 즐겁다치. 옆에 있는 건 잘 알고 있다치.','방금 새가 왔다 갔다치. 온천 구경만 하고 갔다치.','온천물에 별이 떠 있다치. 건드리면 도망가니까 보기만 한다치.','가시 끝에 물방울이 반짝인다치. 오늘의 장식이다치.','잠깐 눈 감아도 된다치. 내가 물소리 듣고 있겠다치.'],
  '부엉박사':['오늘의 연구 주제는 아무것도 하지 않는 즐거움입니다. 자료는 충분하군요.','대나무에 물이 차면 균형이 바뀝니다. 쉬는 시간도 마음의 균형을 찾아 주지요.','저는 물결의 수를 세다가 그만두었습니다. 그냥 바라보는 편이 좋더군요.','안경에 김이 서려도 괜찮습니다. 지금은 또렷이 볼 일이 많지 않으니까요.','한숨을 길게 내쉬어 보세요. 물소리가 그 뒤를 조용히 채워 줄 겁니다.','저 구름은 조금 전과 다른 모양이군요. 천천히 변하는 것도 변화랍니다.','해가 지는 속도를 재려 했는데, 감상하는 쪽으로 연구 계획을 바꿨습니다.','오늘 풀리지 않은 문제는 잠시 접어 두지요. 젖으면 글씨가 번질 테니까요.','별빛과 물빛은 다른 빛인데도 여기서는 사이좋게 어울리는군요.','대나무의 톡 소리가 아주 좋은 쉼표입니다. 문장을 끝내지 않아도 쉴 수 있지요.','따뜻한 물, 작은 바람, 곁에 있는 친구들. 오늘의 결론은 꽤 간단하군요.','쉬는 시간에는 정답을 찾지 않아도 됩니다. 함께 있다는 사실이면 충분하지요.']};
+// Local calendar seasons: spring Mar–May, summer Jun–Aug, autumn Sep–Nov.
+const OS_SEASON_LINES={
+ spring:{
+  '토리':['찍찍! 꽃잎이 물가까지 놀러 왔어요. 오늘은 눈으로만 간식 구경해요.','따뜻한 바람이 귀 끝에 닿았어요. 토리도 봄이 온 걸 알겠어요.','새싹은 조금씩 자라는데도 매일 달라요. 토리도 천천히 해 볼래요.'],
+  '호두':['새 가지가 생겼다람. 온천 끝나면 나무 위에서 봄 구경하자람.','꽃잎이 꼬리에 붙었다람. 오늘은 숲에서 받은 장식이다람.','겨울에 숨겨 둔 도토리를 찾았다람! 새싹이 난 건 숲한테 양보할 거다람.'],
+  '도치':['풀잎이 간지럽다치. 봄이 내 가시보다 부드럽다치.','꽃 냄새는 바람에 맡기고 나는 물속에서 쉬겠다치.','새들이 아침부터 노래한다치. 오늘은 박수 대신 물결을 보내겠다치.'],
+  '부엉박사':['새싹은 서두르지 않아도 햇빛 쪽으로 자랍니다. 좋은 참고 자료군요.','꽃잎이 물 위를 지나가는 속도를 재다가 봄 구경으로 바꿨습니다.','봄바람과 따뜻한 물이 번갈아 인사하는군요. 귀 기울여 보시겠어요?']},
+ summer:{
+  '토리':['찍찍! 나뭇잎 그늘이 커졌어요. 온천 끝나면 그 아래에서 물 한 모금 마셔요.','매미도 오늘 열심히 노래하네요. 토리는 조용한 관객이 될게요.','따뜻한 물에 잠깐 쉬었으니, 밖에 나가서는 시원한 바람을 만날래요.'],
+  '호두':['꼬리로 부채질하면 시원하다람. 물 밖에서만 해 줄게람.','풀숲이 무성해져서 도토리 숨길 곳도 많아졌다람. 위치는 꼭 기억할 거다람.','구름이 커서 그늘도 크다람. 저 구름 아래까지 느긋하게 걸어가자람.'],
+  '도치':['햇빛이 힘이 세다치. 오늘은 그늘이 있는 자리가 내 자리다치.','수건이 금방 마른다치. 그렇다고 물에 또 넣지는 않겠다치.','매미가 잠깐 조용해졌다치. 물소리가 자기 차례를 얻었다치.'],
+  '부엉박사':['여름에는 쉬는 중에도 물을 챙기면 좋지요. 나가서 함께 한 모금 마십시다.','나뭇잎이 만든 그늘에는 여러 모양이 있군요. 오늘의 관찰은 여기까지입니다.','바람이 잠깐 지나갔습니다. 더운 날의 작은 선물이군요.']},
+ autumn:{
+  '토리':['찍찍! 낙엽이 도토리랑 같이 인사하러 왔어요. 토리가 좋아하는 계절이에요.','물 밖 공기가 조금 차가워졌어요. 수건으로 귀까지 폭신하게 감쌀래요.','오늘은 바스락 소리도 물소리처럼 들려요. 숲이 쉬는 얘기를 하나 봐요.'],
+  '호두':['도토리 창고 정리는 끝났다람. 이제 온천에서 머릿속도 비울 거다람.','꼬리 색이랑 낙엽 색이 비슷하다람. 숲이 내 옷을 따라 입었나 보다람.','바스락 소리가 들리면 자꾸 돌아보게 된다람. 오늘은 도토리 말고 바람이었다람.'],
+  '도치':['낙엽이 가시 위에 앉았다치. 바람이 데려갈 때까지 기다리겠다치.','따뜻한 돌이 더 반갑다치. 오늘은 이 자리에서 가을을 보겠다치.','숲에서 도토리가 톡 떨어졌다치. 대나무랑 번갈아 연주한다치.'],
+  '부엉박사':['나뭇잎이 색을 바꾸는 중입니다. 천천히 바뀌는 풍경은 오래 보게 되는군요.','가을바람이 차가워졌군요. 나갈 때는 수건을 잘 챙겨야겠습니다.','낙엽 소리, 대나무 소리, 물소리. 오늘은 기록 대신 그냥 듣겠습니다.']},
+ winter:{
+  '토리':['찍찍! 코끝은 시원하고 발끝은 따뜻해요. 겨울 온천은 두 가지 기분이에요.','김이 작은 구름처럼 올라가요. 토리의 겨울 인사도 같이 날아가요.','나갈 때 수건을 꼭 덮을래요. 오늘의 따뜻함을 조금 가져가고 싶어요.'],
+  '호두':['숨겨 둔 도토리는 넉넉하다람. 오늘은 꼬리까지 포근하게 쉬겠다람.','나뭇가지가 조용하다람. 봄이 올 때까지 나도 조금 천천히 지낼 거다람.','밖에서는 입김, 여기서는 물김이다람. 구름 만들기 대회 같지만 조용히 볼 거다람.'],
+  '도치':['겨울에는 따뜻한 자리를 더 잘 찾는다치. 오늘의 실력은 이 바위가 증명한다치.','찬 바람은 수건으로 막겠다치. 가시는 바람막이가 아니었다치.','물김 사이로 친구가 보인다치. 가까이 있는 것만으로도 든든하다치.'],
+  '부엉박사':['찬 공기와 따뜻한 물이 만나 김을 만드는군요. 겨울의 작은 풍경입니다.','겨울 숲은 조용하지만 멈춘 것은 아닙니다. 우리도 잠깐 쉬어 가지요.','나갈 때는 몸을 잘 말리고 따뜻하게 감싸세요. 오늘의 마지막 연구 과제입니다.']}
+};
+function osSeason(date=new Date()){const m=date.getMonth();return m>=2&&m<=4?'spring':m>=5&&m<=7?'summer':m>=8&&m<=10?'autumn':'winter';}
 function osClock(){const h=new Date().getHours();return h>=6&&h<11?0:h>=11&&h<17?1:h>=17&&h<21?2:3;}
 function osIsOpen(){return OS.active&&!!$('bgo')&&$('bgo').classList.contains('onsen-playing');}
-function osRender(){if(!osIsOpen())return;const index=osClock(),t=OS_SLOTS[index];
- $('bgb').innerHTML=`<div class="os-scene os-slot-${index} ${OS.ui?'':'os-ui-off'}"><picture><img class="os-background" src="${OS_LANDSCAPES[index]}" alt="${t.name}의 토리네 온천"></picture><canvas class="os-bamboo" id="os-bamboo" width="1672" height="941" aria-hidden="true"></canvas><canvas class="os-weather" id="os-weather" aria-hidden="true"></canvas><div class="os-friends ${t.friends.length===4?'os-four':'os-two'}">${t.friends.map((n,i)=>`<button class="os-friend" style="--i:${i};--size:${n==='토리'?1:n==='부엉박사'?.96:n==='호두'?.92:.89}" onclick="osTalk('${n}')" aria-label="${n}와 이야기"><img src="${OS_ANIMALS[n]}" alt="${n}"></button>`).join('')}</div><i class="os-steam s1"></i><i class="os-steam s2"></i><i class="os-steam s3"></i><button class="os-icon os-exit" onclick="osExit()" aria-label="온천 나가기">←</button><div class="os-volume"><button class="os-icon" id="os-volume-button" onclick="osVolumeToggle()" aria-label="온천 소리 조절" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h4l5-4v14l-5-4H3zM16 8q5 4 0 8M19 5q8 7 0 14"/></svg></button><div class="os-volume-panel" id="os-volume-panel" hidden><label for="os-volume">소리 <output id="os-volume-value">${OS.volume}%</output></label><input id="os-volume" type="range" min="0" max="100" value="${OS.volume}" oninput="osSetVolume(this.value)" aria-label="배경음악과 온천 효과음 볼륨"></div></div><div class="os-hud"><div class="os-title">토리네 온천 · ${t.name}</div><p id="os-talk" class="os-talk" aria-live="polite">${t.line}</p></div></div>`;
- document.querySelector('.os-scene').addEventListener('click',e=>{if(e.target.classList.contains('os-background')||e.target.classList.contains('os-scene'))osToggleUI();});osDraw();osDrawBamboo();
+function osRender(quiet=false){if(!osIsOpen())return;const prior=quiet&&$('os-talk')?$('os-talk').textContent:null,index=osClock(),t=OS_SLOTS[index];
+ $('bgb').innerHTML=`<div class="os-scene os-slot-${index} ${OS.ui?'':'os-ui-off'}"><picture><source media="(orientation: portrait)" srcset="${OS_PORTRAITS[index]}"><img class="os-background" src="${OS_LANDSCAPES[index]}" alt="${t.name}의 토리네 온천"></picture>${index===3?'<canvas class="os-background os-night-background" id="os-night-background" width="288" height="512" aria-hidden="true"></canvas>':''}<canvas class="os-bamboo" id="os-bamboo" width="1672" height="941" aria-hidden="true"></canvas><canvas class="os-weather" id="os-weather" aria-hidden="true"></canvas><div class="os-friends ${t.friends.length===4?'os-four':'os-two'}">${t.friends.map((n,i)=>`<button class="os-friend" style="--i:${i};--size:${n==='토리'?1:n==='부엉박사'?.96:n==='호두'?.92:.89}" onclick="osTalk('${n}')" aria-label="${n}와 이야기"><img src="${OS_ANIMALS[n]}" alt="${n}"></button>`).join('')}</div><i class="os-steam s1"></i><i class="os-steam s2"></i><i class="os-steam s3"></i><button class="os-icon os-exit" onclick="osExit()" aria-label="온천 나가기">←</button><div class="os-volume"><button class="os-icon" id="os-volume-button" onclick="osVolumeToggle()" aria-label="온천 소리 조절" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h4l5-4v14l-5-4H3zM16 8q5 4 0 8M19 5q8 7 0 14"/></svg></button><div class="os-volume-panel" id="os-volume-panel" hidden><label for="os-volume">소리 <output id="os-volume-value">${OS.volume}%</output></label><input id="os-volume" type="range" min="0" max="100" value="${OS.volume}" oninput="osSetVolume(this.value)" aria-label="배경음악과 온천 효과음 볼륨"></div></div><div class="os-hud"><p id="os-talk" class="os-talk" >${t.line}</p></div></div>`;
+ if(prior!==null)$('os-talk').textContent=prior;osSceneArt(index);
+ document.querySelector('.os-scene').addEventListener('click',e=>{if(e.target.classList.contains('os-background')||e.target.classList.contains('os-scene'))osToggleUI();});osLayoutFriends();osDrawNight();osDraw();osDrawBamboo();
 }
 function osVolumeToggle(){const p=$('os-volume-panel');p.hidden=!p.hidden;$('os-volume-button').setAttribute('aria-expanded',String(!p.hidden));if(!p.hidden)osAudioStart();}
 function osSetVolume(v){OS.volume=Math.max(0,Math.min(100,Number(v)||0));S.osVolume=OS.volume;save();if(OS.audio)OS.audio.volume=OS.volume/100*.65;if(OS.gain)OS.gain.gain.setTargetAtTime(OS.volume/100,OS.ctx.currentTime,.05);if($('os-volume-value'))$('os-volume-value').textContent=OS.volume+'%';if(OS.volume>0)osAudioStart();}
 function osToggleUI(){OS.ui=!OS.ui;const el=document.querySelector('.os-scene');if(el)el.classList.toggle('os-ui-off',!OS.ui);}
-function osTalk(n){const a=OS_LINES[n];if(!a)return;let i=Math.floor(Math.random()*a.length);if(i===OS.lastTalk[n])i=(i+1)%a.length;OS.lastTalk[n]=i;OS.ui=true;document.querySelector('.os-scene').classList.remove('os-ui-off');$('os-talk').textContent=n+': '+a[i];}
+function osTalk(n){if(!OS_LINES[n])return;const seasonal=OS_SEASON_LINES[osSeason()][n],pool=Math.random()<.5?seasonal:OS_LINES[n],a=pool.filter(line=>line!==OS.lastTalk[n]),line=a[Math.floor(Math.random()*a.length)];OS.lastTalk[n]=line;OS.ui=true;document.querySelector('.os-scene').classList.remove('os-ui-off');$('os-talk').textContent=n+': '+line;}
 function osAudioStart(){if(!osIsOpen()||document.hidden)return;
  if(!OS.audio){OS.audio=new Audio(OS_MUSIC);OS.audio.loop=true;OS.audio.volume=OS.volume/100*.65;}
  if(OS.audio.paused)OS.audio.play().catch(()=>{});
@@ -3906,31 +3981,69 @@ function osAudioStart(){if(!osIsOpen()||document.hidden)return;
 function osTone(freq,duration,volume,type='sine',end){if(!OS.ctx||OS.ctx.state!=='running'||!osIsOpen()||document.hidden||OS.volume===0)return;const c=OS.ctx,t=c.currentTime,o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);if(end)o.frequency.exponentialRampToValueAtTime(end,t+duration);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(volume,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+duration);o.connect(g);g.connect(OS.gain);o.start(t);o.stop(t+duration+.02);o.onended=()=>{o.disconnect();g.disconnect();};}
 function osKnock(){osTone(680,.18,.12,'triangle',260);osTone(1350,.065,.035,'sine',1050);}
 function osDrip(){osTone(980,.09,.035,'sine',1700);}
-function osDraw(){const c=$('os-weather');if(!c)return;const portrait=c.clientHeight>c.clientWidth,W=portrait?240:384,H=Math.round(W*c.clientHeight/c.clientWidth);if(c.width!==W||c.height!==H){c.width=W;c.height=H;}const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.clearRect(0,0,W,H);const f=OS.frame,s=osClock(),p=(x,y,w,h,col)=>{g.fillStyle=col;g.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h));};
- // Integer pixel positions; 8 frames per second, without interpolated motion.
- if(s!==3){const alpha=[.10,.12,.14,.12][Math.floor(f/8)%4];g.fillStyle=`rgba(255,233,160,${alpha})`;g.fillRect(W*.35,H*.12,W*.12,H*.63);g.fillRect(W*.54,H*.1,W*.08,H*.52);}
- for(let i=0;i<3;i++){const x=(i*W*.36+Math.floor(f/18))%(W+90)-55,y=H*(.07+i*.035);p(x,y,38,4,s===3?'#b2bdce38':'#fff4df70');p(x+9,y-4,17,4,s===3?'#b2bdce38':'#fff4df70');}
- if(s===3)for(let i=0;i<22;i++){const x=(i*43)%W,y=H*.04+(i*17)%(H*.19);p(x,y,1+(i%3===0),1+(i%3===0),((f>>3)+i)%5===0?'#fff3b8':'#cfdfef99');}
- for(let i=0;i<32;i++){const x=W*(.15+((i*37)%69)/100),y=H*(.53+((i*19)%30)/100);p(x+((f+i)%6)-3,y,3+i%8,1,s===3?'#d5e8f549':'#f2f5d87a');}
- // One brief bird visit roughly every 45 seconds; 2-frame wings.
- const bird=f%360;if(bird>=210&&bird<258){const x=W-(bird-210)*Math.ceil(W/46),y=H*.19+((bird>>2)%3);p(x,y,3,2,'#695846');p(x-4,y-((f%2)*2),4,1,'#695846');p(x+3,y-((f%2)*2),4,1,'#695846');}
+function osLayoutFriends(){const c=$('os-bamboo');if(!c)return;const portrait=c.clientHeight>=c.clientWidth,W=portrait?288:1672,H=portrait?512:941,scale=Math.max(c.clientWidth/W,c.clientHeight/H),ox=c.clientWidth-W*scale,oy=(c.clientHeight-H*scale)/2,t=OS_SLOTS[osClock()];const places=osFriendPlaces(portrait);document.querySelectorAll('.os-friend').forEach((el,i)=>{const [x,y,w]=places[i];el.style.left=(ox+x*scale)+'px';el.style.top=(oy+y*scale)+'px';el.style.width=(w*scale)+'px';const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;el.style.transform='translate(-50%,calc(-50% + '+(reduced?0:osFloatPose(OS.frame,i)*(portrait?1:3)*scale)+'px))';});}
+// Keep the exact selected third panel, rather than regenerate the user's choice.
+function osDrawNight(){const c=$('os-night-background');if(!c)return;if(!OS.nightArt){OS.nightArt=new Image();OS.nightArt.onload=()=>{if(osIsOpen())osDrawNight();};OS.nightArt.src='assets/onsen-night-selected-v113.webp';}if(OS.nightArt.complete&&OS.nightArt.naturalWidth){const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.drawImage(OS.nightArt,0,0,OS.nightArt.naturalWidth,OS.nightArt.naturalHeight,0,0,288,512);OS.waterPlateKey=null;}}
+
+function osFloatPose(f,i){return [0,1,1,0,-1,-1][(Math.floor(f/4)+i*2)%6];}
+function osFriendPlaces(portrait){const four=OS_SLOTS[osClock()].friends.length===4;return portrait?(four?[[92,350,56],[152,354,49],[126,408,44],[185,412,48]]:[[98,358,56],[171,393,49]]):(four?[[620,600,170],[920,610,165],[800,700,150],[1110,685,160]]:[[680,630,170],[1000,680,165]]);}
+function osSceneArt(slot){const portrait=window.innerHeight>=window.innerWidth,key=(portrait?'p':'l')+slot;if(OS.sceneKey===key)return;OS.sceneKey=key;OS.sceneArt=new Image();OS.sceneArt.onload=()=>{OS.waterPlateKey=null;if(osIsOpen())osDraw();};OS.sceneArt.src=portrait?OS_PORTRAITS[slot]:OS_LANDSCAPES[slot];}
+function osWaterTexture(g,portrait,W,H,f){osSceneArt(osClock());const img=portrait&&osClock()===3?$('os-night-background'):OS.sceneArt;if(!img||(!img.getContext&&(!img.complete||!img.naturalWidth)))return;
+ if(!OS.waterPlate)OS.waterPlate=document.createElement('canvas');const c=OS.waterPlate,key=OS.sceneKey+(portrait&&osClock()===3?':night':'');if(c.width!==W||c.height!==H||OS.waterPlateKey!==key){c.width=W;c.height=H;const a=c.getContext('2d');a.imageSmoothingEnabled=false;a.drawImage(img,0,0,W,H);OS.waterPlateKey=key;}
+ const step=portrait?2:6,top=portrait?295:505,bottom=portrait?465:875;for(let y=top;y<bottom;y+=step){const dx=[0,1,1,0,-1,-1][(Math.floor(f/4)+Math.floor(y/step/3))%6]*(portrait?1:3);g.drawImage(c,0,y,W,step,dx,y,W,step);}
 }
-function osDrawBamboo(){const c=$('os-bamboo');if(!c||!OS.art||!OS.art.complete||!OS.art.naturalWidth)return;const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.clearRect(0,0,1672,941);const phase=OS.frame%112;
- // Draw the approved artwork itself, with discrete pivot poses rather than a replacement illustration.
+function osSkyLights(g,p,portrait,s,f,k){if(s!==3&&s!==2)return;const level=[.025,.04,.055,.04][Math.floor(f/12)%4];
+ // Window panes and individual stars stay fixed; only their light changes.
+ g.fillStyle='rgba(255,204,105,'+level+')';if(portrait){g.fillRect(4,184,17,47);g.fillRect(24,184,17,47);}else{g.fillRect(9,190,62,146);g.fillRect(77,190,62,146);}
+ if(s!==3)return;const stars=portrait?[[52,17],[110,22],[154,40],[243,16],[272,38]]:[[699,36],[821,58],[1035,49],[1129,35]];stars.forEach(([x,y],i)=>{const alpha=[.08,.16,.26,.16][(Math.floor(f/8)+i)%4];p(x-k,y-k,2*k,2*k,'rgba(255,244,198,'+alpha+')');});
+ // A clipped glow follows the existing crescent, rather than moving the moon.
+ const [x,y,r]=portrait?[194,63,17]:[935,121,43];g.save();g.beginPath();g.arc(x,y,r,-Math.PI/2,Math.PI/2);g.arc(x-r*.45,y-r*.22,r*.85,Math.PI/2,-Math.PI/2,true);g.closePath();g.clip();g.fillStyle='rgba(255,248,203,'+level+')';g.fillRect(x-r,y-r,r*2,r*2);g.restore();
+}
+
+function osDraw(){const c=$('os-weather');if(!c)return;const portrait=c.clientHeight>=c.clientWidth,W=portrait?288:1672,H=portrait?512:941;if(c.width!==W||c.height!==H){c.width=W;c.height=H;}const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.clearRect(0,0,W,H);const f=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:OS.frame,s=osClock(),k=portrait?1:3,p=(x,y,w,h,col)=>{g.fillStyle=col;g.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h));};
+ // Clouds move by integer steps only, and stay within the sky.
+ for(let i=0;i<2;i++){const x=(i*W*.4+Math.floor(f/18)*k)%(W+60*k)-60*k,y=H*(.07+i*.04);p(x,y,25*k,2*k,s===3?'#457d9628':'#fff4df38');p(x+6*k,y-2*k,12*k,2*k,s===3?'#457d9628':'#fff4df38');}
+ const pool=portrait?[[73,300],[204,300],[236,330],[248,367],[230,428],[190,456],[92,456],[56,428],[35,360]]:[[490,510],[1140,510],[1380,575],[1530,680],[1280,790],[1000,865],[690,825],[350,770],[200,660],[330,555]];
+ g.save();g.beginPath();pool.forEach(([x,y],i)=>i?g.lineTo(x,y):g.moveTo(x,y));g.closePath();g.clip();
+ osWaterTexture(g,portrait,W,H,f);
+ // Reflections are short horizontal strips, never round bubbles drifting over rocks.
+ const baseX=portrait?70:350,baseY=portrait?315:530,spanX=portrait?150:1000,spanY=portrait?120:260;
+ for(let i=0;i<18;i++){const pose=[0,0,1,1,0,-1][(Math.floor(f/2)+i)%6];p(baseX+(i*37)%spanX+pose*k,baseY+(i*19)%spanY,(4+i%5)*k,k,s===3?'#bde9d647':s===2?'#ffe6ac55':'#fff5bb65');}
+ const points=osFriendPlaces(portrait);points.forEach(([x,y,w],i)=>{const sway=osFloatPose(f,i)*k,rx=w*.38,ry=y+w*.3+sway;for(let j=0;j<3;j++)p(x-rx-j*k,ry+j*2*k,rx*2+j*2*k,k,s===3?'#9be4db50':'#edffef70');});
+ if(s!==3){g.fillStyle=['#ffedaa08','#ffedaa0c','#ffedaa10','#ffedaa0c'][Math.floor(f/8)%4];g.fillRect(0,0,W,H);}g.restore();
+ osSkyLights(g,p,portrait,s,f,k);
+ const bird=f%360;if(bird>=210&&bird<258){const x=W-(bird-210)*Math.ceil(W/46),y=H*.18+((bird>>2)%3)*k,col=s===3?'#6ea0b7':'#695846';p(x,y,3*k,2*k,col);p(x-4*k,y-((f%2)*2)*k,4*k,k,col);p(x+3*k,y-((f%2)*2)*k,4*k,k,col);}
+}
+function osDrawBamboo(){const c=$('os-bamboo');if(!c||!OS.art||!OS.art.complete||!OS.art.naturalWidth)return;
+ const portrait=c.clientHeight>=c.clientWidth,W=portrait?288:1672,H=portrait?512:941;
+ if(c.width!==W||c.height!==H){c.width=W;c.height=H;}const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.clearRect(0,0,W,H);const phase=OS.frame%112;
+ // One approved 1.7x illustration, mapped to each background's own coordinate space.
+ g.save();if(portrait){g.translate(205,186);g.scale(.23,.23);g.translate(-1320,-100);}
+ const clipArt=points=>{g.save();g.beginPath();points.forEach(([x,y],i)=>i?g.lineTo(x,y):g.moveTo(x,y));g.closePath();g.clip();g.drawImage(OS.art,0,0,1672,941);g.restore();};
+ if(portrait)clipArt([[1390,196],[1407,177],[1548,139],[1550,101],[1571,96],[1595,103],[1602,140],[1636,121],[1654,126],[1657,150],[1601,179],[1602,506],[1562,508],[1553,179],[1422,215],[1391,213]]);
+ // Discrete pivot poses, shared with the water and knock timing.
  let angle=0;if(phase>=80&&phase<88)angle=-(phase-80)*.04;else if(phase>=88&&phase<98)angle=-.28;else if(phase>=98&&phase<104)angle=-.28+(phase-98)*.047;
  const points=[[1328,313],[1339,295],[1360,284],[1380,295],[1480,332],[1480,360],[1530,365],[1627,398],[1642,411],[1631,434],[1610,438],[1365,348],[1340,346],[1328,330]];
- g.save();g.translate(1508,376);g.rotate(angle);g.translate(-1508,-376);g.beginPath();points.forEach(([x,y],i)=>i?g.lineTo(x,y):g.moveTo(x,y));g.closePath();g.clip();g.drawImage(OS.art,0,0,1672,941);g.restore();
- // The original front support and knock stone sit in front of the moving tube.
- g.drawImage(OS.art,1480,332,54,175,1480,332,54,175);g.drawImage(OS.art,1470,487,112,74,1470,487,112,74);
- const dot=(x,y,w,h)=>{g.fillStyle='#d8ffff';g.fillRect(Math.round(x/3)*3,Math.round(y/3)*3,w,h);};
- for(let i=0;i<12;i++)dot(1394+(i%3),210+((OS.frame*7+i*13)%108),4,9);
- if(phase>=85&&phase<102){const x=1508+Math.cos(angle)*(1340-1508)-Math.sin(angle)*(326-376),y=376+Math.sin(angle)*(1340-1508)+Math.cos(angle)*(326-376);for(let i=0;i<18;i++)dot(x+i%3,y+((OS.frame*11+i*17)%Math.max(20,580-y)),4,12);for(let i=0;i<10;i++)dot(x-28+i*6,578+(i+OS.frame)%3*4,11,3);}
+ g.save();g.translate(1508,376);g.rotate(angle);g.translate(-1508,-376);clipArt(points);g.restore();
+ if(portrait){clipArt([[1480,332],[1505,332],[1518,350],[1533,366],[1534,504],[1519,514],[1490,508],[1480,487]]);clipArt([[1480,498],[1496,487],[1526,488],[1557,500],[1579,517],[1582,541],[1560,558],[1514,561],[1480,549],[1470,525]]);}
+ else{g.drawImage(OS.art,1480,332,54,175,1480,332,54,175);g.drawImage(OS.art,1470,487,112,74,1470,487,112,74);}
+ const dot=(x,y,w,h,color='#d8ffff')=>{g.fillStyle=color;g.fillRect(Math.round(x/3)*3,Math.round(y/3)*3,w,h);};
+ // Intersect the falling inlet with the rotating tube's upper edge.
+ const edge=([x,y])=>[1508+Math.cos(angle)*(x-1508)-Math.sin(angle)*(y-376),376+Math.sin(angle)*(x-1508)+Math.cos(angle)*(y-376)],a=edge([1380,295]),b=edge([1480,332]),inletX=1394,endY=a[1]+(inletX-a[0])*(b[1]-a[1])/(b[0]-a[0]);
+ dot(inletX,214,4,Math.max(0,endY-214),'#96c9c7');for(let y=214+(OS.frame*7)%18;y<endY-4;y+=18)dot(inletX,y,4,Math.min(9,endY-y));
+ if(phase>=85&&phase<102){const x=1508+Math.cos(angle)*(1348-1508)-Math.sin(angle)*(323-376),y=376+Math.sin(angle)*(1348-1508)+Math.cos(angle)*(323-376),hit=portrait?100+(335-186)/.23:580;
+ dot(x,y,6,hit-y,'#96c9c7');for(let yy=y+(OS.frame*11)%26;yy<hit-6;yy+=26)dot(x,yy,6,12);
+ // Only the landing point splashes; small outward strips pulse with the pour.
+ const spread=[12,20,28,20][OS.frame%4];dot(x-spread,hit,spread*2,3);dot(x-spread-8,hit+6,10,3);dot(x+spread,hit+6,10,3);
+ }
+ g.restore();
 }
-function osTick(){if(!osIsOpen()||document.hidden)return;OS.frame++;const phase=OS.frame%112;if(phase===104)osKnock();if(phase%24===0&&phase<80)osDrip();osDraw();osDrawBamboo();}
+function osTick(){if(!osIsOpen()||document.hidden)return;OS.frame++;osLayoutFriends();const phase=OS.frame%112;if(phase===104)osKnock();if(phase%24===0&&phase<80)osDrip();osDraw();osDrawBamboo();}
 function osCleanup(){OS.active=false;clearInterval(OS.frameTimer);clearInterval(OS.clockTimer);OS.frameTimer=OS.clockTimer=null;if(OS.retry){document.removeEventListener('pointerdown',OS.retry,true);document.removeEventListener('keydown',OS.retry,true);OS.retry=null;}if(OS.observer){OS.observer.disconnect();OS.observer=null;}if(OS.audio){OS.audio.pause();OS.audio.removeAttribute('src');OS.audio.load();OS.audio=null;}if(OS.ctx){const c=OS.ctx;OS.ctx=null;OS.gain=null;OS.water=null;c.close().catch(()=>{});}}
 function osExit(){osCleanup();bgClose(1);bgStart();}
-function osOpen(){osCleanup();bgStop();if(typeof bgG!=='undefined'&&bgG)bgG.gain.value=0;bgShell('토리네 온천',osExit);$('bgo').classList.add('onsen-playing');OS.active=true;if(!OS.art){OS.art=new Image();OS.art.onload=()=>{if(osIsOpen())osDrawBamboo();};OS.art.src='assets/onsen-bamboo-v107.webp';}OS.ui=true;OS.frame=0;OS.volume=Number.isFinite(S.osVolume)?S.osVolume:35;osRender();osAudioStart();OS.retry=()=>osAudioStart();document.addEventListener('pointerdown',OS.retry,true);document.addEventListener('keydown',OS.retry,true);OS.frameTimer=setInterval(osTick,125);let last=osClock();OS.clockTimer=setInterval(()=>{const slot=osClock();if(slot!==last){last=slot;osRender();}},30000);OS.observer=new MutationObserver(()=>{if(!osIsOpen()){osCleanup();if(!document.hidden)bgStart();}});OS.observer.observe(document.body,{childList:true});}
-document.addEventListener('visibilitychange',()=>{if(!osIsOpen())return;if(document.hidden){if(OS.audio)OS.audio.pause();if(OS.ctx)OS.ctx.suspend().catch(()=>{});}else{osRender();osAudioStart();}});
+function osOpen(){osCleanup();bgStop();if(typeof bgG!=='undefined'&&bgG)bgG.gain.value=0;bgShell('토리네 온천',osExit);$('bgo').classList.add('onsen-playing');OS.active=true;if(!OS.art){OS.art=new Image();OS.art.onload=()=>{if(osIsOpen())osDrawBamboo();};OS.art.src='assets/onsen-bamboo-v107.webp';}OS.ui=true;OS.frame=0;OS.volume=Number.isFinite(S.osVolume)?S.osVolume:35;osRender();osAudioStart();OS.retry=()=>osAudioStart();document.addEventListener('pointerdown',OS.retry,true);document.addEventListener('keydown',OS.retry,true);OS.frameTimer=setInterval(osTick,125);let last=osClock();OS.clockTimer=setInterval(()=>{const slot=osClock();if(slot!==last){last=slot;osRender(true);}},30000);OS.observer=new MutationObserver(()=>{if(!osIsOpen()){osCleanup();if(!document.hidden)bgStart();}});OS.observer.observe(document.body,{childList:true});}
+document.addEventListener('visibilitychange',()=>{if(!osIsOpen())return;if(document.hidden){if(OS.audio)OS.audio.pause();if(OS.ctx)OS.ctx.suspend().catch(()=>{});}else{osRender(true);osAudioStart();}});
+window.addEventListener('resize',()=>{if(osIsOpen()){osLayoutFriends();osDrawNight();osDraw();osDrawBamboo();}});
 window.addEventListener('pagehide',osCleanup);
 window.addEventListener('pageshow',e=>{if(e.persisted&&$('bgo')&&$('bgo').classList.contains('onsen-playing'))osOpen();});
 

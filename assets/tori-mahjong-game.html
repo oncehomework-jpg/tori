@@ -163,6 +163,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 #tori-mahjong-lounge .win-group span{display:block;font-size:11px;color:#604b31;margin-bottom:3px}
 #tori-mahjong-lounge .win-group div{display:flex;align-items:flex-start;gap:2px}
 #tori-mahjong-lounge .win-group img{width:22px;display:block;flex:none}
+*{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-user-drag:none;touch-action:pan-x pan-y}
 </style>
 <div id="tori-mahjong-lounge">
 <header><div><div class="eyebrow">TORI'S LITTLE GAME ROOM</div><h1>토리네 마작방</h1></div><div class="tools"><button type="button" id="room-sound" aria-pressed="true">소리 켬</button><button type="button" id="help" class="cursor-interaction">규칙</button><button type="button" id="reset" class="cursor-interaction">새 동풍전</button></div></header>
@@ -3376,3 +3377,8 @@ window.addEventListener('pagehide',e=>{if(e.persisted){roomAC?.suspend();return;
 
 </script>
 </body></html>
+
+<script>
+['contextmenu','selectstart','copy','dragstart','dblclick','gesturestart','gesturechange','gestureend'].forEach(n=>document.addEventListener(n,e=>e.preventDefault(),{passive:false}));
+document.addEventListener('touchmove',e=>{if(e.touches.length>1)e.preventDefault();},{passive:false});
+</script>
