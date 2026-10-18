@@ -23,7 +23,7 @@ main{padding:16px 14px calc(96px + env(safe-area-inset-bottom,0px))}
 .vbtn{background:none;border:0;padding:var(--sp-4) var(--sp-10);font:inherit;color:inherit;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}.vinfo [hidden]{display:none}.vinfo #vlog{margin-top:var(--sp-4)}
 .vinfo{text-align:center;font-size:11px;line-height:1.6;color:var(--mut);opacity:.9;margin:var(--sp-16) 0 var(--sp-4)}
 .alb{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-6)}.alb .ph{aspect-ratio:9/16;background:var(--in);border:3px solid var(--ol);padding:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--ol2);cursor:pointer}.alb .ph img{width:100%;height:100%;object-fit:cover;image-rendering:pixelated}.alb .ph.lock{cursor:default;opacity:.7}
-.phbig{display:block;max-width:100%;max-height:62vh;margin:var(--sp-8) auto 0;border:4px solid var(--ol);image-rendering:pixelated}
+.phbig{display:block;max-width:100%;height:62vh;aspect-ratio:720/1290;object-fit:contain;margin:var(--sp-8) auto 0;border:4px solid var(--ol);image-rendering:pixelated;background:var(--ol) center/cover no-repeat}
 .bubble{position:absolute;left:8px;right:8px;bottom:8px;background:var(--win);border:4px solid var(--ol);box-shadow:0 0 0 3px var(--ol2);padding:var(--sp-6) var(--sp-10);font-size:14px}
 .bubble::after{content:'▼';float:right;color:var(--gold);animation:bl 1s steps(2) infinite}
 @keyframes bl{50%{opacity:0}}
@@ -250,7 +250,7 @@ html.dk body::before{opacity:.2}
 @keyframes tbreath{0%{translate:none}50%{translate:0 calc(var(--ap)*-1)}}
 @keyframes thop{0%{translate:0 calc(var(--ap)*-1)}14%{translate:0 calc(var(--ap)*-1.5)}64%{translate:0 calc(var(--ap)*-1)}82%{translate:none}}
 @media (prefers-reduced-motion:reduce){.hero .tlive,.hero .ac,.hero.hop .tlive{animation:none}}
-.rxm{display:block;margin:0 auto var(--sp-10);height:min(38vh,300px);aspect-ratio:9/16;object-fit:cover;border:3px solid var(--ol);image-rendering:auto}.rxm.rxp{height:min(44vh,360px);background:var(--ol)}
+.rxm{display:block;margin:0 auto var(--sp-10);height:min(38vh,300px);aspect-ratio:9/16;object-fit:cover;border:3px solid var(--ol);image-rendering:auto}.rxm.rxp{height:min(44vh,360px);background:var(--ol) center/cover no-repeat}
 .rx-popup{position:fixed;left:50%;top:46%;transform:translate(-50%,-50%);height:min(56vh,440px);aspect-ratio:9/16;object-fit:cover;border:4px solid var(--ol);box-shadow:0 0 0 4px var(--ol2),0 8px 0 4px var(--ol2);z-index:44;pointer-events:none;animation:rxEnter .24s ease-out both}/* ===== 배경 무늬 고르기 (설정 > 배경 꾸미기) — 타일은 48칸=144px라 흐르는 애니메이션이 끊기지 않아요 ===== */
 html[data-bgp="hamster"] body::before{background:var(--bgi-hamster) 0 0/144px 144px}
 html[data-bgp="tako"] body::before{background:var(--bgi-tako) 0 0/144px 144px}
@@ -394,7 +394,7 @@ input[type=range]{accent-color:var(--gold)}
 #bgo.onsen-playing #bgb{height:100%;padding:0;margin:0}
 .os-scene{position:relative;width:100%;height:100%;overflow:hidden;isolation:isolate;touch-action:manipulation}
 .os-scene picture{display:block;width:100%;height:100%}
-.os-background{display:block;width:100%;height:100%;object-fit:contain;object-position:50% center;image-rendering:pixelated}
+.os-background{display:block;width:100%;height:100%;object-fit:cover;object-position:50% center;image-rendering:pixelated}
 
 
 
@@ -421,7 +421,7 @@ input[type=range]{accent-color:var(--gold)}
 @keyframes osSteam{0%{opacity:0;transform:translateY(8px)}30%{opacity:.4}100%{opacity:0;transform:translateY(-30px)}}
 @media(orientation:portrait){.os-background{object-position:65% center}.os-friend{width:calc(clamp(90px,26vw,150px)*var(--size))}.os-two .os-friend:nth-child(1){left:35%;top:62%}.os-two .os-friend:nth-child(2){left:65%;top:73%}.os-four .os-friend:nth-child(1){left:30%;top:61%}.os-four .os-friend:nth-child(2){left:65%;top:66%}.os-four .os-friend:nth-child(3){left:30%;top:76%}.os-four .os-friend:nth-child(4){left:65%;top:78%}.os-hud{padding:var(--sp-8) var(--sp-10)}.os-steam{top:54%}}
 @media(orientation:landscape) and (max-height:480px){.os-hud{padding:var(--sp-6) var(--sp-10);bottom:calc(8px + env(safe-area-inset-bottom))}.os-talk{font-size:11px}}
-.os-bamboo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% center;pointer-events:none;image-rendering:pixelated}
+.os-bamboo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% center;pointer-events:none;image-rendering:pixelated}
 
 @media(prefers-reduced-motion:reduce){.os-friend,.os-steam{animation:none}}
 
@@ -444,7 +444,7 @@ input[type=range]{accent-color:var(--gold)}
 
 .os-steam{display:none}
 
-@media(orientation:portrait){.os-scene .os-background,.os-bamboo,.os-weather{object-fit:contain;object-position:50% center}.os-slot-0{background:linear-gradient(#b6dbe5,#d7c894)}.os-slot-1{background:linear-gradient(#65b5e9,#c1ae72)}.os-slot-2{background:linear-gradient(#af8190,#73674f)}.os-slot-3{background:linear-gradient(#072238,#314946)}}
+@media(orientation:portrait){.os-scene .os-background,.os-bamboo,.os-weather{object-fit:cover;object-position:50% center}.os-slot-0{background:linear-gradient(#b6dbe5,#d7c894)}.os-slot-1{background:linear-gradient(#65b5e9,#c1ae72)}.os-slot-2{background:linear-gradient(#af8190,#73674f)}.os-slot-3{background:linear-gradient(#072238,#314946)}}
 
 .diary-tori{display:inline-block;width:22px;height:22px;vertical-align:middle;object-fit:contain;image-rendering:pixelated}
 .os-icon{flex:none;transition:none}
@@ -455,7 +455,8 @@ input[type=range]{accent-color:var(--gold)}
 input,textarea,[contenteditable]{font-size:max(16px,1em)!important}
 
 /* Whole artwork stays visible and every animated layer uses its coordinate space. */
-.os-scene .os-background,.os-scene .os-bamboo,.os-scene .os-weather{object-fit:contain;object-position:50% center}
+.os-scene .os-background,.os-scene .os-bamboo,.os-scene .os-weather{object-fit:cover;object-position:50% center}   /* v1.2.5: 화면에 꽉 차게(친구 자리도 같은 기준, osLayoutFriends) */
+@media(orientation:landscape){.os-scene .os-background,.os-scene .os-bamboo,.os-scene .os-weather{object-position:50% 75%}}   /* 가로: 하늘을 더 자르고 물가 친구들을 살려요 (osLayoutFriends의 .75와 같이) */
 .os-scene.os-slot-0{background:linear-gradient(#b6dbe5,#d7c894)}
 .os-scene.os-slot-1{background:linear-gradient(#65b5e9,#c1ae72)}
 .os-scene.os-slot-2{background:linear-gradient(#af8190,#73674f)}

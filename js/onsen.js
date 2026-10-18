@@ -3,7 +3,7 @@
 const OS={audio:null,clockTimer:null,frameTimer:null,observer:null,active:false,ui:true,volume:35,ctx:null,gain:null,water:null,frame:0,cycle:-1,lastTalk:{},retry:null};
 const OS_LANDSCAPES=['images/scenes/onsen-landscape-day-v118.webp','images/scenes/onsen-landscape-day-v118.webp','images/scenes/onsen-landscape-day-v118.webp','images/scenes/onsen-landscape-night-v118.webp'];
 const OS_PORTRAITS=['images/scenes/onsen-portrait-day-v118.webp','images/scenes/onsen-portrait-day-v118.webp','images/scenes/onsen-portrait-day-v118.webp','images/scenes/onsen-portrait-night-v118.webp'];
-const OS_ANIMALS={'토리':'images/icons/onsen-tori-v102.png','호두':'images/icons/onsen-hodu-v102.png','도치':'images/icons/onsen-dochi-v102.png','부엉박사':'images/icons/onsen-owl-v102.png'};
+const OS_ANIMALS={'토리':'images/icons/onsen-tori-v125.png','호두':'images/icons/onsen-hodu-v125.png','도치':'images/icons/onsen-dochi-v125.png','부엉박사':'images/icons/onsen-owl-v125.png'};
 const OS_MUSIC='audio/onsen-pixel-bgm-v102.wav';
 const OS_SLOTS=[{name:'아침',friends:['토리','호두'],line:'따뜻한 물부터 만나고, 오늘은 천천히 시작해요.'},{name:'낮',friends:['토리','도치'],line:'햇살이 물 위에서 쉬고 있어요. 우리도 같이 쉴까요?'},{name:'저녁',friends:['토리','부엉박사'],line:'오늘 들고 온 생각들을 물가에 잠깐 내려놓아요.'},{name:'밤',friends:['토리','호두','도치','부엉박사'],line:'작은 물소리와 함께, 오늘도 여기까지 잘 왔어요.'}];
 const OS_LINES={
@@ -62,7 +62,7 @@ function osKnock(){if(!OS.ctx||OS.ctx.state!=='running'||!OS.knockBuffer||!osIsO
 function osDrip(){osTone(980,.09,.035,'sine',1700);}
 // Background, sprites and friends share one uncropped scene coordinate system.
 function osSceneSize(c){const portrait=c.clientHeight>=c.clientWidth;return {portrait,W:portrait?288:1672,H:portrait?512:941};}
-function osLayoutFriends(){const c=$('os-bamboo');if(!c)return;const {portrait,W,H}=osSceneSize(c),scale=Math.min(c.clientWidth/W,c.clientHeight/H),ox=(c.clientWidth-W*scale)/2,oy=(c.clientHeight-H*scale)/2;
+function osLayoutFriends(){const c=$('os-bamboo');if(!c)return;const {portrait,W,H}=osSceneSize(c),scale=Math.max(c.clientWidth/W,c.clientHeight/H),ox=(c.clientWidth-W*scale)/2,oy=(c.clientHeight-H*scale)*(portrait?.5:.75);
  const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;document.querySelectorAll('.os-friend').forEach((el,i)=>{const [x,y,w]=osFriendPlaces(portrait)[i];el.style.left=(ox+x*scale)+'px';el.style.top=(oy+y*scale)+'px';el.style.width=(w*scale)+'px';el.style.transform='translate(-50%,calc(-50% + '+(reduced?0:osFloatPose(OS.frame,i)*(portrait?1:3)*scale)+'px))';});}
 function osFloatPose(f,i){return [0,1,1,0,-1,-1][(Math.floor(f/4)+i*2)%6];}
 function osFriendPlaces(portrait){const four=OS_SLOTS[osClock()].friends.length===4;return portrait?(four?[[92,350,56],[152,354,49],[126,408,44],[185,412,48]]:[[98,358,56],[171,393,49]]):(four?[[700,690,145],[970,690,140],[800,786,128],[1160,770,140]]:[[760,710,150],[1040,775,145]]);}
@@ -73,7 +73,23 @@ function osTintPlate(g,W,H,slot){if((slot!==0&&slot!==2)||!g.getImageData)return
  const matrix=slot===0?mul(sepia(.12),sat(.82)).map(x=>x*.96):mul(hue(335*Math.PI/180),mul(sat(.85),sepia(.4))).map(x=>x*.82),im=g.getImageData(0,0,W,H),a=im.data;for(let i=0;i<a.length;i+=4){const r=a[i],b=a[i+1],c=a[i+2];a[i]=matrix[0]*r+matrix[1]*b+matrix[2]*c;a[i+1]=matrix[3]*r+matrix[4]*b+matrix[5]*c;a[i+2]=matrix[6]*r+matrix[7]*b+matrix[8]*c;}g.putImageData(im,0,0);}
 function osPool(portrait){return portrait?[[150,301],[201,304],[210,316],[248,329],[281,339],[281,390],[251,414],[236,425],[201,444],[174,459],[160,462],[140,450],[119,439],[118,428],[80,414],[57,395],[53,360],[72,338],[84,317],[120,310]]:[[720,612],[1010,615],[1150,640],[1258,669],[1350,683],[1352,696],[1430,728],[1490,753],[1445,785],[1300,817],[1040,867],[900,862],[753,847],[625,860],[500,806],[368,785],[326,746],[279,731],[287,716],[420,680],[590,648]];}
 function osClipPool(g,portrait){g.beginPath();osPool(portrait).forEach(([x,y],i)=>i?g.lineTo(x,y):g.moveTo(x,y));g.closePath();g.clip();}
-function osWaterTexture(g,portrait,W,H,f){const c=osPlate(portrait,W,H);if(!c)return;const step=portrait?2:6,top=portrait?300:610,bottom=portrait?465:875;for(let y=top;y<bottom;y+=step){const dx=[0,1,1,0,-1,-1][(Math.floor(f/3)+Math.floor(y/step/3))%6]*(portrait?1:3);g.drawImage(c,0,y,W,step,dx,y,W,step);}}
+// v1.2.5 온천물: 도트 게임식 물 표현 — ① 줄마다 사인파로 출렁(멀수록 작게) ② 밝은 물빛이 띠처럼 흘러가는 색 순환
+// ③ 4프레임 반짝임 ④ 친구 둘레로 퍼지는 물결 고리. 그림 칸(k) 단위로만 움직여 도트가 뭉개지지 않아요.
+function osWaterTexture(g,portrait,W,H,f){const c=osPlate(portrait,W,H);if(!c)return;const k=portrait?1:3,step=portrait?2:6,top=portrait?300:610,bottom=portrait?465:875;for(let y=top;y<bottom;y+=step){const depth=(y-top)/(bottom-top),amp=depth<.35?1:2,dx=Math.round(amp*Math.sin(y/(step*2.3)-f*.42))*k;g.drawImage(c,0,y,W,step,dx,y,W,step);}}
+function osGlints(portrait,W,H){if(OS.glintKey===OS.sceneKey&&OS.glints)return OS.glints;const c=osPlate(portrait,W,H);if(!c)return [];const g=c.getContext('2d');if(!g.getImageData)return [];
+ const k=portrait?1:3,top=portrait?300:610,bottom=portrait?465:875,a=g.getImageData(0,top,W,bottom-top).data,m=document.createElement('canvas');m.width=W;m.height=H;const mg=m.getContext('2d');mg.beginPath();osPool(portrait).forEach(([x,y],i)=>i?mg.lineTo(x,y):mg.moveTo(x,y));mg.closePath();
+ const pts=[],lum=[];for(let y=top;y<bottom;y+=k)for(let x=0;x<W;x+=k){if(!mg.isPointInPath(x,y))continue;const i=((y-top)*W+x)*4,l=.3*a[i]+.59*a[i+1]+.11*a[i+2];pts.push([x,y,l]);lum.push(l);}
+ lum.sort((p,q)=>p-q);const cut=lum[Math.floor(lum.length*.9)]||255;OS.glintKey=OS.sceneKey;OS.glints=pts.filter(p=>p[2]>=cut);OS.poolPts=pts;return OS.glints;}
+function osWaterLife(g,p,portrait,W,H,f,s){const k=portrait?1:3,gl=osGlints(portrait,W,H);if(!gl.length)return;
+ // ② 색 순환: 비스듬한 빛 띠가 밝은 물빛 위를 천천히 지나가요
+ const warm=s===3?'220,245,255':s===2?'255,226,170':'255,252,226';for(const [x,y] of gl){const v=Math.sin(x*.09/k+y*.33/k-f*.45);if(v>.5)p(x,y,k,k,'rgba('+warm+','+(.18+.42*(v-.5)).toFixed(2)+')');}
+ // ③ 반짝임: 자리마다 8프레임 동안 점→작은 십자→큰 십자→작은 십자→점
+ if(!OS.spark||OS.sparkKey!==OS.sceneKey){OS.sparkKey=OS.sceneKey;OS.spark=Array.from({length:portrait?5:7},(_,i)=>({t:-i*3,x:0,y:0}));}
+ const shape=[1,2,3,2,1,0,0,0],col=s===3?'#fffbe0':'#ffffff';OS.spark.forEach(sp=>{const age=f-sp.t;if(age<0)return;if(age>=shape.length||!sp.x){const q=gl[Math.floor(Math.random()*gl.length)];sp.x=q[0];sp.y=q[1];sp.t=f+Math.floor(Math.random()*10);return;}
+  const z=shape[age];if(!z)return;p(sp.x,sp.y,k,k,col);if(z>=2){p(sp.x-k,sp.y,k,k,col+'b0');p(sp.x+k,sp.y,k,k,col+'b0');p(sp.x,sp.y-k,k,k,col+'b0');p(sp.x,sp.y+k,k,k,col+'b0');}if(z>=3){p(sp.x-2*k,sp.y,k,k,col+'60');p(sp.x+2*k,sp.y,k,k,col+'60');}});}
+// ④ 물결 고리: 친구마다 3초쯤에 한 번, 몸 둘레에서 바깥으로 퍼지며 흐려져요(아래 반쪽만 보이게 친구 그림이 위를 덮어요)
+function osRipples(p,portrait,f,s){const k=portrait?1:3,col=s===3?'190,235,230':'235,255,245';osFriendPlaces(portrait).forEach(([x,y,w],i)=>{const age=(f+i*9)%26;if(age>=14)return;const sway=osFloatPose(f,i)*k,rx=w*.5+age*1.6*k,ry=rx*.3,cy=y+w*.34+sway,al=(.85*(1-age/14)).toFixed(2);
+  const n=Math.max(24,Math.round(2*Math.PI*Math.sqrt((rx*rx+ry*ry)/2)*1.5/k));let last='';for(let j=0;j<n;j++){const t=j/n*Math.PI*2,px=Math.round((x+Math.cos(t)*rx)/k)*k,py=Math.round((cy+Math.sin(t)*ry)/k)*k,key=px+','+py;if(key===last)continue;last=key;p(px,py,k,k,'rgba('+col+','+al+')');}});}
 // Discover actual bright star pixels once. Each cluster keeps its position and its own rhythm.
 function osStarPixels(portrait,W,H){if(OS.starKey===OS.sceneKey)return OS.stars||[];const c=osPlate(portrait,W,H);if(!c)return [];
  const g=c.getContext('2d');if(!g.getImageData)return [];const a=g.getImageData(0,0,W,H).data,maxY=portrait?104:215,moon=portrait?[175,38,222,88]:[1020,55,1150,180],seen=new Set(),stars=[];
@@ -90,8 +106,41 @@ function osWaterLight(g,p,portrait,s,f,k){const cx=portrait?171:976,top=portrait
  else{const alpha=[.025,.035,.045,.035][Math.floor(f/14)%4],beam=portrait?144:930;for(let y=top+30*k;y<bottom;y+=4*k){const spread=(portrait?26:92)+(y-top)*.15;for(let x=beam-spread;x<beam+spread;x+=5*k){if((Math.round(x/k)+Math.round(y/k))%3===0)p(x+pose*k,y,2*k,k,'rgba(255,237,159,'+alpha+')');}}}}
 function osDraw(){const c=$('os-weather');if(!c)return;const {portrait,W,H}=osSceneSize(c);if(c.width!==W||c.height!==H){c.width=W;c.height=H;}const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.clearRect(0,0,W,H);const f=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:OS.frame,s=osClock(),k=portrait?1:3,p=(x,y,w,h,col)=>{g.fillStyle=col;g.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h));};
  g.save();osClipPool(g,portrait);osWaterTexture(g,portrait,W,H,f);osWaterLight(g,p,portrait,s,f,k);
- for(let i=0;i<18;i++){const pose=[0,0,1,1,0,-1][(Math.floor(f/2)+i)%6];p((portrait?70:400)+(i*37)%(portrait?180:1000)+pose*k,(portrait?315:650)+(i*19)%(portrait?120:200),(4+i%5)*k,k,s===3?'#bde9d629':s===2?'#ffe6ac35':'#fff5bb3c');}
- osFriendPlaces(portrait).forEach(([x,y,w],i)=>{const sway=osFloatPose(f,i)*k,rx=w*.38,ry=y+w*.3+sway;for(let j=0;j<3;j++)p(x-rx-j*k,ry+j*2*k,rx*2+j*2*k,k,s===3?'#9be4db50':'#edffef70');});g.restore();osSkyLights(g,p,portrait,s,f,k);osDrawBirds(p,W,H,f,k,s);}
+ osWaterLife(g,p,portrait,W,H,f,s);osRipples(p,portrait,f,s);g.restore();osDrawClouds(g,portrait,W,H,f);osSkyLights(g,p,portrait,s,f,k);osDrawBirds((x,y,w,h,col)=>{g.fillStyle=col;x=Math.round(x);y=Math.round(y);for(let yy=y;yy<y+Math.round(h);yy++)for(let xx=x;xx<x+Math.round(w);xx++)if(osInSky(xx,yy))g.fillRect(xx,yy,1,1);},W,H,f,k,s);}
+// v1.2.5 하늘: 그림 위쪽에서 하늘(+구름·별)만 골라낸 판. 새는 이 판 안에서만 보여서 나무 뒤로 숨고,
+// 구름은 그림에서 오려 내 제자리 근처에서 천천히 둥둥 떠다녀요(빈자리는 그 줄의 하늘색으로 메워요).
+function osSky(portrait,W,H){if(OS.skyKey===OS.sceneKey&&OS.sky)return OS.sky;const c=osPlate(portrait,W,H);if(!c)return null;const g=c.getContext('2d');if(!g.getImageData)return null;
+ const maxY=Math.round(H*(portrait?.36:.42)),a=g.getImageData(0,0,W,maxY).data,N=W*maxY,m=new Uint8Array(N),st=[],d=(i,j)=>Math.abs(a[i*4]-a[j*4])+Math.abs(a[i*4+1]-a[j*4+1])+Math.abs(a[i*4+2]-a[j*4+2]);
+ const skyish=i=>{const r=a[i*4],gg=a[i*4+1],b=a[i*4+2];return b>=gg-6&&b>=r-30||(r+gg+b)>560;};
+ for(let x=0;x<W;x++)if(skyish(x)){m[x]=1;st.push(x);}
+ while(st.length){const p=st.pop(),x=p%W;for(const q of [x>0?p-1:-1,x<W-1?p+1:-1,p>=W?p-W:-1,p<N-W?p+W:-1])if(q>=0&&!m[q]&&d(p,q)<54&&skyish(q)){m[q]=1;st.push(q);}}
+ // 구멍(별·달·구름 속) 메우기: 아래쪽·양옆 가장자리까지 이어지지 않는 칸은 하늘
+ const out=new Uint8Array(N),os=[];for(let x=0;x<W;x++){const p=(maxY-1)*W+x;if(!m[p]){out[p]=1;os.push(p);}}for(let y=0;y<maxY;y++)for(const p of [y*W,y*W+W-1])if(!m[p]&&!out[p]){out[p]=1;os.push(p);}
+ while(os.length){const p=os.pop(),x=p%W;for(const q of [x>0?p-1:-1,x<W-1?p+1:-1,p>=W?p-W:-1,p<N-W?p+W:-1])if(q>=0&&!m[q]&&!out[q]){out[q]=1;os.push(q);}}
+ for(let i=0;i<N;i++)if(!out[i])m[i]=1;
+ // 줄마다 하늘 바탕색(중간값)과 구름(바탕보다 밝은 덩어리)
+ const L=i=>.3*a[i*4]+.59*a[i*4+1]+.11*a[i*4+2],base=[],cl=new Uint8Array(N),cloudY=Math.round(H*(portrait?.215:.215)),moon=osClock()!==3?[-1,-1,-1,-1]:portrait?[170,30,228,95]:[1000,40,1170,200];   // 구름은 산보다 위에서만, 달은 빼고
+ for(let y=0;y<maxY;y++){const v=[];for(let x=0;x<W;x++){const i=y*W+x;if(m[i])v.push(i);}v.sort((p,q)=>L(p)-L(q));const i=v.length?v[v.length>>2]:-1;base[y]=i<0?null:[a[i*4],a[i*4+1],a[i*4+2],L(i)];
+  if(base[y]&&y<cloudY)for(const i of v){const x=i%W;if(x>=moon[0]&&x<=moon[2]&&y>=moon[1]&&y<=moon[3])continue;if(L(i)>base[y][3]+16)cl[i]=1;}}
+ const seen=new Uint8Array(N),clouds=[],minN=portrait?40:300;
+ for(let i=0;i<N;i++){if(!cl[i]||seen[i])continue;const comp=[i];seen[i]=1;for(let k=0;k<comp.length;k++){const p=comp[k],x=p%W;for(const q of [x>0?p-1:-1,x<W-1?p+1:-1,p>=W?p-W:-1,p<N-W?p+W:-1,p>=W&&x>0?p-W-1:-1,p>=W&&x<W-1?p-W+1:-1,p<N-W&&x>0?p+W-1:-1,p<N-W&&x<W-1?p+W+1:-1])if(q>=0&&cl[q]&&!seen[q]){seen[q]=1;comp.push(q);}}
+  if(comp.length<minN)continue;let x0=W,x1=0,y0=maxY,y1=0;for(const p of comp){const x=p%W,y=(p-x)/W;if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}
+  // 가장자리 1칸 넓혀 오려 내기(테두리 빛번짐까지)
+  if(x1-x0<(portrait?20:60))continue;   // 별처럼 작은 덩어리는 구름이 아니에요
+  x0=Math.max(0,x0-1);y0=Math.max(0,y0-1);x1=Math.min(W-1,x1+1);y1=Math.min(maxY-1,y1+1);const cw=x1-x0+1,ch=y1-y0+1,cv=document.createElement('canvas');cv.width=cw;cv.height=ch;const cg=cv.getContext('2d'),im=cg.createImageData(cw,ch);
+  const inC=new Uint8Array(N);for(const p of comp)inC[p]=1;for(const p of comp){const x=p%W;for(const q of [p-1,p+1,p-W,p+W])if(q>=0&&q<N&&m[q]&&!inC[q]&&Math.abs(q%W-x)<=1&&L(q)>base[Math.floor(q/W)][3]+6)inC[q]=2;}
+  for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){const p=y*W+x;if(!inC[p])continue;const t=((y-y0)*cw+x-x0)*4;im.data[t]=a[p*4];im.data[t+1]=a[p*4+1];im.data[t+2]=a[p*4+2];im.data[t+3]=255;}
+  cg.putImageData(im,0,0);clouds.push({cv,x:x0,y:y0,w:cw,h:ch,px:[...inC.keys()].filter(p=>inC[p]),ph:clouds.length*1.7,amp:(portrait?5:15)+(clouds.length%3)*(portrait?2:6)});}
+ // 구름을 지운 하늘판(구름 자리는 그 줄 바탕색) + 하늘 마스크 판
+ const clean=document.createElement('canvas');clean.width=W;clean.height=maxY;const kg=clean.getContext('2d'),ki=kg.createImageData(W,maxY),mk=document.createElement('canvas');mk.width=W;mk.height=maxY;const mg=mk.getContext('2d'),mi=mg.createImageData(W,maxY);
+ const cover=new Uint8Array(N);for(const c of clouds)for(const p of c.px)cover[p]=1;
+ for(let i=0;i<N;i++){if(!m[i])continue;mi.data[i*4+3]=255;if(!cover[i])continue;const b=base[Math.floor(i/W)];if(!b)continue;ki.data[i*4]=b[0];ki.data[i*4+1]=b[1];ki.data[i*4+2]=b[2];ki.data[i*4+3]=255;}
+ kg.putImageData(ki,0,0);mg.putImageData(mi,0,0);clouds.forEach(c=>delete c.px);
+ OS.skyKey=OS.sceneKey;OS.sky={m,W,maxY,clean,mask:mk,clouds};return OS.sky;}
+function osDrawClouds(g,portrait,W,H,f){const sky=osSky(portrait,W,H);if(!sky||!sky.clouds.length)return;if(!OS.skyLayer)OS.skyLayer=document.createElement('canvas');const L=OS.skyLayer;if(L.width!==W||L.height!==sky.maxY){L.width=W;L.height=sky.maxY;}const lg=L.getContext('2d');lg.imageSmoothingEnabled=false;lg.globalCompositeOperation='source-over';lg.clearRect(0,0,W,sky.maxY);lg.drawImage(sky.clean,0,0);
+ const k=portrait?1:3;sky.clouds.forEach((c,i)=>{const dx=Math.round(c.amp*Math.sin(f/(80+i*17)+c.ph)/k)*k,dy=Math.round(Math.sin(f/(53+i*11)+c.ph)*.6)*k;lg.drawImage(c.cv,c.x+dx,c.y+dy);});
+ lg.globalCompositeOperation='destination-in';lg.drawImage(sky.mask,0,0);lg.globalCompositeOperation='source-over';g.drawImage(L,0,0);}
+function osInSky(x,y){const s=OS.sky;if(!s||OS.skyKey!==OS.sceneKey)return true;x=Math.round(x);y=Math.round(y);if(x<0||x>=s.W||y<0)return true;if(y>=s.maxY)return false;return !!s.m[y*s.W+x];}
 function osBirdCount(r=Math.random()){return r<.5?1:r<.8?2:r<.95?3:r<.98?4:5;}
 function osDrawBirds(p,W,H,f,k,s){const phase=f%360;if(phase<210||phase>=274)return;const cycle=Math.floor(f/360);
  if(OS.birdCycle!==cycle){OS.birdCycle=cycle;OS.birdFlock={n:osBirdCount(),dir:Math.random()<.5?1:-1,start:.12+Math.random()*.035,end:.14+Math.random()*.055,bend:(Math.random()<.5?-1:1)*.035};}
@@ -111,7 +160,9 @@ function osBambooGeometry(portrait,frame){const pose=osBambooPose(frame),pivot=p
  // Fixed nozzle is aligned with the receiving mouth at rest. Gravity never steers it sideways.
  const nozzle=[pivot[0]-19.34*scale,pivot[1]-10.99*scale],hit=[pivot[0]-24*scale,portrait?307:704],catching=Math.abs(mouth[0]-nozzle[0])<2.2*scale&&pose.angle>-.24;
  return {pose,pivot,scale,mouth,lip,nozzle,hit,catching};}
-function osDrawBamboo(){const c=$('os-bamboo');if(!c)return;const {portrait,W,H}=osSceneSize(c);if(c.width!==W||c.height!==H){c.width=W;c.height=H;}const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.clearRect(0,0,W,H);if(!OS.art||!OS.art.complete||!OS.art.naturalWidth||!OS.inlet||!OS.inlet.complete||!OS.inlet.naturalWidth)return;
+// v1.2.5: 대나무는 부품 그림을 그림 칸(세로 288칸) 캔버스에 줄여 찍으면 각지고 뭉개져 보였어요(사용자: '저퀄').
+// 화면 해상도만큼(R배, 최대 4) 큰 캔버스에 부드럽게 줄여 그려요. 물줄기 점은 그대로 칸 단위.
+function osDrawBamboo(){const c=$('os-bamboo');if(!c)return;const {portrait,W,H}=osSceneSize(c),sc=Math.max((c.clientWidth||W)/W,(c.clientHeight||H)/H),R=Math.max(1,Math.min(4,Math.ceil(sc*(window.devicePixelRatio||1)-.05)));if(c.width!==W*R||c.height!==H*R){c.width=W*R;c.height=H*R;}const g=c.getContext('2d');if(g.setTransform)g.setTransform(R,0,0,R,0,0);g.imageSmoothingEnabled=true;g.imageSmoothingQuality='high';g.clearRect(0,0,W,H);if(!OS.art||!OS.art.complete||!OS.art.naturalWidth||!OS.inlet||!OS.inlet.complete||!OS.inlet.naturalWidth)return;
  const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches,f=reduced?0:OS.frame,{pose,pivot,scale:k,mouth,lip,nozzle,hit,catching}=osBambooGeometry(portrait,f);
  const part=(sx,sy,sw,sh,x,y,w,h)=>g.drawImage(OS.art,sx,sy,sw,sh,x,y,w,h),dot=(x,y,w,h,col='#d7ffff')=>{g.fillStyle=col;g.fillRect(Math.round(x),Math.round(y),w,h);};
  g.save();g.translate(...pivot);g.scale(k,k);if(osClock()===3)g.globalAlpha=.92;
@@ -132,7 +183,7 @@ function osTick(){if(!osIsOpen()||document.hidden)return;OS.frame++;osLayoutFrie
 function osCleanup(){OS.active=false;clearInterval(OS.frameTimer);clearInterval(OS.clockTimer);OS.frameTimer=OS.clockTimer=null;if(OS.retry){document.removeEventListener('pointerdown',OS.retry,true);document.removeEventListener('keydown',OS.retry,true);OS.retry=null;}if(OS.observer){OS.observer.disconnect();OS.observer=null;}if(OS.audio){OS.audio.pause();OS.audio.removeAttribute('src');OS.audio.load();OS.audio=null;}if(OS.ctx){const c=OS.ctx;OS.ctx=null;OS.gain=null;OS.water=null;c.close().catch(()=>{});}}
 function osExit(){osCleanup();bgClose(1);bgStart();}
 function osOpen(){osCleanup();bgStop();if(typeof bgG!=='undefined'&&bgG)bgG.gain.value=0;bgShell('토리네 온천',osExit);$('bgo').classList.add('onsen-playing');OS.active=true;if(!OS.art){OS.art=new Image();OS.art.onload=()=>{if(osIsOpen())osDrawBamboo();};OS.art.src='images/scenes/onsen-shishiodoshi-parts-v118.webp';}if(!OS.inlet){OS.inlet=new Image();OS.inlet.onload=()=>{if(osIsOpen())osDrawBamboo();};OS.inlet.src='images/scenes/onsen-shishiodoshi-inlet-v118.webp';}OS.ui=true;OS.frame=0;OS.birdCycle=null;OS.birdFlock=null;OS.volume=Number.isFinite(S.osVolume)?S.osVolume:35;osRender();osAudioStart();OS.retry=()=>osAudioStart();document.addEventListener('pointerdown',OS.retry,true);document.addEventListener('keydown',OS.retry,true);OS.frameTimer=setInterval(osTick,125);let last=osClock();OS.clockTimer=setInterval(()=>{const slot=osClock();if(slot!==last){last=slot;osRender(true);}},30000);OS.observer=new MutationObserver(()=>{if(!osIsOpen()){osCleanup();if(!document.hidden)bgStart();}});OS.observer.observe(document.body,{childList:true});}
-document.addEventListener('visibilitychange',()=>{if(!osIsOpen())return;if(document.hidden){if(OS.audio)OS.audio.pause();if(OS.ctx)OS.ctx.suspend().catch(()=>{});}else{osRender(true);osAudioStart();}});
+document.addEventListener('visibilitychange',()=>{if(!osIsOpen())return;if(document.hidden){if(OS.audio)OS.audio.pause();if(OS.ctx){try{OS.gain.gain.cancelScheduledValues(0);OS.gain.gain.setValueAtTime(0,OS.ctx.currentTime);}catch(e){}OS.ctx.suspend().catch(()=>{});}}else{if(OS.gain&&OS.ctx)OS.gain.gain.setValueAtTime(OS.volume/100,OS.ctx.currentTime);osRender(true);osAudioStart();}});
 window.addEventListener('resize',()=>{if(osIsOpen()){osLayoutFriends();osDraw();osDrawBamboo();}});
 window.addEventListener('pagehide',osCleanup);
 window.addEventListener('pageshow',e=>{if(e.persisted&&$('bgo')&&$('bgo').classList.contains('onsen-playing'))osOpen();});

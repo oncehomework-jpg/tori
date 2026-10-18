@@ -4,7 +4,7 @@
 //   (같은 이름으로 파일을 바꿔 올릴 때는 아래 CACHE 숫자를 올려야 폰이 새 파일을 받아요)
 // - 새 버전을 받으면 다음에 앱을 켤 때 적용돼요.
 // - CDN 폰트/CSS: 한 번 받으면 저장본을 써요.
-const CACHE = 'jw-diary-v1.2.4';   // js/app.js 의 APP_VER 와 같은 숫자로 맞춰요
+const CACHE = 'jw-diary-v1.2.5';   // js/app.js 의 APP_VER 와 같은 숫자로 맞춰요
 // 토리 알림(v5.1): 앱이 적어 둔 상태(tori-state 캐시)를 보고, 폰이 깨워 줄 때(periodicsync) 하루 한 번만 알림
 const STATE = 'tori-state', STATE_URL = 'tori-state.json';
 // 앱 파일: 처음 켤 때 저장해 두면 인터넷이 없어도 열려요
@@ -40,20 +40,20 @@ const ASSETS = [
   'images/scenes/place-sea-v102.webp',
   'images/scenes/place-stage-v102.webp',
   'images/scenes/place-kitchen-v102.webp',
-  'images/icons/onsen-tori-v102.png',
-  'images/icons/onsen-hodu-v102.png',
-  'images/icons/onsen-dochi-v102.png',
-  'images/icons/onsen-owl-v102.png',
+  'images/icons/onsen-tori-v125.png',
+  'images/icons/onsen-hodu-v125.png',
+  'images/icons/onsen-dochi-v125.png',
+  'images/icons/onsen-owl-v125.png',
   'audio/onsen-pixel-bgm-v102.wav',
   'images/icons/tori-icon-b.png',
   'images/scenes/df-library-v97.webp',
-  'images/scenes/df-library-changes-v97.webp',
+  'images/scenes/df-library-hard-changes-v125.webp',
   'images/scenes/df-garden-v97.webp',
-  'images/scenes/df-garden-changes-v97.webp',
+  'images/scenes/df-garden-hard-changes-v125.webp',
   'images/scenes/df-teaparty-v92.webp',
-  'images/scenes/df-teaparty-changes-v92.webp',
+  'images/scenes/df-teaparty-hard-changes-v125.webp',
   'images/scenes/df-kitchen-v92.webp',
-  'images/scenes/df-kitchen-changes-v92.webp',
+  'images/scenes/df-kitchen-hard-changes-v125.webp',
   'images/scenes/mahjong-room-v92.webp',
   'games/tori-mahjong/tori-mahjong-content.js',
   'games/tori-mahjong/tori-mahjong-game.html',
