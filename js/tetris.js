@@ -1,4 +1,4 @@
-/* 토리 TV 테트리스 — 옛날 TV 리모컨 감성 미니게임 (v1.3.0)
+/* 토리 테토리스 — 옛날 TV 리모컨 감성 미니게임 (v1.3.0)
    화면: 브라운관 TV(캔버스 320x240) + 리모컨. 시안 기록/시안-테트리스/index.html
    규칙: 7종 블록, 홀드·그림자·바로 떨어뜨리기 없음(확인 = 돌리기, 사용자 요청), 다음 1개, 10줄마다 레벨업. 시작 레벨은 숫자 버튼 1~9
    보상: mgRw(10줄 🌰1 · 25줄 🌰2, 하루 횟수는 다른 미니게임과 합산), 최고 점수 S.mg.bt
@@ -18,7 +18,7 @@ const CSS=`
 .tt-bezel{background:#2a2a2e;border-radius:calc(var(--tvw)*.05);padding:calc(var(--tvw)*.03);box-shadow:inset 0 0 0 2px #46464d,inset 0 3px 8px #000}
 .tt-glass{position:relative;aspect-ratio:4/3;border-radius:9%/11%;overflow:hidden;background:#050506}
 .tt-pic{position:absolute;inset:0;transform-origin:50% 50%}
-.tt-pic canvas{width:100%;height:100%;display:block;image-rendering:pixelated;image-rendering:crisp-edges;filter:saturate(1.15) contrast(1.06) brightness(1.04);animation:ttfl 4s infinite}
+#mg .tt-pic canvas{width:100%!important;height:100%!important;max-width:none!important;display:block;image-rendering:pixelated;image-rendering:crisp-edges;filter:saturate(1.15) contrast(1.06) brightness(1.04);animation:ttfl 4s infinite}
 @keyframes ttfl{0%,100%{opacity:1}50%{opacity:.975}}
 .tt-scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(rgba(0,0,0,.28) 0 1px,transparent 1px 3px);background-size:100% calc(100% / 120);mix-blend-mode:multiply}
 .tt-vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 58%,rgba(0,0,0,.6) 100%)}
@@ -183,7 +183,7 @@ function lock(){let top=false;for(const[a,b]of cur.c){const cy=cur.y+b;if(cy<0)t
   sfx('lock');if(top){gameOver();return;}
   clr=[];for(let y=0;y<ROWS;y++)if(board[y].every(v=>v))clr.push(y);
   if(clr.length){st='clear';clrT=0;cur=null;const n=clr.length;
-    if(n===4){sfx('tetris');vib([40,30,70]);anim('shk',150);say('테트리스!!!',2000);}else{sfx('line');vib(30);say(['한 줄!','두 줄!','세 줄이나!!'][n-1]);}}
+    if(n===4){sfx('tetris');vib([40,30,70]);anim('shk',150);say('테토리스!!!',2000);}else{sfx('line');vib(30);say(['한 줄!','두 줄!','세 줄이나!!'][n-1]);}}
   else{gAcc=0;checkDanger();spawn();}}
 function finishClear(){const n=clr.length,before=level();
   board=board.filter((r,y)=>!clr.includes(y));while(board.length<ROWS)board.unshift(Array(COLS).fill(0));
@@ -245,7 +245,6 @@ function makeArt(){if(BG)return;BG=document.createElement('canvas');BG.width=W;B
   g.addColorStop(0,'#1d2f78');g.addColorStop(1,'#0a1240');q.fillStyle=g;q.fillRect(0,0,W,H);
   q.fillStyle='rgba(255,255,255,.05)';for(let y=0;y<H;y+=2)for(let x=(y/2)%2*2;x<W;x+=4)q.fillRect(x,y,1,1);
   q.fillStyle='rgba(120,150,255,.07)';for(let i=-H;i<W;i+=24){q.beginPath();q.moveTo(i,H);q.lineTo(i+H,0);q.lineTo(i+H+8,0);q.lineTo(i+8,H);q.fill();}
-  TORI=new Image();TORI.src='images/icons/tori-face-76ee5c37.png';
   NZ=document.createElement('canvas');NZ.width=160;NZ.height=120;NQ=NZ.getContext('2d');NI=NQ.createImageData(160,120);}
 const ACORN=["..kkkk..",".kddddk.","kddddddk",".kbbbbk.",".kbbbbk.","..kbbk..","...kk..."],APAL={k:'#4a3423',d:'#9a6b3c',b:'#d9b98a'};
 function acorn(x,y,s=2){ACORN.forEach((r,j)=>[...r].forEach((c,i)=>{if(c!=='.'){X.fillStyle=APAL[c];X.fillRect(x+i*s,y+j*s,s,s);}}));}
@@ -279,12 +278,12 @@ function drawPanel(){box(144,16,168,140);
   tx('줄',222,58,'#ffe66a');tx(String(lines).padStart(3,'0'),222,68,'#fff','left',F14);
   tx('점수',152,90,'#ffe66a');tx(pad6(score),152,104,'#fff','left',F14);
   tx('최고',152,124,'#ffe66a');tx(pad6(Math.max(best(),score)),152,136,'#aab4ff','left',F14);}
-const LOGO={T:['111','010','010','010','010'],E:['111','100','111','100','111'],R:['110','101','110','101','101'],I:['111','010','010','010','111'],S:['011','100','010','001','110']};
+const LOGO={O:['111','101','101','101','111'],T:['111','010','010','010','010'],E:['111','100','111','100','111'],R:['110','101','110','101','101'],I:['111','010','010','010','111'],S:['011','100','010','001','110']};
 function drawTitle(t,dt){
   X.save();X.globalAlpha=.32;for(const d of deco){d.y+=d.v*dt/1000;if(d.y>H+10){d.y=-40;d.k=KEYS[Math.floor(Math.random()*7)];}
     for(const[a,b]of SH[d.k])cell(d.x+a*CS,Math.round(d.y)+b*CS,d.k);}X.restore();
-  const ks='ZOTSIJ',x0=(W-(6*27-6))/2;
-  [...'TETRIS'].forEach((ch,i)=>LOGO[ch].forEach((r,y)=>[...r].forEach((v,x)=>{if(v==='1')cell(x0+i*27+x*7,50+y*7,ks[i],7);})));
+  const ks='ZOTSIJL',x0=(W-(7*27-6))/2;
+  [...'TETORIS'].forEach((ch,i)=>LOGO[ch].forEach((r,y)=>[...r].forEach((v,x)=>{if(v==='1')cell(x0+i*27+x*7,50+y*7,ks[i],7);})));
   box(104,100,112,40);tx('시작 레벨',160,104,'#ffe66a','center');tri(126,122,-1,'#fff');tri(190,122,1,'#fff');
   tx(String(lv0),160,119,'#fff','center',F14);
   tx('숫자 버튼 1~9로 골라요',160,148,'#8f98d8','center');
@@ -315,7 +314,6 @@ function draw(t,dt){
   if(st==='noise'){drawNoise();return;}
   X.drawImage(BG,0,0);
   if(st==='title')drawTitle(t,dt);else if(st==='result')drawResult(t);else{drawBoard();drawPanel();}
-  if(st!=='result')drawTori(t);
   drawOsd(t);}
 let last=0;
 function frame(t){if(!openNow)return;const dt=Math.min(50,t-last);last=t;tick(dt);draw(t,dt);raf=requestAnimationFrame(frame);}
