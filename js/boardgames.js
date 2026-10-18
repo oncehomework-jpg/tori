@@ -327,10 +327,10 @@ function tcDraw(){const T=bgS().tc,el=$('bgb');if(!T||!el)return;const my=T.h[0]
   else if(T.ph==='play'){const mine=T.turn===0&&my.length;const c=TC.sel.length?tcBest(TC.sel,T.cur?T.cur.c:null):null;
     info=mine?(TC.sel.length?(c?'낼 수 있어요: '+tcLabel(c,TC.sel):'이 카드로는 낼 수 없어요'):T.cur?'더 센 카드를 고르거나 패스해요':'아무 조합이나 내서 시작해요'):!my.length?'진우는 다 냈어요! 기다리는 중…':TC_NM[T.turn]+' 생각 중…';
     ctl=`<div class="tcinfo${mine?' on':''}">${esc(info)}</div><div class="row tcbtn"><button class="btn ghost sm" onclick="tcPassMe()" ${mine&&T.cur?'':'disabled'}>패스</button><button class="btn ghost sm" onclick="tcHint()" ${mine?'':'disabled'}>추천</button><button class="btn sm" onclick="tcGo()" ${mine&&c?'':'disabled'}>내기</button>${!T.played[0]&&!T.calls[0]?'<button class="btn pink sm" onclick="tcTichu()">티츄!</button>':''}</div>`;}
-  const n=my.length,ov=n>1?Math.min(0,Math.floor((Math.min(innerWidth-28,456)-48)/(n-1))-48):0;
+  const n=my.length,ov=n>1?Math.min(0,Math.floor((Math.min((matchMedia('(orientation:landscape) and (max-height:520px)').matches?innerWidth*.52:innerWidth)-28,456)-48)/(n-1))-48):0;
   const hand=`<div class="tchand" style="--ov:${ov}px">${my.map(id=>tcCard(id,(TC.sel.includes(id)?'on':'')+(TC.pk.includes(id)&&T.ph==='pass'?' gone':''),T.ph==='pass'||T.ph==='play'?`tcTap(${id})`:'')).join('')}</div>`;
   const recv=T.recv&&!T.played[0]&&T.ph==='play'?`<div class="muted" style="text-align:center">받은 카드: ${T.recv.map(([f,id])=>TC_NM[f]+'→'+(TC_SP[id]?TC_SP[id][2]:tcRN(tcR(id)))).join(' · ')}</div>`:'';
-  el.innerHTML=head+seats+qb+`<div id="tcwish"></div>`+hand+recv+ctl+`<div class="tclog">${T.log.slice(0,3).map(x=>`<div>${esc(x)}</div>`).join('')}</div>${tcTeamHtml(T)}<div style="text-align:center;margin-top:8px"><button class="btn ghost sm" onclick="tcRules()">규칙 보기</button></div>`;}
+  el.innerHTML=`<div class="tcL">`+head+seats+qb+`</div><div class="tcR"><div id="tcwish"></div>`+hand+recv+ctl+`<div class="tclog">${T.log.slice(0,3).map(x=>`<div>${esc(x)}</div>`).join('')}</div>${tcTeamHtml(T)}<div style="text-align:center;margin-top:8px"><button class="btn ghost sm" onclick="tcRules()">규칙 보기</button></div></div>`;}
 function tcRules(){modal(`<h3>🎴 티츄 규칙 (짧게)</h3><div class="bghelp">· 진우·토리가 한 팀, 타코·도치가 한 팀. 손에 든 카드를 먼저 다 내는 게 목표예요.<br>
 · 앞사람보다 <b>같은 모양으로 더 센</b> 카드를 내요: 한 장, 페어, 트리플, 풀하우스(3+2), 스트레이트(5장 이상 이어진 숫자), 연속 페어(이어진 페어 2쌍 이상). 못 내거나 안 내면 패스.<br>
 · 모두 패스하면 마지막에 낸 사람이 카드를 가져가고 새로 시작해요.<br>

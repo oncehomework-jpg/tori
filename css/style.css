@@ -514,3 +514,20 @@ header{position:static}
 #bgo.bgre{animation:none}
 #bgo.df-selecting #bgx,.df-pages .btn,.df-playing #bgx,.df-play .btn{position:relative}
 #bgo.df-selecting #bgx::after,.df-pages .btn::after,.df-playing #bgx::after,.df-play .btn::after{content:'';position:absolute;left:-3px;right:-3px;top:50%;height:44px;transform:translateY(-50%)}
+/* 온천 가로 화면: 안내 줄을 물속 친구 대신 위쪽(하늘)으로 — 이전·소리 버튼 사이 */
+@media(orientation:landscape){.os-hud{bottom:auto;top:calc(8px + env(safe-area-inset-top));width:min(calc(100% - 150px),560px)}}
+/* 폴리싱 후속 햄스터·설정: 바로 가기 칩·장식 구매 누르는 영역 44px(모양 그대로) · 백업 파일 저장 한 줄 · 타코 말풍선이 카드를 가리지 않게 */
+#secnav .chip,#s-pet .q .btn.wood{position:relative}
+#secnav .chip::after,#s-pet .q .btn.wood::after{content:'';position:absolute;left:-3px;right:-3px;top:50%;height:44px;transform:translateY(-50%)}
+.bkpair .btn{white-space:nowrap;font-size:min(calc(15px*var(--fs,1)),3.6vw)!important;padding-left:var(--sp-2);padding-right:var(--sp-2)}
+body.tkon main,body.tkon #app{padding-bottom:var(--tkh,0px)}
+#tako .tb{max-height:40vh;overflow-y:auto}
+
+/* 폴리싱(보드게임): 티츄 가로 화면 — 왼쪽 점수판·상대 카드, 오른쪽 내 손패·내기 버튼 */
+@media (orientation:landscape) and (max-height:520px){
+ #bgo .bgin:has(.tcL){max-width:900px}
+ #bgb:has(.tcL){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);column-gap:12px;align-items:start}
+ #bgb:has(.tcL) .tcsc{margin-bottom:var(--sp-4)}
+ #bgb:has(.tcL) .tctab{min-height:90px}
+ #bgb:has(.tcL) .tchand{padding-top:18px;margin-top:0}
+}

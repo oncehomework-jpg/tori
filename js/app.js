@@ -1407,9 +1407,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 세 자리 표기: 작은 수정 +1, 큰 변화 +5 (마지막 자리 올림 포함). sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v1.3.7',d:'2026.10.18',log:["미니게임·보드게임·틀린그림·온천 창이 부드럽게 열리고 닫혀요", "티츄 팀 작전 카드를 아래로 옮겨서 폰 세로 화면에서도 손패와 내기 버튼이 보여요", "스도쿠가 가로 화면에서 판과 버튼이 나란히 놓여요", "작은 버튼들을 누르기 쉬운 크기로 키웠어요", "장식을 살 때 한 번 물어보고, 상점 쪽수가 끝에서 처음으로 이어져요", "백업 버튼과 설명 문구 이름을 맞췄어요"]};
+const APP_VER={v:'v1.3.8',d:'2026.10.18',log:["티츄가 가로 화면에서 손패와 내기 버튼이 스크롤 없이 한눈에 보여요", "사라진 도토리 사건 결과 화면에 옛 사건 내용이 남지 않아요", "가로 온천에서 안내 줄이 위쪽으로 옮겨가 친구를 안 가려요", "바로 가기 칩·장식 구매 버튼을 누르기 쉬운 크기로 키웠고, 백업 파일 저장 버튼은 한 줄로 나와요", "타코 말풍선이 아래 카드를 가리지 않아요", "집 꾸미기는 「토리의 방」, 리본·왕관은 「토리 꾸미기」로 이름을 바꿨고, 햄스터 카드엔 보유 도토리와 코인만 크게 나와요"]};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v1.3.8',d:'2026.10.18',log:["티츄가 가로 화면에서 손패와 내기 버튼이 스크롤 없이 한눈에 보여요", "사라진 도토리 사건 결과 화면에 옛 사건 내용이 남지 않아요", "가로 온천에서 안내 줄이 위쪽으로 옮겨가 친구를 안 가려요", "바로 가기 칩·장식 구매 버튼을 누르기 쉬운 크기로 키웠고, 백업 파일 저장 버튼은 한 줄로 나와요", "타코 말풍선이 아래 카드를 가리지 않아요", "집 꾸미기는 「토리의 방」, 리본·왕관은 「토리 꾸미기」로 이름을 바꿨고, 햄스터 카드엔 보유 도토리와 코인만 크게 나와요"]},
  {v:'v1.3.7',d:'2026.10.18',log:["미니게임·보드게임·틀린그림·온천 창이 부드럽게 열리고 닫혀요", "티츄 팀 작전 카드를 아래로 옮겨서 폰 세로 화면에서도 손패와 내기 버튼이 보여요", "스도쿠가 가로 화면에서 판과 버튼이 나란히 놓여요", "작은 버튼들을 누르기 쉬운 크기로 키웠어요", "장식을 살 때 한 번 물어보고, 상점 쪽수가 끝에서 처음으로 이어져요", "백업 버튼과 설명 문구 이름을 맞췄어요"]},
  {v:'v1.3.6',d:'2026.10.18',log:["폰을 가로로 돌려도 미니게임 판과 닫기 단추가 화면 안에 다 보여요", "유령 잡기·사탕 미로 끝 화면에서 글자가 겹치던 것을 고쳤어요", "앱을 켜 둔 채 자정이 지나면 홈이 새 날로 바뀌어요", "가로 화면에서 토리 사진이 화면 안에 들어오고, 홈 버튼이 누르기 쉬운 크기가 됐어요", "밤 타코 말풍선이 더 빨리 사라지고, 홈 카드 제목·문구를 다듬었어요"]},
  {v:'v1.3.1',d:'2026.10.18',log:["TV 테트리스 이름이 「테토리스」로 바뀌었어요", "TV 화면이 잘려 보이던 문제를 고쳐서 화면이 TV에 꽉 차게 나와요", "TV 화면 오른쪽 아래 토리 응원 그림은 뺐어요"]},
@@ -1693,7 +1694,7 @@ const ACC=[[2,'🎀','리본','ribbon'],[4,'🎸','기타','guitar'],[7,'👑','
 /* 레벨이 올라 얻은 장식은 햄스터 탭에서 하나씩 끄고 켤 수 있어요 (S.accOff에 꺼 둔 장식 이름을 저장) */
 function accTog(k){const o=Array.isArray(S.accOff)?S.accOff:[];S.accOff=o.includes(k)?o.filter(x=>x!==k):o.concat(k);save();rPet();}
 function accCard(){const lv=lvOf(S.fed),own=ACC.filter(a=>lv>=a[0]),off=Array.isArray(S.accOff)?S.accOff:[];if(!own.length)return '';
-  return `<div class="card"><h2>🎀 토리 장식</h2>${own.map(a=>{const on=!off.includes(a[3]);return `<div class="q"><span>${a[1]} ${a[2]}</span><button class="btn sm ${on?'':'ghost'}" onclick="accTog('${a[3]}')">${on?'착용 중':'벗는 중'}</button></div>`;}).join('')}</div>`;}
+  return `<div class="card"><h2>🎀 토리 꾸미기</h2>${own.map(a=>{const on=!off.includes(a[3]);return `<div class="q"><span>${a[1]} ${a[2]}</span><button class="btn sm ${on?'':'ghost'}" onclick="accTog('${a[3]}')">${on?'착용 중':'벗는 중'}</button></div>`;}).join('')}</div>`;}
 function accHtml(f,cls){const lv=lvOf(f==null?S.fed:f),off=Array.isArray(S.accOff)?S.accOff:[];return ACC.filter(a=>lv>=a[0]&&!off.includes(a[3])).map(a=>`<span class="ac ${a[3]}">${a[1]}</span>`).join('');}
 function mood(){const h=kst().getUTCHours();if(h>=23||h<6)return['쿨쿨 자는 중… zZ','sleep'];const t=(Date.now()-(S.lastFeed||S.born||Date.now()))/36e5;
   if(t>30)return['배가 출출해요… 도토리 주세요!','hungry'];if(S.lastFeed&&t<1/60)return['볼이 빵빵! 행복해요','full'];return['기분 좋아요','ok'];}
@@ -1788,7 +1789,7 @@ function decoHtml(bk){dMig();const lv=liveOk(heroKey());
   if(bk)return `<div class="deco bk">${it}</div>`;
   return `<div class="deco">${it}${mood()[1]==='sleep'?'<span class="zz">zZ</span>':''}${heroKey()==='h_hal'?'<span class="hal hb1">🦇</span><span class="hal hb2">🦇</span><span class="hal hg">👻</span>':''}${(()=>{const s=toriStyle();return s?`<span class="dc" style="right:5%;top:auto;bottom:3%;left:auto">${s.e}</span>`:'';})()}</div>`;}
 function decoCard(){const L=DECO.map((d,i)=>i).filter(i=>DECO[i][3]!=='r'||S.deco.own.includes(i)),pg=Math.ceil(L.length/DPP);dPage=((dPage%pg)+pg)%pg;const s=dPage*DPP;
-  return `<div class="card"><h2>🏠 토리 집 꾸미기</h2>${L.slice(s,s+DPP).map(i=>{const d=DECO[i],o=S.deco.own.includes(i),on=S.deco.on.includes(i);return `<div class="q"><span>${d[0]} ${esc(d[1])}<div class="muted">${dWall(i)?'벽':'바닥'} 장식 · ${o?(on?'배치 중':'보관 중'):'🌰 '+d[2]}</div></span>${o?`<button class="btn sm ${on?'ghost':''}" onclick="dToggle(${i})">${on?'치우기':'놓기'}</button>`:`<button class="btn sm wood" onclick="dAsk(${i})">구매</button>`}</div>`;}).join('')}
+  return `<div class="card"><h2>🏠 토리의 방</h2>${L.slice(s,s+DPP).map(i=>{const d=DECO[i],o=S.deco.own.includes(i),on=S.deco.on.includes(i);return `<div class="q"><span>${d[0]} ${esc(d[1])}<div class="muted">${dWall(i)?'벽':'바닥'} 장식 · ${o?(on?'배치 중':'보관 중'):'🌰 '+d[2]}</div></span>${o?`<button class="btn sm ${on?'ghost':''}" onclick="dToggle(${i})">${on?'치우기':'놓기'}</button>`:`<button class="btn sm wood" onclick="dAsk(${i})">구매</button>`}</div>`;}).join('')}
   <div class="row sp" style="margin-top:10px"><button class="btn sm" onclick="dPg(-1)">◀ 이전</button><span class="muted">${dPage+1} / ${pg}</span><button class="btn sm" onclick="dPg(1)">다음 ▶</button></div>
   <div class="row sp" style="margin-top:6px"><span class="muted">산 장식은 홈 화면 토리의 방에 놓여요. 홈에서 장식을 탭하면 옮기기 · 크기 · 토리 앞/뒤를 바꿀 수 있어요.</span><button class="btn ghost sm" style="margin-left:auto" onclick="dReset()">자리 초기화</button></div></div>${dSetCard()}`;}
 function dSetCard(){dMig();return `<div class="card"><h2>🧩 장식 세트</h2><div class="muted" style="margin-bottom:4px">세트를 다 모으면 도토리와 칭호를 받아요.</div>${DSET.map(s=>{const ids=dSetIds(s),n=ids.filter(i=>S.deco.own.includes(i)).length,ok=S.deco.sets.includes(s[0]);return `<div class="q"><span>${s[1]} ${esc(s[2])} <b class="qty">${n}/${ids.length}</b><div>${ids.map(i=>`<span class="${S.deco.own.includes(i)?'':'dim'}" title="${esc(DECO[i][1])}">${DECO[i][0]}</span>`).join(' ')}</div></span><span class="muted" style="text-align:right">${ok?'✅ 완성':'🌰 '+s[4]+'<br>+ 칭호'}</span></div>`;}).join('')}</div>`;}
@@ -1908,13 +1909,13 @@ function shDraw(){const e=$('shop');if(e)e.innerHTML=shopHtml();const o=$('shopo
 /* v8.1 정리: 퀘스트는 홈으로 (오늘 + 주간 한 카드) */
 function questCard(){const ids=qToday(),w=wkChk();return `<div class="card"><div class="row sp"><h2>📜 오늘의 퀘스트</h2><button class="btn ghost sm" onclick="qEdit()">✏️ 편집</button></div>${qList().map(q=>{const d=ids.includes(q.id);return `<div class="q ${d?'dim':''}"><span>${esc(q.e)} ${esc(q.n)}</span><button class="btn sm" ${d?'disabled':''} onclick="qDone('${q.id}')">${d?'완료':'+🌰'+q.r}</button></div>`;}).join('')||'<div class="empty">퀘스트를 추가해 보세요.</div>'}<div class="muted" style="margin-top:6px">모두 클리어하면 보너스 🌰${ECO.clear}! 퀘스트 도토리는 하루 최대 ${ECO.qCap}개예요. 도감에 새 장소를 기록하면 하루 한 번 🌰${ECO.dex}개를 얻어요.</div><h3 class="qh3">📅 주간 퀘스트</h3>${S.wq.map(q=>{const c=w.c[q.id]||0,dn=w.done.includes(q.id),td=w.d[q.id]===todayStr();return `<div class="q ${dn?'dim':''}"><span>${esc(q.e)} ${esc(q.n)}<div class="muted">${c}/${q.g}회 · 🌰${q.r}</div></span><button class="btn sm" ${dn||td?'disabled':''} onclick="wDone('${q.id}')">${dn?'완료':td?'오늘 함':'+1'}</button></div>`;}).join('')||'<div class="empty">✏️ 편집에서 주간 퀘스트를 추가해 보세요.</div>'}</div>`;}
 function rPet(){const f=S.fed,LI=lvInfo(f),lv=LI.lv,ids=qToday(),w=wkChk(),md=mood();
-  $('s-pet').innerHTML=`<div class="card"><div class="row"><span class="pavw"><img id="pav" class="${md[1]==='sleep'?'night':''} ${avCls()}" src="${AVATAR}" alt="" style="width:72px;height:72px;border:3px solid var(--ol);image-rendering:pixelated">${accHtml()}</span><div style="flex:1"><h2 style="margin:0">${esc(hn())}</h2><div>Lv.${lv} ${lvName(lv)}</div>${titleLine()}<div class="muted">${LI.max?'EXP MAX · 최고 레벨!':'EXP '+LI.cur+'/'+LI.need}</div><div class="bar"><i style="width:${LI.max?100:Math.round(LI.cur/LI.need*100)}%"></i></div></div></div>
+  $('s-pet').innerHTML=`<div class="card"><div class="row"><span class="pavw"><img id="pav" class="${md[1]==='sleep'?'night':''} ${avCls()}" src="${AVATAR}" alt="" style="width:72px;height:72px;border:3px solid var(--ol);image-rendering:pixelated">${accHtml()}</span><div style="flex:1"><h2 style="margin:0">${esc(hn())}</h2><div>Lv.${lv} ${lvName(lv)}</div>${titleLine()}<div class="muted">${LI.max?'EXP MAX · 최고 레벨!':'EXP '+LI.cur+'/'+LI.need} · 준 도토리 ${f}개</div><div class="bar"><i style="width:${LI.max?100:Math.round(LI.cur/LI.need*100)}%"></i></div></div></div>
   <div class="muted" style="margin-top:8px">💬 ${esc(hn())}: ${md[0]}</div>${toriLine()}${stLine()}
-  <div class="row sp" style="margin-top:8px"><span>🌰 보유 <b class="qty">${S.acorns}개</b></span><span class="muted">준 도토리 ${f}개</span></div>
+  <div class="row sp" style="margin-top:8px"><span>🌰 보유 <b class="qty">${S.acorns}개</b></span><span>🪙 코인 <b class="qty">${coinOf()}개</b></span></div>
   <div class="row" style="margin-top:8px"><button class="btn full" onclick="feed(1)">🌰 1개 주기</button><button class="btn wood full" onclick="feed(5)">🌰 5개 주기</button></div>
   <button class="btn ghost full" style="margin-top:8px" ${S.freeD===todayStr()?'disabled':''} onclick="freeFeed()">${S.freeD===todayStr()?'🍚 오늘 밥은 먹었어요':'🍚 밥 주기 (무료 · 하루 1번)'}</button>
   <div class="muted" style="margin-top:4px">밥은 배고픔만 채워 줘요. 도토리를 주면 레벨이 오르고 도토리 코인이 생겨요.</div>
-  <div class="muted" style="margin-top:8px">🪙 쓸 수 있는 코인 ${coinOf()}개 · 아래 상점에서 쓸 수 있어요</div></div>
+  <div class="muted" style="margin-top:8px">🪙 코인은 아래 상점에서 써요</div></div>
   <div class="card"><h2>🪙 도토리 상점</h2><div id="shop">${shopHtml()}</div></div>${decoCard()}${accCard()}${titleCard()}${albumCard()}`;}
 /* ---------- 토리 앨범 (보물상자에서 얻은 사진) ---------- */
 let albPg=0;
@@ -2495,9 +2496,9 @@ function tkNext(){if(tkOn||!tkQ.length)return;if($('splash')||$('tut')){setTimeo
   const nv=document.querySelector('nav'),vv=window.visualViewport,kb=vv?Math.max(0,innerHeight-vv.height-vv.offsetTop):0;
   o.style.bottom=(kb>80?kb+10:(nv?nv.offsetHeight:76)+6)+'px';
   o.innerHTML=`<img src="${TAKO}" alt="타코"><div class="tb">${esc(it.m)}${it.x?'<div class="muted">'+esc(it.x)+'</div>':''}${it.o?'<div class="tbr">'+it.o.map((b,i)=>`<button class="btn sm ${i?'ghost':''}" onclick="event.stopPropagation();tkAns(${b[1]})">${esc(b[0])}</button>`).join('')+'</div>':''}</div>`;
-  o.className='';void o.offsetWidth;o.className='on';clearTimeout(tkT);tkT=setTimeout(tkClose,it.ms||7000);sfx(it.k[0]==='='?'tick':(it.k==='down'||it.k==='away'?'coin':'fan'));}
+  o.className='';void o.offsetWidth;o.className='on';document.body.classList.add('tkon');document.body.style.setProperty('--tkh',(o.offsetHeight+(nv?nv.offsetHeight:76)+12)+'px');clearTimeout(tkT);tkT=setTimeout(tkClose,it.ms||7000);sfx(it.k[0]==='='?'tick':(it.k==='down'||it.k==='away'?'coin':'fan'));}
 function tkAns(v){tkClose();if(v===900){backupSend();return;}if(v===901){bkLater();return;}if(v>=400){dLayer(v-400);return;}if(v>=300){dSize(v-300);return;}if(v>=200){dMoveCancel();return;}if(v>=100){dMoveStart(v-100);return;}if(v<0)return;nightAns(v);}
-function tkClose(){if(!tkOn||tkOut)return;tkOut=1;clearTimeout(tkT);const o=$('tako');if(o)o.className='off';setTimeout(()=>{tkOn=0;tkOut=0;tkNext();},380);}
+function tkClose(){if(!tkOn||tkOut)return;tkOut=1;clearTimeout(tkT);const o=$('tako');if(o)o.className='off';setTimeout(()=>{tkOn=0;tkOut=0;if(!tkQ.length)document.body.classList.remove('tkon');tkNext();},380);}
 function tkDaily(k){const t=todayStr();if(!S.tk||S.tk.d!==t)S.tk={d:t};if(S.tk[k])return;S.tk[k]=1;save();tako(k);}
 /* ===== 타코: 도감에 기록할 때 반응 (종류별 여러 가지 + 상황에 맞는 한마디) ===== */
 const TKR={
@@ -2631,7 +2632,7 @@ function dyEdSave(){const ds=$('dyd').value,v=$('dyt').value.trim(),t=todayStr()
   window.dyEditing=0;save();closeM();sfx('coin');render();toast('일기를 저장했어요');takoDiaryRec(ds,!!o);}
 function dyDel(){const ds=$('dyd').value;askOk('이 날 일기를 지울까요?',()=>{S.diary=(S.diary||[]).filter(x=>x.d!==ds);save();render();toast('지웠어요');});}
 /* 도토리 내역용 이름표: 함수를 부르는 동안 들어오는 도토리에 이유를 붙여요 */
-[['checkIn','출석 체크'],['qDone','퀘스트'],['wDone','주간 퀘스트'],['quickAct','빠른 기록'],['actSave','활동 기록'],['plSave','도감 기록'],['songUp','곡 완성'],['mgEnd','미니게임'],['mg2End','미니게임'],['mg3End','미니게임'],['mg4End','미니게임'],['mg5End','미니게임'],['mg6End','미니게임'],['mg7End','미니게임'],['mg8End','미니게임'],['pat','쓰담쓰담'],['feed','토리에게 주기'],['dBuy','토리 집 꾸미기'],['dSetChk','장식 세트 완성'],['gachaGo','보상 뽑기'],['claimBday','생일 선물'],['achChk','업적']].forEach(([n,l])=>{const f=window[n];if(typeof f!=='function')return;window[n]=function(){const o=ACW;if(!o)ACW=l;try{return f.apply(this,arguments);}finally{ACW=o;}};});
+[['checkIn','출석 체크'],['qDone','퀘스트'],['wDone','주간 퀘스트'],['quickAct','빠른 기록'],['actSave','활동 기록'],['plSave','도감 기록'],['songUp','곡 완성'],['mgEnd','미니게임'],['mg2End','미니게임'],['mg3End','미니게임'],['mg4End','미니게임'],['mg5End','미니게임'],['mg6End','미니게임'],['mg7End','미니게임'],['mg8End','미니게임'],['pat','쓰담쓰담'],['feed','토리에게 주기'],['dBuy','토리의 방'],['dSetChk','장식 세트 완성'],['gachaGo','보상 뽑기'],['claimBday','생일 선물'],['achChk','업적']].forEach(([n,l])=>{const f=window[n];if(typeof f!=='function')return;window[n]=function(){const o=ACW;if(!o)ACW=l;try{return f.apply(this,arguments);}finally{ACW=o;}};});
 hold=fresh||loadErr;checkIn();if(hold)idbRestore();else save();
 /* 첫 화면은 다른 js 파일(boardgames.js 등)까지 다 읽은 뒤 그려요 (v1.1.9에서 파일을 나눈 뒤 osCard가 없다는 오류가 났음) */
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>render(),{once:true});else render();

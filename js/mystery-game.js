@@ -87,7 +87,8 @@ function myDraw(){const z=bgS().my,el=$('bgb');if(!z||!el)return;const done=!!z.
   const pl=MY_P.map((p,i)=>`<button class="${z.v.includes(i)?'vi':''}${i===cur?' on':''}" style="background-image:url(${MY_IMG[p.im]})" onclick="myVisit(${i})"${done?' disabled':''}><span>${esc(p.n)}</span></button>`).join('');
   const nb=[0,1,2].map(d=>`<div class="mynbh">${['누가?','무엇으로?','어디서?'][d]}</div><div class="mynb${d===2?' p':''}">${MY_D[d].map((o,i)=>{const k=d+''+i,m=z.mk[k]||0;return `<button class="${m===1?'x':m===2?'o':''}" onclick="myMark('${k}')"${done?' disabled':''}><span class="ic">${myIco(d,i,d===2?44:32)}</span>${esc(o.n)}</button>`;}).join('')}</div>`).join('');
   const cl=[myEvHtml(z.st,'처음')].concat(z.v.map(i=>myEvHtml(z.pl[i].f,MY_P[i].n)+mySayHtml(z.pl[i].t,MY_P[i].n))).join('');
-  el.innerHTML=`${done?myResHtml(z):''}<div class="card" id="myscn">${scn}</div>
+  if(done){el.innerHTML=myResHtml(z).replace(/<\/div>$/,`<div class="row" style="margin-top:12px"><button class="btn full" onclick="myPick()">새 사건</button><button class="btn ghost full" onclick="bgClose()">닫기</button></div></div>`);return;}
+  el.innerHTML=`<div class="card" id="myscn">${scn}</div>
   <div class="card"><h2>조사할 곳 <span class="muted" style="font-size:14px">${z.v.length}곳 조사함</span></h2><div class="mypl">${pl}</div>
    ${done?`<div class="row" style="margin-top:12px"><button class="btn full" onclick="myPick()">새 사건</button><button class="btn ghost full" onclick="bgClose()">닫기</button></div>`:`<button class="btn wood full" style="margin-top:12px" onclick="myAsk()">범인 지목하기</button>`}</div>
   <div class="card"><h2>탐정 수첩 <span class="muted" style="font-size:14px">누르면 ✕ → ○ → 빈칸</span></h2>${nb}</div>
