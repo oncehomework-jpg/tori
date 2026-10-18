@@ -77,6 +77,9 @@ const CSS=`
 .tt-num{grid-area:num;width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--s)*8) calc(var(--s)*12)}
 #mg.land .tt-num{gap:calc(var(--s)*8)}
 .tt-num .tt-b{height:calc(var(--s)*26);font-family:'Galmuri14',sans-serif;font-size:calc(var(--s)*14);border-radius:calc(var(--s)*13)}
+/* 작은 버튼은 모양은 그대로 두고 누르는 영역만 44px 높이로 넓힘 (v1.3.7 폴리싱 ④) */
+.tt-cb .tt-b,.tt-num .tt-b,.tt-mu{position:relative}
+.tt-cb .tt-b::after,.tt-num .tt-b::after,.tt-mu::after{content:'';position:absolute;left:-3px;right:-3px;top:50%;height:44px;margin-top:-22px}
 .tt-help{grid-area:help;font-size:calc(var(--s)*10);color:#8f8f9a;text-align:center;line-height:1.5}
 `;
 const UP='<svg viewBox="0 0 10 10"><path d="M5 2 9 8H1z"/></svg>',DN='<svg viewBox="0 0 10 10"><path d="M5 8 9 2H1z"/></svg>';
@@ -193,7 +196,7 @@ function finishClear(){const n=clr.length,before=level();
 function checkDanger(){const d=board.slice(0,5).some(r=>r.some(v=>v));if(d&&!danger)say('으앗 위험해요!');danger=d;urgent=d;}
 /* 끝: 보상은 줄 수로(10줄 1개·25줄 2개), 기록은 점수로 */
 function gameOver(){const t=++tok;st='over';overN=0;overT=0;cur=null;musStop();held={};sfx('over');vib([60,40,60]);say('아쉬워요 ㅠㅠ',3000);
-  const r=lines>=25?2:lines>=10?1:0,before=S.acorns,[m,nb]=mgRw(r,'10줄부터 도토리를 받아요','bt',score);
+  const r=lines>=25?2:lines>=10?1:0,before=S.acorns,[m,nb]=mgRw(r,'10줄이면 도토리 1개, 25줄이면 2개','bt',score);
   newBest=nb&&score>0;rw={r,got:S.acorns-before,full:/오늘 보상은 다/.test(m)};
   setTimeout(()=>{if(t!==tok)return;anim('off');sfx('poff');
     setTimeout(()=>{if(t!==tok)return;st='result';anim('on',560);},900);},1250);}
@@ -299,7 +302,7 @@ function drawResult(t){
   if(newBest){if(Math.floor(t/400)%2===0)tx('최고 기록!',160,136,'#7dff7d','center');}else tx('최고 '+pad6(best()),160,136,'#aab4ff','center');
   if(rw&&rw.got){tx('도토리',138,170,'#fff','right');for(let i=0;i<rw.got;i++)acorn(144+i*20,168);tx(rw.got+'개 받았어요!',148+rw.got*20,170,'#fff');}
   else if(rw&&rw.r&&rw.full)tx('오늘 보상은 다 받았어요 (연습은 계속!)',160,170,'#ccd','center');
-  else tx('10줄부터 도토리를 받아요',160,170,'#ccd','center');
+  else tx('10줄이면 1개, 25줄이면 2개 받아요',160,170,'#ccd','center');
   if(Math.floor(t/520)%2===0)tx('확인: 한 번 더',160,196,'#ffe66a','center');tx('파랑: 나가기',160,212,'#8f98d8','center');}
 function drawNoise(){const d=NI.data;for(let i=0;i<d.length;i+=4){const v=Math.random()*255|0;d[i]=d[i+1]=d[i+2]=v;d[i+3]=255;}NQ.putImageData(NI,0,0);X.drawImage(NZ,0,0,W,H);}
 
@@ -340,7 +343,7 @@ function tetOpen(){if($('mg'))return;
   lay();au();powerOn();last=performance.now();raf=requestAnimationFrame(frame);}
 function tetClose(){openNow=false;++tok;musStop();held={};cancelAnimationFrame(raf);raf=0;
   removeEventListener('keydown',onKey);removeEventListener('keyup',onKeyUp);removeEventListener('resize',lay);document.removeEventListener('visibilitychange',onHide);
-  const o=$('mg');if(o)o.remove();C=X=PIC=null;st='off';render();if(typeof bgStart==='function')bgStart();}
+  const o=$('mg');if(o&&typeof mgGone==='function')mgGone(o);else if(o)o.remove();C=X=PIC=null;st='off';render();if(typeof bgStart==='function')bgStart();}
 window.tetOpen=tetOpen;window.tetClose=tetClose;
 /* 검사용(tools/test_tetris.js) */
 window.TET={press,release,tick,get st(){return st},get score(){return score},get lines(){return lines},get level(){return level()},get cur(){return cur},get board(){return board},set board(b){board=b},

@@ -473,3 +473,44 @@ input,textarea,[contenteditable]{font-size:max(16px,1em)!important}
 /* ===== 폴리싱 ② 홈 (v1.3.x 작업 중) ===== */
 #s-home .btn,#s-home .btn.sm{min-height:44px}   /* 누르기 쉬운 크기 */
 @media (orientation:landscape) and (max-height:500px){#s-home .hero{width:min(100%,calc((100vh - 76px)*9/16));margin-left:auto;margin-right:auto}}   /* 가로 화면: 토리 사진이 화면 높이 안에 들어오게 */
+
+/* 폴리싱 ③ 햄스터 탭: 가로 화면에서 위 줄이 화면을 덜 가리고, 사진 크게 보기는 사진 옆에 버튼이 놓여요 */
+@media(orientation:landscape) and (max-height:500px){
+header{position:static}
+#secnav{position:static;margin-top:0}
+.phwrap{display:flex;gap:var(--sp-10);align-items:center}
+.phwrap .phbig{height:calc(100vh - 110px);max-height:260px;margin:var(--sp-8) 0 0;flex:none;max-width:none}
+.phwrap .phbtn{flex:1;min-width:0}
+}
+
+/* 미니게임·테토리스 창: 부드럽게 열고 닫기(v1.3.7 폴리싱 ④) · 끝나도 판이 안 밀리게 결과 글줄 자리를 미리 잡아 둠 */
+@keyframes mgIn{from{opacity:0}to{opacity:1}}@keyframes mgOut{from{opacity:1}to{opacity:0}}
+#mg{animation:mgIn .22s ease-out}
+#mgx{position:fixed;inset:0;z-index:70;pointer-events:none;animation:mgOut .28s ease-in forwards}
+@media(orientation:portrait) and (min-height:700px){#mg #mgh{min-height:calc(3 * 1.6em);display:flex;align-items:flex-end;justify-content:center}}
+@media (prefers-reduced-motion:reduce){#mg,#mgx{animation:none}#mgx{display:none}}
+
+/* 폴리싱 ⑤ 보드게임: 창 부드럽게 열기(닫기는 mgGone) · 작은 버튼 누르는 영역 44px · 가로 화면 스도쿠 2열 */
+#bgo{animation:mgIn .22s ease-out}
+#bgx,.sutools .btn,.tcbtn .btn,.tcinfo+.row .btn,#bgb .tclog~div .btn{position:relative}
+#bgx::after,.sutools .btn::after,.tcbtn .btn::after,#bgb .tclog~div .btn::after{content:'';position:absolute;left:-3px;right:-3px;top:50%;height:44px;transform:translateY(-50%)}
+.tcpk~.row .btn,#bgb .row .btn.full,.bg-compact-head .btn{min-height:44px}
+.tc-team{margin-top:var(--sp-12)}
+@media (orientation:landscape) and (max-height:520px){
+ #bgo .bgin:has(.sugrid){max-width:820px}
+ #bgb:has(.sugrid){display:grid;grid-template-columns:min(calc(100dvh - 70px),52vw) 1fr;column-gap:14px;align-items:start}
+ #bgb:has(.sugrid)>.sugrid{grid-column:1;grid-row:1/7;width:100%}
+ #bgb:has(.sugrid)>:not(.sugrid){grid-column:2}
+ #bgb:has(.sugrid)>.bgdone{grid-column:1/-1}
+ #bgb:has(.sugrid) .supad{gap:var(--sp-2)}
+ #bgb:has(.sugrid) .suc{font-size:min(4.6vh,22px)!important}
+}
+@media (prefers-reduced-motion:reduce){#bgo{animation:none}}
+
+/* 폴리싱 ⑦: 보상·도감·설정 작은 버튼 44px, 칩 줄 오른쪽 끝 흐림(옆으로 밀 수 있다는 단서) */
+#s-set .btn.sm,#s-set .chip,#s-place .chip,#s-coupon .chip,#s-coupon .btn.sm,#s-place .btn.sm{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+#s-place .chips,#s-coupon .chips{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
+/* 폴리싱 ⑥ 틀린그림·온천: 창 안에서 화면만 바뀔 때(그림 넘기기·시작·뒤로)는 다시 페이드하지 않음 · 틀린그림 작은 버튼 누르는 영역 44px */
+#bgo.bgre{animation:none}
+#bgo.df-selecting #bgx,.df-pages .btn,.df-playing #bgx,.df-play .btn{position:relative}
+#bgo.df-selecting #bgx::after,.df-pages .btn::after,.df-playing #bgx::after,.df-play .btn::after{content:'';position:absolute;left:-3px;right:-3px;top:50%;height:44px;transform:translateY(-50%)}
