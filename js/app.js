@@ -1407,9 +1407,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 세 자리 표기: 작은 수정 +1, 큰 변화 +5 (마지막 자리 올림 포함). sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v1.3.9',d:'2026.10.18',log:["앱을 위로 밀어 끌 때 나던 「띵」 소리를 다시 고쳤어요(소리를 살짝 줄여 멈추고, 돌아와도 잠깐 기다렸다 켜요)", "틀린 그림 찾기 소개 글에서 그림 장수 문장을 뺐어요"]};
+const APP_VER={v:'v1.4.0',d:'2026.10.18',log:["테토리스를 꾹 누르거나 여러 번 눌러도 화면이 확대되거나 글자가 선택되지 않게 더 단단히 막았어요"]};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v1.4.0',d:'2026.10.18',log:["테토리스를 꾹 누르거나 여러 번 눌러도 화면이 확대되거나 글자가 선택되지 않게 더 단단히 막았어요"]},
  {v:'v1.3.9',d:'2026.10.18',log:["앱을 위로 밀어 끌 때 나던 「띵」 소리를 다시 고쳤어요(소리를 살짝 줄여 멈추고, 돌아와도 잠깐 기다렸다 켜요)", "틀린 그림 찾기 소개 글에서 그림 장수 문장을 뺐어요"]},
  {v:'v1.3.8',d:'2026.10.18',log:["티츄가 가로 화면에서 손패와 내기 버튼이 스크롤 없이 한눈에 보여요", "사라진 도토리 사건 결과 화면에 옛 사건 내용이 남지 않아요", "가로 온천에서 안내 줄이 위쪽으로 옮겨가 친구를 안 가려요", "바로 가기 칩·장식 구매 버튼을 누르기 쉬운 크기로 키웠고, 백업 파일 저장 버튼은 한 줄로 나와요", "타코 말풍선이 아래 카드를 가리지 않아요", "집 꾸미기는 「토리의 방」, 리본·왕관은 「토리 꾸미기」로 이름을 바꿨고, 햄스터 카드엔 보유 도토리와 코인만 크게 나와요"]},
  {v:'v1.3.7',d:'2026.10.18',log:["미니게임·보드게임·틀린그림·온천 창이 부드럽게 열리고 닫혀요", "티츄 팀 작전 카드를 아래로 옮겨서 폰 세로 화면에서도 손패와 내기 버튼이 보여요", "스도쿠가 가로 화면에서 판과 버튼이 나란히 놓여요", "작은 버튼들을 누르기 쉬운 크기로 키웠어요", "장식을 살 때 한 번 물어보고, 상점 쪽수가 끝에서 처음으로 이어져요", "백업 버튼과 설명 문구 이름을 맞췄어요"]},
@@ -2218,7 +2219,7 @@ document.addEventListener('selectstart',e=>e.preventDefault(),{capture:true,pass
 document.addEventListener('copy',e=>e.preventDefault(),{capture:true,passive:false});
 ['gesturestart','gesturechange','gestureend'].forEach(n=>document.addEventListener(n,e=>e.preventDefault(),{capture:true,passive:false}));
 // iOS treats native touch defaults separately from pointer events. Games use pointer input.
-['touchstart','touchend'].forEach(n=>document.addEventListener(n,e=>{if(e.target.closest&&e.target.closest('#mg canvas'))e.preventDefault();},{capture:true,passive:false}));
+['touchstart','touchend'].forEach(n=>document.addEventListener(n,e=>{if(e.target.closest&&e.target.closest('#mg canvas,#mg.tt'))e.preventDefault();},{capture:true,passive:false}));
 document.addEventListener('touchstart',e=>{if(e.touches&&e.touches.length>1)e.preventDefault();if(!_ed(e.target)){const selection=window.getSelection();if(selection&&!selection.isCollapsed)selection.removeAllRanges();}},{capture:true,passive:false});
 document.addEventListener('touchmove',e=>{if(e.touches&&e.touches.length>1)e.preventDefault();},{passive:false});
 document.addEventListener('dblclick',e=>e.preventDefault());

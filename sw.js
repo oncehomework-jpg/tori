@@ -4,7 +4,7 @@
 //   (같은 이름으로 파일을 바꿔 올릴 때는 아래 CACHE 숫자를 올려야 폰이 새 파일을 받아요)
 // - 새 버전을 받으면 다음에 앱을 켤 때 적용돼요.
 // - CDN 폰트/CSS: 한 번 받으면 저장본을 써요.
-const CACHE = 'jw-diary-v1.3.9';   // js/app.js 의 APP_VER 와 같은 숫자로 맞춰요
+const CACHE = 'jw-diary-v1.4.0';   // js/app.js 의 APP_VER 와 같은 숫자로 맞춰요
 // 토리 알림(v5.1): 앱이 적어 둔 상태(tori-state 캐시)를 보고, 폰이 깨워 줄 때(periodicsync) 하루 한 번만 알림
 const STATE = 'tori-state', STATE_URL = 'tori-state.json';
 // 앱 파일: 처음 켤 때 저장해 두면 인터넷이 없어도 열려요
