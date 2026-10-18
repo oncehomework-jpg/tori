@@ -534,3 +534,6 @@ body.tkon main,body.tkon #app{padding-bottom:var(--tkh,0px)}
 /* v1.4.0 테토리스 리모컨: 꾹 누를 때 확대·선택 방지 — 버튼 안 그림은 터치를 받지 않게 */
 #mg.tt .tt-b *{pointer-events:none}
 #mg.tt,#mg.tt *{-webkit-touch-callout:none!important;-webkit-user-select:none!important;user-select:none!important;touch-action:none!important}
+/* v1.4.1 앨범 사진 크게 보기(세로): 창을 조금 더 키우고 사진을 화면 높이에 맞춰 아래 버튼이 안 잘리게 */
+.box:has(.phwrap){max-height:96%}
+@media(orientation:portrait){.phwrap .phbig{height:min(62vh,calc(100dvh - 290px))}}

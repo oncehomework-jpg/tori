@@ -338,6 +338,9 @@ function tetOpen(){if($('mg'))return;
     const up=()=>{b.classList.remove('dn');release(k);};
     b.addEventListener('pointerup',up);b.addEventListener('pointercancel',up);b.addEventListener('lostpointercapture',up);
     b.addEventListener('contextmenu',e=>e.preventDefault());});
+  /* v1.4.1: 꾹 누르면 나오는 iOS 돋보기(글자 선택 돋보기) 막기 — 창 자체에서 터치 기본동작을 끊고, 남아 있던 선택·입력 초점을 지워요 */
+  ['touchstart','touchmove','touchend','selectstart','dragstart','gesturestart'].forEach(n=>o.addEventListener(n,e=>{if(e.cancelable)e.preventDefault();},{passive:false}));
+  o.addEventListener('pointerdown',()=>{try{const a=document.activeElement;if(a&&a!==document.body&&a.blur)a.blur();const g=getSelection();if(g&&g.rangeCount)g.removeAllRanges();}catch(_){}},true);
   openNow=true;st='off';tok++;held={};osd=null;msg=null;cur=null;
   addEventListener('keydown',onKey);addEventListener('keyup',onKeyUp);addEventListener('resize',lay);document.addEventListener('visibilitychange',onHide);
   lay();au();powerOn();last=performance.now();raf=requestAnimationFrame(frame);}

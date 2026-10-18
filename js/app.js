@@ -1407,9 +1407,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 세 자리 표기: 작은 수정 +1, 큰 변화 +5 (마지막 자리 올림 포함). sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v1.4.0',d:'2026.10.18',log:["테토리스를 꾹 누르거나 여러 번 눌러도 화면이 확대되거나 글자가 선택되지 않게 더 단단히 막았어요"]};
+const APP_VER={v:'v1.4.1',d:'2026.10.19',log:["앨범에서 사진을 크게 볼 때 아래 버튼이 잘리지 않게 창을 조금 키웠어요", "토리가 자는 시간(밤 11시~아침 6시)에는 고른 홈 사진이나 명절 사진이 아니라 늘 자는 사진이 나와요", "테토리스를 꾹 눌렀을 때 나오던 돋보기를 한 번 더 막았어요"]};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v1.4.1',d:'2026.10.19',log:["앨범에서 사진을 크게 볼 때 아래 버튼이 잘리지 않게 창을 조금 키웠어요", "토리가 자는 시간(밤 11시~아침 6시)에는 고른 홈 사진이나 명절 사진이 아니라 늘 자는 사진이 나와요", "테토리스를 꾹 눌렀을 때 나오던 돋보기를 한 번 더 막았어요"]},
  {v:'v1.4.0',d:'2026.10.18',log:["테토리스를 꾹 누르거나 여러 번 눌러도 화면이 확대되거나 글자가 선택되지 않게 더 단단히 막았어요"]},
  {v:'v1.3.9',d:'2026.10.18',log:["앱을 위로 밀어 끌 때 나던 「띵」 소리를 다시 고쳤어요(소리를 살짝 줄여 멈추고, 돌아와도 잠깐 기다렸다 켜요)", "틀린 그림 찾기 소개 글에서 그림 장수 문장을 뺐어요"]},
  {v:'v1.3.8',d:'2026.10.18',log:["티츄가 가로 화면에서 손패와 내기 버튼이 스크롤 없이 한눈에 보여요", "사라진 도토리 사건 결과 화면에 옛 사건 내용이 남지 않아요", "가로 온천에서 안내 줄이 위쪽으로 옮겨가 친구를 안 가려요", "바로 가기 칩·장식 구매 버튼을 누르기 쉬운 크기로 키웠고, 백업 파일 저장 버튼은 한 줄로 나와요", "타코 말풍선이 아래 카드를 가리지 않아요", "집 꾸미기는 「토리의 방」, 리본·왕관은 「토리 꾸미기」로 이름을 바꿨고, 햄스터 카드엔 보유 도토리와 코인만 크게 나와요"]},
@@ -2295,8 +2296,8 @@ const dayNo=()=>Math.floor(Date.parse(todayStr()+'T00:00:00Z')/864e5);
 function fedToday(){return !!S.lastFeed&&new Date(S.lastFeed+9*36e5).toISOString().slice(0,10)===todayStr();}
 function heroKey(){
   const now=Date.now();if(RX&&now<RX.t)return RX.k;
+  const md=mood()[1];if(md==='sleep')return 'sleep';   /* v1.4.1: 자는 시간(23~06시)에는 고른 앨범 사진·명절 그림보다 늘 자는 사진이 먼저 */
   if(heroPhOk())return 'ph:'+S.heroPh;   /* v1.2.5: 앨범 사진을 홈 사진으로 골랐으면 늘 그 사진(밥 줄 때 같은 잠깐 반응만 먼저) */
-  const md=mood()[1];if(md==='sleep')return todayStr().slice(5)==='12-24'?'h_xme':'sleep';
   if(isBday())return 'bday';
   const t0=todayStr();{const hd=HOL.find(h=>!(S.holOff||{})[h[0]]&&TORI_IMG['h_'+h[0]]&&holNext(h)===t0);if(hd)return 'h_'+hd[0];}
   {const md5=t0.slice(5);if(md5==='12-23')return 'h_gin';if(md5>='04-01'&&md5<='04-07')return dayNo()%2?'h_sak1':'h_sak2';if(md5==='12-24')return 'h_xme';if(md5==='12-25')return kst().getUTCHours()<12?'h_xma':'h_xmp';if(md5==='12-31'&&t0.slice(0,4)===NYE_YEAR)return 'h_nye';if(md5==='10-31')return 'h_hal';}
