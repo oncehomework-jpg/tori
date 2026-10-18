@@ -85,7 +85,7 @@ function bkLater(){const d=new Date(Date.parse(todayStr()+'T00:00:00Z')+BK_DAYS*
 /* v8.2 정리: 접는 묶음(열림 상태는 S.gOpen에 기억) · 놀이 카드(미니게임/보드게임 탭) */
 function grp(k,title,inner,cls){const o=S.gOpen&&S.gOpen[k];return inner?`<details class="card grp${cls?' '+cls:''}" ${o?'open':''} ontoggle="gTog('${k}',this.open)"><summary><h2>${title}</h2></summary><div class="grpin">${inner}</div></details>`:'';}
 function gTog(k,v){if(!S.gOpen||typeof S.gOpen!=='object')S.gOpen={};if(!!S.gOpen[k]===v)return;if(v)S.gOpen[k]=1;else delete S.gOpen[k];save();}
-function playCard(){const t=['mg','bg','mj','diff'].includes(S.playT)?S.playT:'mg';return `<div class="card playc"><h2>🎮 놀이</h2><div class="playtabs" role="tablist" aria-label="놀이 종류">${[['mg','미니게임'],['bg','보드게임'],['mj','마작'],['diff','틀린 그림 찾기']].map(([k,n])=>`<button class="btn playtab ${t===k?'chosen':''}" role="tab" aria-selected="${t===k}" onclick="playT('${k}')">${n}</button>`).join('')}</div><div class="playin" role="tabpanel">${t==='mg'?mgList():t==='bg'?(typeof bdgCard==='function'?bdgCard():''):t==='mj'?`<div class="gameintro"><img src="images/scenes/mahjong-room-v92.webp" alt="친구들이 함께하는 따뜻한 토리네 마작방" width="1400" height="1045" style="display:block;width:100%;height:auto;border:3px solid #765334;margin-bottom:14px"><h3>토리네 마작방</h3><p>동풍전 · 네 친구와 한 판</p><button class="btn wood" onclick="mjRoomOpen()">마작방 들어가기</button></div>`:`<div class="gameintro"><h3>토리의 틀린 그림 찾기</h3><p>두 그림을 비교해 다른 곳 7개를 찾아요.<br>도트 마을·로판 궁정·사천당가까지 그림 ${DF_SCENES.length}장이 기다려요.</p><button class="btn wood" onclick="dfOpen()">그림 고르기</button></div>`}</div></div>`;}
+function playCard(){const t=['mg','bg','mj','diff'].includes(S.playT)?S.playT:'mg';return `<div class="card playc"><h2>🎮 놀이</h2><div class="playtabs" role="tablist" aria-label="놀이 종류">${[['mg','미니게임'],['bg','보드게임'],['mj','마작'],['diff','틀린 그림 찾기']].map(([k,n])=>`<button class="btn playtab ${t===k?'chosen':''}" role="tab" aria-selected="${t===k}" onclick="playT('${k}')">${n}</button>`).join('')}</div><div class="playin" role="tabpanel">${t==='mg'?mgList():t==='bg'?(typeof bdgCard==='function'?bdgCard():''):t==='mj'?`<div class="gameintro"><img src="images/scenes/mahjong-room-v92.webp" alt="친구들이 함께하는 따뜻한 토리네 마작방" width="1400" height="1045" style="display:block;width:100%;height:auto;border:3px solid #765334;margin-bottom:14px"><h3>토리네 마작방</h3><p>동풍전 · 네 친구와 한 판</p><button class="btn wood" onclick="mjRoomOpen()">마작방 들어가기</button></div>`:`<div class="gameintro"><h3>토리의 틀린 그림 찾기</h3><p>두 그림을 비교해 다른 곳 7개를 찾아요.</p><button class="btn wood" onclick="dfOpen()">그림 고르기</button></div>`}</div></div>`;}
 function playT(t){S.playT=t;save();const c=document.querySelector('.playc');if(c)c.outerHTML=playCard();}
 function rHome(){
   const left=S.coupons.reduce((a,c)=>a+(+c.qty||0),0),y=+todayStr().slice(0,4),nb=nextBday();
@@ -1407,9 +1407,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 세 자리 표기: 작은 수정 +1, 큰 변화 +5 (마지막 자리 올림 포함). sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v1.3.8',d:'2026.10.18',log:["티츄가 가로 화면에서 손패와 내기 버튼이 스크롤 없이 한눈에 보여요", "사라진 도토리 사건 결과 화면에 옛 사건 내용이 남지 않아요", "가로 온천에서 안내 줄이 위쪽으로 옮겨가 친구를 안 가려요", "바로 가기 칩·장식 구매 버튼을 누르기 쉬운 크기로 키웠고, 백업 파일 저장 버튼은 한 줄로 나와요", "타코 말풍선이 아래 카드를 가리지 않아요", "집 꾸미기는 「토리의 방」, 리본·왕관은 「토리 꾸미기」로 이름을 바꿨고, 햄스터 카드엔 보유 도토리와 코인만 크게 나와요"]};
+const APP_VER={v:'v1.3.9',d:'2026.10.18',log:["앱을 위로 밀어 끌 때 나던 「띵」 소리를 다시 고쳤어요(소리를 살짝 줄여 멈추고, 돌아와도 잠깐 기다렸다 켜요)", "틀린 그림 찾기 소개 글에서 그림 장수 문장을 뺐어요"]};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v1.3.9',d:'2026.10.18',log:["앱을 위로 밀어 끌 때 나던 「띵」 소리를 다시 고쳤어요(소리를 살짝 줄여 멈추고, 돌아와도 잠깐 기다렸다 켜요)", "틀린 그림 찾기 소개 글에서 그림 장수 문장을 뺐어요"]},
  {v:'v1.3.8',d:'2026.10.18',log:["티츄가 가로 화면에서 손패와 내기 버튼이 스크롤 없이 한눈에 보여요", "사라진 도토리 사건 결과 화면에 옛 사건 내용이 남지 않아요", "가로 온천에서 안내 줄이 위쪽으로 옮겨가 친구를 안 가려요", "바로 가기 칩·장식 구매 버튼을 누르기 쉬운 크기로 키웠고, 백업 파일 저장 버튼은 한 줄로 나와요", "타코 말풍선이 아래 카드를 가리지 않아요", "집 꾸미기는 「토리의 방」, 리본·왕관은 「토리 꾸미기」로 이름을 바꿨고, 햄스터 카드엔 보유 도토리와 코인만 크게 나와요"]},
  {v:'v1.3.7',d:'2026.10.18',log:["미니게임·보드게임·틀린그림·온천 창이 부드럽게 열리고 닫혀요", "티츄 팀 작전 카드를 아래로 옮겨서 폰 세로 화면에서도 손패와 내기 버튼이 보여요", "스도쿠가 가로 화면에서 판과 버튼이 나란히 놓여요", "작은 버튼들을 누르기 쉬운 크기로 키웠어요", "장식을 살 때 한 번 물어보고, 상점 쪽수가 끝에서 처음으로 이어져요", "백업 버튼과 설명 문구 이름을 맞췄어요"]},
  {v:'v1.3.6',d:'2026.10.18',log:["폰을 가로로 돌려도 미니게임 판과 닫기 단추가 화면 안에 다 보여요", "유령 잡기·사탕 미로 끝 화면에서 글자가 겹치던 것을 고쳤어요", "앱을 켜 둔 채 자정이 지나면 홈이 새 날로 바뀌어요", "가로 화면에서 토리 사진이 화면 안에 들어오고, 홈 버튼이 누르기 쉬운 크기가 됐어요", "밤 타코 말풍선이 더 빨리 사라지고, 홈 카드 제목·문구를 다듬었어요"]},
@@ -2203,7 +2204,7 @@ function bgSched(){while(bgNext<AC.currentTime+.3){if(bgStep%32===0)bgTr=BGM[bgI
   if(i%2===0)bgTone(T.r+T.ch[bar]+12+((i/2)%2?7:0),bgNext,e*1.8,'triangle',.9);
   bgNext+=e;bgStep++;}}
 function bgStart(){if(!S.bgmOn||bgRun||$('mg')||$('mjroom')||document.querySelector('#bgo.onsen-playing'))return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();}catch(e){return;}
-  if(!bgG){bgG=AC.createGain();bgG.connect(AC.destination);}bgVol();bgRun=1;bgStep=0;bgNext=AC.currentTime+.1;bgTimer=setInterval(bgSched,100);}
+  const fresh=!bgG;if(fresh){bgG=AC.createGain();bgG.connect(AC.destination);}bgVol();if(fresh){try{const v=bgG.gain.value;bgG.gain.setValueAtTime(0,AC.currentTime);bgG.gain.linearRampToValueAtTime(v,AC.currentTime+.6);}catch(e){}}bgRun=1;bgStep=0;bgNext=AC.currentTime+.1;bgTimer=setInterval(bgSched,100);}
 function bgStop(){bgRun=0;clearInterval(bgTimer);}
 function bgSwitch(){if(bgRun)bgStep=0;}
 function bgToggle(){S.bgmOn=S.bgmOn?0:1;save();if(S.bgmOn)bgStart();else bgStop();rSet();}
@@ -2224,10 +2225,13 @@ document.addEventListener('dblclick',e=>e.preventDefault());
 document.addEventListener('wheel',e=>{if(e.ctrlKey)e.preventDefault();},{passive:false});
 (function(){const f=window.mgClose;if(typeof f!=='function')return;window.mgClose=function(){const r=f.apply(this,arguments);bgStart();return r;};})();
 document.addEventListener('click',bgStart);
-/* v1.2.5: 앱을 위로 밀어 끌 때 '띵' 소리 — 배경음악은 0.3초 앞의 음까지 미리 예약해 둬서, 일시정지(suspend)만 하면
-   예약된 음이 남아 있다가 앱이 꺼지는 순간 새어 나왔어요. 숨겨질 때 소리를 바로 0으로 하고 예약된 음을 끊어요 */
-function acHush(){bgStop();if(!AC)return;try{if(bgG){bgG.gain.cancelScheduledValues(0);bgG.gain.setValueAtTime(0,AC.currentTime);bgG.disconnect();bgG=null;}}catch(e){}try{AC.suspend();}catch(e){}}
-document.addEventListener('visibilitychange',()=>{if(!AC)return;if(document.hidden)acHush();else{AC.resume();bgStart();}});addEventListener('pagehide',acHush);
+/* v1.3.7: 앱을 위로 밀어 끌 때 '띵' 소리 (공통 지침서 4-2) — ① 가려질 때(숨김·blur·pagehide) 소리를 0.04초 줄인 뒤 멈춰요(뚝 자르면 '틱')
+   ② 다시 보일 때는 0.4초 기다렸다가, 화면이 보이고 앱에 초점이 있을 때만 켜요(앱 전환 화면을 잠깐 지나갈 때 반응하지 않게) ③ 음악은 0에서 서서히 올려요 */
+let _hushT=0,_wakeT=0,_hushed=0;
+function acHush(){clearTimeout(_wakeT);_hushed=1;bgStop();if(!AC)return;const g=bgG;try{if(g){g.gain.cancelScheduledValues(0);g.gain.setValueAtTime(g.gain.value,AC.currentTime);g.gain.linearRampToValueAtTime(0,AC.currentTime+.04);}}catch(e){}bgG=null;clearTimeout(_hushT);_hushT=setTimeout(()=>{try{if(g)g.disconnect();}catch(e){}try{if(!bgRun)AC.suspend();}catch(e){}},80);}
+function acWake(){clearTimeout(_wakeT);_wakeT=setTimeout(()=>{if(document.hidden||!document.hasFocus()||!_hushed)return;_hushed=0;try{if(AC)AC.resume();}catch(e){}bgStart();},400);}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)acHush();else acWake();});
+addEventListener('blur',acHush);addEventListener('focus',acWake);addEventListener('pagehide',acHush);addEventListener('pageshow',acWake);
 function resetAll(){askOk('모든 기록이 지워져요. 초기화할까요?',()=>askOk('정말 정말이에요? 직전 상태 한 번은 설정에서 되돌릴 수 있어요.',()=>{snapSave();S=defaults();fix();save();toast('초기화했어요');go('home');}));}
 let cPage=0;const cDead=c=>(+c.qty||0)<=0||expired(c);
 function cPg(d){cPage+=d;rCoupon();window.scrollTo(0,0);}
