@@ -76,12 +76,17 @@ function render(){dMv=null;msSync();bgApply();document.documentElement.classList
 /* ---------- 홈 ---------- */
 function ddLabel(d){const n=Math.round((Date.parse(d+'T00:00:00Z')-Date.parse(todayStr()+'T00:00:00Z'))/864e5);return n===0?'D-DAY':n>0?'D-'+n:'D+'+(-n);}
 function bkDays(){const lb=Date.parse(S.lastBackup||''),base=isNaN(lb)?(S.firstSeen||todayStr()):new Date(lb+9*36e5).toISOString().slice(0,10);return dAgo(base,todayStr());}
-/* 백업 알림 (v8.1, 사용자 요청): 홈 카드 대신 타코가 15일째부터 하루 한 번 물어봐요. '나중에 할게' → 그날부터 15일 뒤 다시 (S.bkSnz) */
-const BK_DAYS=15;
-function bkDue(){return bkDays()>=BK_DAYS&&!(S.bkSnz&&todayStr()<S.bkSnz);}
-function bkAsk(){const t=todayStr();if(!S.tk||S.tk.d!==t)S.tk={d:t};if(S.tk.bk||!bkDue())return;S.tk.bk=1;save();const d=bkDays();
-  tako('='+(S.lastBackup?'진우, 백업한 지 '+d+'일이 지났다코! 카톡 나에게 보내 두라코 💾':'진우, 아직 백업을 한 번도 안 했다코! 카톡 나에게 보내 두라코 💾'),'',15000,1,[['백업 보내기',900],['나중에 할게',901]]);}
-function bkLater(){const d=new Date(Date.parse(todayStr()+'T00:00:00Z')+BK_DAYS*864e5).toISOString().slice(0,10);S.bkSnz=d;save();toast(BK_DAYS+'일 뒤에 다시 알려 줄게요');}
+/* 백업 알림 (사용자 요청 2026.10.19): 아이폰은 마지막 백업 3일째부터 하루 한 번 타코가 물어보고 '백업 파일 저장'(공유 창 → 파일에 저장)을 한 번 탭하면 끝.
+   갤럭시(그 밖의 폰)는 앱을 연 날을 모두 합쳐(S.vd.n, 하루 한 번만 셈) 15·30·45…번째 접속일에 한 번 물어봐요. '나중에 할게'는 다음 차례까지 쉬는 것과 같아요. */
+const BK_IOS=3,BK_VISIT=15,BK_FILE='jw-diary-백업.json';
+const isIOS=()=>/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+function visitTick(){const t=todayStr();if(!S.vd||typeof S.vd!=='object')S.vd={n:0,last:'',ask:0};if(S.vd.last!==t){S.vd.n=(+S.vd.n||0)+1;S.vd.last=t;save();}}
+function bkDays(){const lb=Date.parse(S.lastBackup||''),base=isNaN(lb)?(S.firstSeen||todayStr()):new Date(lb+9*36e5).toISOString().slice(0,10);return dAgo(base,todayStr());}
+function bkDue(){visitTick();return isIOS()?bkDays()>=BK_IOS:(S.vd.n>0&&S.vd.n%BK_VISIT===0&&S.vd.ask!==S.vd.n);}
+function bkAsk(){const t=todayStr();if(!S.tk||S.tk.d!==t)S.tk={d:t};if(S.tk.bk||!bkDue())return;S.tk.bk=1;S.vd.ask=S.vd.n;save();
+  if(isIOS())tako('='+(S.lastBackup?'진우, 백업한 지 '+bkDays()+'일이 지났다코! 파일로 저장해 두라코 💾':'진우, 아직 백업을 한 번도 안 했다코! 파일로 저장해 두라코 💾')+(S.lastBackup?'':' 저장 창에서 「파일에 저장」 → iCloud Drive를 고르면 된다코!'),'',15000,1,[['백업 파일 저장',900],['나중에 할게',901]]);
+  else tako('=진우, 우리 벌써 '+S.vd.n+'번째로 만났다코! 백업 파일을 저장해 두라코 💾','',15000,1,[['백업 보내기',900],['나중에 할게',901]]);}
+function bkLater(){toast(isIOS()?'내일 다시 알려 줄게요':BK_VISIT+'번 더 만나면 다시 알려 줄게요');}
 /* v8.2 정리: 접는 묶음(열림 상태는 S.gOpen에 기억) · 놀이 카드(미니게임/보드게임 탭) */
 function grp(k,title,inner,cls){const o=S.gOpen&&S.gOpen[k];return inner?`<details class="card grp${cls?' '+cls:''}" ${o?'open':''} ontoggle="gTog('${k}',this.open)"><summary><h2>${title}</h2></summary><div class="grpin">${inner}</div></details>`:'';}
 function gTog(k,v){if(!S.gOpen||typeof S.gOpen!=='object')S.gOpen={};if(!!S.gOpen[k]===v)return;if(v)S.gOpen[k]=1;else delete S.gOpen[k];save();}
@@ -1407,9 +1412,10 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 세 자리 표기: 작은 수정 +1, 큰 변화 +5 (마지막 자리 올림 포함). sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v1.4.2',d:'2026.10.19',log:["온천 구름이 움직일 때 나무와 잎 테두리가 같이 딸려 가던 것을 고쳤어요", "온천 여관 창문과 등불이 일렁이고, 새는 나무 뒤에서 안 보여요", "온천 화면이 위쪽 상태 표시줄까지 꽉 차게 했어요", "시시오도시 물이 뚝 끊기지 않고 또르르 떨어지며 끝나고, 위쪽 물은 절반만 나와요"]};
+const APP_VER={v:'v1.4.3',d:'2026.10.19',log:["백업은 파일로 저장해요: 아이폰은 3일마다, 갤럭시는 앱을 연 날이 15번 쌓일 때마다 타코가 알려 줘요", "백업 파일 이름이 늘 같아서 같은 폴더에 「바꾸기」로 저장하면 최신 하나만 남아요"]};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v1.4.3',d:'2026.10.19',log:["백업은 파일로 저장해요: 아이폰은 3일마다, 갤럭시는 앱을 연 날이 15번 쌓일 때마다 타코가 알려 줘요", "백업 파일 이름이 늘 같아서 같은 폴더에 「바꾸기」로 저장하면 최신 하나만 남아요"]},
  {v:'v1.4.2',d:'2026.10.19',log:["온천 구름이 움직일 때 나무와 잎 테두리가 같이 딸려 가던 것을 고쳤어요", "온천 여관 창문과 등불이 일렁이고, 새는 나무 뒤에서 안 보여요", "온천 화면이 위쪽 상태 표시줄까지 꽉 차게 했어요", "시시오도시 물이 뚝 끊기지 않고 또르르 떨어지며 끝나고, 위쪽 물은 절반만 나와요"]},
  {v:'v1.4.1',d:'2026.10.19',log:["앨범에서 사진을 크게 볼 때 아래 버튼이 잘리지 않게 창을 조금 키웠어요", "토리가 자는 시간(밤 11시~아침 6시)에는 고른 홈 사진이나 명절 사진이 아니라 늘 자는 사진이 나와요", "테토리스를 꾹 눌렀을 때 나오던 돋보기를 한 번 더 막았어요"]},
  {v:'v1.4.0',d:'2026.10.18',log:["테토리스를 꾹 누르거나 여러 번 눌러도 화면이 확대되거나 글자가 선택되지 않게 더 단단히 막았어요"]},
@@ -1510,7 +1516,7 @@ function rSet(){const t=S.lastBackup?new Date(S.lastBackup).toLocaleString('ko-K
   <label>볼륨</label><input type="range" min="0" max="100" value="${S.sv==null?35:S.sv}" oninput="S.sv=+this.value" onchange="save();sfx('coin')"></div>
   <div class="card"><h2>🐹 햄스터 이름</h2><input id="hn" maxlength="8" value="${esc(hn())}"><button class="btn full" onclick="hnSave()">이름 저장</button></div>
   <div class="card"><h2>💾 백업 · 복원</h2><div class="muted" style="margin-bottom:8px">${t?'마지막 백업: '+esc(t):'아직 백업한 적이 없어요.'}</div>
-  <button class="btn wood full" style="margin-bottom:6px" onclick="backupSend()">💾 백업 보내기 (카톡·드라이브·메일)</button><div class="muted" style="margin-bottom:8px">공유 창이 뜨면 카톡 '나에게 보내기'나 드라이브·메일을 고르세요. '백업 파일 저장'은 폰에 백업 파일(.json)을 저장해요. 복원할 땐 받은 파일을 저장한 뒤 '파일에서 복원'으로 골라요.</div><div class="bkpair"><button class="btn ghost" onclick="exportFile().then(rSet)">💾 백업 파일 저장</button><label class="btn ghost">📂 파일에서 복원<input type="file" accept=".json,application/json" style="display:none" onchange="importFile(this.files[0])"></label></div><button class="btn full" onclick="exportBackup()">백업 코드 만들기</button><textarea id="bt" rows="4" style="margin-top:8px" placeholder="여기에 백업 코드가 나타나요. 복원할 땐 이 칸에 붙여넣으세요."></textarea>
+  <button class="btn wood full" style="margin-bottom:6px" onclick="backupSend()">💾 백업 보내기 (카톡·드라이브·메일)</button><div class="muted" style="margin-bottom:8px">공유 창이 뜨면 카톡 '나에게 보내기'나 드라이브·메일을 고르세요. '백업 파일 저장'은 공유 창에서 「파일에 저장」을 고르면 백업 파일(jw-diary-백업.json)이 저장돼요. 같은 폴더에 같은 이름으로 저장하면 「바꾸기」로 최신 하나만 남길 수 있어요. 복원할 땐 받은 파일을 저장한 뒤 '파일에서 복원'으로 골라요.</div><div class="bkpair"><button class="btn ghost" onclick="exportFile().then(rSet)">💾 백업 파일 저장</button><label class="btn ghost">📂 파일에서 복원<input type="file" accept=".json,application/json" style="display:none" onchange="importFile(this.files[0])"></label></div><button class="btn full" onclick="exportBackup()">백업 코드 만들기</button><textarea id="bt" rows="4" style="margin-top:8px" placeholder="여기에 백업 코드가 나타나요. 복원할 땐 이 칸에 붙여넣으세요."></textarea>
   <div class="row"><button class="btn ghost full" onclick="copyBackup()">복사</button><button class="btn wood full" onclick="importBackup()">이 코드로 복원</button></div>
   <div class="muted" style="margin-top:8px">복사한 코드는 메모 앱이나 카카오톡 '나에게 보내기'에 보관하세요. 복원하면 현재 기록이 코드 내용으로 덮어써져요.</div>
   <div class="muted" style="margin-top:12px">${snapMeta()?'직전 상태 보관 중 · '+esc(new Date(snapMeta()).toLocaleString('ko-KR')):'복원·초기화 직전 상태를 1개 보관해요.'}</div><button class="btn ghost full" style="margin-top:6px" onclick="snapUndo()">↩ 직전 상태로 되돌리기</button></div>
@@ -1871,13 +1877,13 @@ function abFill(){if(!$('abl'))return;abRead(a=>{const e=$('abl');if(!e)return;
   e.innerHTML=a.length?a.map((x,i)=>`<div class="row sp" style="padding:5px 0;border-top:2px dashed var(--in)"><span class="muted">${esc(new Date(x.t).toLocaleString('ko-KR'))}</span><button class="btn ghost sm" onclick="abRestore(${i})">복원</button></div>`).join(''):'<div class="muted">아직 자동 백업이 없어요.</div>';});}
 function abRestore(i){abRead(a=>{const x=a[i];if(!x)return;let d;try{d=chkBackup(JSON.parse(x.d));if(!d)throw 0;}catch(e){toast('이 백업은 읽을 수 없어요');return;}
   askOk(new Date(x.t).toLocaleString('ko-KR')+' 자동 백업으로 복원할까요? 지금 기록은 설정에서 되돌릴 수 있게 따로 보관해요.',()=>{snapSave();S=d;S.mig4=1;fix();save();toast('복원했어요');go('home');});});}
-async function exportFile(){const txt=JSON.stringify(S),name='jw-diary-'+todayStr()+'.json',ok=()=>{S.lastBackup=new Date().toISOString();save();};
+async function exportFile(){const txt=JSON.stringify(S),name=BK_FILE,ok=()=>{S.lastBackup=new Date().toISOString();save();};
   try{const f=new File([txt],name,{type:'application/json'});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'JW Diary 백업'});ok();toast('백업했어요');return;}}catch(e){if(e&&e.name==='AbortError')return;}
   bkDl(txt,name);ok();toast('백업 파일을 저장했어요');}
 function bkDl(txt,name){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'application/json'}));a.download=name;document.body.appendChild(a);a.click();a.remove();}
 /* 백업 보내기 (v6.8): 공유 창에 백업 파일(.json)을 띄워 카톡 나에게 보내기·드라이브·메일로 보냄. 공유가 안 되는 브라우저는 파일 저장으로. 보낸 뒤에만 마지막 백업 시간이 바뀜 */
 function bkRe(){if(tab==='home')rHome();else if(tab==='set')rSet();}
-async function backupSend(){const txt=JSON.stringify(S),name='jw-diary-'+todayStr()+'.json';let f=null;try{f=new File([txt],name,{type:'application/json'});}catch(e){}
+async function backupSend(){const txt=JSON.stringify(S),name=BK_FILE;let f=null;try{f=new File([txt],name,{type:'application/json'});}catch(e){}
   if(f&&navigator.share&&navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'JW Diary 백업'});S.lastBackup=new Date().toISOString();save();toast('백업을 보냈어요 💾');tako('=백업 완료다코! 보낸 파일은 지우지 말고 두라코 💾','',3500,0);}
     catch(e){if(e&&e.name==='AbortError')toast('보내기를 그만뒀어요');else toast('보내지 못했어요. 파일로 저장해 볼게요');if(!e||e.name!=='AbortError'){bkDl(txt,name);S.lastBackup=new Date().toISOString();save();}}bkRe();return;}
   bkDl(txt,name);S.lastBackup=new Date().toISOString();save();toast('이 브라우저는 보내기가 안 돼서 파일로 저장했어요');bkRe();}
@@ -2584,7 +2590,7 @@ const TUT=[['🐙','안녕이다코! 나는 타코타코','진우의 하루를 �
 ['💪','운동과 취미는 균형이다코','도감의 "운동", "마작", "보드게임", "밴드"에 한 줄씩 기록한다코. 최근 7일 동안 취미만 하고 운동을 안 하면 토리가 쓰러지고, 운동을 4일 이상 하면 몸짱이 된다코. 5분 산책도 운동 기록으로 충분하다코!'],
 ['🎟','보상은 이렇게 쓴다코','모은 도토리로 보상 탭의 "월의 보상"에서 보상을 교환하거나, 🎰 뽑기로 랜덤 한 장을 뽑을 수 있다코. 보상은 혼자 쓰는 선물이다코. 쓸 때는 "사용하기"만 누르면 된다코!'],
 ['📍','도감과 달력이다코','도감에는 다녀온 곳, 가고 싶은 곳(룰렛도 있다코), 활동 기록, 달력, 업적이 모여 있다코. 달력에서 운동한 날은 초록, 취미한 날은 주황으로 보인다코!'],
-['💾','이것만은 기억한다코: 백업','기록은 이 폰 안에만 저장된다코. 설정 탭의 "백업 파일 저장"을 가끔 눌러 두면 폰을 바꿔도 안전하다코. 3일이 지나면 홈 화면에서 알려 준다코. 이 설명은 설정 탭에서 언제든 다시 볼 수 있다코!']];
+['💾','이것만은 기억한다코: 백업','기록은 이 폰 안에만 저장된다코. 설정 탭의 "백업 파일 저장"을 가끔 눌러 두면 폰을 바꿔도 안전하다코. 아이폰은 3일마다, 갤럭시는 앱을 연 날이 15번 쌓일 때마다 타코가 알려 준다코. 이 설명은 설정 탭에서 언제든 다시 볼 수 있다코!']];
 function tut(i){i=Math.max(0,Math.min(TUT.length-1,i));const t=TUT[i],last=i===TUT.length-1;let o=$('tut');if(!o){o=document.createElement('div');o.id='tut';document.body.appendChild(o);}
   o.innerHTML=`<div class="tbox">${last?'':'<button class="btn ghost sm tskip" onclick="tutEnd()">건너뛰기</button>'}<img src="${TAKO}" alt=""><div class="tn">타코 🐙 · ${i+1} / ${TUT.length}</div><h3>${t[0]} ${esc(t[1])}</h3><div class="tt">${esc(t[2]).replace(/\n/g,'<br>')}</div><div class="row" style="margin-top:14px">${i?`<button class="btn ghost" onclick="tut(${i-1})">◀</button>`:''}<button class="btn full" onclick="${last?'tutEnd()':'tut('+(i+1)+')'}">${last?'시작하기! 🌰':'다음 ▶'}</button></div></div>`;sfx('tick');}
 function tutEnd(){const o=$('tut');if(o)o.remove();if(!S.tutDone){S.tutDone=1;save();}sfx('fan');setTimeout(()=>takoStart(1),300);}
