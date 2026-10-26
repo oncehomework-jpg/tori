@@ -1,0 +1,5 @@
+/* 수수께끼는 독립 문서 안에서 표시하여 기존 화면의 글꼴·목록 스타일과 섞이지 않게 합니다. */
+#mg.riddle-overlay{position:fixed;inset:0;z-index:70;background:#e8d8b8;display:block;touch-action:auto;overflow:hidden;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);margin:0;border:0;max-width:none;max-height:none}
+#mg.riddle-overlay iframe{border:0;display:block;width:100%;height:100%;background:#e8d8b8;position:relative}
+.riddle-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:16px var(--font-main);color:#493525;padding:25px;text-align:center}
+html.riddle-on #tako,html.riddle-on #totop{display:none!important}

@@ -284,7 +284,7 @@ async function icsDl(){const h=$('rh').value,t=todayStr().replace(/-/g,''),ics=[
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar;charset=utf-8'}));a.download=nm;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);toast('내려받은 파일을 열어 캘린더에 추가해 주세요');}
 const MGS={a:["..kkkk..",".kddddk.","kddddddk",".kbbbbk.",".kbbbbk.","..kbbk..","...kk...","........"],g:["..kkkk..",".kYYYYk.","kYYYYYYk",".kyyyyk.",".kyyyyk.","..kyyk..","...kk...","........"],r:["........","..kkkk..",".kssssk.","kssttssk","kssssssk",".kkkkkk.","........","........"],h:[".k....k.","kpk..kpk","kbbbbbbk","kbkbbkbk","kbbppbbk",".kwwwwk.","..kkkk..","........"]};
 const MGP={k:'#4a3423',d:'#9a6b3c',b:'#d9b98a',Y:'#d99a2b',y:'#f4c542',s:'#b5b5b5',t:'#8a8a8a',p:'#f2a9b6',w:'#fffaf0'};
-function mgList(){const G=[['🌰','도토리 받기','떨어지는 도토리를 바구니로 받아요. 돌은 피하세요!','mgOpen()'],['🐙','타코 띄워 주기','화면을 꾹 눌러 타코를 띄워 주세요. 바위와 해파리는 피해 헤엄치고, 수면에 5초 붙어 있으면 지쳐요!','mg2Open()'],['🎸','기타리스트','음표가 노란 선에 닿을 때 그 줄을 탭해요. 토리와 타코가 응원해요!','mg3Open()'],['🐹','토리의 챗바퀴','박자에 맞춰 탭하면 토리가 빨리 달려요. 30초 동안 몇 바퀴 도는지 겨뤄요!','mg4Open()'],['📺','테토리스','옛날 TV 리모컨으로 블록을 쌓아요. 가로 한 줄을 꽉 채우면 사라져요! 10줄이면 도토리 1개, 25줄이면 2개.','tetOpen()']].concat(halWeek()?[['👻','유령 잡기 · 할로윈 주간','호박 등불에서 튀어나오는 유령을 탭해서 잡아요! 보라 유령은 3점, 박쥐를 누르면 -2점. 10월 25~31일에만 열려요.','mg5Open()'],['🎃','토리의 사탕 미로 · 할로윈 주간','마녀 모자를 쓴 토리를 손가락으로 밀어 움직여 사탕을 모아요. 호박 등불을 먹으면 유령이 겁먹어서 잡을 수 있어요! 10월 25~31일에만 열려요.','mg6Open()']]:[]).concat(mjWeek()?[['🀄','마작패 짝 맞추기 · 11월 마지막 주','진짜 마작패 20장을 두 장씩 뒤집어 같은 패를 찾아요. 시도가 적을수록 별이 많아요. 11월 24~30일에만 열려요.','mg7Open()']]:[]).concat(xmWeek()?[['🎅','루돌프 썰매 배달 · 크리스마스 주간','탭하면 썰매에서 선물이 떨어져요. 굴뚝에 쏙 넣어 주세요! 루돌프 코가 반짝일 때 넣으면 2배. 12월 18~25일에만 열려요.','mg8Open()'],['🎄','도망가는 루돌프를 잡아라! · 크리스마스 주간','손가락을 끌면 산타 모자 토리가 그쪽으로 달려요. 도망가는 루돌프를 잡으면 선물이 떨어져요! 눈더미에선 느려지고 얼음판은 미끄러워요. 당근을 주우면 루돌프가 3초 느려져요. 45초 동안 3마리면 도토리 1개, 6마리면 2개. 12월 18~25일에만 열려요.','mg9Open()']]:[]);
+function mgList(){const G=[['🌰','도토리 받기','떨어지는 도토리를 바구니로 받아요. 돌은 피하세요!','mgOpen()'],['🐙','타코 띄워 주기','화면을 꾹 눌러 타코를 띄워 주세요. 바위와 해파리는 피해 헤엄치고, 수면에 5초 붙어 있으면 지쳐요!','mg2Open()'],['🎸','기타리스트','음표가 노란 선에 닿을 때 그 줄을 탭해요. 토리와 타코가 응원해요!','mg3Open()'],['🐹','토리의 챗바퀴','박자에 맞춰 탭하면 토리가 빨리 달려요. 30초 동안 몇 바퀴 도는지 겨뤄요!','mg4Open()'],['📺','테토리스','옛날 TV 리모컨으로 블록을 쌓아요. 가로 한 줄을 꽉 채우면 사라져요! 10줄이면 도토리 1개, 25줄이면 2개.','tetOpen()'],['📖','수수께끼','부엉박사와 다섯 문제를 천천히 풀어요. 힌트와 풀이를 보고 수첩에 모아요.','riddleOpen()']].concat(halWeek()?[['👻','유령 잡기 · 할로윈 주간','호박 등불에서 튀어나오는 유령을 탭해서 잡아요! 보라 유령은 3점, 박쥐를 누르면 -2점. 10월 25~31일에만 열려요.','mg5Open()'],['🎃','토리의 사탕 미로 · 할로윈 주간','방향 버튼을 꾹 눌러 토리를 움직이고, 손을 떼면 멈춰요. 사탕을 모아요. 호박 등불을 먹으면 유령이 겁먹어서 잡을 수 있어요! 10월 25~31일에만 열려요.','mg6Open()']]:[]).concat(mjWeek()?[['🀄','마작패 짝 맞추기 · 11월 마지막 주','진짜 마작패 20장을 두 장씩 뒤집어 같은 패를 찾아요. 시도가 적을수록 별이 많아요. 11월 24~30일에만 열려요.','mg7Open()']]:[]).concat(xmWeek()?[['🎅','루돌프 썰매 배달 · 크리스마스 주간','탭하면 썰매에서 선물이 떨어져요. 굴뚝에 쏙 넣어 주세요! 루돌프 코가 반짝일 때 넣으면 2배. 12월 18~25일에만 열려요.','mg8Open()'],['🎄','도망가는 루돌프를 잡아라! · 크리스마스 주간','손가락을 끌면 산타 모자 토리가 그쪽으로 달려요. 도망가는 루돌프를 잡으면 선물이 떨어져요! 눈더미에선 느려지고 얼음판은 미끄러워요. 당근을 주우면 루돌프가 3초 느려져요. 45초 동안 3마리면 도토리 1개, 6마리면 2개. 12월 18~25일에만 열려요.','mg9Open()']]:[]);
   return `<div class="mg-grid">${G.map(g=>`<button class="mg-square" onclick="${g[3]}" aria-label="${g[1]}. ${g[2]}"><span class="mg-square-icon">${g[0]}</span><b>${g[1].split(' · ')[0]}</b><small>${g[1].includes(' · ')?g[1].split(' · ')[1]:'탭해서 시작'}</small></button>`).join('')}</div>`;}
 
 
@@ -514,7 +514,7 @@ const MX={p:[],t:[],sh:0,fl:0,fc:'#fff',st:'play',cd:0,ct:0,raf:0,first:0,info:n
   cancelAnimationFrame(this.raf);this.raf=requestAnimationFrame(loop);}};
 
 /* 창이 닫힐 때 툭 사라지지 않게: 진짜 창은 바로 지우고, 같은 색 막이 서서히 사라져요 (공통 지침서 4장) */
-function mgGone(o){try{const g=document.createElement('div');g.id='mgx';g.style.background=getComputedStyle(o).backgroundColor;document.body.appendChild(g);setTimeout(()=>g.remove(),300);}catch(e){}o.remove();}
+function mgGone(o){if(o._hwFit)o._hwFit.disconnect();try{const g=document.createElement('div');g.id='mgx';g.style.background=getComputedStyle(o).backgroundColor;document.body.appendChild(g);setTimeout(()=>g.remove(),300);}catch(e){}o.remove();}
 function mgClose(){mgStop();if(MG.raf)cancelAnimationFrame(MG.raf);MG.raf=0;cancelAnimationFrame(MX.raf);MX.st='play';const o=$('mg');if(o)mgGone(o);render();}
 function mgStart(){if(MG.raf)cancelAnimationFrame(MG.raf);MG={x:160,t:30,s:0,it:[],sp:0,e:0,l:0,raf:0,old:mgOld()};$('mgr').style.display='none';const c=$('mgc'),g=c.getContext('2d');g.imageSmoothingEnabled=false;
   const dr=(k,x,y,z)=>MGS[k].forEach((row,j)=>[...row].forEach((ch,i)=>{if(ch!=='.'){g.fillStyle=MGP[ch];const X=Math.round(x+i*z),Y=Math.round(y+j*z);g.fillRect(X,Y,Math.round(x+(i+1)*z)-X,Math.round(y+(j+1)*z)-Y);}}));
@@ -703,25 +703,124 @@ function mg4End(){MG.raf=0;const lp=Math.floor(MG.rot),td=todayStr();if(S.mg.d!=
 /* ===== 👻 유령 잡기 (할로윈 주간 10/25~31) · 호박 등불에서 튀어나오는 유령을 탭! 박쥐는 피하기 · 보상 횟수는 다른 미니게임과 합산 ===== */
 const halWeek=()=>{const md=todayStr().slice(5);return md>='10-25'&&md<='10-31';};
 const GH_P=[[64,206],[160,206],[256,206],[64,300],[160,300],[256,300],[64,394],[160,394],[256,394]];   /* 호박 9개 (가운데 x, 밑동 y) */
-function mg5Open(){if($('mg'))return;const o=document.createElement('div');o.id='mg';o.style.cssText='position:fixed;inset:0;z-index:70;background:#1f1630;display:flex;flex-direction:column;align-items:center;justify-content:center;touch-action:none;color:#fffaf0';
-  o.innerHTML='<div id="mgh" style="margin-bottom:8px;text-align:center"></div><canvas id="mgc" width="320" height="440" style="max-width:100%;max-height:74vh;image-rendering:pixelated;border:4px solid #fffaf0;background:#261b3a;touch-action:none"></canvas><div class="row" style="margin-top:10px;width:min(320px,90%)"><button class="btn ghost full" onclick="mgClose()">닫기</button><button class="btn full" id="mgr" style="display:none" onclick="mg5Start()">한 번 더</button></div>';
-  document.body.appendChild(o);$('mgc').addEventListener('pointerdown',e=>{e.preventDefault();const r=e.target.getBoundingClientRect();mg5Tap((e.clientX-r.left)*320/r.width,(e.clientY-r.top)*440/r.height);});mg5Start();}
-function mg5Tap(x,y){if(!MG.raf)return;let b=null;MG.U.forEach(u=>{if(u.hit)return;const P=GH_P[u.p],top=P[1]-46-u.h;if(Math.abs(x-P[0])<=30&&y>=top-6&&y<=P[1]-8&&(!b||u.k==='b'))b=u;});
+/* 할로윈 두 게임 전용 조작창. 보상·저장 형식은 기존 게임을 사용한다. */
+function hwShell(kind){
+  if($('mg'))return null;
+  const maze=kind==='mz',o=document.createElement('div');o.id='mg';o.className='hw '+(maze?'hw-maze':'hw-ghost');
+  o.dataset.kind=kind;o.innerHTML=`<div class="hw-layout"><div class="hw-stage"><canvas id="mgc" width="320" height="440" aria-label="${maze?'사탕 미로 게임판':'유령 잡기 게임판'}"></canvas><div id="hwresult" class="hw-result-card" hidden></div></div><div class="hw-side"><h2>${maze?'토리의 사탕 미로':'유령 잡기'}</h2><p class="hw-guide">${maze?'방향을 꾹 누르면 이동해요. 손을 떼면 다음 칸에서 멈춰요.':'유령만 빠르게 탭해요. 보라 유령은 3점, 박쥐는 -2점!'}</p><div id="mgh"></div>${maze?`<div class="hw-pad" aria-label="토리 이동"><button class="btn hw-up" data-dir="3">위</button><button class="btn hw-left" data-dir="2">왼쪽</button><button class="btn ghost hw-stop" onclick="mzControlStop()">멈춤</button><button class="btn hw-right" data-dir="0">오른쪽</button><button class="btn hw-down" data-dir="1">아래</button></div>`:''}<div class="hw-actions"><button class="btn full" id="hwp" onclick="hwPause()">일시정지</button><button class="btn ghost full" onclick="hwExit()">나가기</button></div><button class="btn full" id="mgr" style="display:none" onclick="${maze?'mg6Start()':'mg5Start()'}">한 번 더</button></div></div><div class="hw-cover" id="hwcover" hidden></div>`;
+  document.body.appendChild(o);
+  if(typeof ResizeObserver!=='undefined'){o._hwFit=new ResizeObserver(()=>hwFit(o));o._hwFit.observe(o);o._hwFit.observe(o.querySelector('.hw-side'));}
+  hwFit(o);if(document.fonts)document.fonts.ready.then(()=>{if(o.isConnected)hwFit(o);});
+  if(maze)hwBindMaze(o);
+  return $('mgc');
+}
+/* 실제 글자·줄바꿈·버튼 높이를 재서 게임판을 남은 공간에 맞춘다. */
+function hwFit(o){
+  if(!o||!o.isConnected)return;
+  const layout=o.querySelector('.hw-layout'),side=o.querySelector('.hw-side'),stage=o.querySelector('.hw-stage');
+  if(!layout||!side||!stage)return;
+  const style=getComputedStyle(o),ls=getComputedStyle(layout),ss=getComputedStyle(stage),pad=n=>parseFloat(style[n])||0;
+  const width=o.clientWidth-pad('paddingLeft')-pad('paddingRight'),height=o.clientHeight-pad('paddingTop')-pad('paddingBottom');
+  const border=(parseFloat(ss.borderLeftWidth)||0)+(parseFloat(ss.borderRightWidth)||0),gap=parseFloat(ls.gap)||0;
+  const row=ls.flexDirection==='row',maxWidth=row?width-side.getBoundingClientRect().width-gap-border:width-border;
+  const maxHeight=row?height-border:height-side.getBoundingClientRect().height-gap-border;
+  const size=Math.floor(Math.max(80,Math.min(320,maxWidth,maxHeight*320/440)));
+  if(Math.abs(parseFloat(stage.style.width||'0')-size)>.5)stage.style.width=size+'px';
+}
+addEventListener('resize',()=>{const o=$('mg');if(o?.classList.contains('hw'))hwFit(o);});
+function hwResult(g,title,lines){
+  g.fillStyle='rgba(10,6,20,.5)';g.fillRect(0,0,320,440);
+  const panel=$('hwresult');panel.innerHTML='<h3>'+esc(title)+'</h3>'+lines.map(l=>'<p>'+esc(l)+'</p>').join('');panel.hidden=false;
+}
+function hwMessage(g,text,y){
+  g.font=fxF(14);const max=272,lines=[];let line='';
+  for(const word of text.split(' ')){const next=line?line+' '+word:word;if(line&&g.measureText(next).width>max){lines.push(line);line=word;}else line=next;}
+  if(line)lines.push(line);
+  const width=Math.min(304,Math.ceil(Math.max(...lines.map(l=>g.measureText(l).width))/2)*2+24),height=lines.length*20+16,top=Math.max(4,Math.min(440-height-4,y-height/2));
+  fxPanel(g,160-width/2,top,width,height);lines.forEach((l,i)=>fxTd(g,l,160,top+18+i*20,14));
+}
+function hwDialog(title,text,buttons){
+  const cover=$('hwcover');if(!cover)return;
+  cover.innerHTML=`<div class="hw-dialog" role="dialog" aria-modal="true" aria-labelledby="hwtitle"><h3 id="hwtitle">${title}</h3><div class="hw-dialog-copy">${text.split("<br>").map(p=>`<p>${p}</p>`).join("")}</div><div class="hw-dialog-actions">${buttons}</div></div>`;
+  cover.hidden=false;const b=cover.querySelector('button');if(b)b.focus();
+}
+function hwReady(){
+  MG.phase='ready';MG.over=0;$('hwresult').hidden=true;$('mg').classList.remove('hw-over');mgStop();$('hwp').disabled=true;$('mgr').style.display='none';
+  const maze=$('mg').dataset.kind==='mz';
+  $('mgh').textContent=maze?'60초 · 목숨 3개':'30초 · 후반으로 갈수록 빨라져요';
+  $('mgc').getContext('2d').drawImage(maze?mzBack():ghBack(),0,0);
+  hwDialog(maze?'토리의 사탕 미로':'유령 잡기',maze?'방향 버튼을 꾹 눌러 움직여요. 손을 떼면 다음 칸에서 멈춰요.<br>호박 등불을 먹으면 6초 동안 유령을 잡을 수 있어요.<br>40점: 도토리 1개 · 80점: 2개':'흰 유령은 1점, 보라 유령은 3점이에요. 박쥐는 누르면 2점이 깎여요.<br>유령이 더 빠르게 나왔다 사라져요. 몸을 눌러 잡아 주세요.<br>12점: 도토리 1개 · 24점: 2개',`<button class="btn full" onclick="hwResume()">시작하기</button><button class="btn ghost full" onclick="mgClose()">돌아가기</button>`);
+}
+function hwResume(){
+  if(!MG.phase||MG.phase==='over')return;
+  MG.phase='play';MG.l=0;$('hwcover').hidden=true;$('hwp').disabled=false;
+  mgPlay($('mg').dataset.kind==='mz'?(MG.G.some(g=>g.fr>0)?'mzp':'mz'):'gh');$('hwp').focus();
+}
+function hwPause(){
+  if(!$('mg')?.classList.contains('hw')||MG.phase!=='play')return;
+  MG.phase='pause';mzControlStop();mgStop();
+  hwDialog('잠깐 쉬는 중','시간과 게임이 멈췄어요.',`<button class="btn full" onclick="hwResume()">계속하기</button><button class="btn ghost full" onclick="hwExit()">나가기</button>`);
+}
+function hwExit(){
+  if(MG.phase==='ready'||MG.phase==='over'){mgClose();return;}
+  MG.phase='exit';mzControlStop();mgStop();
+  hwDialog('게임에서 나갈까요?','지금 진행 중인 점수는 저장되지 않아요.',`<button class="btn full" onclick="hwResume()">계속하기</button><button class="btn ghost full" onclick="mgClose()">나가기</button>`);
+}
+function hwEnded(){
+  MG.phase='over';mzControlStop();$('mg').classList.add('hw-over');$('hwp').disabled=true;$('hwcover').hidden=true;
+}
+function mzControlStop(tap){
+  if(MG.k!=='mz'||!MG.P)return;
+  const p=MG.P;p.step=tap&&p.d<0&&p.w>=0?p.w:-1;
+  p.w=-1;MG.input=null;
+}
+function hwBindMaze(o){
+  o.querySelectorAll('[data-dir]').forEach(b=>{
+    b.addEventListener('pointerdown',e=>{
+      if(MG.phase!=='play'||MG.input||e.isPrimary===false||(e.pointerType==='mouse'&&e.button!==0))return;
+      e.preventDefault();b.setPointerCapture(e.pointerId);MG.input={id:e.pointerId};mzWant(+b.dataset.dir);
+    });
+    const end=e=>{if(MG.input?.id===e.pointerId)mzControlStop(e.type==='pointerup');};
+    ['pointerup','pointercancel','lostpointercapture'].forEach(n=>b.addEventListener(n,end));
+    /* 키보드·보조 도구의 클릭으로는 한 칸씩 이동한다. */
+    b.addEventListener('click',e=>{if(e.detail===0&&MG.phase==='play'){mzWant(+b.dataset.dir);mzControlStop(true);}});
+  });
+  const c=$('mgc');let drag=null;
+  c.addEventListener('pointerdown',e=>{
+    if(MG.phase!=='play'||MG.input||e.isPrimary===false||(e.pointerType==='mouse'&&e.button!==0))return;
+    e.preventDefault();c.setPointerCapture(e.pointerId);const [x,y]=mgXY(e,c);drag={id:e.pointerId,x,y};MG.input={id:e.pointerId};
+  });
+  c.addEventListener('pointermove',e=>{
+    if(!drag||drag.id!==e.pointerId||MG.phase!=='play')return;
+    const[x,y]=mgXY(e,c),dx=x-drag.x,dy=y-drag.y;
+    if(Math.hypot(dx,dy)<14)return;
+    mzWant(Math.abs(dx)>Math.abs(dy)?(dx>0?0:2):(dy>0?1:3));drag.x=x;drag.y=y;
+  });
+  ['pointerup','pointercancel','lostpointercapture'].forEach(n=>c.addEventListener(n,e=>{
+    if(!drag||drag.id!==e.pointerId)return;drag=null;if(MG.input?.id===e.pointerId)mzControlStop();
+  }));
+}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)hwPause();});
+addEventListener('keyup',e=>{if(MG.k==='mz'&&MG.input?.key===e.key)mzControlStop();});
+addEventListener('blur',()=>{if($('mg')?.classList.contains('hw'))hwPause();});
+
+function mg5Open(){const c=hwShell('gh');if(!c)return;c.addEventListener('pointerdown',e=>{e.preventDefault();const[x,y]=mgXY(e,c);mg5Tap(x,y);});mg5Start();}
+function mg5Tap(x,y){if(MG.phase!=='play'||!MG.raf)return;let b=null;MG.U.forEach(u=>{if(u.hit)return;const P=GH_P[u.p],bat=u.k==='b',fl=Math.floor(MG.e*8)%2,top=P[1]-46-u.h+(bat?(fl?4:0)+8:Math.round(Math.sin(MG.e*6+u.p))*2),sprite=fxS(bat?'bt'+fl:'ghA'),bottom=Math.min(top+sprite.height,P[1]-46);if(bottom>top&&Math.abs(x-P[0])<=sprite.width/2+3&&y>=top&&y<bottom)b=u;});
   if(!b){MG.miss=.25;return;}b.hit=1;b.t=Math.min(b.t,.2);const P=GH_P[b.p];
   if(b.k==='b'){MG.s=Math.max(0,MG.s-2);MG.c=0;MG.sh=.3;fxSnd('gh_bat');MG.fx.push({x:P[0],y:P[1]-60,t:.6,m:'-2',bad:1});return;}
   const v=b.k==='g'?3:1;MG.s+=v;MG.c++;MG.bc=Math.max(MG.bc,MG.c);fxSnd(b.k==='g'?'gh_purple':'gh_catch');MG.fx.push({x:P[0],y:P[1]-60,t:.6,m:'+'+v,pf:1});}
-function mg5Start(){if(MG.raf)cancelAnimationFrame(MG.raf);MG={e:0,l:0,raf:0,s:0,c:0,bc:0,U:[],sp:.6,fx:[],miss:0,mt:2.2,ms:'유령이 나온다코! 박쥐는 누르지 마라코!'};$('mgr').style.display='none';mgPlay('gh');
+function mg5Start(){if(MG.raf)cancelAnimationFrame(MG.raf);MG={e:0,l:0,raf:0,s:0,c:0,bc:0,U:[],sp:.35,fx:[],miss:0,mt:2.2,ms:'유령이 나온다코! 박쥐는 누르지 마라코!'};$('mgr').style.display='none';
   const c=$('mgc'),g=c.getContext('2d');g.imageSmoothingEnabled=false;if(!TKI){TKI=new Image();TKI.src=TAKO;}const H=mgH(g);
-  const loop=ts=>{if(!$('mg'))return;if(!MG.l)MG.l=ts;const dt=Math.min(.05,(ts-MG.l)/1000);MG.l=ts;MG.e+=dt;MG.sp-=dt;if(MG.mt>0)MG.mt-=dt;if(MG.miss>0)MG.miss-=dt;
-    if(MG.sp<=0&&MG.e<29.3){const free=GH_P.map((p,i)=>i).filter(i=>!MG.U.some(u=>u.p===i));if(free.length){const r=Math.random(),life=Math.max(.62,1.15-MG.e*.018);
-      MG.U.push({p:free[Math.floor(Math.random()*free.length)],k:r<.07?'g':r<.27?'b':'w',t:life,L:life,h:0,hit:0});}MG.sp=Math.max(.32,.62-MG.e*.01)*(.75+Math.random()*.5);}
+  const loop=ts=>{if(!$('mg'))return;if(MG.phase!=='play'){MG.l=ts;MG.raf=requestAnimationFrame(loop);return;}if(!MG.l)MG.l=ts;const dt=Math.min(.05,(ts-MG.l)/1000);MG.l=ts;MG.e+=dt;MG.sp-=dt;if(MG.mt>0)MG.mt-=dt;if(MG.miss>0)MG.miss-=dt;
+    if(MG.sp<=0&&MG.e<29.55){const free=GH_P.map((p,i)=>i).filter(i=>!MG.U.some(u=>u.p===i));if(free.length){const r=Math.random(),life=Math.max(.42,.86-MG.e*.015);
+      MG.U.push({p:free[Math.floor(Math.random()*free.length)],k:r<.07?'g':r<.37?'b':'w',t:life,L:life,h:0,hit:0});}MG.sp=Math.max(.22,.46-MG.e*.008)*(.85+Math.random()*.3);}
     g.save();if(MG.sh>0){MG.sh-=dt;g.translate(Math.round(Math.sin(MG.e*90)*3/2)*2,0);}
     g.drawImage(ghBack(),0,0);
     MG.U=MG.U.filter(u=>{u.t-=dt;const a=u.t/u.L,up=Math.min(1,(1-a)*5,a*5);u.h=Math.round(up*34/2)*2;
       if(u.t<=0){if(!u.hit&&u.k!=='b')MG.c=0;return false;}return true;});
     GH_P.forEach((P,i)=>{const u=MG.U.find(v=>v.p===i),lit=u&&!u.hit;
       fxShadow(g,P[0],P[1]+4,64);
-      if(lit)g.drawImage(fxGlow(u.k==='g'?'#c58cf0':u.k==='b'?'#ff5a5a':'#ffb347',44),P[0]-44,P[1]-46-8);
+      if(lit)g.drawImage(fxGlow(u.k==='g'?'#c58cf0':'#ffb347',44),P[0]-44,P[1]-46-8);
       else g.drawImage(fxGlow('#ff8a2a',32),P[0]-32,P[1]-46+4);
       if(u){const y=P[1]-46-u.h,x=P[0]-22;if(u.hit&&u.k!=='b')g.globalAlpha=Math.max(0,u.t/.2);
         if(u.k==='b'){const fl=Math.floor(MG.e*8)%2;g.drawImage(fxS('bt'+fl),P[0]-24,y+(fl?4:0)+8);}
@@ -731,12 +830,12 @@ function mg5Start(){if(MG.raf)cancelAnimationFrame(MG.raf);MG={e:0,l:0,raf:0,s:0
     g.restore();
     /* 점수판 (주황 나무 창) */
     fxPanel(g,2,2,316,32);fxTd(g,'시간 '+Math.max(0,Math.ceil(30-MG.e)),52,19,15);fxTd(g,'점수 '+MG.s,268,19,15);if(MG.c>=3)fxTd(g,MG.c+' COMBO',160,19,15,'#c2481a');else g.drawImage(fxS('gh'+(Math.floor(MG.e*3)%2?'A':'B')),148,6,24,26);
-    H.tk(288,66);if(MG.mt>0)fxMsg(g,MG.ms,106);if(MG.miss>0)fxTx(g,'놓쳤다코!',160,130,16,'#ff9a9a');
-    $('mgh').textContent='👻 유령 잡기';
-    if(MG.e>=30){mg5End();return;}MG.raf=requestAnimationFrame(loop);};MG.raf=requestAnimationFrame(loop);}
-function mg5End(){MG.raf=0;const sc=MG.s,td=todayStr();if(S.mg.d!==td)S.mg={...S.mg,d:td,n:0};let m;
+    H.tk(288,66);if(MG.mt>0)hwMessage(g,MG.ms,106);if(MG.miss>0)fxTx(g,'놓쳤다코!',160,130,16,'#ff9a9a');
+    $('mgh').textContent='점수 '+MG.s+' · 남은 시간 '+Math.max(0,Math.ceil(30-MG.e))+'초';
+    if(MG.e>=30){mg5End();return;}MG.raf=requestAnimationFrame(loop);};hwReady();MG.raf=requestAnimationFrame(loop);}
+function mg5End(){if(MG.over)return;MG.over=1;cancelAnimationFrame(MG.raf);MG.raf=0;hwEnded();const sc=MG.s,td=todayStr();if(S.mg.d!==td)S.mg={...S.mg,d:td,n:0};let m;
   if(S.mg.n<ECO.mgPlays){const r=sc>=24?2:sc>=12?1:0;if(r)S.mg.n++;S.acorns+=r;m=r?'🌰 +'+r+' 받았어요!':'12점부터 도토리를 받아요 (보상 기회는 아직 남았어요)';}else m='오늘 보상은 다 받았어요 (연습은 계속 가능!)';
-  const nb=sc>(S.mg.b5||0);if(nb)S.mg.b5=sc;save();mgStop();fxSnd('gh_end');$('mgh').innerHTML=m;$('mgr').style.display='';{const g=$('mgc').getContext('2d');fxCard(g,'유령 잡기 끝!',[sc+'점 · 최대 콤보 '+MG.bc,nb?'최고 기록!':'최고 '+(S.mg.b5||0)+'점'],null);}
+  const nb=sc>(S.mg.b5||0);if(nb)S.mg.b5=sc;save();mgStop();fxSnd('gh_end');$('mgh').innerHTML=m.replace(' (','<br>(');$('mgr').style.display='';{const g=$('mgc').getContext('2d');hwResult(g,'유령 잡기 끝!',[sc+'점 · 최대 콤보 '+MG.bc,nb?'최고 기록!':'최고 '+(S.mg.b5||0)+'점'],null);}
   if(sc>=12)setTimeout(()=>tako('=유령 사냥 대성공이다코~! 🎃','',3000,0),500);}
 /* ===== v6.4 명절 미니게임 공통 · 도트 그림 원본은 tools/mg/fest_sprites.py (python3로 실행하면 그림 확인용 png) =====
    그림 한 칸 = 화면 2px로 통일, 빛은 왼쪽 위, 테두리는 진한 같은 색 계열 */
@@ -939,30 +1038,31 @@ function mzBack(){if(MZB)return MZB;const[c,g]=fxCv(320,440),P=(x,y,col)=>{g.fil
     /* 울타리 위 작은 장식: 호박 · 촛불 */
     if(sF&&r>0&&r<14&&H(cc,r,40)<.16){const px=ox+3+Math.floor(H(cc,r,41)*5),py=oy+3;[[1,0,'#3f6e2e'],[2,0,'#2c5638'],[0,1,'#4a2412'],[1,1,'#f4a043'],[2,1,'#e08a2c'],[3,1,'#4a2412'],[0,2,'#c9601c'],[1,2,'#ffd04a'],[2,2,'#e08a2c'],[3,2,'#a84e18'],[1,3,'#a84e18'],[2,3,'#a84e18']].forEach(([a,b,cl])=>P(px+a,py+b,cl));}}
   return MZB=c;}
-function mg6Open(){const c=mgShell('#130d22','mg6Start()');if(!c)return;let sx=0,sy=0,mv=0,dn=0;const dOf=(dx,dy)=>Math.abs(dx)>Math.abs(dy)?(dx>0?0:2):(dy>0?1:3);
-  c.addEventListener('pointerdown',e=>{e.preventDefault();[sx,sy]=mgXY(e,c);mv=0;dn=1;});
-  c.addEventListener('pointermove',e=>{if(!dn)return;const[x,y]=mgXY(e,c);if(Math.hypot(x-sx,y-sy)>14){mzWant(dOf(x-sx,y-sy));sx=x;sy=y;mv=1;}});
-  c.addEventListener('pointerup',e=>{if(!dn)return;dn=0;if(mv||!MG.P)return;const[x,y]=mgXY(e,c),p=mzPx(MG.P);mzWant(dOf(x-p[0],y-p[1]));});
-  mg6Start();}
-addEventListener('keydown',e=>{if(!$('mg')||MG.k!=='mz')return;const d={ArrowRight:0,ArrowDown:1,ArrowLeft:2,ArrowUp:3}[e.key];if(d!=null){e.preventDefault();mzWant(d);}});
-function mzWant(d){const P=MG.P;if(!P)return;P.w=d;if(d===0)P.fl=0;if(d===2)P.fl=1;if(P.d>=0&&d===(P.d+2)%4&&P.t>0){P.c+=MZD[P.d][0];P.r+=MZD[P.d][1];P.t=1-P.t;P.d=d;}}
+function mg6Open(){if(!hwShell('mz'))return;mg6Start();}
+addEventListener('keydown',e=>{if(!$('mg')?.classList.contains('hw'))return;
+  if(e.key==='Escape'){e.preventDefault();if(MG.phase==='play')hwPause();return;}
+  if(MG.k!=='mz'||MG.phase!=='play')return;
+  const d={ArrowRight:0,ArrowDown:1,ArrowLeft:2,ArrowUp:3}[e.key];
+  if(d!=null){e.preventDefault();if(MG.input&&MG.input.key==null)return;MG.input={key:e.key};mzWant(d);}
+});
+function mzWant(d){const P=MG.P;if(!P||MG.phase!=='play')return;P.w=d;P.step=-1;if(d===0)P.fl=0;if(d===2)P.fl=1;if(P.d>=0&&d===(P.d+2)%4&&P.t>0){P.c+=MZD[P.d][0];P.r+=MZD[P.d][1];P.t=1-P.t;P.d=d;}}
 function mzStep(en,sp,dt,dec){let rem=sp*dt,n=0;while(rem>1e-6&&n++<8){if(en.d<0){const nd=dec(en);if(nd<0)return;en.d=nd;en.t=0;}const st=Math.min(rem,1-en.t);en.t+=st;rem-=st;
   if(en.t>=1-1e-6){en.c+=MZD[en.d][0];en.r+=MZD[en.d][1];en.t=0;if(en.arr)en.arr(en);en.d=dec(en);if(en.d<0)return;}}}
-const mzToriDec=en=>{const op=d=>d>=0&&mzW(en.c+MZD[d][0],en.r+MZD[d][1]);return op(en.w)?en.w:op(en.d)?en.d:-1;};
+const mzToriDec=en=>{const d=en.w>=0?en.w:(en.step??-1);en.step=-1;return d>=0&&mzW(en.c+MZD[d][0],en.r+MZD[d][1])?d:-1;};
 function mzGhDec(gh){if(gh.lv){if(gh.r>3)return gh.c!==6?(gh.c<6?0:2):3;gh.lv=0;}
   const P=MG.P,opts=[0,1,2,3].filter(d=>d!==(gh.d+2)%4&&mzW(gh.c+MZD[d][0],gh.r+MZD[d][1]));if(!opts.length)return(gh.d+2)%4;
   if(gh.fr>0||Math.random()<.22)return opts[Math.floor(Math.random()*opts.length)];
   let tx=P.c,ty=P.r;if(gh.i===1&&P.d>=0){tx+=MZD[P.d][0]*3;ty+=MZD[P.d][1]*3;}
   return opts.reduce((b,d)=>{const q=Math.hypot(gh.c+MZD[d][0]-tx,gh.r+MZD[d][1]-ty);return q<b[1]?[d,q]:b;},[opts[0],1e9])[0];}
 function mzHome(gh,delay){Object.assign(gh,{st:'h',c:gh.i?7:5,r:5,d:-1,t:0,lv:0,fr:0,rel:MG.e+delay});}
-function mzReset(){MG.P={c:6,r:13,d:-1,t:0,w:-1,fl:0,arr:mzEat};MG.G.forEach((gh,i)=>mzHome(gh,1+i*2.5));MG.inv=1.5;}
+function mzReset(){MG.input=null;MG.P={c:6,r:13,d:-1,t:0,w:-1,fl:0,arr:mzEat};MG.G.forEach((gh,i)=>mzHome(gh,1+i*2.5));MG.inv=1.5;}
 function mzEat(P){const k=P.r*13+P.c;if(MG.cd.delete(k)){MG.s+=1;fxSnd('mz_eat');}
   if(MG.pw.delete(k)){MG.s+=2;fxSnd('mz_pow');MG.G.forEach(gh=>{if(gh.st==='o'){gh.fr=6;if(gh.d>=0&&gh.t>0){gh.c+=MZD[gh.d][0];gh.r+=MZD[gh.d][1];gh.t=1-gh.t;gh.d=(gh.d+2)%4;}}});MG.msg='유령들이 겁먹었다코! 지금 잡아라코!';MG.mt=2;}
   if(!MG.cd.size&&!MG.pw.size){MG.s+=10;mg6End(1);}}
 function mg6Start(){if(MG.raf)cancelAnimationFrame(MG.raf);const cd=new Set(),pw=new Set();MZ.forEach((row,r)=>[...row].forEach((ch,c)=>{if(ch==='.')cd.add(r*13+c);if(ch==='o')pw.add(r*13+c);}));
-  MG={k:'mz',e:0,l:0,raf:0,s:0,lv:3,cd,pw,G:[{i:0},{i:1}],ht:0,inv:0,msg:'손가락으로 밀어서 토리를 움직여라코!',mt:2.5,fx:[]};mzReset();$('mgr').style.display='none';mgPlay('mz');
+  MG={k:'mz',e:0,l:0,raf:0,s:0,lv:3,cd,pw,G:[{i:0},{i:1}],ht:0,inv:0,msg:'방향 버튼을 꾹! 떼면 멈춘다코!',mt:2.5,fx:[]};mzReset();$('mgr').style.display='none';
   const c=$('mgc'),g=c.getContext('2d');g.imageSmoothingEnabled=false;const cand=fxS('candy');
-  const loop=ts=>{if(!$('mg'))return;if(!MG.l)MG.l=ts;const dt=Math.min(.05,(ts-MG.l)/1000);MG.l=ts;MG.e+=dt;if(MG.mt>0)MG.mt-=dt;if(MG.inv>0)MG.inv-=dt;
+  const loop=ts=>{if(!$('mg'))return;if(MG.phase!=='play'){MG.l=ts;MG.raf=requestAnimationFrame(loop);return;}if(!MG.l)MG.l=ts;const dt=Math.min(.05,(ts-MG.l)/1000);MG.l=ts;MG.e+=dt;if(MG.mt>0)MG.mt-=dt;if(MG.inv>0)MG.inv-=dt;
     if(MG.ht>0){MG.ht-=dt;if(MG.ht<=0){if(MG.lv<=0){mg6End(0);return;}mzReset();}}
     else{mzStep(MG.P,5.2,dt,mzToriDec);
       MG.G.forEach(gh=>{if(gh.fr>0)gh.fr-=dt;if(gh.st==='h'){if(MG.e>=gh.rel){gh.st='o';gh.lv=1;gh.d=-1;gh.t=0;}return;}
@@ -983,12 +1083,12 @@ function mg6Start(){if(MG.raf)cancelAnimationFrame(MG.raf);const cd=new Set(),pw
     /* 점수판 */
     fxPanel(g,2,2,316,40);for(let i=0;i<3;i++){g.globalAlpha=i<MG.lv?1:.25;g.drawImage(fxS('heart'),16+i*18,16);}g.globalAlpha=1;
     g.drawImage(cand,128,13);fxTd(g,''+MG.s,150,23,18,'#5b2b14','left');fxTd(g,Math.max(0,Math.ceil(60-MG.e))+'초',302,23,16,'#5b2b14','right');
-    if(MG.mt>0)fxMsg(g,MG.msg,424);
-    $('mgh').textContent='토리의 사탕 미로 · 점수 '+MG.s;
-    if(MG.e>=60){mg6End(0);return;}MG.raf=requestAnimationFrame(loop);};MG.raf=requestAnimationFrame(loop);}
-function mg6End(win){if(MG.over)return;MG.over=1;cancelAnimationFrame(MG.raf);MG.raf=0;const sc=MG.s,r=sc>=80?2:sc>=40?1:0,[m,nb]=mgRw(r,'40점부터 도토리를 받아요','b6',sc);mgStop();fxSnd(win?'mz_clear':'mz_end');
-  const g=$('mgc').getContext('2d');fxCard(g,win?'사탕을 다 모았어요!':'끝!',['점수 '+sc+(nb?' · 최고 기록!':''),'남은 사탕 '+MG.cd.size+'개'],null);
-  $('mgh').innerHTML=m;$('mgr').style.display='';if(sc>=40)setTimeout(()=>tako('=사탕 부자 토리다코~! 🎃','',3000,0),500);}
+    if(MG.mt>0)hwMessage(g,MG.msg,424);
+    $('mgh').textContent='점수 '+MG.s+' · 남은 시간 '+Math.max(0,Math.ceil(60-MG.e))+'초';
+    if(MG.e>=60){mg6End(0);return;}MG.raf=requestAnimationFrame(loop);};hwReady();MG.raf=requestAnimationFrame(loop);}
+function mg6End(win){if(MG.over)return;MG.over=1;hwEnded();cancelAnimationFrame(MG.raf);MG.raf=0;const sc=MG.s,r=sc>=80?2:sc>=40?1:0,[m,nb]=mgRw(r,'40점부터 도토리를 받아요','b6',sc);mgStop();fxSnd(win?'mz_clear':'mz_end');
+  const g=$('mgc').getContext('2d');hwResult(g,win?'사탕을 다 모았어요!':'끝!',['점수 '+sc+(nb?' · 최고 기록!':''),'남은 사탕 '+MG.cd.size+'개'],null);
+  $('mgh').innerHTML=m.replace(' (','<br>(');$('mgr').style.display='';if(sc>=40)setTimeout(()=>tako('=사탕 부자 토리다코~! 🎃','',3000,0),500);}
 /* ===== 🀄 마작패 짝 맞추기 (11월 마지막 주 11/24~30) · 진짜 마작패(통수·삭수·만수·자패) 20장, 같은 패 두 장을 찾아요 ===== */
 const MJ_POOL=['p1','p2','p3','p5','p9','s2','s3','s4','s5','s6','m1','m5','m9','E','S','W','N','C','F','P'];
 const MJ_TW=54,MJ_TH=68,MJ_X=40,MJ_Y=52,MJ_G=[8,4];
@@ -1413,9 +1513,12 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 세 자리 표기: 작은 수정 +1, 큰 변화 +5 (마지막 자리 올림 포함). sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v1.4.4',d:'2026.10.20',log:["온천에서 나오면 배경음악이 다시 켜져요","온천 여관 장지문 불빛 일렁임을 없앴어요(등불 일렁임은 그대로)","홈에서 놀이 카드가 현재 상태 카드 위로 올라왔어요"]};
+const APP_VER={v:'v1.5.5',d:'2026.10.26',log:['수수께끼 찻집의 저장·소리·창 연결 코드를 정리했어요','전체 자동 검사와 파일·버전·오프라인 목록 검사를 보강했어요']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v1.5.5',d:'2026.10.26',log:['수수께끼 찻집의 저장·소리·창 연결 코드를 정리했어요','전체 자동 검사와 파일·버전·오프라인 목록 검사를 보강했어요']},
+ {v:'v1.5.4',d:'2026.10.26',log:['토리의 수수께끼 찻집: 120문제·세 난이도·한 판 다섯 문제·시간제한 없음','무료 힌트 두 단계·정답과 오답 풀이·수수께끼 수첩·저장하고 이어하기','다른 미니게임과 하루 두 번 보상을 함께 쓰고, 같은 판은 한 번만 받아요']},
+ {v:'v1.4.9',d:'2026.10.26',log:["할로윈 게임에 시작 안내·일시정지·나가기 확인을 넣었어요","사탕 미로에 방향 버튼이 생겼어요. 꾹 누르면 이동하고 손을 떼면 멈춰요","유령 잡기는 더 빠르게 나왔다 사라지고 박쥐도 더 자주 나와요. 호박을 잘못 눌러 감점되지 않아요","현재 글꼴에 맞춰 안내·결과창과 버튼 크기를 다듬었어요. 가로 화면에서도 글자가 읽기 쉽게 나와요"]},
  {v:'v1.4.4',d:'2026.10.20',log:["온천에서 나오면 배경음악이 다시 켜져요","온천 여관 장지문 불빛 일렁임을 없앴어요(등불 일렁임은 그대로)","홈에서 놀이 카드가 현재 상태 카드 위로 올라왔어요"]},
  {v:'v1.4.3',d:'2026.10.19',log:["백업은 파일로 저장해요: 아이폰은 3일마다, 갤럭시는 앱을 연 날이 15번 쌓일 때마다 타코가 알려 줘요", "백업 파일 이름이 늘 같아서 같은 폴더에 「바꾸기」로 저장하면 최신 하나만 남아요"]},
  {v:'v1.4.2',d:'2026.10.19',log:["온천 구름이 움직일 때 나무와 잎 테두리가 같이 딸려 가던 것을 고쳤어요", "온천 여관 창문과 등불이 일렁이고, 새는 나무 뒤에서 안 보여요", "온천 화면이 위쪽 상태 표시줄까지 꽉 차게 했어요", "시시오도시 물이 뚝 끊기지 않고 또르르 떨어지며 끝나고, 위쪽 물은 절반만 나와요"]},

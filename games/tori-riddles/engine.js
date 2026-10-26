@@ -1,0 +1,40 @@
+/* DOM·저장소와 분리한 수수께끼 규칙. 본앱에서는 완료 콜백으로 공통 보상을 지급합니다. */
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.RiddleCore=factory();})(typeof globalThis!=='undefined'?globalThis:this,function(){
+  'use strict';
+  const LEVELS={light:{name:'가볍게',mix:['easy','easy','medium','easy','medium']},mixed:{name:'골고루',mix:['easy','medium','easy','medium','hard']},deep:{name:'곰곰이',mix:['medium','hard','medium','hard','hard']}};
+  const copy=x=>JSON.parse(JSON.stringify(x));
+  const day=(now=Date.now())=>new Date(now+9*3600000).toISOString().slice(0,10);
+  function fresh(){return {schema:1,level:'mixed',active:null,practice:null,seen:{},recent:[],archive:[],reward:{day:'',n:0,acorns:0},sound:false};}
+  const isObject=x=>!!x&&typeof x==='object'&&!Array.isArray(x),count=x=>Number.isInteger(x)&&x>=0,choice=x=>Number.isInteger(x)&&x>=0&&x<4;
+  function validQuestion(q){return !!(isObject(q)&&typeof q.id==='string'&&typeof q.title==='string'&&typeof q.kind==='string'&&['easy','medium','hard'].includes(q.level)&&typeof q.text==='string'&&Array.isArray(q.choices)&&q.choices.length===4&&q.choices.every(c=>isObject(c)&&typeof c.text==='string'&&typeof c.why==='string')&&new Set(q.choices.map(c=>c.text)).size===4&&choice(q.answer)&&Array.isArray(q.hints)&&q.hints.length===2&&q.hints.every(h=>typeof h==='string'&&h.length)&&typeof q.explain==='string');}
+  function validRound(r,practice){return r===null||!!(isObject(r)&&typeof r.id==='string'&&r.practice===practice&&(practice?r.level==='practice':!!LEVELS[r.level])&&Array.isArray(r.items)&&r.items.length===(practice?1:5)&&Number.isInteger(r.index)&&r.index>=0&&r.index<r.items.length&&r.items.every((x,i)=>isObject(x)&&validQuestion(x.q)&&Array.isArray(x.order)&&x.order.length===4&&x.order.every(choice)&&[...x.order].sort().join()==='0,1,2,3'&&Number.isInteger(x.hint)&&x.hint>=0&&x.hint<=2&&Array.isArray(x.eliminated)&&x.eliminated.length===(x.hint===2?2:0)&&new Set(x.eliminated).size===x.eliminated.length&&x.eliminated.every(n=>choice(n)&&n!==x.q.answer)&&(x.selected===null||choice(x.selected))&&(!x.response||(isObject(x.response)&&typeof x.response.correct==='boolean'&&typeof x.response.skip==='boolean'&&x.response.hint===x.hint&&(x.response.skip?x.response.chosen===null:choice(x.response.chosen))&&x.response.correct===(!x.response.skip&&x.response.chosen===x.q.answer)))&&(i>=r.index||x.response))&&(!r.result||(isObject(r.result)&&r.items.every(x=>x.response)&&r.result.id===r.id&&r.result.total===r.items.length&&r.result.correct===r.items.filter(x=>x.response.correct).length&&r.result.solo===r.items.filter(x=>x.response.correct&&!x.response.hint).length&&count(r.result.amount)&&r.result.amount<=2)));}
+  function validState(raw){return !!(isObject(raw)&&raw.schema===1&&LEVELS[raw.level]&&isObject(raw.seen)&&Object.values(raw.seen).every(h=>isObject(h)&&['views','correct','solo','help','review'].every(k=>count(h[k]))&&(!h.lastOutcome||['solo','help','review'].includes(h.lastOutcome)))&&Array.isArray(raw.recent)&&raw.recent.every(x=>isObject(x)&&typeof x.id==='string'&&Array.isArray(x.ids)&&x.ids.every(i=>typeof i==='string'))&&Array.isArray(raw.archive)&&raw.archive.every(x=>isObject(x)&&typeof x.id==='string')&&isObject(raw.reward)&&count(raw.reward.n)&&raw.reward.n<=2&&Number.isFinite(raw.reward.acorns)&&validRound(raw.active,false)&&validRound(raw.practice,true));}
+  function restore(raw){return validState(raw)?{...fresh(),...copy(raw),sound:!!raw.sound}:fresh();}
+  function shuffle(values,rng=Math.random){const a=values.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+  function remember(s,item,now){if(item.started)return;item.started=true;const old=s.seen[item.q.id]||{views:0,correct:0,solo:0,help:0,review:0};s.seen[item.q.id]={...old,views:old.views+1,lastSeen:now};}
+  function start(s,bank,level=s.level,{rng=Math.random,now=Date.now()}={}){if(!LEVELS[level])throw Error('난이도를 골라 주세요.');if(s.active&&!s.active.result)throw Error('이어 풀던 판이 있어요.');
+    const chosen=[],used=new Set(),answers=new Set(),recent=s.recent.slice(-3).flatMap(x=>x.ids),rank=q=>{const h=s.seen[q.id];return !h?0:h.lastOutcome==='review'?1:2;};
+    for(const lv of LEVELS[level].mix){let pool=bank.filter(q=>q.level===lv&&!used.has(q.group||q.id)&&!answers.has(q.choices[q.answer].text.replace(/\s/g,'')));if(!pool.length)throw Error('이 난이도의 문제가 부족해요.');
+      pool=shuffle(pool,rng).sort((a,b)=>rank(a)-rank(b)||(recent.includes(a.id)?1:0)-(recent.includes(b.id)?1:0)||recent.lastIndexOf(a.id)-recent.lastIndexOf(b.id));const q=copy(pool[0]);used.add(q.group||q.id);answers.add(q.choices[q.answer].text.replace(/\s/g,''));chosen.push({q,order:shuffle([0,1,2,3],rng),hint:0,open:false,selected:null,eliminated:[],response:null,started:false});}
+    const r={id:'r'+now.toString(36)+rng().toString(36).slice(2,9),level,created:now,index:0,items:chosen,result:null,practice:false};s.level=level;s.active=r;s.practice=null;s.recent.push({id:r.id,ids:chosen.map(x=>x.q.id)});s.recent=s.recent.slice(-3);remember(s,r.items[0],now);return r;}
+  function current(s){return s.practice||s.active;}
+  function item(s){const r=current(s);return r&&!r.result?r.items[r.index]:null;}
+  function openChoices(s){const x=item(s);if(x&&!x.response)x.open=true;}
+  function select(s,n){const x=item(s);if(!x||x.response||!x.open||!Number.isInteger(n)||n<0||n>3||x.eliminated.includes(n))return false;x.selected=n;return true;}
+  function hint(s){const x=item(s);if(!x||x.response||x.hint===2)return false;x.hint++;if(x.hint===2){x.open=true;x.eliminated=x.order.filter(n=>n!==x.q.answer).slice(0,2);if(x.eliminated.includes(x.selected))x.selected=null;}return true;}
+  function submit(s,skip=false,now=Date.now()){const x=item(s);if(!x||x.response||(!skip&&x.selected===null))return false;x.open=true;x.response={chosen:skip?null:x.selected,correct:!skip&&x.selected===x.q.answer,skip:!!skip,hint:x.hint,at:now};
+    const h=s.seen[x.q.id],correct=x.response.correct;if(correct){h.correct++;if(x.hint)h.help++;else h.solo++;h.lastOutcome=x.hint?'help':'solo';}else{h.review++;h.lastOutcome='review';}return true;}
+  function finish(s,now=Date.now(),grant){const r=current(s);if(!r)return null;if(r.result)return r.result;if(r.items.some(x=>!x.response))return null;
+    const correct=r.items.filter(x=>x.response.correct).length,solo=r.items.filter(x=>x.response.correct&&!x.response.hint).length;
+    const result={id:r.id,level:r.level,correct,solo,help:correct-solo,total:r.items.length,at:now,amount:0,reason:'practice',practice:r.practice,ids:r.items.map(x=>x.q.id)};
+    if(!r.practice){const amount=correct===5?2:correct>=3?1:0;
+      if(grant){r.result=result;result.reason='pending';try{Object.assign(result,grant(copy(s),r.id));}catch(e){r.result=null;throw e;}}
+      else{if(s.reward.day!==day(now)){s.reward.day=day(now);s.reward.n=0;}if(!amount)result.reason='score';else if(s.reward.n>=2)result.reason='limit';else{result.amount=amount;result.reason='earned';s.reward.n++;s.reward.acorns+=amount;}}
+      s.archive.push(copy(result));s.archive=s.archive.slice(-30);}
+    r.result=result;return result;}
+  function next(s,now=Date.now(),grant){const r=current(s),x=item(s);if(!r||!x||!x.response)return false;if(r.index===r.items.length-1)return finish(s,now,grant);r.index++;remember(s,r.items[r.index],now);return true;}
+  function practice(s,bank,id,now=Date.now()){const q=bank.find(q=>q.id===id);if(!q||!s.seen[id]||!s.seen[id].lastOutcome)return null;
+    s.practice={id:'p'+now.toString(36),level:'practice',created:now,index:0,practice:true,result:null,items:[{q:copy(q),order:shuffle([0,1,2,3]),hint:0,open:false,selected:null,eliminated:[],response:null,started:false}]};remember(s,s.practice.items[0],now);return s.practice;}
+  function abandon(s){s.active=null;}
+  return {LEVELS,day,fresh,restore,validQuestion,validState,shuffle,start,current,item,openChoices,select,hint,submit,next,finish,practice,abandon};
+});
