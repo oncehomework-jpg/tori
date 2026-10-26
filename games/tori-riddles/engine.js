@@ -36,5 +36,8 @@
   function practice(s,bank,id,now=Date.now()){const q=bank.find(q=>q.id===id);if(!q||!s.seen[id]||!s.seen[id].lastOutcome)return null;
     s.practice={id:'p'+now.toString(36),level:'practice',created:now,index:0,practice:true,result:null,items:[{q:copy(q),order:shuffle([0,1,2,3]),hint:0,open:false,selected:null,eliminated:[],response:null,started:false}]};remember(s,s.practice.items[0],now);return s.practice;}
   function abandon(s){s.active=null;}
-  return {LEVELS,day,fresh,restore,validQuestion,validState,shuffle,start,current,item,openChoices,select,hint,submit,next,finish,practice,abandon};
+  function notebookEntries(s,bank,legacy=[]){
+    return [...bank,...legacy].filter(q=>s.seen[q.id]&&s.seen[q.id].lastOutcome);
+  }
+  return {LEVELS,day,fresh,restore,validQuestion,validState,shuffle,start,current,item,openChoices,select,hint,submit,next,finish,practice,abandon,notebookEntries};
 });

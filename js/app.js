@@ -68,7 +68,9 @@ function isDark(){const t=thm();if(t==='dark')return true;if(t==='light')return 
 function nightAns(v){S.nightA={k:nightKey(),v:v};save();render();toast(v?'화면을 어둡게 했어요 🌙':'그대로 밝게 둘게요');}
 function nightAsk(){if(!S.tutDone||thm()!=='ask'||!isNight())return;if(S.nightA&&S.nightA.k===nightKey())return;if(tkQ.some(q=>q.o))return;
   tako('=밤이 깊었다코… 화면을 어둡게 해 줄까코? 🌙','',12000,0,[['어둡게 해줘',1],['괜찮아',0]]);}
-function render(){dMv=null;msSync();bgApply();document.documentElement.classList.toggle('bold',!!S.bold);document.documentElement.classList.toggle('noanim',!!S.noAnim);document.documentElement.dataset.fs=[0,1,2].includes(+S.fs)?+S.fs:0;document.documentElement.classList.toggle('dk',isDark());
+// 아이폰 상태 표시줄과 브라우저 테두리를 현재 화면의 윗부분 색에 맞춥니다.
+function appScreenTheme(){const root=document.documentElement;if(typeof osIsOpen==='function'&&osIsOpen())return;const splash=$('splash'),color=root.classList.contains('riddle-on')?'#4d3b2b':getComputedStyle(splash||document.body).backgroundColor;root.style.backgroundColor=color;const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=color;}
+function render(){dMv=null;msSync();bgApply();document.documentElement.classList.toggle('bold',!!S.bold);document.documentElement.classList.toggle('noanim',!!S.noAnim);document.documentElement.dataset.fs=[0,1,2].includes(+S.fs)?+S.fs:0;document.documentElement.classList.toggle('dk',isDark());appScreenTheme();
   $('nav').innerHTML=TABS.map(([k,i,l])=>`<button class="${tab===k?'on':''}" onclick="go('${k}')">${l}</button>`).join('');
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id==='s-'+tab));
   ({home:rHome,pet:rPet,coupon:rCoupon,place:rPlace,set:rSet})[tab]();dSetChk();msIntro();mdDayChk();S.lastSt=tState().st;achChk();
@@ -1513,9 +1515,11 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 세 자리 표기: 작은 수정 +1, 큰 변화 +5 (마지막 자리 올림 포함). sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v1.5.5',d:'2026.10.26',log:['수수께끼 찻집의 저장·소리·창 연결 코드를 정리했어요','전체 자동 검사와 파일·버전·오프라인 목록 검사를 보강했어요']};
+const APP_VER={v:'v1.6.1',d:'2026.10.26',log:['아이폰 상태 표시줄이 시작 화면·온천·찻집 색과 자연스럽게 이어지도록 고쳤어요','온천 구름의 남는 가장자리와 저녁 배경의 색 차이를 고쳤어요','수수께끼 위쪽 문구·토리 그림을 빼고 돌아가기 버튼을 왼쪽으로 옮겼어요']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v1.6.1',d:'2026.10.26',log:['아이폰 상태 표시줄이 시작 화면·온천·찻집 색과 자연스럽게 이어지도록 고쳤어요','온천 구름의 남는 가장자리와 저녁 배경의 색 차이를 고쳤어요','수수께끼 위쪽 문구·토리 그림을 빼고 돌아가기 버튼을 왼쪽으로 옮겼어요']},
+ {v:'v1.6.0',d:'2026.10.26',log:['수수께끼 120문제를 비유·역설·짧은 상황·말놀이로 새롭게 바꿨어요','문제마다 힌트 두 단계와 정답·오답 풀이를 다시 다듬었어요','진행 중인 판과 이전 수첩은 그대로 보관하고, 새 판부터 새 문제가 나와요']},
  {v:'v1.5.5',d:'2026.10.26',log:['수수께끼 찻집의 저장·소리·창 연결 코드를 정리했어요','전체 자동 검사와 파일·버전·오프라인 목록 검사를 보강했어요']},
  {v:'v1.5.4',d:'2026.10.26',log:['토리의 수수께끼 찻집: 120문제·세 난이도·한 판 다섯 문제·시간제한 없음','무료 힌트 두 단계·정답과 오답 풀이·수수께끼 수첩·저장하고 이어하기','다른 미니게임과 하루 두 번 보상을 함께 쓰고, 같은 판은 한 번만 받아요']},
  {v:'v1.4.9',d:'2026.10.26',log:["할로윈 게임에 시작 안내·일시정지·나가기 확인을 넣었어요","사탕 미로에 방향 버튼이 생겼어요. 꾹 누르면 이동하고 손을 떼면 멈춰요","유령 잡기는 더 빠르게 나왔다 사라지고 박쥐도 더 자주 나와요. 호박을 잘못 눌러 감점되지 않아요","현재 글꼴에 맞춰 안내·결과창과 버튼 크기를 다듬었어요. 가로 화면에서도 글자가 읽기 쉽게 나와요"]},
@@ -2758,4 +2762,4 @@ try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist();}c
 /* 실행 화면: 화면을 터치해야 넘어가요 */
 (function(){const o=document.createElement('div');o.id='splash';
 o.innerHTML=`<div class="spf"><img src="${AVATAR}" alt=""><h1>안녕 진우야!</h1><p>${esc(hn())}가 기다리고 있었어요 🌰</p><div class="muted go">▼ 터치해서 시작</div></div>`;
-document.body.appendChild(o);let d=0;const c=()=>{if(d)return;d=1;o.classList.add('out');setTimeout(()=>o.remove(),450);setTimeout(takoStart,750);};o.addEventListener('click',c);})();
+document.body.appendChild(o);appScreenTheme();let d=0;const c=()=>{if(d)return;d=1;o.classList.add('out');setTimeout(()=>{o.remove();appScreenTheme();},450);setTimeout(takoStart,750);};o.addEventListener('click',c);})();

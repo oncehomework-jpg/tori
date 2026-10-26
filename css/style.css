@@ -2,6 +2,7 @@
 :root{box-sizing:border-box}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overscroll-behavior-y:none}
+html{background:var(--bg)}
 body{margin:0;background:var(--bg);color:var(--tx);font-family:'NeoDunggeunmo','Galmuri11','Apple SD Gothic Neo',monospace;font-size:16px;line-height:1.5;background-image:linear-gradient(45deg,var(--bg2) 25%,transparent 25% 75%,var(--bg2) 75%),linear-gradient(45deg,var(--bg2) 25%,transparent 25% 75%,var(--bg2) 75%);background-size:32px 32px;background-position:0 0,16px 16px}
 h1,h2,h3,.jua{font-family:inherit;font-weight:400}
 a{color:var(--gold)}
@@ -450,7 +451,6 @@ input[type=range]{accent-color:var(--gold)}
 .os-icon{flex:none;transition:none}
 
 
-@media(orientation:portrait){.os-slot-1 .os-weather,}
 
 input,textarea,[contenteditable]{font-size:max(16px,1em)!important}
 
@@ -462,9 +462,7 @@ input,textarea,[contenteditable]{font-size:max(16px,1em)!important}
 .os-scene.os-slot-2{background:linear-gradient(#af8190,#73674f)}
 .os-scene.os-slot-3{background:linear-gradient(#072238,#314946)}
 .os-scene.os-slot-0 .os-background{filter:brightness(.96) saturate(.82) sepia(.12)}
-.os-scene
-.os-scene
-.os-scene
+.os-scene.os-slot-2 .os-background{filter:sepia(.4) saturate(.85) hue-rotate(335deg) brightness(.82)}
 
 .os-slot-0 .os-bamboo{filter:brightness(.96) saturate(.82) sepia(.12)}
 .os-slot-2 .os-bamboo{filter:sepia(.4) saturate(.85) hue-rotate(335deg) brightness(.82)}

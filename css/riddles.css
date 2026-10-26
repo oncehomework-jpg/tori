@@ -3,3 +3,6 @@
 #mg.riddle-overlay iframe{border:0;display:block;width:100%;height:100%;background:#e8d8b8;position:relative}
 .riddle-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:16px var(--font-main);color:#493525;padding:25px;text-align:center}
 html.riddle-on #tako,html.riddle-on #totop{display:none!important}
+
+/* 상태 표시줄 뒤도 찻집 맨 위 띠와 같은 색으로 이어집니다. */
+#mg.riddle-overlay::before{content:"";position:absolute;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#4d3b2b;pointer-events:none}

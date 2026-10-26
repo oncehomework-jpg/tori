@@ -149,6 +149,7 @@
     document.body.appendChild(overlay);
     document.body.style.overflow='hidden';
     document.documentElement.classList.add('riddle-on');
+    appScreenTheme();
     acHush();
   };
   document.addEventListener('visibilitychange',()=>{if(document.hidden)hush();});
