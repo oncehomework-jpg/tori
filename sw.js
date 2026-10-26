@@ -4,7 +4,7 @@
 //   (같은 이름으로 파일을 바꿔 올릴 때는 아래 CACHE 숫자를 올려야 폰이 새 파일을 받아요)
 // - 새 버전을 받으면 다음에 앱을 켤 때 적용돼요.
 // - CDN 폰트/CSS: 한 번 받으면 저장본을 써요.
-const CACHE = 'jw-diary-v1.6.1';   // js/app.js 의 APP_VER 와 같은 숫자로 맞춰요
+const CACHE = 'jw-diary-v1.6.3';   // js/app.js 의 APP_VER 와 같은 숫자로 맞춰요
 // 토리 알림(v5.1): 앱이 적어 둔 상태(tori-state 캐시)를 보고, 폰이 깨워 줄 때(periodicsync) 하루 한 번만 알림
 const STATE = 'tori-state', STATE_URL = 'tori-state.json';
 // 앱 파일: 처음 켤 때 저장해 두면 인터넷이 없어도 열려요
@@ -32,10 +32,18 @@ const SHELL = [
   'games/tori-riddles/engine.js',
   'games/tori-riddles/riddles.js',
   'games/tori-riddles/legacy-riddles.js',
+  'games/tori-riddles/audio.js',
   'games/tori-riddles/game.js'
 ];
 // 미리 저장할 그림·소리·글꼴 (사진을 새로 추가해도 여기에 안 넣어도 돼요. 처음 볼 때 저절로 저장돼요)
 const ASSETS = [
+  'audio/riddles/moon-bgm-v163.wav',
+  'audio/riddles/moon-tap-v163.wav',
+  'audio/riddles/moon-hint-v163.wav',
+  'audio/riddles/moon-correct-v163.wav',
+  'audio/riddles/moon-wrong-v163.wav',
+  'audio/riddles/moon-finish-v163.wav',
+
   'images/scenes/onsen-shishiodoshi-inlet-v118.webp',
   'images/scenes/onsen-portrait-night-v118.webp',
   'images/scenes/onsen-portrait-day-v118.webp',

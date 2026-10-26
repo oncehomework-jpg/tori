@@ -53,6 +53,7 @@
     return {
       remaining:Math.max(0,ECO.mgPlays-n),plays:ECO.mgPlays,acorns:S.acorns,
       sound:!!S.snd&&S.sv>0,
+      music:!!S.bgmOn&&S.vol>0,musicVolume:(S.vol||0)/100,soundVolume:(S.sv||0)/100,
       fontScale:parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--fs'))||1,
       bold:!!S.bold,noAnim:!!S.noAnim
     };
@@ -125,7 +126,7 @@
     overlay.className='riddle-overlay';
     overlay.setAttribute('role','dialog');
     overlay.setAttribute('aria-modal','true');
-    overlay.setAttribute('aria-label','토리의 수수께끼 찻집');
+    overlay.setAttribute('aria-label','부엉박사의 수수께끼 찻집');
     appRoot=document.querySelector('.app');
     if(appRoot){
       oldInert=!!appRoot.inert;
@@ -138,7 +139,7 @@
     loading.textContent='수수께끼 찻집을 열고 있어요…';
     overlay.appendChild(loading);
     frame=document.createElement('iframe');
-    frame.title='토리의 수수께끼 찻집';
+    frame.title='부엉박사의 수수께끼 찻집';
     frame.src='games/tori-riddles/index.html';
     frame.setAttribute('allow','autoplay');
     frame.addEventListener('load',()=>{

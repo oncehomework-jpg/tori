@@ -12,3 +12,8 @@
 body{padding:0}html.bold{font-weight:700}.question-meta{flex-wrap:wrap}html.noanim *,html.noanim *::before,html.noanim *::after{animation:none!important;transition:none!important}@media(max-width:420px){.topbar{gap:8px}.topbar a span{display:none}.sound{min-width:80px}}@media(max-width:700px){html.large-font .hero{grid-template-columns:1fr}html.large-font .host-card{max-width:250px;margin:auto;width:100%}html.large-font .difficulty{grid-template-columns:1fr}html.large-font .topbar{flex-wrap:wrap;padding:10px 0}html.large-font .help-actions{flex-wrap:wrap}html.large-font .review-row{flex-wrap:wrap}html.large-font .book-entry summary{flex-wrap:wrap;padding:12px 0}html.large-font .view-head{flex-wrap:wrap}}
 
 :root{font-size:calc(16px * var(--game-scale,1))}
+
+/* iframe 문서에도 본앱과 같은 선택·길게 누르기·확대 방지를 적용합니다. 세로 스크롤은 유지합니다. */
+html,body{touch-action:pan-y}
+*,*::before,*::after{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+img,svg,canvas{-webkit-user-drag:none}
