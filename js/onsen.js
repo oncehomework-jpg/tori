@@ -113,10 +113,10 @@ function osWaterLight(g,p,portrait,s,f,k){const cx=portrait?171:976,top=portrait
 // v1.4.2 온천 화면 위 상태 표시줄(배터리·시간)이 앱 갈색으로 보이던 것: 온천 동안 theme-color와 바탕색을 그림 맨 위 하늘색으로 바꾸고, 나가면 되돌려요.
 function osTheme(){try{osTheme2();}catch(e){}}
 function osTheme2(){const m=document.querySelector('meta[name="theme-color"]');if(!m)return;if(OS.themeOld==null){OS.themeOld=[m.content,document.documentElement.style.backgroundColor,document.body.style.backgroundColor];}
- let col=['#337cc3','#1783ec','#487a9c','#061e38'][osClock()];m.content=col;const c=OS.waterPlate;if(c&&c.width&&OS.waterPlateKey===OS.sceneKey&&c.getContext){try{const view=$('os-weather'),scale=view?Math.max(view.clientWidth/c.width,view.clientHeight/c.height):1,y=view?Math.max(0,Math.floor((c.height-view.clientHeight/scale)*(view.clientHeight>=view.clientWidth?.5:.75))):0,d=c.getContext('2d').getImageData(Math.floor(c.width*.5),Math.min(c.height-1,y),1,1).data;col='rgb('+d[0]+','+d[1]+','+d[2]+')';const h='#'+[d[0],d[1],d[2]].map(v=>v.toString(16).padStart(2,'0')).join('');m.content=h;}catch(e){}}else m.content=col;
+ let col=['#337cc3','#1783ec','#487a9c','#061e38'][osClock()];const c=OS.waterPlate;if(c&&c.width&&OS.waterPlateKey===OS.sceneKey&&c.getContext){try{const view=$('os-weather'),scale=view?Math.max(view.clientWidth/c.width,view.clientHeight/c.height):1,y=view?Math.max(0,Math.floor((c.height-view.clientHeight/scale)*(view.clientHeight>=view.clientWidth?.5:.75))):0,d=c.getContext('2d').getImageData(Math.floor(c.width*.5),Math.min(c.height-1,y),1,1).data;col='#'+[d[0],d[1],d[2]].map(v=>v.toString(16).padStart(2,'0')).join('');}catch(e){}}appThemeMeta(col);
  document.documentElement.style.backgroundColor=col;document.body.style.backgroundColor=col;}
 function osThemeRestore(){try{osThemeRestore2();}catch(e){OS.themeOld=null;}}
-function osThemeRestore2(){if(OS.themeOld==null)return;const m=document.querySelector('meta[name="theme-color"]');if(m)m.content=OS.themeOld[0];document.documentElement.style.backgroundColor=OS.themeOld[1];document.body.style.backgroundColor=OS.themeOld[2];OS.themeOld=null;OS.themeKey=null;}
+function osThemeRestore2(){if(OS.themeOld==null)return;appThemeMeta(OS.themeOld[0]);document.documentElement.style.backgroundColor=OS.themeOld[1];document.body.style.backgroundColor=OS.themeOld[2];OS.themeOld=null;OS.themeKey=null;}
 function osDraw(){const c=$('os-weather');if(!c)return;const {portrait,W,H}=osSceneSize(c);const plate=osPlate(portrait,W,H),themeKey=OS.waterPlateKey+':'+c.clientWidth+':'+c.clientHeight;if(OS.themeKey!==themeKey){osTheme();OS.themeKey=themeKey;}if(c.width!==W||c.height!==H){c.width=W;c.height=H;}const g=c.getContext('2d');g.imageSmoothingEnabled=false;g.clearRect(0,0,W,H);if(!plate)return;const f=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:OS.frame,s=osClock(),k=portrait?1:3,p=(x,y,w,h,col)=>{g.fillStyle=col;g.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h));};
  g.save();osClipPool(g,portrait);osWaterTexture(g,portrait,W,H,f);osWaterLight(g,p,portrait,s,f,k);
  osWaterLife(g,p,portrait,W,H,f,s);osRipples(p,portrait,f,s);g.restore();osDrawClouds(g,portrait,W,H,f);osSkyLights(g,p,portrait,s,f,k);osDrawBirds((x,y,w,h,col)=>{g.fillStyle=col;x=Math.round(x);y=Math.round(y);for(let yy=y;yy<y+Math.round(h);yy++)for(let xx=x;xx<x+Math.round(w);xx++)if(osInSky(xx,yy))g.fillRect(xx,yy,1,1);},W,H,f,k,s);}
@@ -124,7 +124,8 @@ function osDraw(){const c=$('os-weather');if(!c)return;const {portrait,W,H}=osSc
 // 구름은 그림에서 오려 내 제자리 근처에서 천천히 둥둥 떠다녀요(빈자리는 그 줄의 하늘색으로 메워요).
 function osSky(portrait,W,H){if(OS.skyKey===OS.sceneKey&&OS.sky)return OS.sky;const c=osPlate(portrait,W,H);if(!c)return null;const g=c.getContext('2d');if(!g.getImageData)return null;
  const maxY=Math.round(H*(portrait?.36:.42)),paint=g.getImageData(0,0,W,maxY).data,raw=document.createElement('canvas');raw.width=W;raw.height=maxY;const rg=raw.getContext('2d');rg.imageSmoothingEnabled=false;rg.drawImage(OS.sceneArt,0,0,W,H);const a=rg.getImageData(0,0,W,maxY).data,N=W*maxY,m=new Uint8Array(N),st=[];
- const leafy=i=>{const r=a[i*4],gg=a[i*4+1],b=a[i*4+2];return gg>b+4&&gg>=r-2;},skyish=i=>{const r=a[i*4],gg=a[i*4+1],b=a[i*4+2];return !leafy(i)&&(b>=gg-6&&b>=r-30||(r+gg+b)>560);};
+ const leafy=i=>{const r=a[i*4],gg=a[i*4+1],b=a[i*4+2];return gg>b+4&&gg>=r-2&&b<gg*.85;},   // b<gg*.85: 구름의 밝은 크림색은 나뭇잎이 아니에요
+ teal=i=>{const r=a[i*4],gg=a[i*4+1],b=a[i*4+2];return b<120&&gg>b*.6&&gg>r+20;},skyish=i=>{const r=a[i*4],gg=a[i*4+1],b=a[i*4+2];return !leafy(i)&&(b>=gg-6&&b>=r-30||(r+gg+b)>560);};
  for(let x=0;x<W;x++)if(skyish(x)){m[x]=1;st.push(x);}
  while(st.length){const p=st.pop(),x=p%W;for(const q of [x>0?p-1:-1,x<W-1?p+1:-1,p>=W?p-W:-1,p<N-W?p+W:-1])if(q>=0&&!m[q]&&skyish(q)){m[q]=1;st.push(q);}}
  // 구멍(별·달·구름 속) 메우기: 아래쪽·양옆 가장자리까지 이어지지 않는 칸은 하늘
@@ -135,27 +136,50 @@ function osSky(portrait,W,H){if(OS.skyKey===OS.sceneKey&&OS.sky)return OS.sky;co
  // 줄마다 하늘 바탕색과 구름의 어두운 가장자리까지 함께 고릅니다.
  const L=i=>.3*a[i*4]+.59*a[i*4+1]+.11*a[i*4+2],base=[],basePaint=[],cl=new Uint8Array(N),cloudY=Math.round(H*(portrait?.215:.215)),moon=osClock()!==3?[-1,-1,-1,-1]:portrait?[170,30,228,95]:[1000,40,1170,200];   // 구름은 산보다 위에서만, 달은 빼고
  for(let y=0;y<maxY;y++){const v=[];for(let x=0;x<W;x++){const i=y*W+x;if(m[i])v.push(i);}v.sort((p,q)=>L(p)-L(q));const i=v.length?v[v.length>>2]:-1;base[y]=i<0?null:[a[i*4],a[i*4+1],a[i*4+2],L(i)];basePaint[y]=i<0?null:[paint[i*4],paint[i*4+1],paint[i*4+2]];
-  if(base[y]&&y<cloudY)for(const i of v){const x=i%W;if(x>=moon[0]&&x<=moon[2]&&y>=moon[1]&&y<=moon[3])continue;if(L(i)>base[y][3]+8&&!leafy(i))cl[i]=1;}}
+  if(base[y]&&y<cloudY)for(const i of v){const x=i%W;if(x>=moon[0]&&x<=moon[2]&&y>=moon[1]&&y<=moon[3])continue;if(L(i)>base[y][3]+8&&!leafy(i)&&!teal(i))cl[i]=1;}}
+ // 그늘 줄에 끊긴 밝은 조각도 한 구름으로: 구름 후보를 R칸 부풀렸다 다시 줄여(닫기) 틈을 메워요. 빠진 조각은 제자리에 남아 점박이처럼 보여요.
+ {const R=portrait?1:3,any=(src,r)=>{const t=new Uint8Array(N),o=new Uint8Array(N);for(let y=0;y<maxY;y++){let n=0;const b=y*W;for(let x=0;x<W+r;x++){if(x<W)n+=src[b+x];if(x-2*r-1>=0)n-=src[b+x-2*r-1];const cx=x-r;if(cx>=0&&cx<W)t[b+cx]=n>0;}}for(let x=0;x<W;x++){let n=0;for(let y=0;y<maxY+r;y++){if(y<maxY)n+=t[y*W+x];if(y-2*r-1>=0)n-=t[(y-2*r-1)*W+x];const cy=y-r;if(cy>=0&&cy<maxY)o[cy*W+x]=n>0;}}return o;};
+  const d=any(cl,R);for(let i=0;i<N;i++)d[i]=1-d[i];const e=any(d,R);for(let i=0;i<N;i++){const x=i%W,y=(i-x)/W;if(!e[i]&&!cl[i]&&m[i]&&y<cloudY&&!leafy(i)&&!teal(i)&&!(x>=moon[0]&&x<=moon[2]&&y>=moon[1]&&y<=moon[3]))cl[i]=1;}}
  const seen=new Uint8Array(N),clouds=[],minN=portrait?40:300;
  for(let i=0;i<N;i++){if(!cl[i]||seen[i])continue;const comp=[i];seen[i]=1;for(let k=0;k<comp.length;k++){const p=comp[k],x=p%W;for(const q of [x>0?p-1:-1,x<W-1?p+1:-1,p>=W?p-W:-1,p<N-W?p+W:-1,p>=W&&x>0?p-W-1:-1,p>=W&&x<W-1?p-W+1:-1,p<N-W&&x>0?p+W-1:-1,p<N-W&&x<W-1?p+W+1:-1])if(q>=0&&cl[q]&&!seen[q]){seen[q]=1;comp.push(q);}}
   if(comp.length<minN)continue;let x0=W,x1=0,y0=maxY,y1=0;for(const p of comp){const x=p%W,y=(p-x)/W;if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}
   // 가장자리 1칸 넓혀 오려 내기(테두리 빛번짐까지)
   if(x1-x0<(portrait?20:60))continue;   // 별처럼 작은 덩어리는 구름이 아니에요
-  x0=Math.max(0,x0-1);y0=Math.max(0,y0-1);x1=Math.min(W-1,x1+1);y1=Math.min(maxY-1,y1+1);const cw=x1-x0+1,ch=y1-y0+1,cv=document.createElement('canvas');cv.width=cw;cv.height=ch;const cg=cv.getContext('2d'),im=cg.createImageData(cw,ch);
-  const inC=new Uint8Array(N);for(const p of comp)inC[p]=1;for(const p of comp){const x=p%W;for(const q of [p-1,p+1,p-W,p+W])if(q>=0&&q<N&&m[q]&&!inC[q]&&Math.abs(q%W-x)<=1&&L(q)>base[Math.floor(q/W)][3]+3&&!leafy(q))inC[q]=2;}
+  if(comp.filter(teal).length>comp.length*.25)continue;   // 밤 나무 꼭대기(어두운 청록)는 구름이 아니에요
+  const side=x0===0?-1:x1===W-1?1:0;   // 화면 끝에 걸친 구름은 바깥쪽으로만 움직여요(안쪽으로 오면 잘린 단면이 보여요)
+  x0=Math.max(0,x0-2);y0=Math.max(0,y0-2);x1=Math.min(W-1,x1+2);y1=Math.min(maxY-1,y1+2);const cw=x1-x0+1,ch=y1-y0+1,cv=document.createElement('canvas');cv.width=cw;cv.height=ch;const cg=cv.getContext('2d'),im=cg.createImageData(cw,ch);
+  // 구름 둘레 2칸(어두운 테두리선 포함)까지 함께 오려요. 안 그러면 구름이 움직인 뒤 제자리에 테두리 줄이 남아요.
+  const inC=new Uint8Array(N);for(const p of comp)inC[p]=1;
+  // 구름 안쪽의 그늘(밝기 기준에 안 걸린 칸)도 구름이에요: 상자 테두리에서 닿지 않는 안쪽 칸을 채워요. 안 그러면 구름이 움직일 때 그늘만 제자리에 남아 점박이처럼 보여요.
+  const out=new Uint8Array(cw*ch),fs=[];for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)if((y===y0||y===y1||x===x0||x===x1)&&!inC[y*W+x]){out[(y-y0)*cw+x-x0]=1;fs.push(y*W+x);}
+  while(fs.length){const p=fs.pop(),x=p%W,y=(p-x)/W;for(const [qx,qy] of [[x-1,y],[x+1,y],[x,y-1],[x,y+1]]){if(qx<x0||qx>x1||qy<y0||qy>y1)continue;const q=qy*W+qx,o=(qy-y0)*cw+qx-x0;if(out[o]||inC[q])continue;out[o]=1;fs.push(q);}}
+  for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){const q=y*W+x;if(!out[(y-y0)*cw+x-x0]&&!inC[q]&&m[q]&&!leafy(q)&&!teal(q)){inC[q]=1;comp.push(q);}}
+  let ring=comp;for(let r=0;r<2;r++){const nx=[];for(const p of ring){const x=p%W;for(const dx of [-1,0,1])for(const dy of [-W,0,W]){const q=p+dx+dy,qx=x+dx;if(qx<x0||qx>x1||q<0||q>=N||inC[q]||!m[q]||leafy(q)||teal(q))continue;const qy=(q-qx)/W;if(qy<y0||qy>y1||qx>=moon[0]&&qx<=moon[2]&&qy>=moon[1]&&qy<=moon[3])continue;inC[q]=2;nx.push(q);}}ring=nx;}
   for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){const p=y*W+x;if(!inC[p])continue;const t=((y-y0)*cw+x-x0)*4;im.data[t]=paint[p*4];im.data[t+1]=paint[p*4+1];im.data[t+2]=paint[p*4+2];im.data[t+3]=255;}
-  cg.putImageData(im,0,0);clouds.push({cv,x:x0,y:y0,w:cw,h:ch,px:[...inC.keys()].filter(p=>inC[p]),ph:clouds.length*1.7,amp:(portrait?5:15)+(clouds.length%3)*(portrait?2:6)});}
+  cg.putImageData(im,0,0);clouds.push({cv,x:x0,y:y0,w:cw,h:ch,side,px:[...inC.keys()].filter(p=>inC[p]),ph:clouds.length*1.7,amp:(portrait?5:15)+(clouds.length%3)*(portrait?2:6)});}
+ // 한 구름이 여러 조각으로 잘렸으면(상자가 옆으로 24칸·위아래 8칸 안으로 붙어 있으면) 같이 움직여야 갈라지지 않아요
+ for(let i=0;i<clouds.length;i++)for(let j=0;j<i;j++){const A=clouds[i],B=clouds[j];if(A.x<=B.x+B.w+24&&B.x<=A.x+A.w+24&&A.y<=B.y+B.h+8&&B.y<=A.y+A.h+8){const from=A.ph,to=B.ph,amp=B.amp;clouds.forEach(c=>{if(c.ph===from){c.ph=to;c.amp=amp;}});}}
+ for(const c of clouds)if(c.side)clouds.forEach(d=>{if(d.ph===c.ph)d.side=c.side;});   // 끝에 걸친 조각과 묶인 조각도 같은 쪽으로
+ for(const c of clouds)if(c.y+c.h>cloudY-(portrait?16:48))clouds.forEach(d=>{if(d.ph===c.ph)d.flat=1;});   // 경계줄 근처 구름(과 묶인 조각)은 위아래로는 안 움직여요   // 끝에 걸친 조각과 묶인 조각도 같은 쪽으로
+ for(const c of clouds)if(c.y+c.h>cloudY-(portrait?16:48))clouds.forEach(d=>{if(d.ph===c.ph)d.flat=1;});   // 경계줄 근처 구름(과 묶인 조각)은 위아래로는 안 움직여요
  // 구름을 지운 하늘판(구름 자리는 그 줄 바탕색) + 하늘 마스크 판
  const clean=document.createElement('canvas');clean.width=W;clean.height=maxY;const kg=clean.getContext('2d'),ki=kg.createImageData(W,maxY),mk=document.createElement('canvas');mk.width=W;mk.height=maxY;const mg=mk.getContext('2d'),mi=mg.createImageData(W,maxY);
  const cover=new Uint8Array(N);for(const c of clouds)for(const p of c.px)cover[p]=1;
- for(let i=0;i<N;i++)if(m[i])mi.data[i*4+3]=255;
- // 구름 자리를 메우는 색: 그 구름 옆(좌우 12칸)의 구름 아닌 하늘 줄 색(없으면 그 줄 바탕색)
- clouds.forEach(c=>{const rows={};for(const p of c.px){const y=Math.floor(p/W);if(!rows[y]){const v=[];for(let x=Math.max(0,c.x-12);x<=Math.min(W-1,c.x+c.w+12);x++){const q=y*W+x;if(m[q]&&!cover[q])v.push(q);}v.sort((u,w)=>L(u)-L(w));const q=v.length>3?v[v.length>>1]:-1;rows[y]=q>=0?[paint[q*4],paint[q*4+1],paint[q*4+2]]:basePaint[y];}
-  const b=rows[y];if(!b||!m[p])continue;ki.data[p*4]=b[0];ki.data[p*4+1]=b[1];ki.data[p*4+2]=b[2];ki.data[p*4+3]=255;}});
+ // 구름 층은 하늘이 아닌 곳(나무·지붕) 가장자리 2칸은 덮지 않아요: 나무의 검은 테두리선이 하늘로 잡혀 구름에 덮이면 테두리가 파랗게 얼룩져요.
+ for(let i=0;i<N;i++){if(!m[i])continue;const x=i%W,y=(i-x)/W;let ok=1;for(let dy=-2;dy<=2&&ok;dy++)for(let dx=-2;dx<=2;dx++){const qx=x+dx,qy=y+dy;if(qx<0||qx>=W||qy<0||qy>=maxY)continue;if(!m[qy*W+qx]){ok=0;break;}}if(ok)mi.data[i*4+3]=255;}
+ // 구름 자리를 메우는 색: 같은 줄에서 바로 왼쪽·오른쪽의 구름 아닌 하늘(각 4칸의 가운데 밝기)을 거리에 따라 섞어요.
+ // 줄 전체 평균색을 쓰면 하늘이 옆으로 조금씩 달라지는 곳(밤하늘·달빛)에서 빈자리가 어두운 띠로 보여요. 양옆에 하늘이 없으면 예전처럼 그 구름 옆 줄 색.
+ const near=(y,x,d)=>{const v=[];let at=-1;for(let k=1;k<=80&&v.length<4;k++){const xx=x+d*k;if(xx<0||xx>=W)break;const q=y*W+xx;if(m[q]&&!cover[q]){if(at<0)at=k;v.push(q);}}if(!v.length)return null;v.sort((u,w)=>L(u)-L(w));const q=v[v.length>>1];return [at,paint[q*4],paint[q*4+1],paint[q*4+2]];};
+ clouds.forEach(c=>{const rows={};for(const p of c.px){if(!m[p])continue;const y=Math.floor(p/W),x=p-y*W,l=near(y,x,-1),r=near(y,x,1);let b;
+  if(l&&r){const t=l[0]/(l[0]+r[0]);b=[0,1,2].map(j=>Math.round(l[j+1]*(1-t)+r[j+1]*t));}else if(l||r){const o=l||r;b=[o[1],o[2],o[3]];}
+  else{if(!rows[y]){const v=[];for(let xx=Math.max(0,c.x-12);xx<=Math.min(W-1,c.x+c.w+12);xx++){const q=y*W+xx;if(m[q]&&!cover[q])v.push(q);}v.sort((u,w)=>L(u)-L(w));const q=v.length>3?v[v.length>>1]:-1;rows[y]=q>=0?[paint[q*4],paint[q*4+1],paint[q*4+2]]:basePaint[y];}b=rows[y];}
+  if(!b)continue;ki.data[p*4]=b[0];ki.data[p*4+1]=b[1];ki.data[p*4+2]=b[2];ki.data[p*4+3]=255;}});
  kg.putImageData(ki,0,0);mg.putImageData(mi,0,0);clouds.forEach(c=>delete c.px);
- OS.skyKey=OS.sceneKey;OS.sky={m,W,maxY,clean,mask:mk,clouds};return OS.sky;}
+ OS.skyKey=OS.sceneKey;OS.sky={m,W,maxY,cloudY,clean,mask:mk,clouds};return OS.sky;}
 function osDrawClouds(g,portrait,W,H,f){const sky=osSky(portrait,W,H);if(!sky||!sky.clouds.length)return;if(!OS.skyLayer)OS.skyLayer=document.createElement('canvas');const L=OS.skyLayer;if(L.width!==W||L.height!==sky.maxY){L.width=W;L.height=sky.maxY;}const lg=L.getContext('2d');lg.imageSmoothingEnabled=false;lg.globalCompositeOperation='source-over';lg.clearRect(0,0,W,sky.maxY);lg.drawImage(sky.clean,0,0);
- const k=portrait?1:3;sky.clouds.forEach((c,i)=>{const dx=Math.round(c.amp*Math.sin(f/(80+i*17)+c.ph)/k)*k,dy=Math.round(Math.sin(f/(53+i*11)+c.ph)*.6)*k;lg.drawImage(c.cv,c.x+dx,c.y+dy);});
+ const k=portrait?1:3;sky.clouds.forEach(c=>{const i=Math.round(c.ph/1.7),sw=c.amp*Math.sin(f/(80+i*17)+c.ph),dx=(c.side?c.side*Math.abs(sw):sw),dy=c.flat?0:Math.round(Math.sin(f/(53+i*11)+c.ph)*.6)*k;
+  // 구름은 산 위 경계줄(cloudY)까지만 오려져 있어요. 경계줄에 가까운 줄일수록 덜 움직여서(B칸에 걸쳐 0까지) 잘린 단면이 드러나지 않게 해요.
+  const B=portrait?16:48;for(let r=0;r<c.h;r+=k){const t=Math.max(0,Math.min(1,(sky.cloudY-(c.y+r))/B)),ddx=Math.round(dx*t/k)*k;lg.drawImage(c.cv,0,r,c.w,Math.min(k,c.h-r),c.x+ddx,c.y+r+dy,c.w,Math.min(k,c.h-r));}});
  lg.globalCompositeOperation='destination-in';lg.drawImage(sky.mask,0,0);lg.globalCompositeOperation='source-over';g.drawImage(L,0,0);}
 function osInSky(x,y){const s=OS.sky;if(!s||OS.skyKey!==OS.sceneKey)return false;x=Math.round(x);y=Math.round(y);if(x<0||x>=s.W||y<0)return true;if(y>=s.maxY)return false;return !!s.m[y*s.W+x];}
 function osBirdCount(r=Math.random()){return r<.5?1:r<.8?2:r<.95?3:r<.98?4:5;}

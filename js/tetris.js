@@ -159,14 +159,14 @@ function musTick(){if(!musOn||!A||A.state!=='running')return;const e=urgent?.118
 
 /* ---------- 상태 ---------- */
 let st='off',tok=0,lv0=1,board=[],cur=null,nxt=null,score=0,lines=0,gAcc=0,clr=[],clrT=0,overN=0,overT=0,newBest=false,danger=false,rw=null,blueAsk=0;
-let osd=null,msg=null,tbump=0,held={};
+let osd=null,msg=null,held={};
 const deco=[0,1,2,3].map(i=>({k:KEYS[(i*3)%7],x:20+i*80,y:-40-i*70,v:8+i*3}));
 const best=()=>S.mg.bt||0;
 const level=()=>lv0+Math.floor(lines/10);
 const gms=()=>Math.max(50,Math.round(800*Math.pow(.83,level()-1)));
 const now=()=>performance.now();
 function hit(c,x,y){for(const[a,b]of c){const cx=x+a,cy=y+b;if(cx<0||cx>=COLS||cy>=ROWS)return true;if(cy>=0&&board[cy][cx])return true;}return false;}
-function say(t,ms=1600){msg={t,e:now()+ms};tbump=now()+220;}
+function say(t,ms=1600){msg={t,e:now()+ms};}
 function showOsd(a,b,ms=2600){osd={a,b,e:now()+ms};}
 function anim(c,ms){if(!PIC)return;PIC.classList.remove('on','off','shk');void PIC.offsetWidth;PIC.classList.add(c);if(c!=='off')setTimeout(()=>PIC&&PIC.classList.remove(c),ms);}
 function led(){const l=$('tt-led');if(l)l.classList.toggle('g',st!=='off');}
@@ -243,7 +243,7 @@ function onHide(){if(document.hidden&&openNow){doPause();held={};}}
 const F11='11px Galmuri11',F14='14px Galmuri14';
 function tx(s,x,y,col='#fff',al='left',f=F11,sh='#000'){X.font=f;X.textAlign=al;X.textBaseline='top';if(sh){X.fillStyle=sh;X.fillText(s,x+1,y+1);}X.fillStyle=col;X.fillText(s,x,y);}
 function otx(s,x,y,col,al,f){X.font=f;X.textAlign=al;X.textBaseline='top';X.fillStyle='#000';for(const[a,b]of[[-1,0],[1,0],[0,-1],[0,1],[1,1]])X.fillText(s,x+a,y+b);X.fillStyle=col;X.fillText(s,x,y);}
-let BG=null,TORI=null,NZ=null,NQ=null,NI=null;
+let BG=null,NZ=null,NQ=null,NI=null;
 function makeArt(){if(BG)return;BG=document.createElement('canvas');BG.width=W;BG.height=H;const q=BG.getContext('2d'),g=q.createLinearGradient(0,0,0,H);
   g.addColorStop(0,'#1d2f78');g.addColorStop(1,'#0a1240');q.fillStyle=g;q.fillRect(0,0,W,H);
   q.fillStyle='rgba(255,255,255,.05)';for(let y=0;y<H;y+=2)for(let x=(y/2)%2*2;x<W;x+=4)q.fillRect(x,y,1,1);
@@ -253,11 +253,6 @@ const ACORN=["..kkkk..",".kddddk.","kddddddk",".kbbbbk.",".kbbbbk.","..kbbk..","
 function acorn(x,y,s=2){ACORN.forEach((r,j)=>[...r].forEach((c,i)=>{if(c!=='.'){X.fillStyle=APAL[c];X.fillRect(x+i*s,y+j*s,s,s);}}));}
 function box(x,y,w,h,fill='rgba(4,8,36,.62)',line='#6f7fe0'){X.fillStyle=fill;X.fillRect(x,y,w,h);X.fillStyle=line;X.fillRect(x,y,w,1);X.fillRect(x,y+h-1,w,1);X.fillRect(x,y,1,h);X.fillRect(x+w-1,y,1,h);}
 function tri(x,y,dir,col){X.fillStyle=col;for(let i=0;i<4;i++){if(dir<0)X.fillRect(x+i,y+3-i,1,i*2+1);else X.fillRect(x+3-i,y+3-i,1,i*2+1);}}
-function drawTori(t){if(!TORI||!TORI.complete||!TORI.naturalWidth)return;X.drawImage(TORI,264,194+(t<tbump?-2:0));
-  if(msg&&t<msg.e){X.font=F11;const w=Math.ceil(X.measureText(msg.t).width)+12,x=258-w,y=200;
-    X.fillStyle='#000';X.fillRect(x-1,y-1,w+2,18);X.fillStyle='#fffaf0';X.fillRect(x,y,w,16);
-    X.fillStyle='#000';X.fillRect(x+w,y+6,3,1);X.fillRect(x+w,y+7,5,1);X.fillRect(x+w,y+8,3,1);X.fillStyle='#fffaf0';X.fillRect(x+w-1,y+7,3,1);
-    tx(msg.t,x+6,y+3,'#3a2a20','left',F11,null);}}
 function drawOsd(t){if(!osd||t>osd.e)return;
   if(osd.vol){otx(mute?'음소거':'음량',18,9,'#5dff5d','left',F14);
     for(let i=0;i<6;i++){X.fillStyle='#000';X.fillRect(17+i*13,27,11,13);X.fillStyle=(!mute&&i<vol)?'#5dff5d':'#1d4d1d';X.fillRect(18+i*13,28,9,11);}return;}

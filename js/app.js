@@ -15,7 +15,7 @@ const BGX=[['mj','마작패'],['gt','기타'],['dc','주사위']];   /* 도토�
 function bgApply(){document.documentElement.dataset.bgp=S.bgPat||'acorn';}
 function bgSet(v){S.bgPat=v;save();bgApply();rSet();}
 function bgCard(){const p=S.bgPat||'acorn';
-  return `<div class="card"><h2>🎨 배경 꾸미기</h2><div class="bgg">${BGP.concat(BGX.filter(x=>S.bgOwn.includes(x[0]))).map(([k,n])=>`<button class="bgo ${p===k?'on':''}" onclick="bgSet('${k}')"><span class="bgpv" style="background-image:var(--bgi-${k})"></span>${n}</button>`).join('')}</div></div>`;}
+  return `<div class="card"><h2>🎨 배경 꾸미기</h2><div class="bgg">${BGP.concat(BGX.filter(x=>S.bgOwn.includes(x[0]))).map(([k,n])=>`<button class="bgo ${p===k?'on':''}" onclick="bgSet('${k}')"><span class="bgpv bgpv-${k}"></span>${n}</button>`).join('')}</div></div>`;}
 
 /* 도토리 수입 설정 (3단계): 숫자만 바꾸면 전체 수입이 같이 바뀌어요 */
 const ECO={att:1,qCap:5,clear:1,actCap:2,mgPlays:2,pat:1,lucky:1,luckyP:.1,song:1,dex:1,wkCap:6};
@@ -69,7 +69,10 @@ function nightAns(v){S.nightA={k:nightKey(),v:v};save();render();toast(v?'화면
 function nightAsk(){if(!S.tutDone||thm()!=='ask'||!isNight())return;if(S.nightA&&S.nightA.k===nightKey())return;if(tkQ.some(q=>q.o))return;
   tako('=밤이 깊었다코… 화면을 어둡게 해 줄까코? 🌙','',12000,0,[['어둡게 해줘',1],['괜찮아',0]]);}
 // 아이폰 상태 표시줄과 브라우저 테두리를 현재 화면의 윗부분 색에 맞춥니다.
-function appScreenTheme(){const root=document.documentElement;if(typeof osIsOpen==='function'&&osIsOpen())return;const splash=$('splash'),color=root.classList.contains('riddle-on')?'#4d3b2b':getComputedStyle(splash||document.body).backgroundColor;root.style.backgroundColor=color;const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=color;}
+/* 노치(상태 표시줄) 색: 맨 위에 덮인 전체 화면(게임·마작방·보드게임) 바탕색을 따라가요. 아이폰이 meta 값만 바꾸면 못 알아채는 경우가 있어 meta를 새로 갈아 끼워요. */
+function appThemeMeta(color){const old=document.querySelector('meta[name="theme-color"]');if(old&&old.content===color)return;const m=document.createElement('meta');m.name='theme-color';m.content=color;if(old)old.replaceWith(m);else document.head.appendChild(m);}
+function appScreenTheme(){const root=document.documentElement;if(typeof osIsOpen==='function'&&osIsOpen())return;const bgOf=e=>{const c=e&&e.getClientRects().length?getComputedStyle(e).backgroundColor:'';return c&&c!=='transparent'&&!/^rgba\(.*,\s*0\)$/.test(c)?c:'';},color=root.classList.contains('riddle-on')?'#4d3b2b':bgOf($('splash'))||bgOf($('mjroom'))||bgOf($('mg'))||bgOf($('bgo'))||getComputedStyle(document.body).backgroundColor;root.style.backgroundColor=color;appThemeMeta(color);}
+new MutationObserver(()=>{clearTimeout(appScreenTheme.f);appScreenTheme.f=setTimeout(appScreenTheme,0);}).observe(document.body,{childList:true});
 function render(){dMv=null;msSync();bgApply();document.documentElement.classList.toggle('bold',!!S.bold);document.documentElement.classList.toggle('noanim',!!S.noAnim);document.documentElement.dataset.fs=[0,1,2].includes(+S.fs)?+S.fs:0;document.documentElement.classList.toggle('dk',isDark());appScreenTheme();
   $('nav').innerHTML=TABS.map(([k,i,l])=>`<button class="${tab===k?'on':''}" onclick="go('${k}')">${l}</button>`).join('');
   document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id==='s-'+tab));
@@ -294,20 +297,20 @@ let mjLoadTimer=0,mjOverflow='';
 // Each scene preserves its aspect ratio and owns five localized comparison patches.
 const DF={stage:0,page:0,found:[],hint:-1,zoom:false,observer:null,takoTimer:null,scale:1};
 const DF_SCENES=[
- {id:'strawberry-teaparty',name:'냐옹이와 도치의 딸기 티파티',original:'images/scenes/df-teaparty-v92.webp',edited:'images/scenes/df-teaparty-changes-v92.webp',spots:[
+ {id:'strawberry-teaparty',name:'냐옹이와 도치의 딸기 티파티',original:'images/scenes/df-teaparty-v92.webp',edited:'images/scenes/df-teaparty-hard-changes-v125.webp',spots:[
   {x:129,y:146,r:23,n:'바구니 리본',box:[111,123,35,47]},
   {x:17,y:216,r:18,n:'꽃병 리본',box:[3,201,30,30]},
   {x:170,y:162,r:9,n:'도치 코의 크림',box:[164,157,12,9]},
   {x:76,y:251,r:15,n:'탁자 위 딸기',box:[63,241,25,20]},
   {x:147,y:71,r:10,n:'하늘의 꽃잎',box:[140,67,14,9]}]},
- {id:'acorn-cookie-workshop',name:'토리와 타코의 도토리 쿠키 공방',original:'images/scenes/df-kitchen-v92.webp',edited:'images/scenes/df-kitchen-changes-v92.webp',spots:[
+ {id:'acorn-cookie-workshop',name:'토리와 타코의 도토리 쿠키 공방',original:'images/scenes/df-kitchen-v92.webp',edited:'images/scenes/df-kitchen-hard-changes-v125.webp',spots:[
   {x:201,y:22,r:14,n:'시계 바늘',box:[193,13,18,13]},
   {x:159,y:82,r:12,n:'벽에 걸린 숟가락',box:[153,75,13,14]},
   {x:12,y:161,r:18,n:'쿠키 병 리본',box:[0,147,25,30]},
   {x:186,y:111,r:11,n:'타코 모자의 장식',box:[179,105,14,13]},
   {x:42,y:284,r:18,n:'작은 다람쥐 장식',box:[24,267,36,33]}]},
- {"id":"starlight-library","name":"부엉박사와 냐옹이의 별빛 도서관","width":1122,"height":838,"original":"images/scenes/df-library-v97.webp","edited":"images/scenes/df-library-changes-v97.webp","spots":[{"x":19.679,"y":46.845,"r":15.294,"n":"매달린 달 장식","box":[6.84492,32.94118,25.66845,27.80749]},{"x":222.032,"y":79.037,"r":8.235,"n":"등불의 리본","box":[214.54545,71.65775,14.97326,14.75936]},{"x":196.364,"y":136.257,"r":10.824,"n":"모래시계의 모래","box":[189.51872,126.41711,13.68984,19.67914]},{"x":30.374,"y":174.759,"r":7.059,"n":"책의 책갈피","box":[23.95722,170.26738,12.83422,8.98396]},{"x":215.294,"y":159.893,"r":15.647,"n":"쿠션의 별 자수","box":[201.06952,149.94652,28.4492,19.89305]}]},
- {"id":"glass-garden","name":"토리·타코·도치의 유리 온실 정원","width":1122,"height":838,"original":"images/scenes/df-garden-v97.webp","edited":"images/scenes/df-garden-changes-v97.webp","spots":[{"x":46.631,"y":31.979,"r":14.941,"n":"매달린 종","box":[34.0107,18.39572,25.24064,27.16578]},{"x":207.807,"y":28.77,"r":18.706,"n":"나비의 날개","box":[191.01604,11.76471,33.58289,34.0107]},{"x":18.503,"y":100.107,"r":17.647,"n":"기둥의 리본","box":[4.70588,84.06417,27.59358,32.08556]},{"x":208.128,"y":131.658,"r":10.471,"n":"화분의 꽃잎","box":[198.71658,122.13904,18.82353,19.03743]},{"x":45.455,"y":166.631,"r":13.294,"n":"바닥의 장갑","box":[33.36898,158.93048,24.17112,15.40107]}]}
+ {"id":"starlight-library","name":"부엉박사와 냐옹이의 별빛 도서관","width":1122,"height":838,"original":"images/scenes/df-library-v97.webp","edited":"images/scenes/df-library-hard-changes-v125.webp","spots":[{"x":19.679,"y":46.845,"r":15.294,"n":"매달린 달 장식","box":[6.84492,32.94118,25.66845,27.80749]},{"x":222.032,"y":79.037,"r":8.235,"n":"등불의 리본","box":[214.54545,71.65775,14.97326,14.75936]},{"x":196.364,"y":136.257,"r":10.824,"n":"모래시계의 모래","box":[189.51872,126.41711,13.68984,19.67914]},{"x":30.374,"y":174.759,"r":7.059,"n":"책의 책갈피","box":[23.95722,170.26738,12.83422,8.98396]},{"x":215.294,"y":159.893,"r":15.647,"n":"쿠션의 별 자수","box":[201.06952,149.94652,28.4492,19.89305]}]},
+ {"id":"glass-garden","name":"토리·타코·도치의 유리 온실 정원","width":1122,"height":838,"original":"images/scenes/df-garden-v97.webp","edited":"images/scenes/df-garden-hard-changes-v125.webp","spots":[{"x":46.631,"y":31.979,"r":14.941,"n":"매달린 종","box":[34.0107,18.39572,25.24064,27.16578]},{"x":207.807,"y":28.77,"r":18.706,"n":"나비의 날개","box":[191.01604,11.76471,33.58289,34.0107]},{"x":18.503,"y":100.107,"r":17.647,"n":"기둥의 리본","box":[4.70588,84.06417,27.59358,32.08556]},{"x":208.128,"y":131.658,"r":10.471,"n":"화분의 꽃잎","box":[198.71658,122.13904,18.82353,19.03743]},{"x":45.455,"y":166.631,"r":13.294,"n":"바닥의 장갑","box":[33.36898,158.93048,24.17112,15.40107]}]}
 ].map(s=>typeof DF_HARD!=='undefined'&&DF_HARD[s.id]?{...s,...DF_HARD[s.id]}:s).concat(typeof DF_MORE==='undefined'?[]:DF_MORE);// 추가 장면 30개·예전 장면의 어려운 그림(DF_HARD)은 data/difference.js
 const DF_ART=new Map();
 function dfRatio(){const s=DF_SCENES[DF.stage];return (s.width||1122)/(s.height||1402);}
@@ -459,65 +462,11 @@ const SDJ=[];function sdJelly(f){if(SDJ[f])return SDJ[f];const G=sdGrid(16,16);
 let MG={};
 /* v5.4: 도토리 받기 · 타코 띄워 주기 · 기타리스트는 10월엔 처음의 단순한 화면, 11월 1일부터 v5.2 화면(숲·바다·무대). 게임을 시작할 때 정해요 */
 const MG_NEW='2026-11-01',mgOld=()=>todayStr()<MG_NEW;
-/* ===== v5.3 미니게임 공통 연출 (MX) =====
-   처음 열 때 시작 화면 → 3·2·1 → 게임 → 별점 결과 카드. 반짝이(파티클)·글자 튀기·화면 흔들림·번쩍임·점수판도 여기서 그려요.
-   게임 loop: dt=MX.step(dt)(시작 전·카운트다운 동안 0) → MX.pre(g) → 게임 그림 → MX.post(g) → 점수판 → MX.over(g). 점수·보상 규칙은 각 게임 그대로 */
 Object.assign(MGP,{Z:'#fff0a6'});
-Object.assign(MGS,{"st1": ["......k......", ".....kyk.....", ".....kyk.....", "....kyZyk....", "kkkkkyZyykkkk", "kyyyyZZyyyyyk", ".kyyyyyyyyYk.", "..kyyyyyyYk..", "...kyyyyYk...", "..kyyykyyYk..", "..kyyk.kyYk..", ".kyk.....kYk.", ".kk.......kk."], "st0": ["......k......", ".....kxk.....", ".....kxk.....", "....kxwxk....", "kkkkkxwxxkkkk", "kxxxxwwxxxxxk", ".kxxxxxxxxsk.", "..kxxxxxxsk..", "...kxxxxsk...", "..kxxxkxxsk..", "..kxxk.kxsk..", ".kxk.....ksk.", ".kk.......kk."], "ht": ["..kk...kk..", ".kRRk.kRRk.", "kRwRRkRRRRk", "kRwRRRRRRRk", "kRRRRRRRRRk", ".kRRRRRRRk.", "..kRRRRRk..", "...kRRRk...", "....kRk....", ".....k....."]});
-const MX={p:[],t:[],sh:0,fl:0,fc:'#fff',st:'play',cd:0,ct:0,raf:0,first:0,info:null,
- reset(info){cancelAnimationFrame(this.raf);this.raf=0;this.p=[];this.t=[];this.sh=0;this.fl=0;this.ct=0;this.info=info;this.st=this.first?'ready':'cd';this.cd=this.first?0:2.4;if(!this.first)sfx('tick');},
- go(){if(this.st!=='ready')return false;this.first=0;this.st='cd';this.cd=2.4;sfx('tick');return true;},
- step(dt){this.ct+=dt;
-  this.p=this.p.filter(p=>{p.l-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=(p.g||0)*dt;return p.l>0;});
-  this.t=this.t.filter(t=>{t.l-=dt;t.y-=(t.v==null?30:t.v)*dt;return t.l>0;});
-  if(this.sh>0)this.sh=Math.max(0,this.sh-40*dt);if(this.fl>0)this.fl=Math.max(0,this.fl-2*dt);
-  if(this.st==='ready')return 0;
-  if(this.st==='cd'){const a=Math.ceil(this.cd/.8);this.cd-=dt;const b=Math.ceil(this.cd/.8);if(this.cd<=0){this.st='play';sfx('coin');this.pop(160,210,'시작!','#ffe14d',2,.8);}else if(b!==a)sfx('tick');return 0;}
-  return dt;},
- burst(x,y,cols,n,sp,gr,sz){for(let i=0;i<n;i++){const a=Math.random()*6.283,v=sp*(.35+Math.random()*.65);this.p.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-(gr?sp*.5:0),g:gr||0,l:.45+Math.random()*.4,L:.85,c:cols[i%cols.length],z:sz||4});}},
- confetti(n){const C=['#e79aa8','#f4c542','#8fbf5a','#7fc8e0','#c9a3e6','#fffaf0'];for(let i=0;i<n;i++)this.p.push({x:Math.random()*320,y:-10-Math.random()*60,vx:(Math.random()-.5)*60,vy:60+Math.random()*80,g:40,l:2.2,L:2.2,c:C[i%C.length],z:4,cf:1});},
- ring(x,y,col,r){this.p.push({x,y,vx:0,vy:0,l:.35,L:.35,c:col,ring:r||24});},
- pop(x,y,s,col,big,life,v){this.t.push({x,y,s,c:col||'#fffaf0',b:big||1,l:life||.7,L:life||.7,v});},
- shake(a){this.sh=Math.max(this.sh,a);},flash(c,a){this.fc=c;this.fl=Math.max(this.fl,a||.4);},
- tx(g,s,x,y,sz,col,al,plain){g.save();g.font='700 '+sz+'px Galmuri11,monospace';g.textAlign=al||'center';g.textBaseline='middle';x=Math.round(x);y=Math.round(y);
-  if(!plain){const o=sz>=32?3:2;g.fillStyle='#3a2a20';for(const [a,b] of [[-o,0],[o,0],[0,-o],[0,o],[-o,-o],[o,-o],[-o,o],[o,o]])g.fillText(s,x+a,y+b);}
-  g.fillStyle=col;g.fillText(s,x,y);g.restore();},
- icon(g,k,x,y,z){z=z||1;MGS[k].forEach((row,j)=>[...row].forEach((ch,i)=>{if(ch!=='.'){g.fillStyle=MGP[ch];g.fillRect(Math.round(x+i*z),Math.round(y+j*z),z,z);}}));},
- panel(g,x,y,w,h,f){g.fillStyle='#3a2a20';g.fillRect(x+2,y,w-4,h);g.fillRect(x,y+2,w,h-4);g.fillStyle=f||'#fffaf0';g.fillRect(x+2,y+2,w-4,h-4);if(!f){g.fillStyle='#e8d9b8';g.fillRect(x+2,y+h-5,w-4,3);}},
- bar(g,x,y,w,fr){this.panel(g,x,y,w,18,'#5a3d24');fr=Math.max(0,Math.min(1,fr));const c=fr>.5?'#8fbf5a':fr>.2?'#f4c542':'#e0524d';if(fr>.17||Math.floor(this.ct*6)%2){g.fillStyle=c;g.fillRect(x+4,y+4,Math.round((w-8)*fr),10);g.fillStyle='rgba(255,255,255,.4)';g.fillRect(x+4,y+4,Math.round((w-8)*fr),3);}},
- chip(g,x,y,w,s,ic){this.panel(g,x,y,w,28);if(ic)this.icon(g,ic,x+6,y+6);this.tx(g,s,x+w-8,y+15,16,'#3a2a20','right',1);},
- pre(g){g.save();if(this.sh>0)g.translate(Math.round((Math.random()-.5)*this.sh),Math.round((Math.random()-.5)*this.sh));},
- post(g){this.p.forEach(p=>{g.globalAlpha=p.cf?1:Math.min(1,p.l/p.L*1.8);g.fillStyle=p.c;
-   if(p.ring){const r=p.ring*(1.6-p.l/p.L*.8),n=Math.round(r*.9);for(let k=0;k<n;k++){const a=k/n*6.283;g.fillRect(Math.round(p.x+r*Math.cos(a))-2,Math.round(p.y+r*Math.sin(a))-2,4,4);}}
-   else if(p.cf)g.fillRect(Math.round(p.x),Math.round(p.y),Math.floor(p.l*6)%3?4:2,4);else g.fillRect(Math.round(p.x-p.z/2),Math.round(p.y-p.z/2),p.z,p.z);});
-  g.globalAlpha=1;this.t.forEach(t=>{g.globalAlpha=Math.min(1,t.l/t.L*3);this.tx(g,t.s,t.x,t.y,16*t.b,t.c);});g.globalAlpha=1;g.restore();},
- over(g){if(this.fl>0){g.globalAlpha=Math.min(.55,this.fl);g.fillStyle=this.fc;g.fillRect(0,0,320,440);g.globalAlpha=1;}
-  if(this.st==='cd'){const n=Math.ceil(this.cd/.8);g.fillStyle='rgba(30,20,12,.35)';g.fillRect(0,0,320,440);if(n>0){const f=this.cd%.8>.6;this.tx(g,String(n),160,200,f?64:48,'#ffe14d');}this.tx(g,'준비!',160,256,16,'#fffaf0');}
-  if(this.st==='ready')this.title(g);},
- title(g){const I=this.info||{};g.fillStyle='rgba(30,20,12,.55)';g.fillRect(0,0,320,440);this.panel(g,24,52,272,320);
-  g.fillStyle='#f6ead0';g.fillRect(28,56,264,112);if(I.art){g.save();g.beginPath();g.rect(28,56,264,112);g.clip();I.art(g);g.restore();}
-  this.tx(g,I.name||'',160,194,32,'#f4c542');(I.lines||[]).forEach((l,i)=>this.tx(g,l,160,234+i*22,16,'#4a3423','center',1));
-  if(I.best)this.tx(g,I.best,160,240+(I.lines||[]).length*22+10,16,'#a8641a','center',1);
-  if(Math.floor(this.ct*2.5)%2===0)this.tx(g,'화면을 탭하면 시작!',160,404,16,'#ffe14d');},
- end(r){const c=$('mgc');if(!c)return;const snap=document.createElement('canvas');snap.width=320;snap.height=440;snap.getContext('2d').drawImage(c,0,0);
-  const g=c.getContext('2d');this.st='end';let l=0,et=0,got=0,bestOn=0;
-  const loop=ts=>{if(!$('mg')||this.st!=='end')return;const dt=l?Math.min(.05,(ts-l)/1000):0;l=ts;et+=dt;this.step(dt);
-   g.drawImage(snap,0,0);g.fillStyle='rgba(30,20,12,.62)';g.fillRect(0,0,320,440);
-   const oy=Math.round(Math.max(0,(.28-et)/.28)*360/4)*4;g.save();g.translate(0,oy);
-   this.panel(g,30,66,260,300);this.tx(g,r.title||'끝!',160,100,32,'#a8641a');
-   this.tx(g,r.big,160,158,48,'#f4c542');if(r.extra)this.tx(g,r.extra,160,204,16,'#4a3423','center',1);
-   for(let i=0;i<3;i++){const on=i<r.stars,show=et>.45+i*.28,x=160+(i-1)*52-20;
-    if(show&&got<=i){got=i+1;if(on){sfx('coin');this.burst(x+20,252,['#f4c542','#fff0a6','#fffaf0'],10,130,0);}else sfx('tick');}
-    if(show){const b=et<.45+i*.28+.12?2:0;this.icon(g,on?'st1':'st0',x-b,232-b,3);}else this.icon(g,'st0',x,232,3);}
-   if(et>1.3){if(r.rw>0){this.icon(g,'a2',112,286,2);this.tx(g,'+'+r.rw,176,302,32,'#8fbf5a');}else this.tx(g,r.note||'',160,302,16,'#66502f','center',1);}
-   g.restore();
-   if(r.best&&et>1.6){if(!bestOn){bestOn=1;sfx('fan');this.confetti(40);}this.panel(g,92,34+oy,136,30,'#e0524d');this.tx(g,'최고 기록!',160,50+oy,16,'#fffaf0');}
-   this.post(g);this.raf=requestAnimationFrame(loop);};
-  cancelAnimationFrame(this.raf);this.raf=requestAnimationFrame(loop);}};
 
 /* 창이 닫힐 때 툭 사라지지 않게: 진짜 창은 바로 지우고, 같은 색 막이 서서히 사라져요 (공통 지침서 4장) */
 function mgGone(o){if(o._hwFit)o._hwFit.disconnect();try{const g=document.createElement('div');g.id='mgx';g.style.background=getComputedStyle(o).backgroundColor;document.body.appendChild(g);setTimeout(()=>g.remove(),300);}catch(e){}o.remove();}
-function mgClose(){mgStop();if(MG.raf)cancelAnimationFrame(MG.raf);MG.raf=0;cancelAnimationFrame(MX.raf);MX.st='play';const o=$('mg');if(o)mgGone(o);render();}
+function mgClose(){mgStop();if(MG.raf)cancelAnimationFrame(MG.raf);MG.raf=0;const o=$('mg');if(o)mgGone(o);render();}
 function mgStart(){if(MG.raf)cancelAnimationFrame(MG.raf);MG={x:160,t:30,s:0,it:[],sp:0,e:0,l:0,raf:0,old:mgOld()};$('mgr').style.display='none';const c=$('mgc'),g=c.getContext('2d');g.imageSmoothingEnabled=false;
   const dr=(k,x,y,z)=>MGS[k].forEach((row,j)=>[...row].forEach((ch,i)=>{if(ch!=='.'){g.fillStyle=MGP[ch];const X=Math.round(x+i*z),Y=Math.round(y+j*z);g.fillRect(X,Y,Math.round(x+(i+1)*z)-X,Math.round(y+(j+1)*z)-Y);}}));
   const loop=ts=>{if(!$('mg'))return;if(!MG.l)MG.l=ts;const dt=Math.min(.05,(ts-MG.l)/1000);MG.l=ts;MG.t-=dt;MG.e+=dt;MG.sp-=dt;
@@ -807,7 +756,11 @@ addEventListener('keyup',e=>{if(MG.k==='mz'&&MG.input?.key===e.key)mzControlStop
 addEventListener('blur',()=>{if($('mg')?.classList.contains('hw'))hwPause();});
 
 function mg5Open(){const c=hwShell('gh');if(!c)return;c.addEventListener('pointerdown',e=>{e.preventDefault();const[x,y]=mgXY(e,c);mg5Tap(x,y);});mg5Start();}
-function mg5Tap(x,y){if(MG.phase!=='play'||!MG.raf)return;let b=null;MG.U.forEach(u=>{if(u.hit)return;const P=GH_P[u.p],bat=u.k==='b',fl=Math.floor(MG.e*8)%2,top=P[1]-46-u.h+(bat?(fl?4:0)+8:Math.round(Math.sin(MG.e*6+u.p))*2),sprite=fxS(bat?'bt'+fl:'ghA'),bottom=Math.min(top+sprite.height,P[1]-46);if(bottom>top&&Math.abs(x-P[0])<=sprite.width/2+3&&y>=top&&y<bottom)b=u;});
+/* 손가락 판정: 유령은 드러난 몸뿐 아니라 그 호박 윗부분까지(막 올라오거나 들어가는 유령도 잡히게), 박쥐는 보이는 몸만(호박을 눌러도 감점 없음) */
+function mg5Tap(x,y){if(MG.phase!=='play'||!MG.raf)return;let b=null,bd=1e9;MG.U.forEach(u=>{if(u.hit)return;const P=GH_P[u.p],d=Math.abs(x-P[0])+Math.abs(y-(P[1]-46));let ok;
+  if(u.k==='b'){const fl=Math.floor(MG.e*8)%2,top=P[1]-46-u.h+(fl?4:0)+8,bottom=Math.min(top+fxS('bt'+fl).height,P[1]-46);ok=bottom>top&&Math.abs(x-P[0])<=27&&y>=top&&y<bottom;}
+  else{const top=P[1]-46-Math.max(u.h,14)-8;ok=Math.abs(x-P[0])<=34&&y>=top&&y<=P[1]-8;}
+  if(ok&&d<bd){bd=d;b=u;}});
   if(!b){MG.miss=.25;return;}b.hit=1;b.t=Math.min(b.t,.2);const P=GH_P[b.p];
   if(b.k==='b'){MG.s=Math.max(0,MG.s-2);MG.c=0;MG.sh=.3;fxSnd('gh_bat');MG.fx.push({x:P[0],y:P[1]-60,t:.6,m:'-2',bad:1});return;}
   const v=b.k==='g'?3:1;MG.s+=v;MG.c++;MG.bc=Math.max(MG.bc,MG.c);fxSnd(b.k==='g'?'gh_purple':'gh_catch');MG.fx.push({x:P[0],y:P[1]-60,t:.6,m:'+'+v,pf:1});}
@@ -1515,9 +1468,12 @@ function roulette(){const pool=S.wish.filter(p=>pType==='전체'||p.type===pType
   let n=0;const t=setInterval(()=>{const p=pool[Math.floor(Math.random()*pool.length)];$('rl').textContent=p.name;if(++n>14){clearInterval(t);$('rl').textContent='🎉 '+p.name;}},90);}
 /* ---------- 설정 ---------- */
 /* 버전 정보: 세 자리 표기: 작은 수정 +1, 큰 변화 +5 (마지막 자리 올림 포함). sw.js의 CACHE 이름(jw-diary-v숫자)도 같은 숫자로 맞춰요 */
-const APP_VER={v:'v1.6.5',d:'2026.10.27',log:['온천 배경이 보이는데 물결·구름·별 반짝임·새의 나무 가림이 사라지는 문제를 고쳤어요','효과용 배경을 못 읽어도 화면에 뜬 배경으로 풍경 움직임을 복구해요']};
+const APP_VER={v:'v1.6.8',d:'2026.10.29',log:['설정의 배경 꾸미기에서 무늬 미리보기가 빈칸으로 나오던 것을 고쳤어요','온천에서 위쪽 상태 표시줄이 베이지색으로 남던 것을 예전처럼 하늘색으로 돌렸어요']};
 /* 버전 기록: 맨 앞이 최신. 새 버전을 낼 때 맨 앞에 한 줄 추가하고 APP_VER도 맞춰요 */
 const VER_HIST=[
+ {v:'v1.6.8',d:'2026.10.29',log:['설정의 배경 꾸미기에서 무늬 미리보기가 빈칸으로 나오던 것을 고쳤어요','온천에서 위쪽 상태 표시줄이 베이지색으로 남던 것을 예전처럼 하늘색으로 돌렸어요']},
+ {v:'v1.6.7',d:'2026.10.29',log:['유령 잡기에서 유령을 눌렀는데 놓쳤다고 나오던 것을 고쳤어요. 막 올라오는 유령도 잡혀요','온천 구름이 조각나거나 나무가 찢어져 보이던 것을 고쳤어요(모든 시간대·가로 화면)','게임·마작방처럼 어두운 화면에서 위쪽 상태 표시줄 색이 화면을 따라가게 했어요']},
+ {v:'v1.6.6',d:'2026.10.27',log:['수수께끼 찻집 결과 화면 제목을 오늘의 수수께끼 결과로 바꿨어요','결과 화면 소제목을 다섯 문제를 풀어봤어요로 바꿨어요','안 쓰는 코드와 옛 틀린그림 4장을 정리해 앱을 조금 가볍게 했어요']},
  {v:'v1.6.5',d:'2026.10.27',log:['온천 배경이 보이는데 물결·구름·별 반짝임·새의 나무 가림이 사라지는 문제를 고쳤어요','효과용 배경을 못 읽어도 화면에 뜬 배경으로 풍경 움직임을 복구해요']},
  {v:'v1.6.4',d:'2026.10.26',log:['홈 미니게임 목록 이름을 수수께끼 찻집으로 줄였어요','찻집 소개를 박사님이 준비한으로 바꿨어요']},
  {v:'v1.6.3',d:'2026.10.26',log:['수수께끼 찻집에 달빛 오르골 서재 BGM과 전용 효과음 다섯 가지를 넣었어요','앱 소리 설정을 따르고 찻집을 나가거나 화면이 가려지면 부드럽게 멈춰요']},
@@ -2011,7 +1967,6 @@ function shNav(n){if(n<2)return '';const start=Math.floor(SHV.pg/5)*5,end=Math.m
 const shOwn=m=>S.claimed.includes(m.n);
 function shSet(k,v){SHV[k]=v;if(k!=='pg')SHV.pg=0;shDraw();}
 /* v8.1: 5개씩 페이지, 첫↔마지막 이어짐 */
-function shPg(d){const n=Math.max(1,Math.ceil(shList().length/shPageSize()));SHV.pg=((SHV.pg+d)%n+n)%n;shDraw();const o=$('shopov');if(o)o.scrollTop=0;}
 /* 햄스터 탭 카드: 코인 + 지금 살 만한 것 3개 + 전체 보기 버튼 */
 function shopHtml(){const c=coinOf(),left=MS.filter(m=>!shOwn(m)).sort((a,b)=>a.p-b.p||a.n-b.n),ok=left.filter(m=>m.p<=c),pick=(ok.length?ok:left).slice(0,3);
   return `<div>쓸 수 있는 코인 <b class="qty">🪙 ${c}개</b></div><div class="muted">도토리를 주면 준 만큼 코인이 생겨요. 한 번만 살 수 있어요.</div>`+
