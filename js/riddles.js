@@ -140,7 +140,7 @@
     overlay.appendChild(loading);
     frame=document.createElement('iframe');
     frame.title='부엉박사의 수수께끼 찻집';
-    frame.src='games/tori-riddles/index.html';
+    frame.src='games/tori-riddles/';  // index.html을 붙이면 Cloudflare가 /로 넘겨서 저장본이 꼬여요
     frame.setAttribute('allow','autoplay');
     frame.addEventListener('load',()=>{
       if(loading.isConnected)loading.remove();

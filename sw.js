@@ -4,7 +4,7 @@
 //   (같은 이름으로 파일을 바꿔 올릴 때는 아래 CACHE 숫자를 올려야 폰이 새 파일을 받아요)
 // - 새 버전을 받으면 다음에 앱을 켤 때 적용돼요.
 // - CDN 폰트/CSS: 한 번 받으면 저장본을 써요.
-const CACHE = 'jw-diary-v1.6.8';   // js/app.js 의 APP_VER 와 같은 숫자로 맞춰요
+const CACHE = 'jw-diary-v1.6.9';   // js/app.js 의 APP_VER 와 같은 숫자로 맞춰요
 // 토리 알림(v5.1): 앱이 적어 둔 상태(tori-state 캐시)를 보고, 폰이 깨워 줄 때(periodicsync) 하루 한 번만 알림
 const STATE = 'tori-state', STATE_URL = 'tori-state.json';
 // 앱 파일: 처음 켤 때 저장해 두면 인터넷이 없어도 열려요
@@ -27,7 +27,7 @@ const SHELL = [
   'js/onsen.js',
   'css/riddles.css',
   'js/riddles.js',
-  'games/tori-riddles/index.html',
+  'games/tori-riddles/',   // index.html 대신 폴더 주소로 (Cloudflare가 index.html을 /로 넘겨요)
   'games/tori-riddles/styles.css',
   'games/tori-riddles/engine.js',
   'games/tori-riddles/riddles.js',
@@ -422,6 +422,12 @@ self.addEventListener('activate', e => {
   );
 });
 
+// Cloudflare가 주소를 넘겨서(…/index.html → …/) 받은 응답은 화면(iframe 포함)에 그대로 주면 브라우저가 거부해요.
+// 그래서 '넘겨받음' 표시를 지운 깨끗한 응답으로 바꿔서 저장하고 돌려줘요.
+const clean = res => (res && res.redirected)
+  ? res.blob().then(b => new Response(b, { status: res.status, statusText: res.statusText, headers: res.headers }))
+  : Promise.resolve(res);
+
 const keep = (req, res) => {
   if (res && (res.ok || res.type === 'opaque')) {
     const copy = res.clone();
@@ -439,7 +445,7 @@ self.addEventListener('fetch', e => {
   // 외부(CDN) 파일, 그리고 images/ fonts/ audio/ games/ 안의 파일: 저장본이 있으면 그대로 사용
   if (!same || /\/(?:images|fonts|audio|games)\//.test(url.pathname)) {
     e.respondWith(
-      caches.match(req, { ignoreSearch: same && url.pathname.endsWith('/tori-mahjong-game.html') }).then(r => r || fetch(req).then(res => keep(req, res)).catch(() => Response.error()))
+      caches.match(req, { ignoreSearch: same && url.pathname.endsWith('/tori-mahjong-game.html') }).then(r => r ? clean(r) : fetch(req).then(clean).then(res => keep(req, res)).catch(() => Response.error()))
     );
     return;
   }
@@ -447,7 +453,7 @@ self.addEventListener('fetch', e => {
   // 내 앱 파일: 저장본 먼저 + 뒤에서 확인(변경 없으면 서버가 304로 답해서 다시 받지 않아요)
   e.respondWith(
     caches.match(req, { ignoreSearch: true }).then(cached => {
-      const net = fetch(req.url, { cache: 'no-cache' }).then(res => {
+      const net = fetch(req.url, { cache: 'no-cache' }).then(clean).then(res => {
         if (res && res.ok) {
           const same304 = cached && cached.headers.get('etag') && cached.headers.get('etag') === res.headers.get('etag');
           if (!same304) keep(req, res.clone());
@@ -456,9 +462,9 @@ self.addEventListener('fetch', e => {
       });
       if (cached) {
         e.waitUntil(net.catch(() => {}));
-        return cached;
+        return clean(cached);
       }
-      return net.catch(() => (req.mode === 'navigate' ? caches.match('./') : Response.error()));
+      return net.catch(() => (req.mode === 'navigate' ? caches.match('./').then(clean) : Response.error()));
     })
   );
 });
