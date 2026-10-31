@@ -1,0 +1,8 @@
+// 클라우드플레어 Workers 배포 설정 (GitHub에 올리면 클라우드플레어가 이 설정으로 배포해요)
+{
+  "name": "tori",
+  "compatibility_date": "2026-10-29",
+  "assets": {
+    "directory": "."
+  }
+}
